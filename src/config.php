@@ -7,7 +7,7 @@ $config['db']['password'] = 'Admin123';
 $config['db']['dbname'] = 'xenforo';
 $config['enableAddOnArchiveInstaller'] = true;
 
-$config['debug'] = true; 
+$config['debug'] = true;
 
 
 $config['development']['enabled'] = true;
