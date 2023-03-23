@@ -188,17 +188,27 @@ return array(
 				';
 	}
 	$__compilerTemp5 = '';
-	if ($__vars['canEditTags']) {
+	if ($__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['forum']['node_id'], ))) {
 		$__compilerTemp5 .= '
+	' . $__templater->formRow('
+		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(), $__vars) . '
+	', array(
+			'label' => 'Post date',
+		)) . '
+';
+	}
+	$__compilerTemp6 = '';
+	if ($__vars['canEditTags']) {
+		$__compilerTemp6 .= '
 					<hr class="formRowSep" />
 					';
-		$__compilerTemp6 = '';
+		$__compilerTemp7 = '';
 		if ($__vars['forum']['min_tags']) {
-			$__compilerTemp6 .= '
+			$__compilerTemp7 .= '
 								' . 'This content must have at least ' . $__templater->escape($__vars['forum']['min_tags']) . ' tag(s).' . '
 							';
 		}
-		$__compilerTemp5 .= $__templater->formTokenInputRow(array(
+		$__compilerTemp6 .= $__templater->formTokenInputRow(array(
 			'name' => 'tags',
 			'value' => (($__vars['thread']['tags'] ? $__templater->filter($__vars['thread']['tags'], array(array('join', array(', ', )),), false) : $__vars['forum']['draft_thread']['tags']) ?: $__vars['tags']),
 			'href' => $__templater->func('link', array('misc/tag-auto-complete', ), false),
@@ -209,14 +219,14 @@ return array(
 			'label' => 'Tags',
 			'explain' => '
 							' . 'Multiple tags may be separated by commas.' . '
-							' . $__compilerTemp6 . '
+							' . $__compilerTemp7 . '
 						',
 		)) . '
 				';
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp8 = '';
 	if ((!$__vars['xf']['visitor']['user_id']) AND (!$__templater->method($__vars['forum'], 'canCreateThreadPreReg', array()))) {
-		$__compilerTemp7 .= '
+		$__compilerTemp8 .= '
 					' . $__templater->formTextBoxRow(array(
 			'name' => '_xfUsername',
 			'data-xf-init' => 'guest-username',
@@ -226,7 +236,7 @@ return array(
 		)) . '
 				';
 	} else if ($__vars['xf']['visitor']['user_id']) {
-		$__compilerTemp7 .= '
+		$__compilerTemp8 .= '
 					' . $__templater->callMacro('helper_thread_options', 'watch_input', array(
 			'thread' => $__vars['thread'],
 		), $__vars) . '
@@ -297,8 +307,10 @@ return array(
 
 				' . $__compilerTemp5 . '
 
+' . $__compilerTemp6 . '
+
 				<hr class="formRowSep" />
-				' . $__compilerTemp7 . '
+				' . $__compilerTemp8 . '
 
 				' . $__templater->formRowIfContent($__templater->func('captcha', array(false, false)), array(
 		'label' => 'Verification',

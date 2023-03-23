@@ -14,6 +14,8 @@ return array (
   'option_group.discussionOptions' => 'Threads,  discussions and conversations',
   'option_group.emailOptions' => 'Email options',
   'option_group.form_thread_moderation' => '[FS] Form Thread Moderation',
+  'option_group.fs_post_schdueling' => '[FS] Post schedule',
+  'option_group.hou_attachments' => '[HoU] Attachments List with Like',
   'option_group.imageLinkProxy' => 'Image and link proxy',
   'option_group.logging' => 'Logging options',
   'option_group.mediaEmbedding' => 'Media embedding',
@@ -35,4 +37,5 @@ return array (
   'option_group.tournament' => 'Tournament',
   'option_group.users' => 'User options',
   'option_group.usersAndRegistration' => 'User registration',
+  'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',
 );

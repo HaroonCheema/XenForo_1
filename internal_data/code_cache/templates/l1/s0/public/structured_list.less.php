@@ -462,7 +462,8 @@ return array(
 			padding-bottom: @_structItem-cellPaddingH;
 		}
 	}
-}';
+}
+' . $__templater->includeTemplate('bssp_structured_list.less', $__vars);
 	return $__finalCompiled;
 }
 );

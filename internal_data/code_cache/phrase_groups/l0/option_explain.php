@@ -1,5 +1,6 @@
 <?php
 return array (
+  'option_explain.AwedoTceSpecialChars' => 'Each of the characters will be removed from the content before it is checked for banned words. Note: Blanks will be ignored.',
   'option_explain.acpSearchExclude' => 'When using the quick search facility in the control panel, content from the following types will be searched. Disabling content types here may speed-up searching slightly.',
   'option_explain.activitySummaryEmail' => 'If enabled, users who have not visited for a while will receive an email to keep them updated about recent content. The content of the email can be configured <a href="admin.php?activity-summary/">here</a>.<br />
 <br />
@@ -120,6 +121,9 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.guestShowSignatures' => 'In order to maximise your \'signal to noise\' ratio when displaying threads to guests, you may hide your members\' signatures.',
   'option_explain.guestTimeZone' => 'All dates and times will be displayed to guests in this time zone.',
   'option_explain.homePageUrl' => 'This is the URL to your home page, outside of the board. If this is left blank, \'Home\' will not appear in the navigation.',
+  'option_explain.hou_attachment_exclude_extension' => 'One file extension per line',
+  'option_explain.hou_attachment_exclude_forum' => '',
+  'option_explain.hou_attachment_require_like' => '',
   'option_explain.imageCacheRefresh' => 'If a value greater than 0 is entered, images cached by the image proxy will be refreshed after this many days have passed. This can be used in conjunction with a long cache lifetime to allow images to be updated periodically while retaining resilience against the image being removed. If a value of 0 is entered, images will only be updated when the cache entry expires.',
   'option_explain.imageCacheTTL' => 'Enter the number of days that proxied images should be retained for, before they are removed from your system. If the image is re-requested after this time, it will automatically be fetched again. Use 0 to retain the images indefinitely.',
   'option_explain.imageLibrary' => 'XenForo can make use of various different image processing libraries to produce image thumbnails etc. Select your preferred library from the list above.',
@@ -206,6 +210,14 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.showEmojiInSmilieMenu' => 'If enabled, the smilie menu will display a categorised list of all emoji in addition to your custom smilies.',
   'option_explain.showFirstCookieNotice' => 'When a guest views a page, if enabled, the guest will see a notice stating that cookies are used by this site and continued use consents to the cookies. This notice must be accepted or it will continue to display. This option is designed to make compliance with EU cookie regulations and GDPR easier.',
   'option_explain.showMessageOnlineStatus' => 'If enabled, messages will display an icon if the author is currently online.',
+  'option_explain.shsBannedCharsArabic' => '[max_number_of_chars]',
+  'option_explain.shsBannedCharsChinese' => '[max_number_of_chars]',
+  'option_explain.shsBannedCharsHebrew' => '[max_number_of_chars]',
+  'option_explain.shsBannedCharsRussian' => '[max_number_of_chars]',
+  'option_explain.shsBannedPostContent' => 'This will stop any posts being created containing the words below',
+  'option_explain.shsBannedPostContentWords' => '',
+  'option_explain.shsBannedThreadTitle' => 'This will stop any threads from being created with the below thread titles',
+  'option_explain.shsBannedThreadTitleWords' => '',
   'option_explain.sitemapAutoRebuild' => 'If this option is enabled, the sitemap will be rebuilt automatically periodically. If this option is disabled, the sitemap will only be updated when it is rebuilt manually through <i>Tools &gt; Rebuild caches</i>. The current sitemap can be accessed via <a href="sitemap.php">sitemap.php</a>.',
   'option_explain.sitemapAutoSubmit' => 'Once a sitemap is built, if this option is enabled, the updated version will be automatically submitted to the search engines specified. {$url} is replaced with your sitemap URL automatically. If this option is not enabled, search engines will only know about the sitemap if it is listed in robots.txt or if you manually submit it to them.',
   'option_explain.sitemapExclude' => 'If you wish to exclude certain content types from the sitemap, that can be done here. Note that content must be guest accessible to be included in the sitemap, regardless of this setting.',
@@ -223,6 +235,7 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.tagValidation' => '',
   'option_explain.templateHistoryLength' => 'The number of days to maintain template edit history records. Use 0 to never remove history.',
   'option_explain.termsLastUpdate' => 'The Unix time stamp of the last terms and rules update.',
+  'option_explain.thread_creater_user' => '',
   'option_explain.tosForceWhitelist' => 'If you decide to <a href="admin.php?force-agreement/terms" target="_blank">Force terms and rules agreement</a> then the routes listed here will bypass being redirected to the force agreement page. The route path is the section of the URL to a page after your main forum directory URL, such as forums/ or pages/page-name/. Do not reference a route filter here.',
   'option_explain.tosUrl' => 'This link will be shown in the footer and users will have to agree to the terms and rules during registration.',
   'option_explain.tourn_user_conversation_id' => 'the person who start the conversation from the admin side should not be register in user side',

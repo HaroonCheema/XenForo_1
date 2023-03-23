@@ -96,6 +96,7 @@ return array(
 
 		jQuery.extend(XF.phrases, {
 			// ' . '
+bssp_now: "' . $__templater->filter('Now', array(array('escape', array('js', )),), true) . '",
 			date_x_at_time_y: "' . $__templater->filter('{date} at {time}', array(array('escape', array('js', )),), true) . '",
 			day_x_at_time_y:  "' . $__templater->filter('{day} at {time}', array(array('escape', array('js', )),), true) . '",
 			yesterday_at_x:   "' . $__templater->filter('Yesterday at {time}', array(array('escape', array('js', )),), true) . '",

@@ -33,7 +33,20 @@ return array(
 	$__compilerTemp3 = '';
 	$__compilerTemp4 = '';
 	$__compilerTemp4 .= '
-					' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
+					';
+	if ($__templater->method($__vars['thread'], 'canEditSchedule', array())) {
+		$__compilerTemp4 .= '
+	' . $__templater->formRow('
+		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
+			'value' => $__vars['thread']['Schedule']['posting_date'],
+		), $__vars) . '
+	', array(
+			'label' => 'Post date',
+		)) . '
+';
+	}
+	$__compilerTemp4 .= '
+' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 		'type' => 'threads',
 		'set' => $__vars['thread']['custom_fields'],
 		'editMode' => $__templater->method($__vars['thread'], 'getFieldEditMode', array()),

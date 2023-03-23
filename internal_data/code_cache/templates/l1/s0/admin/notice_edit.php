@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: c8de5e074915c46b1915685c36ca8808
+// FROM HASH: 33556073c10d7d0320768dd0bf178bfd
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -260,7 +260,6 @@ return array(
 		'criteria' => $__templater->method($__vars['userCriteria'], 'getCriteriaForTemplate', array()),
 		'data' => $__templater->method($__vars['userCriteria'], 'getExtraTemplateData', array()),
 	), $__vars) . '
-
 			' . $__templater->callMacro('helper_criteria', 'page_panes', array(
 		'criteria' => $__templater->method($__vars['pageCriteria'], 'getCriteriaForTemplate', array()),
 		'data' => $__templater->method($__vars['pageCriteria'], 'getExtraTemplateData', array()),

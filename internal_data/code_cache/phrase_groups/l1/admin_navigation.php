@@ -3,6 +3,7 @@ return array (
   'admin_navigation.activitySummary' => 'Activity summary',
   'admin_navigation.activitySummaryDefinitions' => 'Activity summary definitions',
   'admin_navigation.addOns' => 'Add-ons',
+  'admin_navigation.addScheduled' => 'Post Scheduled',
   'admin_navigation.adminLog' => 'Admin log',
   'admin_navigation.adminNavigation' => 'Admin navigation',
   'admin_navigation.adminPermissions' => 'Administrator permissions',
@@ -57,6 +58,7 @@ return array (
   'admin_navigation.fsForumAutoReply' => 'Forum Auto Reply',
   'admin_navigation.fsLoginSecurityQuestion' => 'Security Question',
   'admin_navigation.fsNodeUrl' => 'Node Url',
+  'admin_navigation.fsScheduledPosting' => 'Scheduled Posting',
   'admin_navigation.groupsAndPermissions' => 'Groups &amp; permissions',
   'admin_navigation.help' => 'Help',
   'admin_navigation.helpPages' => 'Help pages',
@@ -156,4 +158,5 @@ return array (
   'admin_navigation.widgetDefinitions' => 'Widget definitions',
   'admin_navigation.widgetPositions' => 'Widget positions',
   'admin_navigation.widgets' => 'Widgets',
+  'admin_navigation.xb_videos_by_ron' => 'Videos by Ron',
 );

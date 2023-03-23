@@ -8,9 +8,13 @@ return array (
   'permission_interface.forumPermissions' => 'Forum permissions',
   'permission_interface.generalModeratorPermissions' => 'General moderator permissions',
   'permission_interface.generalPermissions' => 'General permissions',
+  'permission_interface.hou_attachment' => '[HoU] Attachment List with Like',
   'permission_interface.postAttachmentPermissions' => 'Post attachment permissions',
   'permission_interface.profilePostModeratorPermissions' => 'Profile post moderator permissions',
   'permission_interface.profilePostPermissions' => 'Profile post permissions',
+  'permission_interface.scheduledPostingInterface' => 'Scheduled posting permissions',
+  'permission_interface.scheduledPostingsModeratorInterface' => 'Scheduled posting moderator permissions',
+  'permission_interface.shsUserPermsions' => 'Stop Human Spam - User Permissions',
   'permission_interface.signaturePermissions' => 'Signature permissions',
   'permission_interface.snogForms' => 'Advanced Forms Permissions',
 );

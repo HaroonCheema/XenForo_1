@@ -411,12 +411,26 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	if ($__vars['pendingApproval']) {
+	if ((!$__vars['xf']['visitor']['user_id']) AND ($__templater->method($__vars['xf']['request'], 'get', array('pending_approval', )) AND $__vars['pendingApproval'])) {
 		$__finalCompiled .= '
-	<div class="blockMessage blockMessage--important">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>
+	
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+ ';
+		$__templater->inlineJs(' 
+      $(document).ready( function() {
+	
+			 setTimeout(function () {
+			  $(\'.guest-pending_approval\').hide();
+		  }, 20000);
+
+      });
+');
+		$__finalCompiled .= '
+	
+<div class="blockMessage blockMessage--important guest-pending_approval">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>	
 ';
 	}
-	$__finalCompiled .= '
+	$__finalCompiled .= '	
 
 ' . $__templater->renderExtension('above_node_list', $__vars, $__extensions) . '
 

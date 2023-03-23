@@ -1,5 +1,6 @@
 <?php
 return array (
+  'permission.Like_needLike' => 'Needs Likes to see Attachments?',
   'permission.avatar_allowed' => 'Upload an avatar',
   'permission.bookmark_create' => 'Create bookmark',
   'permission.bookmark_view' => 'View own bookmarks',
@@ -37,6 +38,7 @@ return array (
   'permission.forum_postReply' => 'Post replies',
   'permission.forum_postThread' => 'Post new thread',
   'permission.forum_react' => 'React to posts',
+  'permission.forum_scheduledPosting' => 'Create scheduled publications',
   'permission.forum_stickUnstickThread' => 'Stick / unstick thread',
   'permission.forum_tagAnyThread' => 'Tag any thread',
   'permission.forum_tagOwnThread' => 'Tag own thread',
@@ -49,6 +51,7 @@ return array (
   'permission.forum_viewDeleted' => 'View deleted threads / posts',
   'permission.forum_viewModerated' => 'View unapproved threads / posts',
   'permission.forum_viewOthers' => 'View threads by others',
+  'permission.forum_viewScheduled' => 'View scheduled publications',
   'permission.forum_votePoll' => 'Vote on polls',
   'permission.forum_warn' => 'Give warnings on posts',
   'permission.general_approveRejectUser' => 'Approve / reject users',
@@ -59,6 +62,7 @@ return array (
   'permission.general_bypassSpamCheck' => 'Bypass spam check',
   'permission.general_bypassUserPrivacy' => 'Bypass user privacy',
   'permission.general_bypassUserTagLimit' => 'Bypass user content tag limit',
+  'permission.general_canBypassStopBannedWords' => 'Can Bypass Stop-Banned-Words',
   'permission.general_changeUsername' => 'Change username',
   'permission.general_changeUsernameNoApproval' => 'Change username without approval',
   'permission.general_cleanSpam' => 'Use the spam cleaner',
@@ -119,4 +123,5 @@ return array (
   'permission.snogForms_canApproveForms' => 'Can approve/deny submitted forms',
   'permission.snogForms_canExtendPolls' => 'Can extend promotion poll end date',
   'permission.snogForms_canViewForms' => 'Can view forms',
+  'permission.xa_showcase_scheduledPostingShowcase' => 'Create scheduled showcase items',
 );

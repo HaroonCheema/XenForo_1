@@ -62,6 +62,20 @@ return array(
 	}
 	$__finalCompiled .= '
 						';
+	if ($__templater->method($__vars['thread'], 'canEditSchedule', array())) {
+		$__finalCompiled .= '
+	' . $__templater->button('
+		' . 'Cancel publication' . '
+	', array(
+			'href' => $__templater->func('link', array('threads/schedule-cancel', $__vars['thread'], ), false),
+			'class' => 'button--link',
+			'overlay' => 'true',
+		), '', array(
+		)) . '
+';
+	}
+	$__finalCompiled .= '
+';
 	if ($__templater->method($__vars['thread'], 'canApproveUnapprove', array()) AND ($__vars['thread']['discussion_state'] == 'moderated')) {
 		$__finalCompiled .= '
 							' . $__templater->button('
@@ -568,6 +582,13 @@ return array(
 	$__finalCompiled .= '
 
 ';
+	$__templater->includeJs(array(
+		'src' => 'bs/scheduled_posting/scheduled_post.js',
+		'min' => '1',
+	));
+	$__finalCompiled .= '
+
+';
 	if (!$__templater->method($__vars['thread'], 'isSearchEngineIndexable', array())) {
 		$__finalCompiled .= '
 	';
@@ -579,8 +600,22 @@ return array(
 
 ';
 	$__compilerTemp1 = '';
-	if ($__vars['xf']['options']['enableTagging'] AND ($__templater->method($__vars['thread'], 'canEditTags', array()) OR $__vars['thread']['tags'])) {
+	if (($__vars['thread']['discussion_state'] == 'scheduled') AND $__vars['thread']['Schedule']) {
 		$__compilerTemp1 .= '
+	<li>
+		' . $__templater->fontAwesome('fa-clock', array(
+			'title' => $__templater->filter('Scheduled publication', array(array('for_attr', array()),), false),
+		)) . '
+		<span class="u-srOnly">' . 'Scheduled publication' . '</span>
+
+		<a href="' . $__templater->func('link', array('threads', $__vars['thread'], ), true) . '" class="u-concealed">' . $__templater->func('date_dynamic', array($__vars['thread']['Schedule']['posting_date'], array(
+		))) . '</a>
+	</li>
+';
+	}
+	$__compilerTemp2 = '';
+	if ($__vars['xf']['options']['enableTagging'] AND ($__templater->method($__vars['thread'], 'canEditTags', array()) OR $__vars['thread']['tags'])) {
+		$__compilerTemp2 .= '
 			<li>
 				' . $__templater->callMacro('tag_macros', 'list', array(
 			'tags' => $__vars['thread']['tags'],
@@ -613,6 +648,7 @@ return array(
 	))) . '</a>
 		</li>
 		' . $__compilerTemp1 . '
+' . $__compilerTemp2 . '
 	</ul>
 ');
 	$__templater->pageParams['pageDescriptionMeta'] = false;
@@ -639,23 +675,37 @@ return array(
 ' . '
 
 ';
-	if ($__vars['pendingApproval']) {
+	if ((!$__vars['xf']['visitor']['user_id']) AND ($__templater->method($__vars['xf']['request'], 'get', array('pending_approval', )) AND $__vars['pendingApproval'])) {
 		$__finalCompiled .= '
-	<div class="blockMessage blockMessage--important">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>
+	
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+ ';
+		$__templater->inlineJs(' 
+      $(document).ready( function() {
+	
+			 setTimeout(function () {
+			  $(\'.guest-pending_approval\').hide();
+		  }, 20000);
+
+      });
+');
+		$__finalCompiled .= '
+	
+<div class="blockMessage blockMessage--important guest-pending_approval">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>	
 ';
 	}
-	$__finalCompiled .= '
+	$__finalCompiled .= '	
 
 ';
 	if ($__vars['thread']['prefix_id']) {
 		$__finalCompiled .= '
 	';
-		$__compilerTemp2 = '';
-		$__compilerTemp2 .= $__templater->func('prefix_description', array('thread', $__vars['thread']['prefix_id'], ), true);
-		if (strlen(trim($__compilerTemp2)) > 0) {
+		$__compilerTemp3 = '';
+		$__compilerTemp3 .= $__templater->func('prefix_description', array('thread', $__vars['thread']['prefix_id'], ), true);
+		if (strlen(trim($__compilerTemp3)) > 0) {
 			$__finalCompiled .= '
 		<div class="blockMessage blockMessage--alt blockMessage--small blockMessage--close">
-			' . $__compilerTemp2 . '
+			' . $__compilerTemp3 . '
 		</div>
 	';
 		}
@@ -829,8 +879,8 @@ return array(
 	</div>
 
 	';
-	$__compilerTemp3 = '';
-	$__compilerTemp3 .= '
+	$__compilerTemp4 = '';
+	$__compilerTemp4 .= '
 				' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['totalPosts'],
@@ -847,18 +897,18 @@ return array(
 	))) . '
 				';
 	if ((!$__templater->method($__vars['thread'], 'canReply', array())) AND ((!$__templater->method($__vars['thread'], 'canReplyPreReg', array())) AND (($__vars['thread']['discussion_state'] == 'visible') AND $__vars['thread']['discussion_open']))) {
-		$__compilerTemp3 .= '
+		$__compilerTemp4 .= '
 					<div class="block-outer-opposite">
 						';
 		if ($__vars['xf']['visitor']['user_id']) {
-			$__compilerTemp3 .= '
+			$__compilerTemp4 .= '
 							<span class="button button--wrap is-disabled">
 								' . 'You have insufficient privileges to reply here.' . '
 								<!-- this is not interactive so shouldn\'t be a button element -->
 							</span>
 						';
 		} else {
-			$__compilerTemp3 .= '
+			$__compilerTemp4 .= '
 							' . $__templater->button('
 								' . 'You must log in or register to reply here.' . '
 							', array(
@@ -869,16 +919,16 @@ return array(
 			)) . '
 						';
 		}
-		$__compilerTemp3 .= '
+		$__compilerTemp4 .= '
 					</div>
 				';
 	}
-	$__compilerTemp3 .= '
+	$__compilerTemp4 .= '
 			';
-	if (strlen(trim($__compilerTemp3)) > 0) {
+	if (strlen(trim($__compilerTemp4)) > 0) {
 		$__finalCompiled .= '
 		<div class="block-outer block-outer--after">
-			' . $__compilerTemp3 . '
+			' . $__compilerTemp4 . '
 		</div>
 	';
 	}
@@ -924,6 +974,7 @@ return array(
 			'multiQuoteStorageKey' => 'multiQuoteThread',
 			'lastDate' => $__vars['lastPost']['post_date'],
 			'lastKnownDate' => $__vars['thread']['last_post_date'],
+			'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
 			'loadExtra' => $__vars['isSimpleDateDisplay'],
 			'showGuestControls' => (!$__vars['isPreRegReply']),
 			'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),

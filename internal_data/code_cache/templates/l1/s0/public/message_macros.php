@@ -226,32 +226,93 @@ return array(
 	';
 	$__compilerTemp1 = '';
 	$__compilerTemp1 .= '
-					';
+				';
+	$__compilerTemp2 = '';
+	$__compilerTemp2 .= '
+							';
 	if ($__templater->isTraversable($__vars['attachments'])) {
 		foreach ($__vars['attachments'] AS $__vars['attachment']) {
-			if (!$__templater->method($__vars['message'], 'isAttachmentEmbedded', array($__vars['attachment'], ))) {
-				$__compilerTemp1 .= '
-						' . $__templater->callMacro('attachment_macros', 'attachment_list_item', array(
-					'attachment' => $__vars['attachment'],
-					'canView' => $__vars['canView'],
-				), $__vars) . '
-					';
+			if ((!$__templater->method($__vars['message'], 'isAttachmentEmbedded', array($__vars['attachment'], ))) AND ($__vars['attachment']['has_thumbnail'] AND $__templater->method($__vars['attachment'], 'canViewAttachment', array()))) {
+				$__compilerTemp2 .= '
+								';
+				if ($__vars['attachment']['has_thumbnail']) {
+					$__compilerTemp2 .= '
+									' . $__templater->callMacro('lightbox_macros', 'setup', array(
+						'canViewAttachments' => $__vars['canView'],
+					), $__vars) . '
+									<a class="' . ($__vars['canView'] ? 'js-lbImage' : '') . '" href="' . $__templater->escape($__vars['attachment']['direct_url']) . '" target="_blank">
+										<img src="' . $__templater->escape($__vars['attachment']['thumbnail_url']) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+											 width="' . $__templater->escape($__vars['attachment']['thumbnail_width']) . '" height="' . $__templater->escape($__vars['attachment']['thumbnail_height']) . '" loading="lazy" />
+									</a>
+								';
+				}
+				$__compilerTemp2 .= '	
+							';
 			}
 		}
 	}
-	$__compilerTemp1 .= '
+	$__compilerTemp2 .= '
+					';
+	if (strlen(trim($__compilerTemp2)) > 0) {
+		$__compilerTemp1 .= '
+					' . $__compilerTemp2 . '
 				';
+	}
+	$__compilerTemp1 .= '
+
+				';
+	$__compilerTemp3 = '';
+	$__compilerTemp3 .= '
+						';
+	if ($__templater->isTraversable($__vars['attachments'])) {
+		foreach ($__vars['attachments'] AS $__vars['attachment']) {
+			if ((!$__templater->method($__vars['message'], 'isAttachmentEmbedded', array($__vars['attachment'], ))) AND ((!$__vars['attachment']['has_thumbnail']) AND $__templater->method($__vars['attachment'], 'canViewAttachment', array()))) {
+				$__compilerTemp3 .= '
+							<div style="padding:0px 0px 0px 10px">
+								<div>
+									<span class="file-typeIcon">
+										' . $__templater->fontAwesome($__templater->escape($__vars['attachment']['icon']), array(
+				)) . '
+									</span>
+									<span style="display:inline-block;vertical-align:middle;">
+										<a href="' . $__templater->escape($__vars['attachment']['direct_url']) . '" target="_blank">' . $__templater->escape($__vars['attachment']['filename']) . '</a><br />
+										<span class="u-muted">
+											' . $__templater->filter($__vars['attachment']['file_size'], array(array('file_size', array()),), true) . ' &middot; ' . 'Views' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->filter($__vars['attachment']['view_count'], array(array('number', array()),), true) . '
+										</span>
+									</span>
+								</div>
+							</div>
+							<hr class="formRowSep">
+						';
+			}
+		}
+	}
+	$__compilerTemp3 .= '
+					';
+	if (strlen(trim($__compilerTemp3)) > 0) {
+		$__compilerTemp1 .= '
+					' . $__compilerTemp3 . '
+				';
+	}
+	$__compilerTemp1 .= '
+			';
 	if (strlen(trim($__compilerTemp1)) > 0) {
 		$__finalCompiled .= '
 		';
 		$__templater->includeCss('attachments.less');
 		$__finalCompiled .= '
-		<section class="message-attachments">
-			<h4 class="block-textHeader">' . 'Attachments' . '</h4>
-			<ul class="attachmentList">
-				' . $__compilerTemp1 . '
-			</ul>
-		</section>
+		<section class="message-attachments" id="attachpost_' . $__templater->escape($__vars['message']['post_id']) . '">
+	
+
+			';
+		if ($__templater->method($__vars['attachment'], 'canViewAttachment', array())) {
+			$__finalCompiled .= '
+				<h4 class="block-textHeader">' . 'Attachments' . '</h4>
+			';
+		}
+		$__finalCompiled .= '
+			' . $__compilerTemp1 . '
+		</section>	
 	';
 	}
 	$__finalCompiled .= '

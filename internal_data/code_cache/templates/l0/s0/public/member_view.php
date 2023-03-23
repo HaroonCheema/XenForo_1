@@ -21,6 +21,13 @@ return array(
 	}
 	$__finalCompiled .= '
 
+';
+	$__templater->includeJs(array(
+		'src' => 'bs/scheduled_posting/scheduled_post.js',
+		'min' => '1',
+	));
+	$__finalCompiled .= '
+
 ' . $__templater->callMacro('metadata_macros', 'metadata', array(
 		'shareUrl' => $__templater->func('link', array('canonical:members', $__vars['user'], ), false),
 		'canonicalUrl' => $__templater->func('link', array('canonical:members', $__vars['user'], array('page' => $__vars['page'], ), ), false),

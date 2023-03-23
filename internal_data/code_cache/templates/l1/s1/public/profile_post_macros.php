@@ -87,6 +87,14 @@ return array(
 								</li>
 								<li><a href="' . $__templater->func('link', array('profile-posts', $__vars['profilePost'], ), true) . '" class="u-concealed" rel="nofollow">' . $__templater->func('date_dynamic', array($__vars['profilePost']['post_date'], array(
 	))) . '</a></li>
+';
+	if (($__vars['profilePost']['message_state'] == 'scheduled') AND $__vars['profilePost']['Schedule']) {
+		$__finalCompiled .= '
+	<li><a href="' . $__templater->func('link', array('profile-posts', $__vars['profilePost'], ), true) . '" class="u-concealed" rel="nofollow">' . $__templater->func('date_dynamic', array($__vars['profilePost']['Schedule']['posting_date'], array(
+		))) . '</a></li>
+';
+	}
+	$__finalCompiled .= '
 							</ul>
 						</header>
 
@@ -452,7 +460,8 @@ return array(
 	';
 	$__templater->includeCss('message.less');
 	$__finalCompiled .= '
-	<div class="message message--simple' . ($__templater->method($__vars['profilePost'], 'isIgnored', array()) ? ' is-ignored' : '') . ' js-inlineModContainer"
+	<div class="message message--simple' . ($__templater->method($__vars['profilePost'], 'isIgnored', array()) ? ' is-ignored' : '') . ' ' . (($__vars['profilePost']['message_state'] == 'scheduled') ? 'is-scheduled' : '') . ' js-inlineModContainer"
+data-xf-init="scheduled-post"
 		data-author="' . ($__templater->escape($__vars['profilePost']['User']['username']) ?: $__templater->escape($__vars['profilePost']['username'])) . '"
 		data-content="profile-post-' . $__templater->escape($__vars['profilePost']['profile_post_id']) . '">
 
@@ -851,7 +860,8 @@ return array(
 	$__finalCompiled .= '
 
 	<div class="message-responseRow">
-		<div class="comment' . ($__templater->method($__vars['comment'], 'isIgnored', array()) ? ' is-ignored' : '') . '"
+		<div class="comment' . ($__templater->method($__vars['comment'], 'isIgnored', array()) ? ' is-ignored' : '') . ' ' . (($__vars['profilePost']['message_state'] == 'scheduled') ? 'is-scheduled' : '') . '"
+data-xf-init="scheduled-post"
 			data-author="' . $__templater->escape($__vars['comment']['User']['username']) . '"
 			data-content="profile-post-comment-' . $__templater->escape($__vars['comment']['profile_post_comment_id']) . '">
 
@@ -917,6 +927,7 @@ return array(
 	' . $__templater->form('
 
 		' . $__templater->callMacro('quick_reply_macros', 'body', array(
+		'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array()),
 		'attachmentData' => $__vars['attachmentData'],
 		'simple' => true,
 		'placeholder' => (($__vars['xf']['visitor']['user_id'] == $__vars['user']['user_id']) ? 'Update your status' . $__vars['xf']['language']['ellipsis'] : 'Write something' . $__vars['xf']['language']['ellipsis']),
@@ -968,6 +979,7 @@ return array(
 	if ($__vars['style'] == 'full') {
 		$__compilerTemp1 .= '
 			' . $__templater->callMacro('quick_reply_macros', 'body', array(
+			'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array()),
 			'attachmentData' => $__vars['attachmentData'],
 			'simple' => true,
 			'placeholder' => $__vars['placeholder'],

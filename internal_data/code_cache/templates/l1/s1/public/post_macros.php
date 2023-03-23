@@ -92,7 +92,8 @@ return array(
 
 								' . $__templater->renderExtension('user_content', $__vars, $__extensions) . '
 
-								' . $__templater->renderExtension('after_content', $__vars, $__extensions) . '
+								<div id="appendattach_' . $__templater->escape($__vars['post']['post_id']) . '"></div>
+' . $__templater->renderExtension('after_content', $__vars, $__extensions) . '
 
 								' . $__templater->renderExtension('signature', $__vars, $__extensions) . '
 
@@ -167,8 +168,14 @@ return array(
 
 	' . $__templater->renderExtension('before', $__vars, $__extensions) . '
 
-	' . '
-	<article class="message ' . $__templater->escape($__templater->renderExtension('extra_classes', $__vars, $__extensions)) . ' js-post js-inlineModContainer ' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? 'is-ignored' : '') . ' ' . ($__templater->method($__vars['post'], 'isUnread', array()) ? ' is-unread' : '') . '"
+	';
+	$__templater->includeJs(array(
+		'src' => 'HoU/action.js',
+	));
+	$__finalCompiled .= '
+' . '
+	<article class="message ' . $__templater->escape($__templater->renderExtension('extra_classes', $__vars, $__extensions)) . ' js-post js-inlineModContainer ' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? 'is-ignored' : '') . ' ' . ($__templater->method($__vars['post'], 'isUnread', array()) ? ' is-unread' : '') . ' ' . (($__vars['post']['message_state'] == 'scheduled') ? 'is-scheduled' : '') . '"
+data-xf-init="scheduled-post"
 		data-author="' . ($__templater->escape($__vars['post']['User']['username']) ?: $__templater->escape($__vars['post']['username'])) . '"
 		data-content="post-' . $__templater->escape($__vars['post']['post_id']) . '"
 		id="js-post-' . $__templater->escape($__vars['post']['post_id']) . '">
@@ -273,6 +280,19 @@ return array(
 
 		<ul class="message-attribution-opposite message-attribution-opposite--list ' . $__templater->escape($__vars['oppositeClass']) . '">
 			';
+	if (($__vars['post']['message_state'] == 'scheduled') AND $__vars['post']['Schedule']) {
+		$__finalCompiled .= '
+	<li>
+		<a href="' . $__templater->func('link', array('threads/post', $__vars['thread'], array('post_id' => $__vars['post']['post_id'], ), ), true) . '" class="u-concealed"
+		   rel="nofollow">
+			' . $__templater->func('date_dynamic', array($__vars['post']['Schedule']['posting_date'], array(
+		))) . '
+		</a>
+	</li>
+';
+	}
+	$__finalCompiled .= '
+';
 	if ($__templater->method($__vars['post'], 'isUnread', array())) {
 		$__finalCompiled .= '
 				<li><span class="message-newIndicator">' . 'New' . '</span></li>
@@ -777,7 +797,8 @@ return array(
 	';
 	$__templater->includeCss('message.less');
 	$__finalCompiled .= '
-	<div class="message message--deleted message--post' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? ' is-ignored' : '') . ($__templater->method($__vars['post'], 'isUnread', array()) ? ' is-unread' : '') . ' js-post js-inlineModContainer"
+	<div class="message message--deleted message--post' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? ' is-ignored' : '') . ($__templater->method($__vars['post'], 'isUnread', array()) ? ' is-unread' : '') . ' ' . (($__vars['post']['message_state'] == 'scheduled') ? 'is-scheduled' : '') . ' js-post js-inlineModContainer"
+data-xf-init="scheduled-post"
 		data-author="' . ($__templater->escape($__vars['post']['User']['username']) ?: $__templater->escape($__vars['post']['username'])) . '"
 		data-content="post-' . $__templater->escape($__vars['post']['post_id']) . '">
 

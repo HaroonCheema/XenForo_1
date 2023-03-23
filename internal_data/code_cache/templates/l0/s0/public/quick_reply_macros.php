@@ -15,6 +15,7 @@ return array(
 		'lastKnownDate' => '0',
 		'loadExtra' => true,
 		'simpleSubmit' => false,
+		'showSchedule' => false,
 		'minHeight' => '100',
 		'placeholder' => 'Write your reply...',
 		'deferred' => false,
@@ -69,6 +70,7 @@ return array(
 		'lastKnownDate' => $__vars['lastKnownDate'],
 		'loadExtra' => $__vars['loadExtra'],
 		'simpleSubmit' => $__vars['simpleSubmit'],
+		'showSchedule' => $__vars['showSchedule'],
 		'showGuestControls' => $__vars['showGuestControls'],
 		'previewUrl' => $__vars['previewUrl'],
 	), $__vars) . '
@@ -115,6 +117,7 @@ return array(
 		'lastKnownDate' => '0',
 		'loadExtra' => true,
 		'simpleSubmit' => false,
+		'showSchedule' => false,
 		'showGuestControls' => true,
 		'previewUrl' => '',
 	); },
@@ -193,6 +196,26 @@ return array(
 	}
 	$__compilerTemp1 .= '
 					';
+	if ($__vars['showSchedule'] AND (!$__vars['simpleSubmit'])) {
+		$__compilerTemp1 .= '
+	' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
+			'class' => 'ml',
+		), $__vars) . '
+';
+	}
+	$__compilerTemp1 .= '
+
+';
+	if ($__vars['showSchedule'] AND $__vars['simpleSubmit']) {
+		$__compilerTemp1 .= '
+	' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
+			'class' => 'ml',
+		), $__vars) . '
+';
+	}
+	$__compilerTemp1 .= '
+
+';
 	if ($__vars['xf']['options']['multiQuote'] AND $__vars['multiQuoteHref']) {
 		$__compilerTemp1 .= '
 						' . $__templater->callMacro('multi_quote_macros', 'button', array(

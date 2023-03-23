@@ -16,6 +16,8 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.discussionOptions' => 'Messages are contained within a discussion container, and options relating to these can be found here.',
   'option_group_description.emailOptions' => '',
   'option_group_description.form_thread_moderation' => '',
+  'option_group_description.fs_post_schdueling' => '',
+  'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',
   'option_group_description.imageLinkProxy' => 'Controls the system for proxying and logging posted links and images',
   'option_group_description.logging' => 'Options that control what data is logged and how long it is maintained.',
   'option_group_description.mediaEmbedding' => 'Contains settings related to embedding external media such as videos, audio clips and social media content.',
@@ -39,4 +41,5 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.tournament' => 'Tournament options',
   'option_group_description.users' => '',
   'option_group_description.usersAndRegistration' => '',
+  'option_group_description.xb_stop_human_span' => '',
 );

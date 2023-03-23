@@ -13,8 +13,7 @@ class Notice extends AbstractController
 
 	public function actionIndex(ParameterBag $params)
 	{
-		if ($params['notice_id'])
-		{
+		if ($params['notice_id']) {
 			$notice = $this->assertNoticeExists($params['notice_id']);
 			return $this->redirect($this->buildLink('notices/edit', $notice));
 		}
@@ -41,6 +40,8 @@ class Notice extends AbstractController
 	{
 		$userCriteria = $this->app->criteria('XF:User', $notice->user_criteria);
 		$pageCriteria = $this->app->criteria('XF:Page', $notice->page_criteria);
+
+
 
 		$viewParams = [
 			'notice' => $notice,
@@ -95,12 +96,9 @@ class Notice extends AbstractController
 	{
 		$this->assertPostOnly();
 
-		if ($params->notice_id)
-		{
+		if ($params->notice_id) {
 			$notice = $this->assertNoticeExists($params->notice_id);
-		}
-		else
-		{
+		} else {
 			$notice = $this->em()->create('XF:Notice');
 		}
 
@@ -128,13 +126,10 @@ class Notice extends AbstractController
 	{
 		$notice = $this->assertNoticeExists($params['notice_id']);
 
-		if ($this->isPost())
-		{
+		if ($this->isPost()) {
 			$this->getNoticeRepo()->resetNoticeDismissal($notice);
 			return $this->redirect($this->buildLink('notices'));
-		}
-		else
-		{
+		} else {
 			$viewParams = [
 				'notice' => $notice
 			];

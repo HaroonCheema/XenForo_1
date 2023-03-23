@@ -142,6 +142,16 @@ return array(
 	$__finalCompiled .= '
 					' . $__templater->renderExtension('before_status_state', $__vars, $__extensions) . '
 					';
+	if ($__vars['thread']['discussion_state'] == 'scheduled') {
+		$__finalCompiled .= '
+	<li>
+		<i class="structItem-status structItem-status--scheduled" aria-hidden="true" title="' . $__templater->filter('Scheduled publication', array(array('for_attr', array()),), true) . '"></i>
+		<span class="u-srOnly">' . 'Scheduled publication' . '</span>
+	</li>
+';
+	}
+	$__finalCompiled .= '
+';
 	if ($__vars['thread']['discussion_state'] == 'moderated') {
 		$__finalCompiled .= '
 						<li>
@@ -367,6 +377,14 @@ return array(
 		))) . '</li>
 						<li class="structItem-startDate"><a href="' . $__templater->func('link', array('threads', $__vars['thread'], ), true) . '" rel="nofollow">' . $__templater->func('date_dynamic', array($__vars['thread']['post_date'], array(
 		))) . '</a></li>
+';
+		if (($__vars['thread']['discussion_state'] == 'scheduled') AND $__vars['thread']['Schedule']) {
+			$__finalCompiled .= '
+	<li class="structItem-scheduleDate"><a href="' . $__templater->func('link', array('threads', $__vars['thread'], ), true) . '" rel="nofollow">' . $__templater->func('date_dynamic', array($__vars['thread']['Schedule']['posting_date'], array(
+			))) . '</a></li>
+';
+		}
+		$__finalCompiled .= '
 						';
 		if (!$__vars['forum']) {
 			$__finalCompiled .= '
@@ -490,7 +508,7 @@ return array(
 	$__templater->includeCss('structured_list.less');
 	$__finalCompiled .= '
 
-	<div class="structItem structItem--thread' . ($__vars['thread']['prefix_id'] ? (' is-prefix' . $__templater->escape($__vars['thread']['prefix_id'])) : '') . ($__templater->method($__vars['thread'], 'isIgnored', array()) ? ' is-ignored' : '') . (($__templater->method($__vars['thread'], 'isUnread', array()) AND (!$__vars['forceRead'])) ? ' is-unread' : '') . (($__vars['thread']['discussion_state'] == 'moderated') ? ' is-moderated' : '') . (($__vars['thread']['discussion_state'] == 'deleted') ? ' is-deleted' : '') . ' js-inlineModContainer js-threadListItem-' . $__templater->escape($__vars['thread']['thread_id']) . '" data-author="' . ($__templater->escape($__vars['thread']['User']['username']) ?: $__templater->escape($__vars['thread']['username'])) . '">
+	<div class="structItem structItem--thread' . (($__vars['thread']['discussion_state'] == 'scheduled') ? ' is-scheduled' : '') . ($__vars['thread']['prefix_id'] ? (' is-prefix' . $__templater->escape($__vars['thread']['prefix_id'])) : '') . ($__templater->method($__vars['thread'], 'isIgnored', array()) ? ' is-ignored' : '') . (($__templater->method($__vars['thread'], 'isUnread', array()) AND (!$__vars['forceRead'])) ? ' is-unread' : '') . (($__vars['thread']['discussion_state'] == 'moderated') ? ' is-moderated' : '') . (($__vars['thread']['discussion_state'] == 'deleted') ? ' is-deleted' : '') . ' js-inlineModContainer js-threadListItem-' . $__templater->escape($__vars['thread']['thread_id']) . '" data-author="' . ($__templater->escape($__vars['thread']['User']['username']) ?: $__templater->escape($__vars['thread']['username'])) . '">
 
 	' . $__templater->renderExtension('icon_cell', $__vars, $__extensions) . '
 

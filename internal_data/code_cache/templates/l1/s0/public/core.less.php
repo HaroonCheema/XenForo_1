@@ -440,7 +440,8 @@ pre.sf-dump
 		@media (max-width: @xf-responsiveMedium) { content: "Medium < @{xf-responsiveMedium}"; }
 		@media (max-width: @xf-responsiveNarrow) { content: "Narrow < @{xf-responsiveNarrow}"; }
 	}
-}';
+}
+' . $__templater->includeTemplate('core_bssp.less', $__vars);
 	return $__finalCompiled;
 }
 );
