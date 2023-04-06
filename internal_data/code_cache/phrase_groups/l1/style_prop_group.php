@@ -9,6 +9,7 @@ return array (
   'style_prop_group.color' => 'Basic colors',
   'style_prop_group.content' => 'Content areas',
   'style_prop_group.dataList' => 'Data lists',
+  'style_prop_group.dbtechEcommerce' => 'DragonByte eCommerce',
   'style_prop_group.email' => 'Emails',
   'style_prop_group.fonts' => 'Typography',
   'style_prop_group.footer' => 'Footer',

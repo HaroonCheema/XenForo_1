@@ -55,6 +55,91 @@ If enabled, any data collected will be stored anonymously and will not include a
   'option_explain.conversationPopupExpiryHours' => 'The conversations popup will show all conversations with unread replies, plus any read conversations whose most recent replies fall within the time frame (in hours) before now.',
   'option_explain.convertMarkdownToBbCode' => 'If enabled, some Markdown styling will automatically be converted to BB code when saved. Markdown is a simple method for adding formatting by using common patterns such as changing *example* into italics. This can make adding formatting to messages easier, but it can sometimes cause unexpected formatting changes.',
   'option_explain.currentVersionId' => '',
+  'option_explain.dbtechEcommerceAddonProductTitle' => 'Add-on product licenses can display the parent product in the title, controllable with this setting.',
+  'option_explain.dbtechEcommerceAddress' => '',
+  'option_explain.dbtechEcommerceAddressCountry' => 'Your business\' resident country. The native name of the country will be printed on the invoice.',
+  'option_explain.dbtechEcommerceAllowAnonReview' => 'If enabled, users can choose to make their reviews anonymous. Staff will still be able to see who made the review, but end users will not.',
+  'option_explain.dbtechEcommerceApiLicenseFilterField' => 'If you are using the API to return licenses, you may wish to filter the licenses based on a URL entered in a license field. If so, please enter its field ID here.<br />
+This field will be checked against the <code>HTTP_X_DRAGONBYTE_BOARDURL</code> header when fetching the list of licenses.',
+  'option_explain.dbtechEcommerceApiLicenseFilterStrict' => 'If enabled, the value entered in the above license field must match the passed URL <b>exactly</b>. Otherwise, only the "host" part needs to match.<br />
+Example: (enabled) <code>https://www.example.com</code> vs. (disabled) <code>example.com</code>',
+  'option_explain.dbtechEcommerceApplyRounding' => 'This feature automatically rounds prices up to the nearest 0, 2.50, 4.95 or 9.95.<br />
+<br />
+<b>Note:</b> Only affects automatic calculations.',
+  'option_explain.dbtechEcommerceAutomaticInvoices' => 'This system allows you to control whether invoices are automatically sent to users after they complete a transaction.',
+  'option_explain.dbtechEcommerceBusinessAddress1' => 'First line of the business address.',
+  'option_explain.dbtechEcommerceBusinessAddress2' => 'Second line of the business address.',
+  'option_explain.dbtechEcommerceBusinessAddress3' => 'Third line of the business address.',
+  'option_explain.dbtechEcommerceBusinessAddress4' => 'Fourth line of the business address.',
+  'option_explain.dbtechEcommerceBusinessCo' => 'If your business address has a c/o, you can add it here.',
+  'option_explain.dbtechEcommerceBusinessTaxId' => 'If your business has a tax ID such as VAT, enter it here.',
+  'option_explain.dbtechEcommerceBusinessTitle' => 'The title of your business to be printed on the invoice.',
+  'option_explain.dbtechEcommerceConfirmationEmail' => 'The email address DragonByte eCommerce will accept purchase confirmation requests to.<br />
+<b>This should be an account that is not used for anything other than confirmation mail. Using a personal email account WILL lead to data loss!</b>',
+  'option_explain.dbtechEcommerceConfirmationMailboxLogin' => '',
+  'option_explain.dbtechEcommerceContentDeleteThreadAction' => 'When content is deleted, take this action with any automatically created thread.',
+  'option_explain.dbtechEcommerceCoupons' => '',
+  'option_explain.dbtechEcommerceCurrency' => 'This setting lets you choose the currency all prices should be displayed in.',
+  'option_explain.dbtechEcommerceCustomerGroup' => 'The default "Customers" user group for new purchases. This can be overridden on a per-product basis.',
+  'option_explain.dbtechEcommerceDefaultAddressCountry' => 'When a user adds a new address, this will be the default country selected.',
+  'option_explain.dbtechEcommerceDefaultProductOwner' => 'This setting controls who should own products created in the AdminCP. Ideally this should be set to a "bot" user that no-one logs in to.',
+  'option_explain.dbtechEcommerceDownloadsPerPage' => 'The number of downloads that will be listed per page in the "Releases" tab.',
+  'option_explain.dbtechEcommerceEnableApi' => 'This setting lets you toggle the API system that lets third party sites connect to your store.<br />
+<br />
+An API key will be automatically generated that allows users to view products, downloads and their own licenses.',
+  'option_explain.dbtechEcommerceEnableCheckoutProductPage' => 'If enabled, a "Checkout" button will appear under the Purchase button in the Pricing information if the current product is added to the cart.',
+  'option_explain.dbtechEcommerceEnableConfirmationMailbox' => 'If yes, the system will start collecting and checking confirmation emails.<br />
+<b>Requires the below IMAP settings filled out with an account that is not used for anything other than confirmation mail. Using a personal email account WILL lead to data loss!</b>',
+  'option_explain.dbtechEcommerceEnableIncomeGraph' => 'If selected, the income graph will be added to the statistics block on the admin home page.',
+  'option_explain.dbtechEcommerceEnableRate' => 'If disabled, the entire product rating system will be disabled.',
+  'option_explain.dbtechEcommerceExpiredRenewDiscount' => 'This is the discount (in percent) that will be applied to purchases if the license has expired.<br />
+For instance: If a license expired Feb 1st, and it is being renewed on Feb 10th, this discount will apply.',
+  'option_explain.dbtechEcommerceExpiryReminder' => '',
+  'option_explain.dbtechEcommerceGeneratedFilename' => 'You can set the template to be used for generated .zip files here.<br />
+Available replacement variables: <code>{title}</code>, <code>{license_key}</code>',
+  'option_explain.dbtechEcommerceHtmlInvoice' => 'If your system supports it, you can use a HTML template to generate invoices. To use this feature, you must have <a href="https://wkhtmltopdf.org" target="_blank">wkhtmltopdf</a> installed on your server.<br />
+<br />
+Enter the path to the wkhtmltopdf binary on this server. You can sometimes find this with the command <code>which wkhtmltopdf</code>.',
+  'option_explain.dbtechEcommerceInvoiceActive' => 'This lets you turn off the invoicing system, preventing users from receiving or downloading invoices for their purchases.',
+  'option_explain.dbtechEcommerceInvoiceIconDate' => 'You shouldn\'t change this unless you need to.',
+  'option_explain.dbtechEcommerceInvoiceIconPath' => 'This should not be changed unless you are sure you need to.',
+  'option_explain.dbtechEcommerceInvoiceOverrideStyle' => 'The style selected here will be used to render all invoices instead of the default style.',
+  'option_explain.dbtechEcommerceListDefaultOrder' => 'When viewing the product index or category overview pages, this will be the default order for products.',
+  'option_explain.dbtechEcommerceLogEntriesPerPage' => 'The number of log entries that will be listed per page across the store.',
+  'option_explain.dbtechEcommerceMaxDiscount' => 'The maximum discount (in percent) that can be applied to a product.<br />
+100 = No limit',
+  'option_explain.dbtechEcommerceMaxMindApiKey' => 'In order to keep your geolocation database up to date, you need to <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">sign up for an account</a> and set a password, then <a href="https://www.maxmind.com/en/accounts/current/license-key" target="_blank">generate a license key</a> and fill that out here.<br />
+Geolocation is used for validating a customer\'s location if they fill out a VAT ID with their billing address.',
+  'option_explain.dbtechEcommerceMinimumReviewLength' => 'This setting has no effect if a review is not required and the user does not enter a review.',
+  'option_explain.dbtechEcommerceOrderCleanUp' => '',
+  'option_explain.dbtechEcommerceOrderDefaultOrder' => 'When viewing the account overview page, this will be the default order for orders.',
+  'option_explain.dbtechEcommerceOrderReminder' => '',
+  'option_explain.dbtechEcommerceOrdersPerPage' => 'The number of orders that will be listed per page in a user\'s account.',
+  'option_explain.dbtechEcommercePaymentProfileIds' => 'You can choose the available payment profile(s) here.',
+  'option_explain.dbtechEcommercePhysicalProductTitle' => 'Non-license products can display the product variation in the order item title, controllable with this setting.',
+  'option_explain.dbtechEcommerceProductIconMaxDimensions' => 'The maximum allowed dimensions for product icon images (width x height). Use 0 or blank to use default dimensions.',
+  'option_explain.dbtechEcommerceProductsPerPage' => 'The number of products that will be listed per page across the store.',
+  'option_explain.dbtechEcommerceReleaseThreadTitle' => 'You can set the template to be used for new release threads here.<br />
+Available replacement variables: <code>{title}</code>, <code>{category}</code>, <code>{starting_price}</code>',
+  'option_explain.dbtechEcommerceRenewDiscount' => 'This is the discount (in percent) that will be applied to purchases if the license is still active.<br />
+For instance: If a license expires Feb 1st, but it is being renewed on Jan 30th, this discount will apply.',
+  'option_explain.dbtechEcommerceRequireAccount' => 'If disabled, guests will be asked for their email address when entering their address details instead of being asked to register or login.<br />
+<br />
+This setting has no effect if a digital product is in a guest\'s cart. Digital products always require an account.',
+  'option_explain.dbtechEcommerceRequireDownloadToRate' => 'If selected, users may only rate a product once they have downloaded it.<br />
+This setting is ignored for physical products.',
+  'option_explain.dbtechEcommerceReviewRequired' => 'If enabled, users must submit a review when rating a product.',
+  'option_explain.dbtechEcommerceReviewVoting' => 'This controls whether visitors can vote on whether a product review is helpful. This can allow more helpful reviews to become more visible. If enabled, you may choose to limit voting to positive responses only (upvotes). Product authors will not be able to vote on reviews for their own products.',
+  'option_explain.dbtechEcommerceReviewsPerPage' => 'The number of reviews that will be listed per page across the store.',
+  'option_explain.dbtechEcommerceSales' => '',
+  'option_explain.dbtechEcommerceSalesTax' => '',
+  'option_explain.dbtechEcommerceSeparateRefundPolicy' => 'During checkout, users will be asked to confirm they have read the Terms of Service. If your local laws require explicit consent for the refund policy regarding digital downloads, you can enable this setting.<br />
+<br />
+To customise the wording of the refund policy, change the phrase <code>dbtech_ecommerce_i_agree_to_refund_policy</code>',
+  'option_explain.dbtechEcommerceShippingAlert' => 'When someone purchases a physical item, the email can be sent to the seller or to the forum\'s contact email address.',
+  'option_explain.dbtechEcommerceShippingWeightUnit' => 'For physical items, this is the unit of measurement that will be displayed when showing the item\'s weight.',
+  'option_explain.dbtechEcommerceTermsPageId' => 'If a page is selected here, the contents of this page will be displayed in a scrollable area before purchase / download.<br />
+Updating this page in the AdminCP will force users to accept the Terms of Service again.',
   'option_explain.defaultEmailAddress' => 'This is the default email address that emails will be sent from.',
   'option_explain.defaultEmailStyleId' => '',
   'option_explain.defaultLanguageId' => '',
@@ -113,6 +198,9 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.floodCheckLength' => 'Users will have to wait this many seconds between posting messages. Users with the permission "Can bypass flood check" will be exempt from this option.',
   'option_explain.floodCheckLengthDiscussion' => 'Users will have to wait this many seconds between posting new discussions (threads, conversations etc.). If this option is set to 0, the value for \'minimum time between messages\' will be used.',
   'option_explain.forumsDefaultPage' => 'When entering the forums section, this will be the default page users will be taken to. They will be able to access the alternative page via sub-navigation options.',
+  'option_explain.from_to' => 'Fake activity will on selected from and to time',
+  'option_explain.fs_mts_customMsgColor' => 'Enter the colour name or colour code for Custom message',
+  'option_explain.fs_mts_customMsgbackGroundColor' => 'Enter the colour name or colour code for custom message Background',
   'option_explain.geoLocationUrl' => 'The URL specified here will be used to give information (such as a map) about a physical location. The URL must include a <strong>{location}</strong> token.',
   'option_explain.giphy' => 'If enabled, users will be able to search for GIFs while composing messages using the rich-text editor. Powered by <a href="https://giphy.com/" target="_blank">GIPHY</a>.',
   'option_explain.googleAnalyticsAnonymize' => 'If Google Analytics is enabled above and you wish to anonymize IP addresses, you can enable this option.',
@@ -264,4 +352,15 @@ Use the textbox above to specify a format. <b>{title}</b> will be replaced with 
   'option_explain.watchAlertActiveOnly' => 'If enabled, watched content alerts and emails will only be sent to users that have visited within the specified number of days. This can improve performance on large or very active installations.',
   'option_explain.webShare' => 'On supported devices, this button will open the browser\'s web share prompt, allowing users to share the current page to other applications.',
   'option_explain.whatsAppShare' => 'If a user clicks this button WhatsApp will open a list of users with whom to share the current page URL and title.',
+  'option_explain.xb_create_fake_account' => 'If random  user count (value on second option) is greater than total system user then on each page refresh two fake user will be created',
+  'option_explain.xb_enable_from_to_time' => 'If tick then fake activities will only work on below selected from and to time',
+  'option_explain.xb_fake_group' => 'show all user online from that groups enter group id for multiple enter group comma separated',
+  'option_explain.xb_fake_member_count' => 'This amount will be add on your total members',
+  'option_explain.xb_fake_msg_count' => 'This amount will be add on your total post count',
+  'option_explain.xb_fake_thread_count' => 'This amount will be on your original thread count',
+  'option_explain.xb_guest_online' => 'minimum online range for guest online',
+  'option_explain.xb_guest_online_max' => 'maximum online range for guest',
+  'option_explain.xb_license_key' => 'The license key you got from us when purchasing the product. Please check Licensing Details page in your Services if you don\'t have your license key.',
+  'option_explain.xb_user_activity_ids' => 'Enter comma separated user ids , select from and to date',
+  'option_explain.xb_user_activity_random' => 'Enter amount to user with from and to date , system will select any random user and show its fake activity this option will only work if above option is empty',
 );

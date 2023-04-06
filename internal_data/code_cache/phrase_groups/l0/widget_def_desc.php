@@ -1,6 +1,10 @@
 <?php
 return array (
   'widget_def_desc.birthdays' => 'A block containing a heap of avatars of users whose birthday is today.',
+  'widget_def_desc.dbt_ecom_latest_reviews' => 'Displays the latest product reviews.',
+  'widget_def_desc.dbt_ecom_new_products' => 'Displays the most recently updated products.',
+  'widget_def_desc.dbt_ecom_rnd_products' => 'Displays random products.',
+  'widget_def_desc.dbt_ecom_top_products' => 'Displays the top rated products.',
   'widget_def_desc.find_member' => 'Adds an auto complete block to the page which allows you to find a member\'s profile by their username.',
   'widget_def_desc.forum_statistics' => 'Displays a block which that shows the forum\'s current statistics on things like total discussions, message and member count.',
   'widget_def_desc.html' => 'Widget that lets you add custom HTML. This widget supports XenForo template syntax.',

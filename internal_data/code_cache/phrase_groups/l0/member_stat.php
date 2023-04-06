@@ -1,5 +1,8 @@
 <?php
 return array (
+  'member_stat.dbtech_ecommerce_amount_spent' => 'Amount spent',
+  'member_stat.dbtech_ecommerce_most_licenses' => 'Most licenses',
+  'member_stat.dbtech_ecommerce_most_products' => 'Most products',
   'member_stat.highest_reaction_score' => 'Highest reaction score',
   'member_stat.most_messages' => 'Most messages',
   'member_stat.most_points' => 'Most points',

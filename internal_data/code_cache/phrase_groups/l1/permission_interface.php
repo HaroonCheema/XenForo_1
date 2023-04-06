@@ -3,6 +3,9 @@ return array (
   'permission_interface.bookmarkPermissions' => 'Bookmark permissions',
   'permission_interface.conversationModeratorPermissions' => 'Conversation moderator permissions',
   'permission_interface.conversationPermissions' => 'Conversation permissions',
+  'permission_interface.dbtechEcommerce' => 'DragonByte eCommerce permissions',
+  'permission_interface.dbtechEcommerceAdmin' => 'DragonByte eCommerce admin permissions',
+  'permission_interface.dbtechEcommerceModerator' => 'DragonByte eCommerce moderator permissions',
   'permission_interface.formThreadModeration' => 'Form Thread Moderation',
   'permission_interface.forumModeratorPermissions' => 'Forum moderator permissions',
   'permission_interface.forumPermissions' => 'Forum permissions',
@@ -17,4 +20,5 @@ return array (
   'permission_interface.shsUserPermsions' => 'Stop Human Spam - User Permissions',
   'permission_interface.signaturePermissions' => 'Signature permissions',
   'permission_interface.snogForms' => 'Advanced Forms Permissions',
+  'permission_interface.xb_statics_grp' => '[XB] Fake Activity',
 );

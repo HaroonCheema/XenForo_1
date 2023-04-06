@@ -9,6 +9,7 @@ return array (
   'option_group_description.boardActive' => 'Turn your board on and off here.',
   'option_group_description.censoringOptions' => 'User-generated text will be subject to the censorship rules you define here.',
   'option_group_description.checkAttachment' => 'For check attachments exist or not.',
+  'option_group_description.dbtechEcommerce' => 'Settings pertaining to DragonByte eCommerce.',
   'option_group_description.debug' => 'These options are intended to be directly manipulated solely by the XenForo developers.',
   'option_group_description.discourager' => 'The \'Discourager\' is a system that aims to make the browsing experience of \'discouraged\' users as frustrating as possible, with the goal of having them give up and leave.<br />
 <br />
@@ -16,6 +17,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.discussionOptions' => 'Messages are contained within a discussion container, and options relating to these can be found here.',
   'option_group_description.emailOptions' => '',
   'option_group_description.form_thread_moderation' => '',
+  'option_group_description.fs_MediaTagSetting' => '',
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',
   'option_group_description.imageLinkProxy' => 'Controls the system for proxying and logging posted links and images',
@@ -41,5 +43,6 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.tournament' => 'Tournament options',
   'option_group_description.users' => '',
   'option_group_description.usersAndRegistration' => '',
+  'option_group_description.xb_fake_activity' => '',
   'option_group_description.xb_stop_human_span' => '',
 );

@@ -1,5 +1,10 @@
 <?php
 return array (
+  'widget.dbtech_ecommerce_forum_overview_new_products' => '',
+  'widget.dbtech_ecommerce_list_top_products' => '',
+  'widget.dbtech_ecommerce_overview_latest_reviews' => '',
+  'widget.dbtech_ecommerce_overview_top_authors' => '',
+  'widget.dbtech_ecommerce_whats_new_overview_new_products' => '',
   'widget.forum_overview_forum_statistics' => '',
   'widget.forum_overview_members_online' => '',
   'widget.forum_overview_new_posts' => '',

@@ -3,6 +3,7 @@ return array (
   'shortcut.alerts_menu' => '.',
   'shortcut.bookmarks_menu' => 'b',
   'shortcut.conversations_menu' => ',',
+  'shortcut.dbtech_ecommerce_checkout_menu' => '#',
   'shortcut.filter' => 'f',
   'shortcut.forum_actions' => 'a',
   'shortcut.language_chooser' => 'alt+x',
