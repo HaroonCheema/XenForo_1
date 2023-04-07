@@ -394,6 +394,7 @@ return array(
 ';
 	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
 	$__finalCompiled .= '
+' . $__templater->includeTemplate('xb_global_threads', $__vars) . '
 
 ';
 	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {

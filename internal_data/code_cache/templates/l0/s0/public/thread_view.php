@@ -720,8 +720,9 @@ return array(
 	), $__vars) . '
 
 ';
-	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array()));
+	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
 	$__finalCompiled .= '
+' . $__templater->includeTemplate('xb_global_threads', $__vars) . '
 
 ';
 	if ($__vars['canInlineMod'] OR $__templater->method($__vars['thread'], 'canUseInlineModeration', array())) {
