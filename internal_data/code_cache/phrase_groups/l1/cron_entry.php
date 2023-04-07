@@ -32,6 +32,4 @@ return array (
   'cron_entry.userconvseration' => 'check register user convesation message Tournament',
   'cron_entry.views' => 'Update view counters',
   'cron_entry.warningExpiry' => 'Handle expired warnings',
-  'cron_entry.xb_hourly_clean' => 'hourly clean',
-  'cron_entry.xb_remove_extra' => 'Remove Extra data for optimization',
 );

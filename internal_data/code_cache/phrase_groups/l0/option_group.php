@@ -39,6 +39,5 @@ return array (
   'option_group.tournament' => 'Tournament',
   'option_group.users' => 'User options',
   'option_group.usersAndRegistration' => 'User registration',
-  'option_group.xb_fake_activity' => '[XB] Fake Activity',
   'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',
 );

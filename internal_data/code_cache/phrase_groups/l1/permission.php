@@ -127,7 +127,6 @@ return array (
   'permission.general_viewProfile' => 'View member profiles',
   'permission.general_viewWarning' => 'View warning details',
   'permission.general_warn' => 'Give users warnings directly',
-  'permission.general_xb_original_statics' => 'Can see original statics',
   'permission.profileBanner_allowed' => 'Upload a profile banner',
   'permission.profilePost_approveUnapprove' => 'Approve / unapprove profile posts',
   'permission.profilePost_comment' => 'Comment on profile posts',

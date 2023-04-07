@@ -43,6 +43,5 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.tournament' => 'Tournament options',
   'option_group_description.users' => '',
   'option_group_description.usersAndRegistration' => '',
-  'option_group_description.xb_fake_activity' => '',
   'option_group_description.xb_stop_human_span' => '',
 );

@@ -20,5 +20,4 @@ return array (
   'permission_interface.shsUserPermsions' => 'Stop Human Spam - User Permissions',
   'permission_interface.signaturePermissions' => 'Signature permissions',
   'permission_interface.snogForms' => 'Advanced Forms Permissions',
-  'permission_interface.xb_statics_grp' => '[XB] Fake Activity',
 );
