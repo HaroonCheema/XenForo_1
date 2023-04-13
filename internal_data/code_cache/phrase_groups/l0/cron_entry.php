@@ -21,6 +21,8 @@ return array (
   'cron_entry.fileCheck' => 'Perform file health check',
   'cron_entry.forumStatistics' => 'Rebuild forum statistics',
   'cron_entry.fs_schdulerposting' => 'Scheduler posting',
+  'cron_entry.fs_upgradeUsergroup' => '[FS] Upgrade Usergroup by Messages',
+  'cron_entry.fs_upgradeUsergroups' => '[FS] Upgrade Usergroup by Login',
   'cron_entry.memberStatsCache' => 'Rebuild member stats cache',
   'cron_entry.rebuildSearchForumCache' => 'Rebuild expired search forum caches',
   'cron_entry.run_successfully' => 'Cron entry was run successfully.',
