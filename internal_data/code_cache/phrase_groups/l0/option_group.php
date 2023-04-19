@@ -9,6 +9,7 @@ return array (
   'option_group.boardActive' => 'Board active',
   'option_group.censoringOptions' => 'Censoring',
   'option_group.checkAttachment' => '[FS] Check Attachment',
+  'option_group.closeThread' => '[FS] Close Thread',
   'option_group.dbtechEcommerce' => 'DragonByte Tech: eCommerce',
   'option_group.debug' => 'Debug options',
   'option_group.discourager' => 'User discouragement and discipline',

@@ -38,6 +38,7 @@ return array (
   'option.censorCharacter' => 'Censor character',
   'option.censorWords' => 'Words to censor',
   'option.changeLogLength' => 'Change log length',
+  'option.close_thread_prefix_id' => 'Thread Prefix Id',
   'option.collectServerStats' => 'Send anonymous usage statistics',
   'option.contactEmailAddress' => 'Contact email address',
   'option.contactEmailSenderHeader' => 'Sender info in from header on contact emails',

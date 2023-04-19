@@ -46,6 +46,7 @@ You should also provide the maximum video/audio file size in kilobytes (KB). Vid
 <br />
 If you wish to match a wildcard at the beginning or end of the matched word, add a "*" in the correct position. For example, "dog" will not censor "dogs" but "dog*" will.',
   'option_explain.changeLogLength' => 'Content change log data will be kept for this many days. Use 0 to keep change log data indefinitely.',
+  'option_explain.close_thread_prefix_id' => '',
   'option_explain.collectServerStats' => 'XenForo would like to collect some anonymous statistics including information about PHP, MySQL and your XenForo installation.<br />
 <br />
 If enabled, any data collected will be stored anonymously and will not include any user data.',

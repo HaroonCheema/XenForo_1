@@ -9,6 +9,7 @@ return array (
   'option_group_description.boardActive' => 'Turn your board on and off here.',
   'option_group_description.censoringOptions' => 'User-generated text will be subject to the censorship rules you define here.',
   'option_group_description.checkAttachment' => 'For check attachments exist or not.',
+  'option_group_description.closeThread' => 'Fs close thread options',
   'option_group_description.dbtechEcommerce' => 'Settings pertaining to DragonByte eCommerce.',
   'option_group_description.debug' => 'These options are intended to be directly manipulated solely by the XenForo developers.',
   'option_group_description.discourager' => 'The \'Discourager\' is a system that aims to make the browsing experience of \'discouraged\' users as frustrating as possible, with the goal of having them give up and leave.<br />
