@@ -1,0 +1,20 @@
+{
+    "permission.approvePost_approve_post.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "a1c70b78142691e58c130274030f0f43"
+    },
+    "permission.approveThread_approve_thread.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "2986734db70a6f471568d41c095cef25"
+    },
+    "permission_interface.approveThreadPost.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c46aad06865602f2ddd3725141e27d6d"
+    }
+}

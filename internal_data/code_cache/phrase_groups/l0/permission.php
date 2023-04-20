@@ -1,6 +1,8 @@
 <?php
 return array (
   'permission.Like_needLike' => 'Needs Likes to see Attachments?',
+  'permission.approvePost_approve_post' => 'Submit replies without approval',
+  'permission.approveThread_approve_thread' => 'Submit threads without approval',
   'permission.avatar_allowed' => 'Upload an avatar',
   'permission.bookmark_create' => 'Create bookmark',
   'permission.bookmark_view' => 'View own bookmarks',

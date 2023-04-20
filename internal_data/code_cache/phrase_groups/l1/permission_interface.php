@@ -1,5 +1,6 @@
 <?php
 return array (
+  'permission_interface.approveThreadPost' => 'Approve Thread/Post',
   'permission_interface.bookmarkPermissions' => 'Bookmark permissions',
   'permission_interface.conversationModeratorPermissions' => 'Conversation moderator permissions',
   'permission_interface.conversationPermissions' => 'Conversation permissions',

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="permission.approvePost_approve_post" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Submit replies without approval]]></phrase>
+  <phrase title="permission.approveThread_approve_thread" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Submit threads without approval]]></phrase>
+  <phrase title="permission_interface.approveThreadPost" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Approve Thread/Post]]></phrase>
+</phrases>
