@@ -1,8 +1,6 @@
 <?php
 return array (
   'permission.Like_needLike' => 'Needs Likes to see Attachments?',
-  'permission.approvePost_approve_post' => 'Submit replies without approval',
-  'permission.approveThread_approve_thread' => 'Submit threads without approval',
   'permission.avatar_allowed' => 'Upload an avatar',
   'permission.bookmark_create' => 'Create bookmark',
   'permission.bookmark_view' => 'View own bookmarks',
@@ -60,6 +58,8 @@ return array (
   'permission.dbtechEcommerce_warn' => 'Give warnings on products',
   'permission.formThreadModeration_canViewParentThread' => 'Can View Parent Thread',
   'permission.forum_approveUnapprove' => 'Approve / unapprove threads / posts',
+  'permission.forum_approve_post' => 'Submit replies without approval',
+  'permission.forum_approve_thread' => 'Submit threads without approval',
   'permission.forum_contentVote' => 'Vote on threads/posts (when applicable)',
   'permission.forum_deleteAnyPost' => 'Delete any post',
   'permission.forum_deleteAnyThread' => 'Delete any thread',

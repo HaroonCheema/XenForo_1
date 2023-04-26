@@ -1,6 +1,5 @@
 <?php
 return array (
-  'permission_interface.approveThreadPost' => 'Approve Thread/Post',
   'permission_interface.bookmarkPermissions' => 'Bookmark permissions',
   'permission_interface.conversationModeratorPermissions' => 'Conversation moderator permissions',
   'permission_interface.conversationPermissions' => 'Conversation permissions',
@@ -10,6 +9,7 @@ return array (
   'permission_interface.formThreadModeration' => 'Form Thread Moderation',
   'permission_interface.forumModeratorPermissions' => 'Forum moderator permissions',
   'permission_interface.forumPermissions' => 'Forum permissions',
+  'permission_interface.fs_thread_replies_abrove' => 'Thread Post Approve',
   'permission_interface.generalModeratorPermissions' => 'General moderator permissions',
   'permission_interface.generalPermissions' => 'General permissions',
   'permission_interface.hou_attachment' => '[HoU] Attachment List with Like',

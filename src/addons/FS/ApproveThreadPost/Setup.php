@@ -32,4 +32,6 @@ class Setup extends AbstractSetup
 			'addon_id' => 'XF',
 		]);
 	}
+        
+       
 }

@@ -41,21 +41,20 @@ class UpgradeUserGroupCron
     public static function update_user_groups($finderUsergroup, $value)
     {
         foreach ($finderUsergroup as $user) {
+
             if ($user->user_group_id == $value->current_userGroup) {
-                $user->fastUpdate('user_group_id', $value->upgrade_userGroup);
+
 
                 if (in_array($value->upgrade_userGroup, $user->secondary_group_ids)) {
+
                     $userGroupIds = $user->secondary_group_ids;
 
                     $new_userGroups = array_diff($userGroupIds, array($value->upgrade_userGroup));
 
                     $user->fastUpdate('secondary_group_ids', $new_userGroups);
                 }
-
-                $userGroupIds = $user->secondary_group_ids;
-
-                $new_userGroups = array_diff($userGroupIds, array($value->current_userGroup));
             } else {
+
                 $userGroupIds = $user->secondary_group_ids;
 
                 $new_userGroups = array_diff($userGroupIds, array($value->current_userGroup));

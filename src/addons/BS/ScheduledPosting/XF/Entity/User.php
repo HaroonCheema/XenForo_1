@@ -6,9 +6,7 @@ class User extends XFCP_User
 {
     public function canCreateScheduled($nodeId = null)
     {
-        return $nodeId
-            ? $this->hasNodePermission($nodeId, 'scheduledPosting')
-            : $this->hasPermission('forum', 'scheduledPosting');
+        return $nodeId ? $this->hasNodePermission($nodeId, 'scheduledPosting') : $this->hasPermission('forum', 'scheduledPosting');
     }
 
     public function canCreateScheduledShowcaseItem($categoryId = null)

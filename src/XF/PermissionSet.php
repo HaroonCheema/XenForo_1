@@ -33,8 +33,7 @@ class PermissionSet
 	public function hasGlobalPermission($group, $permission)
 	{
 		$permissions = $this->permCache->getGlobalPerms($this->permissionCombinationId);
-		if (!$permissions || !isset($permissions[$group][$permission]))
-		{
+		if (!$permissions || !isset($permissions[$group][$permission])) {
 			return false;
 		}
 
@@ -49,8 +48,10 @@ class PermissionSet
 	public function hasContentPermission($contentType, $contentId, $permission)
 	{
 		$permissions = $this->permCache->getContentPerms($this->permissionCombinationId, $contentType, $contentId);
-		if (!$permissions || !isset($permissions[$permission]))
-		{
+
+		// var_dump($permissions);
+		// exit;
+		if (!$permissions || !isset($permissions[$permission])) {
 			return false;
 		}
 
