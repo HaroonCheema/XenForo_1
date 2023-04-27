@@ -201,4 +201,10 @@ return array (
   'admin_navigation.widgetPositions' => 'Widget positions',
   'admin_navigation.widgets' => 'Widgets',
   'admin_navigation.xb_videos_by_ron' => 'Videos by Ron',
+  'admin_navigation.xfrm' => 'Resources',
+  'admin_navigation.xfrmCategories' => 'Resource categories',
+  'admin_navigation.xfrmCategoryPermissions' => 'Resource category permissions',
+  'admin_navigation.xfrmFields' => 'Resource fields',
+  'admin_navigation.xfrmPrefixes' => 'Resource prefixes',
+  'admin_navigation.xfrmReviewFields' => 'Resource review fields',
 );

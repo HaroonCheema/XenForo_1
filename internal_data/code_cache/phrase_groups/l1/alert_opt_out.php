@@ -23,6 +23,11 @@ return array (
   'alert_opt_out.profile_post_insert' => 'Posts on your profile',
   'alert_opt_out.profile_post_mention' => 'Mentions you in a profile post or comment',
   'alert_opt_out.profile_post_reaction' => 'Reacts to your profile post',
+  'alert_opt_out.resource_rating_reply' => 'Replies to your resource review',
+  'alert_opt_out.resource_rating_review' => 'Reviews your resource',
+  'alert_opt_out.resource_update_insert' => 'Updates a watched resource',
+  'alert_opt_out.resource_update_mention' => 'Mentions you in a resource',
+  'alert_opt_out.resource_update_reaction' => 'Reacts to your resource',
   'alert_opt_out.trophy_award' => 'Awards you a new trophy',
   'alert_opt_out.user_following' => 'Starts following you',
 );

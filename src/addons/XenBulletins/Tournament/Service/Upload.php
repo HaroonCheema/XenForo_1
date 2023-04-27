@@ -5,7 +5,7 @@ namespace XenBulletins\Tournament\Service;
 use XenBulletins\Tournament\Entity\Tournament;
 use XF\Entity\User;
 
-class Upload extends \XF\Service\AbstractService
+class Upload extends \XF\Service\AbstractService 
 {
 
     protected $tournament;
@@ -15,28 +15,24 @@ class Upload extends \XF\Service\AbstractService
     protected $width;
     protected $height;
     protected $type;
-    protected $throwErrors = true;
+    protected $throwErrors = true; 
 
-    public function __construct(\XF\App $app, Tournament $tournament)
-    {
+    public function __construct(\XF\App $app, Tournament $tournament) {
         parent::__construct($app);
         $this->setUser($tournament);
     }
 
-    protected function setUser(Tournament $tournament)
-    {
-
+    protected function setUser(Tournament $tournament) {
+       
 
         $this->tournament = $tournament;
     }
 
-    public function getError()
-    {
+    public function getError() {
         return $this->error;
     }
 
-    public function setImageFromUpload(\XF\Http\Upload $upload)
-    {
+    public function setImageFromUpload(\XF\Http\Upload $upload) {
 
         $upload->requireImage();
 
@@ -48,8 +44,7 @@ class Upload extends \XF\Service\AbstractService
         return $this->setImage($upload->getTempFile());
     }
 
-    public function setImage($fileName)
-    {
+    public function setImage($fileName) {
         if (!$this->validateImageAsSig($fileName, $error)) {
             $this->error = $error;
             $this->fileName = null;
@@ -60,8 +55,7 @@ class Upload extends \XF\Service\AbstractService
         return true;
     }
 
-    public function validateImageAsSig($fileName, &$error = null)
-    {
+    public function validateImageAsSig($fileName, &$error = null) {
         $error = null;
 
         if (!file_exists($fileName)) {
@@ -76,7 +70,7 @@ class Upload extends \XF\Service\AbstractService
             $error = \XF::phrase('provided_file_is_not_valid_image');
             return false;
         }
-
+        
         $type = $imageInfo[2];
         if (!in_array($type, $this->allowedTypes)) {
             $error = \XF::phrase('provided_file_is_not_valid_image');
@@ -89,23 +83,23 @@ class Upload extends \XF\Service\AbstractService
 
         $filesize = filesize($fileName) / 1024;
 
-        //        if ($filesize > $options->imgMaxFileSize) {
-        //            $error = 'Uploaded image file is too big (' . ceil($filesize) . ' KB). Maximum allowed size is ' . $options->imgMaxFileSize . ' KB.';
-        //            return FALSE;
-        //        }
-        //
-        //        if ($options->imgMaxWidth > 0) {
-        //            if ($width > $options->imgMaxWidth) {
-        //                $error = 'Uploaded image file is too wide (' . $width . ' px). Maximum allowed width is ' . $options->imgMaxWidth . ' pixels.';
-        //                return FALSE;
-        //            }
-        //        }
-        //        if ($options->imgMaxHeight > 0) {
-        //            if ($height > $options->imgMaxHeight) {
-        //                $error = 'Uploaded image file is too high (' . $height . ' px). Maximum allowed height is ' . $options->imgMaxHeight . ' pixels.';
-        //                return FALSE;
-        //            }
-        //        }
+//        if ($filesize > $options->imgMaxFileSize) {
+//            $error = 'Uploaded image file is too big (' . ceil($filesize) . ' KB). Maximum allowed size is ' . $options->imgMaxFileSize . ' KB.';
+//            return FALSE;
+//        }
+//
+//        if ($options->imgMaxWidth > 0) {
+//            if ($width > $options->imgMaxWidth) {
+//                $error = 'Uploaded image file is too wide (' . $width . ' px). Maximum allowed width is ' . $options->imgMaxWidth . ' pixels.';
+//                return FALSE;
+//            }
+//        }
+//        if ($options->imgMaxHeight > 0) {
+//            if ($height > $options->imgMaxHeight) {
+//                $error = 'Uploaded image file is too high (' . $height . ' px). Maximum allowed height is ' . $options->imgMaxHeight . ' pixels.';
+//                return FALSE;
+//            }
+//        }
 
         $this->width = $width;
         $this->height = $height;
@@ -114,9 +108,9 @@ class Upload extends \XF\Service\AbstractService
         return true;
     }
 
-    public function uploadTournamentImage($upload, $type)
+    public function uploadTournamentImage($upload,$type) 
     {
-        //        var_dump($this->fileName);exit;
+//        var_dump($this->fileName);exit;
         if (!$this->fileName) {
             return $this->throwException(new \LogicException("No source file for image set"));
         }
@@ -137,26 +131,33 @@ class Upload extends \XF\Service\AbstractService
             $baseFile = $newTempFile;
             $width = $image->getWidth();
             $height = $image->getHeight();
-        } else {
+        } 
+        
+        else
+        {
             return $this->throwException(new \RuntimeException("Failed to save image to temporary file; check internal_data/data permissions"));
         }
 
         unset($image);
 
-        foreach ($outputFiles as $code => $file) {
-            $dataFile = $this->tournament->getAbstractedCustomImgPath($upload, $type);
-
+        foreach ($outputFiles AS $code => $file) 
+        {
+            $dataFile = $this->tournament->getAbstractedCustomImgPath($upload,$type);
+           
             \XF\Util\File::copyFileToAbstractedPath($file, $dataFile);
         }
-
+         
         return true;
     }
-
+    
     protected function throwException(\Exception $error)
     {
-        if ($this->throwErrors) {
+        if ($this->throwErrors)
+        {
             throw $error;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }

@@ -5,11 +5,9 @@ namespace XenBulletins\Tournament\Entity;
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
 
-class Tournament extends Entity
-{
+class Tournament extends Entity {
 
-    public static function getStructure(Structure $structure)
-    {
+    public static function getStructure(Structure $structure) {
         $structure->table = 'xf_tournament';
         $structure->shortName = 'XenBulletins\Tournament:Tournament';
         $structure->contentType = 'xf_tournament';
@@ -27,7 +25,7 @@ class Tournament extends Entity
             'tourn_main_price' => ['type' => self::STR, 'maxLength' => 255],
             'tourn_desc' => ['type' => self::STR],
             'tourn_prizes' => ['type' => self::JSON_ARRAY, 'maxLength' => 255, 'default' => []],
-            'conversation' => ['type' => self::STR, 'maxLength' => 10, 'default' => '0'],
+             'conversation' => ['type' => self::STR, 'maxLength' => 10, 'default' => '0'],
         ];
 
         $structure->relations = [];
@@ -38,8 +36,7 @@ class Tournament extends Entity
         return $structure;
     }
 
-    public function getStartTime()
-    {
+    public function getStartTime() {
 
 
         $tz = new \DateTimeZone("Europe/London");
@@ -49,19 +46,17 @@ class Tournament extends Entity
         return $date->format("H:i");
     }
 
-
-
-
-    public function getStartDate($format = "Y-m-d")
-    {
+    
+  
+    
+    public function getStartDate($format="Y-m-d") {
 
         $tz = new \DateTimeZone("Europe/London");
         $date = new \DateTime('@' . $this->tourn_startdate, $tz);
         return $date->format($format);
     }
 
-    public function getEndTime()
-    {
+    public function getEndTime() {
 
 
         $tz = new \DateTimeZone("Europe/London");
@@ -71,16 +66,14 @@ class Tournament extends Entity
         return $date->format("H:i");
     }
 
-    public function getEndDate($format = "Y-m-d")
-    {
+    public function getEndDate($format="Y-m-d") {
 
         $tz = new \DateTimeZone("Europe/London");
         $date = new \DateTime('@' . $this->tourn_enddate, $tz);
         return $date->format($format);
     }
 
-    public function getAbstractedCustomImgPath($upload, $type)
-    {
+    public function getAbstractedCustomImgPath($upload, $type) {
         if ($type == 'icon') {
             $fn = 'icon';
         } elseif ($type == 'header') {
@@ -91,8 +84,7 @@ class Tournament extends Entity
         return sprintf('data://Tournament/' . $fn . '/%d/%d.jpg', floor($tournament_id / 1000), $tournament_id);
     }
 
-    public function getImgUrl($canonical = true, $type)
-    {
+    public function getImgUrl($canonical = true, $type) {
         if ($type == 'icon') {
             $fn = 'icon';
         } else if ($type == 'header') {
@@ -102,4 +94,5 @@ class Tournament extends Entity
         $path = sprintf('Tournament/' . $fn . '/%d/%d.jpg', floor($tournament_id / 1000), $tournament_id);
         return \XF::app()->applyExternalDataUrl($path, $canonical);
     }
+
 }

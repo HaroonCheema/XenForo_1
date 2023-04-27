@@ -23,4 +23,8 @@ return array (
   'widget_def.template_syntax' => 'Template syntax',
   'widget_def.thread_poll' => 'Thread poll',
   'widget_def.visitor_panel' => 'Visitor panel',
+  'widget_def.xfrm_featured_resources' => 'XFRM: Featured resources',
+  'widget_def.xfrm_latest_reviews' => 'XFRM: Latest reviews',
+  'widget_def.xfrm_new_resources' => 'XFRM: New resources',
+  'widget_def.xfrm_top_resources' => 'XFRM: Top resources',
 );

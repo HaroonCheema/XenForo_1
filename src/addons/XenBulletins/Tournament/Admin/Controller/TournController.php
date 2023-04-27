@@ -6,11 +6,9 @@ use XF\Mvc\ParameterBag;
 use XenBulletins\Tournament\Entity\Tournament;
 use XF\Admin\Controller\AbstractController;
 
-class TournController extends AbstractController
-{
+class TournController extends AbstractController {
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
 
         $page = $this->filterPage();
 
@@ -34,16 +32,14 @@ class TournController extends AbstractController
         return $this->view('XenBulletins\Tournament:TournController', 'add_tournament', $viewParams);
     }
 
-    public function actionNewEntry()
-    {
+    public function actionNewEntry() {
 
         $viewParams = [];
 
         return $this->view('XenBulletins\Tournament:view', 'tournament_fields', $viewParams);
     }
 
-    protected function checkValidations($thread_ids, $column_ids)
-    {
+    protected function checkValidations($thread_ids, $column_ids) {
         if (!count($thread_ids)) {
             throw new \XF\PrintableException(\xf::phrase('empty_thread_ids_message'));
         }
@@ -52,8 +48,7 @@ class TournController extends AbstractController
         }
     }
 
-    protected function tagSaveProcess(Tournament $record)
-    {
+    protected function tagSaveProcess(Tournament $record) {
         $form = $this->formAction();
 
         $input = $this->filter([
@@ -119,7 +114,7 @@ class TournController extends AbstractController
 
             $fieldChoicesCombined = [];
 
-            foreach ($tourn_partos as $key => $choice) {
+            foreach ($tourn_partos AS $key => $choice) {
                 if (isset($tourn_partts[$key]) && $tourn_partts[$key] !== '') {
                     $fieldChoicesCombined[$choice] = $tourn_partts[$key];
                 }
@@ -142,7 +137,7 @@ class TournController extends AbstractController
 
                 $fieldChoicesCombined = [];
 
-                foreach ($tourn_partos as $key => $choice) {
+                foreach ($tourn_partos AS $key => $choice) {
                     if (isset($tourn_partts[$key]) && $tourn_partts[$key] !== '') {
                         $fieldChoicesCombined[$choice] = $tourn_partts[$key];
                     }
@@ -154,14 +149,13 @@ class TournController extends AbstractController
             } else {
                 $phraseKey = $recordName->tourn_title . "'s Record already exists.";
                 throw $this->exception(
-                    $this->notFound(\XF::phrase($phraseKey))
+                        $this->notFound(\XF::phrase($phraseKey))
                 );
             }
         }
     }
 
-    public function actionSave(ParameterBag $params)
-    {
+    public function actionSave(ParameterBag $params) {
         $this->assertPostOnly();
 
         if ($params->tourn_id) {
@@ -180,7 +174,7 @@ class TournController extends AbstractController
             if ($uploads['header']) {
                 $uploadService = $this->service('XenBulletins\Tournament:Upload', $record);
 
-                if (!$uploadService->setImageFromUpload($uploads['header'])) {
+                if (!$uploadService->setImageFromUpload($uploads ['header'])) {
                     return $this->error($uploadService->getError());
                 }
 
@@ -188,14 +182,14 @@ class TournController extends AbstractController
                     return $this->error(\XF::phrase('new_image_could_not_be_processed'));
                 }
             }
-            if ($uploads['icon']) {
+            if ($uploads ['icon']) {
                 $uploadService = $this->service('XenBulletins\Tournament:Upload', $record);
 
-                if (!$uploadService->setImageFromUpload($uploads['icon'])) {
+                if (!$uploadService->setImageFromUpload($uploads ['icon'])) {
                     return $this->error($uploadService->getError());
                 }
 
-                if (!$uploadService->uploadTournamentImage($uploads['icon'], 'icon')) {
+                if (!$uploadService->uploadTournamentImage($uploads ['icon'], 'icon')) {
                     return $this->error(\XF::phrase('new_image_could_not_be_processed'));
                 }
             }
@@ -204,47 +198,39 @@ class TournController extends AbstractController
         return $this->redirect($this->buildLink('tourn'));
     }
 
-    public function actionDelete(ParameterBag $params)
-    {
+    public function actionDelete(ParameterBag $params) {
 
         $record = $this->assertFunctionExists($params->tourn_id);
 
         $plugin = $this->plugin('XF:Delete');
 
         return $plugin->actionDelete(
-            $record,
-            $this->buildLink('tourn/delete', $record),
-            $this->buildLink('tourn/edit', $record),
-            $this->buildLink('tourn'),
-            $record->tourn_title
+                        $record, $this->buildLink('tourn/delete', $record), $this->buildLink('tourn/edit', $record), $this->buildLink('tourn'), $record->tourn_title
         );
     }
 
-    protected function assertFunctionExists($id, $with = null, $phraseKey = null)
-    {
+    protected function assertFunctionExists($id, $with = null, $phraseKey = null) {
 
         return $this->assertRecordExists('XenBulletins\Tournament:Tournament', $id, $with, $phraseKey);
     }
 
-    public function actionFind($title)
-    {
+    public function actionFind($title) {
         $title = \XF::finder('XenBulletins\Tournament:Tournament')->where('tourn_title', $title)->fetchOne();
         return $title;
     }
 
-    public function actionEdit(ParameterBag $params)
-    {
+    public function actionEdit(ParameterBag $params) {
 
         $record = $this->assertFunctionExists($params->tourn_id);
         return $this->functionAddEdit($record);
     }
 
-    public function functionAddEdit($record)
-    {
+    public function functionAddEdit($record) {
 
         $viewParams = [
             'record' => $record
         ];
         return $this->view('practive:View', 'tournament_fields', $viewParams);
     }
+
 }

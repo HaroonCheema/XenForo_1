@@ -1,6 +1,7 @@
 <?php
 return array (
   'option_group_description.acp' => 'Contains various options relating to the admin control panel itself.',
+  'option_group_description.addCategoryImage' => '',
   'option_group_description.alerts' => 'When events happen that affect individual users, they are alerted via this system. If you are using a supported device, alerts can be sent directly to the device as a push notification. As large volumes of alerts are generated, they are periodically pruned from the database.',
   'option_group_description.appearance' => 'These options control how your site appears to your visitors.',
   'option_group_description.attachments' => 'Attachments are files that are uploaded to the board along with messages.',
@@ -45,4 +46,5 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.users' => '',
   'option_group_description.usersAndRegistration' => '',
   'option_group_description.xb_stop_human_span' => '',
+  'option_group_description.xfrm' => 'Options that control the resource manager add-on.',
 );

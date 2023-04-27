@@ -47,5 +47,13 @@ return array (
   'nav.whatsNewNewsFeed' => 'Your news feed',
   'nav.whatsNewPosts' => 'New posts',
   'nav.whatsNewProfilePosts' => 'New profile posts',
+  'nav.xfrm' => 'Resources',
+  'nav.xfrmLatestReviews' => 'Latest reviews',
+  'nav.xfrmNewResources' => 'New resources',
+  'nav.xfrmSearchResources' => 'Search resources',
+  'nav.xfrmWatched' => 'Watched',
+  'nav.xfrmWatchedCategories' => 'Watched categories',
+  'nav.xfrmWatchedResources' => 'Watched resources',
+  'nav.xfrmYourResources' => 'Your resources',
   'nav.yourThreads' => 'Your threads',
 );

@@ -1,6 +1,7 @@
 <?php
 return array (
   'option_group.acp' => 'Admin control panel',
+  'option_group.addCategoryImage' => '[FS] Add Category Image',
   'option_group.alerts' => 'User alerts and notifications',
   'option_group.appearance' => 'Appearance',
   'option_group.attachments' => 'Attachments',
@@ -41,4 +42,5 @@ return array (
   'option_group.users' => 'User options',
   'option_group.usersAndRegistration' => 'User registration',
   'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',
+  'option_group.xfrm' => 'XenForo Resource Manager',
 );

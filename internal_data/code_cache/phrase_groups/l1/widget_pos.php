@@ -28,4 +28,8 @@ return array (
   'widget_pos.thread_view_sidebar' => 'Thread view: Sidebar',
   'widget_pos.whats_new_overview' => 'What\'s new: Overview',
   'widget_pos.whats_new_sidenav' => 'What\'s new: Sidenav',
+  'widget_pos.xfrm_category_above_resources' => 'Resource category: Above resources',
+  'widget_pos.xfrm_category_sidenav' => 'Resource category: Sidenav',
+  'widget_pos.xfrm_overview_above_resources' => 'Resource overview: Above resources',
+  'widget_pos.xfrm_overview_sidenav' => 'Resource overview: Sidenav',
 );

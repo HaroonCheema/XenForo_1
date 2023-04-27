@@ -20,4 +20,10 @@ return array (
   'widget.unread_posts' => 'Unread posts',
   'widget.whats_new_new_posts' => '',
   'widget.whats_new_new_profile_posts' => '',
+  'widget.xfrm_forum_overview_new_resources' => '',
+  'widget.xfrm_list_featured_resources' => '',
+  'widget.xfrm_list_top_resources' => '',
+  'widget.xfrm_overview_latest_reviews' => '',
+  'widget.xfrm_overview_top_authors' => '',
+  'widget.xfrm_whats_new_overview_new_resources' => '',
 );

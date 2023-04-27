@@ -23,4 +23,8 @@ return array (
   'widget_def_desc.template_syntax' => 'Widget that creates an associated template which will allow you to display XF template syntax and HTML.',
   'widget_def_desc.thread_poll' => 'Displays the specified poll in a widget.',
   'widget_def_desc.visitor_panel' => 'Displays the visitor\'s avatar and basic information to the visitor about themselves.',
+  'widget_def_desc.xfrm_featured_resources' => 'Displays the featured resources.',
+  'widget_def_desc.xfrm_latest_reviews' => 'Displays the latest resource reviews.',
+  'widget_def_desc.xfrm_new_resources' => 'Displays the most recently updated resources.',
+  'widget_def_desc.xfrm_top_resources' => 'Displays the top rated resources.',
 );
