@@ -76,28 +76,26 @@ return array(
 	$__finalCompiled .= '
 			<a href="' . $__templater->func('link', array('resources/categories', $__vars['category'], ), true) . '" class="categoryList-link' . ($__vars['isSelected'] ? ' is-selected' : '') . '">
 				';
-	if ($__vars['xf']['options']['fs_enable_image']) {
+	$__templater->includeCss('fs_category_image.less');
+	$__finalCompiled .= '
+				';
+	if ($__templater->method($__vars['category'], 'isImage', array()) AND $__vars['xf']['options']['fs_enable_image']) {
 		$__finalCompiled .= '
-';
-		if ($__templater->method($__vars['category'], 'isImage', array())) {
-			$__finalCompiled .= '
-						' . $__templater->formInfoRow('
-							<img src="' . $__templater->escape($__templater->method($__vars['category'], 'getImgUrl', array(true, ))) . '" style="max-width:40%">
-						', array(
-				'rowtype' => 'confirm',
-			)) . '
-	';
-		} else {
-			$__finalCompiled .= '
-	' . $__templater->escape($__vars['category']['title']) . '
-					';
-		}
-		$__finalCompiled .= '
-	';
+							<div class="image_category">
+ 								<img src="' . $__templater->escape($__templater->method($__vars['category'], 'getImgUrl', array(true, ))) . '" style="max-width:100%">
+								<span class="categoryList-label image_label">
+									<span class="label label--subtle label--smallest">' . $__templater->filter($__vars['extras']['resource_count'], array(array('number_short', array()),), true) . '</span>
+								</span>
+						</div>
+					
+				';
 	} else {
 		$__finalCompiled .= '
-	' . $__templater->escape($__vars['category']['title']) . '
-	';
+					' . $__templater->escape($__vars['category']['title']) . ' 
+					<span class="categoryList-label">
+						<span class="label label--subtle label--smallest">' . $__templater->filter($__vars['extras']['resource_count'], array(array('number_short', array()),), true) . '</span>
+					</span>
+				';
 	}
 	$__finalCompiled .= '
 			</a>
@@ -199,28 +197,26 @@ return array(
 	$__finalCompiled .= '
 				<h3 class="node-title">
 					<a href="' . $__templater->func('link', array('resources/categories', $__vars['category'], ), true) . '" data-xf-init="' . (($__vars['descriptionDisplay'] == 'tooltip') ? 'element-tooltip' : '') . '" data-shortcut="node-description">';
-	if ($__vars['xf']['options']['fs_enable_image']) {
+	$__templater->includeCss('fs_category_image.less');
+	$__finalCompiled .= '
+				';
+	if ($__templater->method($__vars['category'], 'isImage', array()) AND $__vars['xf']['options']['fs_enable_image']) {
 		$__finalCompiled .= '
-';
-		if ($__templater->method($__vars['category'], 'isImage', array())) {
-			$__finalCompiled .= '
-						' . $__templater->formInfoRow('
-							<img src="' . $__templater->escape($__templater->method($__vars['category'], 'getImgUrl', array(true, ))) . '" style="max-width:40%">
-						', array(
-				'rowtype' => 'confirm',
-			)) . '
-	';
-		} else {
-			$__finalCompiled .= '
-	' . $__templater->escape($__vars['category']['title']) . '
-					';
-		}
-		$__finalCompiled .= '
-	';
+							<div class="image_category">
+ 								<img src="' . $__templater->escape($__templater->method($__vars['category'], 'getImgUrl', array(true, ))) . '" style="max-width:100%">
+								<span class="categoryList-label image_label">
+									<span class="label label--subtle label--smallest">' . $__templater->filter($__vars['extras']['resource_count'], array(array('number_short', array()),), true) . '</span>
+								</span>
+						</div>
+					
+				';
 	} else {
 		$__finalCompiled .= '
-	' . $__templater->escape($__vars['category']['title']) . '
-	';
+					' . $__templater->escape($__vars['category']['title']) . ' 
+					<span class="categoryList-label">
+						<span class="label label--subtle label--smallest">' . $__templater->filter($__vars['extras']['resource_count'], array(array('number_short', array()),), true) . '</span>
+					</span>
+				';
 	}
 	$__finalCompiled .= '</a>
 				</h3>
