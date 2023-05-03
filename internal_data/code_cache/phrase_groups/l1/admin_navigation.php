@@ -92,6 +92,8 @@ return array (
   'admin_navigation.forceAgreementTerms' => 'Force terms and rules agreement',
   'admin_navigation.forumNodePermissions' => 'Node permissions',
   'admin_navigation.forums' => 'Forums',
+  'admin_navigation.fsAutoForumManager' => 'Auto Forum Manage',
+  'admin_navigation.fsAutoForumManagerAdd' => 'Add',
   'admin_navigation.fsDownGrade' => 'Downgrade',
   'admin_navigation.fsForumAutoReply' => 'Forum Auto Reply',
   'admin_navigation.fsLoginSecurityQuestion' => 'Security Question',

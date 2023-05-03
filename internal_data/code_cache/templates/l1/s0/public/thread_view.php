@@ -758,6 +758,24 @@ return array(
 	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
 	$__finalCompiled .= '
 ' . $__templater->includeTemplate('xb_global_threads', $__vars) . '
+';
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('trader', 'view', ))) {
+		$__finalCompiled .= '
+	';
+		if ($__templater->func('in_array', array($__vars['thread']['node_id'], $__vars['xf']['options']['traderForums'], ), false)) {
+			$__finalCompiled .= '
+		' . $__templater->button('Trader history' . ' (' . $__templater->filter($__vars['thread']['User']['andy_trader_seller_count'] + $__vars['thread']['User']['andy_trader_buyer_count'], array(array('number', array()),), true) . ')', array(
+				'href' => $__templater->func('link', array('trader/history', '', array('user_id' => $__vars['thread']['user_id'], ), ), false),
+				'class' => 'button--link',
+			), '', array(
+			)) . '
+		<br /><br />
+	';
+		}
+		$__finalCompiled .= '
+';
+	}
+	$__finalCompiled .= '
 
 ';
 	if ($__vars['canInlineMod'] OR $__templater->method($__vars['thread'], 'canUseInlineModeration', array())) {

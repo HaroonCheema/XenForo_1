@@ -272,6 +272,19 @@ return array(
 	}
 	$__compilerTemp2 .= '
 			';
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('trader', 'view', ))) {
+		$__compilerTemp2 .= '
+	<div class="buttonGroup">
+		' . $__templater->button('Trader history' . ' (' . $__templater->filter($__vars['user']['andy_trader_seller_count'] + $__vars['user']['andy_trader_buyer_count'], array(array('number', array()),), true) . ')', array(
+			'href' => $__templater->func('link', array('trader/history', '', array('user_id' => $__vars['user']['user_id'], ), ), false),
+			'class' => 'button--link',
+		), '', array(
+		)) . '
+	</div>
+';
+	}
+	$__compilerTemp2 .= '
+';
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceLicenses', array())) {
 		$__compilerTemp2 .= '
 				' . $__templater->button('

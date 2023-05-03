@@ -39,6 +39,7 @@ return array (
   'option_group.stats' => 'Statistics and metrics',
   'option_group.tagging' => 'Content tagging',
   'option_group.tournament' => 'Tournament',
+  'option_group.trader' => 'Trader',
   'option_group.users' => 'User options',
   'option_group.usersAndRegistration' => 'User registration',
   'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',

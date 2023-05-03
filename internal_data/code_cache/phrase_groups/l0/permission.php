@@ -195,5 +195,8 @@ return array (
   'permission.snogForms_canApproveForms' => 'Can approve/deny submitted forms',
   'permission.snogForms_canExtendPolls' => 'Can extend promotion poll end date',
   'permission.snogForms_canViewForms' => 'Can view forms',
+  'permission.trader_admin' => 'Admin',
+  'permission.trader_rate' => 'Rate',
+  'permission.trader_view' => 'View',
   'permission.xa_showcase_scheduledPostingShowcase' => 'Create scheduled showcase items',
 );
