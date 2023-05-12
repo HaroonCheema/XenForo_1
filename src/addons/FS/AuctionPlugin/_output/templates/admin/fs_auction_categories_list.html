@@ -1,0 +1,10 @@
+<xf:title>{{ phrase('fs_auction_categories') }}</xf:title>
+
+<xf:macro template="category_tree_macros" name="page_action"
+	arg-linkPrefix="auction/categories" />
+
+<xf:macro template="category_tree_macros" name="category_list"
+	arg-categoryTree="{$categoryTree}"
+	arg-filterKey="auction-categories"
+	arg-linkPrefix="auction/categories"
+/>

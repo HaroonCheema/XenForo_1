@@ -1,5 +1,8 @@
 <?php
 return array (
+  'alert_opt_out.classifieds_listing_insert' => 'Posts a new listing',
+  'alert_opt_out.classifieds_listing_mention' => 'Mentioned you in a listing',
+  'alert_opt_out.classifieds_listing_reaction' => 'Reacts to your listing',
   'alert_opt_out.conversation_message_reaction' => 'Reacts to your message in a conversation',
   'alert_opt_out.dbtech_ecommerce_download_insert' => 'Updates a watched product',
   'alert_opt_out.dbtech_ecommerce_download_reaction' => 'Reacts to an update to your product',

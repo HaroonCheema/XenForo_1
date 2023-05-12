@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 61afead91b5f62cc7810841cd7b1b02f
+// FROM HASH: ae0fe260e31d9dd57011d98f612e1cf5
 return array(
 'macros' => array('type_chooser' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -152,17 +152,44 @@ return array(
 ';
 	$__vars['titleFinalHtml'] = $__templater->preEscaped('');
 	$__compilerTemp1 = '';
-	if ($__vars['attachmentData']) {
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('bh_brand_hub', 'bh_can_assignThreadsToHub', ))) {
 		$__compilerTemp1 .= '
+';
+		$__compilerTemp2 = array(array(
+			'value' => '0',
+			'selected' => !$__vars['thread']['item_id'],
+			'label' => $__vars['xf']['language']['parenthesis_open'] . 'None' . $__vars['xf']['language']['parenthesis_close'],
+			'_type' => 'option',
+		));
+		if ($__templater->isTraversable($__vars['items'])) {
+			foreach ($__vars['items'] AS $__vars['item']) {
+				$__compilerTemp2[] = array(
+					'value' => $__vars['item']['item_id'],
+					'label' => $__templater->escape($__vars['item']['item_title']),
+					'_type' => 'option',
+				);
+			}
+		}
+		$__compilerTemp1 .= $__templater->formSelectRow(array(
+			'name' => 'item_id',
+			'value' => $__vars['thread']['item_id'],
+		), $__compilerTemp2, array(
+			'label' => 'Item',
+		)) . '
+';
+	}
+	$__compilerTemp3 = '';
+	if ($__vars['attachmentData']) {
+		$__compilerTemp3 .= '
 						' . $__templater->callMacro('helper_attach_upload', 'upload_block', array(
 			'attachmentData' => $__vars['attachmentData'],
 			'forceHash' => $__vars['forum']['draft_thread']['attachment_hash'],
 		), $__vars) . '
 					';
 	}
-	$__compilerTemp2 = '';
+	$__compilerTemp4 = '';
 	if ($__vars['xf']['options']['multiQuote']) {
-		$__compilerTemp2 .= '
+		$__compilerTemp4 .= '
 						' . $__templater->callMacro('multi_quote_macros', 'button', array(
 			'href' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
 			'messageSelector' => '.js-post',
@@ -170,9 +197,9 @@ return array(
 		), $__vars) . '
 					';
 	}
-	$__compilerTemp3 = '';
-	$__compilerTemp4 = '';
-	$__compilerTemp4 .= '
+	$__compilerTemp5 = '';
+	$__compilerTemp6 = '';
+	$__compilerTemp6 .= '
 						' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 		'type' => 'threads',
 		'set' => $__vars['thread']['custom_fields'],
@@ -181,15 +208,15 @@ return array(
 		'requiredOnly' => ($__vars['inlineMode'] ? true : false),
 	), $__vars) . '
 					';
-	if (strlen(trim($__compilerTemp4)) > 0) {
-		$__compilerTemp3 .= '
+	if (strlen(trim($__compilerTemp6)) > 0) {
+		$__compilerTemp5 .= '
 					<hr class="formRowSep" />
-					' . $__compilerTemp4 . '
+					' . $__compilerTemp6 . '
 				';
 	}
-	$__compilerTemp5 = '';
+	$__compilerTemp7 = '';
 	if ($__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['forum']['node_id'], ))) {
-		$__compilerTemp5 .= '
+		$__compilerTemp7 .= '
 	' . $__templater->formRow('
 		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(), $__vars) . '
 	', array(
@@ -197,18 +224,18 @@ return array(
 		)) . '
 ';
 	}
-	$__compilerTemp6 = '';
+	$__compilerTemp8 = '';
 	if ($__vars['canEditTags']) {
-		$__compilerTemp6 .= '
+		$__compilerTemp8 .= '
 					<hr class="formRowSep" />
 					';
-		$__compilerTemp7 = '';
+		$__compilerTemp9 = '';
 		if ($__vars['forum']['min_tags']) {
-			$__compilerTemp7 .= '
+			$__compilerTemp9 .= '
 								' . 'This content must have at least ' . $__templater->escape($__vars['forum']['min_tags']) . ' tag(s).' . '
 							';
 		}
-		$__compilerTemp6 .= $__templater->formTokenInputRow(array(
+		$__compilerTemp8 .= $__templater->formTokenInputRow(array(
 			'name' => 'tags',
 			'value' => (($__vars['thread']['tags'] ? $__templater->filter($__vars['thread']['tags'], array(array('join', array(', ', )),), false) : $__vars['forum']['draft_thread']['tags']) ?: $__vars['tags']),
 			'href' => $__templater->func('link', array('misc/tag-auto-complete', ), false),
@@ -219,14 +246,14 @@ return array(
 			'label' => 'Tags',
 			'explain' => '
 							' . 'Multiple tags may be separated by commas.' . '
-							' . $__compilerTemp7 . '
+							' . $__compilerTemp9 . '
 						',
 		)) . '
 				';
 	}
-	$__compilerTemp8 = '';
+	$__compilerTemp10 = '';
 	if ((!$__vars['xf']['visitor']['user_id']) AND (!$__templater->method($__vars['forum'], 'canCreateThreadPreReg', array()))) {
-		$__compilerTemp8 .= '
+		$__compilerTemp10 .= '
 					' . $__templater->formTextBoxRow(array(
 			'name' => '_xfUsername',
 			'data-xf-init' => 'guest-username',
@@ -236,7 +263,7 @@ return array(
 		)) . '
 				';
 	} else if ($__vars['xf']['visitor']['user_id']) {
-		$__compilerTemp8 .= '
+		$__compilerTemp10 .= '
 					' . $__templater->callMacro('helper_thread_options', 'watch_input', array(
 			'thread' => $__vars['thread'],
 		), $__vars) . '
@@ -251,7 +278,6 @@ return array(
 		<div class="block-body">
 
 			' . '' . '
-
 			' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
 		'type' => 'thread',
 		'prefix-value' => ($__vars['forum']['draft_thread']['prefix_id'] ?: ($__vars['thread']['prefix_id'] ?: $__vars['forum']['default_prefix_id'])),
@@ -268,6 +294,7 @@ return array(
 	)) . '
 
 			' . '
+' . $__compilerTemp1 . '
 
 			' . $__templater->callMacro(null, 'type_chooser', array(
 		'thread' => $__vars['thread'],
@@ -288,9 +315,9 @@ return array(
 	)) . '
 
 				' . $__templater->formRow('
-					' . $__compilerTemp1 . '
+					' . $__compilerTemp3 . '
 
-					' . $__compilerTemp2 . '
+					' . $__compilerTemp4 . '
 				', array(
 		'rowtype' => 'fullWidth noLabel mergePrev noTopPadding',
 	)) . '
@@ -303,14 +330,14 @@ return array(
 		'subContext' => 'full',
 	), $__vars) . '
 
-				' . $__compilerTemp3 . '
-
 				' . $__compilerTemp5 . '
 
-' . $__compilerTemp6 . '
+				' . $__compilerTemp7 . '
+
+' . $__compilerTemp8 . '
 
 				<hr class="formRowSep" />
-				' . $__compilerTemp8 . '
+				' . $__compilerTemp10 . '
 
 				' . $__templater->formRowIfContent($__templater->func('captcha', array(false, false)), array(
 		'label' => 'Verification',

@@ -15,7 +15,7 @@ class UpgradeUserGroup extends AbstractController
         $finder = $this->finder('FS\UpgradeUserGroup:UpgradeUserGroup')->where($this->fetchFunc())->order('usg_id', 'DESC');
 
         $page = $params->page;
-        $perPage = 2;
+        $perPage = 1;
 
         $finder->limitByPage($page, $perPage);
 

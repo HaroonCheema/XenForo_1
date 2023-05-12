@@ -1,0 +1,9 @@
+{
+    "template": "category_tree_macros",
+    "description": "fsAuctionCategoryRemovePermissions",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<xf:if is=\"\\$permissionContentType\">.*?<\\/xf:if>/si",
+    "replace": " "
+}

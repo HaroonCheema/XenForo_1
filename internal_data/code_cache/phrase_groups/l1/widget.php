@@ -1,5 +1,6 @@
 <?php
 return array (
+  'widget.bh_highest_rated_items' => '',
   'widget.dbtech_ecommerce_forum_overview_new_products' => '',
   'widget.dbtech_ecommerce_list_top_products' => '',
   'widget.dbtech_ecommerce_overview_latest_reviews' => '',
@@ -26,4 +27,5 @@ return array (
   'widget.xfrm_overview_latest_reviews' => '',
   'widget.xfrm_overview_top_authors' => '',
   'widget.xfrm_whats_new_overview_new_resources' => '',
+  'widget.z61_classifieds_latest_listings_overview' => 'Latest classifieds listings',
 );

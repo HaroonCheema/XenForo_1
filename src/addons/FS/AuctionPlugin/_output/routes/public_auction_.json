@@ -1,0 +1,11 @@
+{
+    "route_type": "public",
+    "route_prefix": "auction",
+    "sub_name": "",
+    "format": ":int<bidding_id,title>/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "FS\\AuctionPlugin:Bidding",
+    "context": "fs_auction_category",
+    "action_prefix": ""
+}

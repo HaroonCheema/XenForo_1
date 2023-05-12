@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "ship-terms",
+    "sub_name": "",
+    "format": ":int<term_id>/:page",
+    "build_class": "",
+    "build_method": "",
+    "controller": "FS\\AuctionPlugin:ShipTerms",
+    "context": "fsAuctionShippingTerms",
+    "action_prefix": ""
+}

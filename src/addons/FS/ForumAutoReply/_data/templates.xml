@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template type="admin" title="forum_auto_reply_add" version_id="1000700" version_string="1.0.7"><![CDATA[<xf:title>
+  <template type="admin" title="forum_auto_reply_add" version_id="1000400" version_string="1.0.4"><![CDATA[<xf:title>
   <xf:if is="$message.message_id"> {{ phrase('edit_message') }} <xf:else /> {{
   phrase('add_message') }} </xf:if>
 </xf:title>
@@ -250,7 +250,8 @@
     <xf:submitrow submit="" icon="save" />
   </div>
 </xf:form>]]></template>
-  <template type="admin" title="forum_auto_reply_all" version_id="1000600" version_string="1.0.6"><![CDATA[<xf:title>{{ phrase('forum_auto_reply') }}</xf:title>
+  <template type="admin" title="forum_auto_reply_all" version_id="1000500" version_string="1.0.5"><![CDATA[<xf:title>{{ phrase('forum_auto_reply') }}</xf:title>
+
 
 <xf:pageaction>
   <xf:button href="{{ link('forumAutoReply/add') }}" icon="add">{{ phrase('add_message') }}</xf:button>
@@ -315,9 +316,8 @@
 >
   <xf:datarow rowtype="header">
     <xf:cell> {{ phrase('cell_forum') }} </xf:cell>
-    <xf:cell> {{ phrase('cell_user_group') }} </xf:cell>
-    <xf:cell> {{ phrase('cell_prefix') }} </xf:cell>
-    <xf:cell> {{ phrase('fs_no_match_prefix_cell') }} </xf:cell>
+    <xf:comment><xf:cell> {{ phrase('cell_user_group') }} </xf:cell></xf:comment>
+   <xf:comment>  <xf:cell> {{ phrase('cell_prefix') }} </xf:cell></xf:comment>
     <xf:cell class="dataList-cell--min"></xf:cell>
 	 <xf:cell class="dataList-cell--min"></xf:cell>
   </xf:datarow>
@@ -331,60 +331,43 @@
         </xf:if>
       </xf:foreach>
 		
-        <xf:if is="{$msg.user_group_id} != null">
+		<xf:comment>
       <xf:foreach loop="{$userGroups}" value="$userGroup">
         <xf:if is="{$userGroup.user_group_id} == {$msg.user_group_id}">
           <xf:cell> {$userGroup.title} </xf:cell>
         </xf:if>
       </xf:foreach>
-			<xf:else/>
-          <xf:cell>  </xf:cell>	
-        </xf:if>
-			
-        <xf:if is="{$msg.prefix_id} != null">
+		</xf:comment>
+ 
+		  <xf:comment> 
       <xf:foreach
         loop="{$prefixGroups}"
         key="$prefixGroupId"
         value="$prefixGroup"
       >
+
+		
         <xf:foreach
           loop="{$prefixesGrouped.{$prefixGroupId}}"
           key="$prefix_id"
           value="$prefix"
         >
-			
           <xf:if is="{$msg.prefix_id} == {$prefix_id}">
+          
 			  <xf:cell> {$prefix.title} </xf:cell>
-		   </xf:if>	
+             
+		  <xf:else/>
+			 
+			  <xf:cell> {$prefix.title} </xf:cell>
+		   </xf:if>
+			
+			 
+	
 			
         </xf:foreach>
+
       </xf:foreach>
-			<xf:else/>
-          <xf:cell>  </xf:cell>	
-        </xf:if>
-		
-		<xf:if is="{$msg.no_match_prefix_id} != null">
-      <xf:foreach
-        loop="{$prefixGroups}"
-        key="$prefixGroupId"
-        value="$prefixGroup"
-      >
-        <xf:foreach
-          loop="{$prefixesGrouped.{$prefixGroupId}}"
-          key="$prefix_id"
-          value="$prefix"
-        >
-			
-          <xf:if is="{$msg.no_match_prefix_id} == {$prefix_id}">
-			  <xf:cell> {$prefix.title} </xf:cell>
-		   </xf:if>	
-			
-        </xf:foreach>
-      </xf:foreach>
-			<xf:else/>
-          <xf:cell>  </xf:cell>	
-        </xf:if>
-		
+		</xf:comment>
 	<xf:action href="{{ link('forumAutoReply/edit', $msg) }}" >{{ phrase('edit') }}</xf:action>
       <xf:delete
         href="{{ link('forumAutoReply/delete-all', $msg) }}"

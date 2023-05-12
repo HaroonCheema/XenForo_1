@@ -10,5 +10,6 @@ namespace FS\AutoForumManager\Admin\Controller
 
 namespace FS\AutoForumManager\Pub\Controller
 {
+	class XFCP_Forum extends \XF\Pub\Controller\Forum {}
 	class XFCP_Login extends \XF\Pub\Controller\Login {}
 }

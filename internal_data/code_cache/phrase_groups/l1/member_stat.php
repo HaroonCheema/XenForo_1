@@ -1,5 +1,6 @@
 <?php
 return array (
+  'member_stat.classifieds_most_listings' => 'Most classifieds listings',
   'member_stat.dbtech_ecommerce_amount_spent' => 'Amount spent',
   'member_stat.dbtech_ecommerce_most_licenses' => 'Most licenses',
   'member_stat.dbtech_ecommerce_most_products' => 'Most products',

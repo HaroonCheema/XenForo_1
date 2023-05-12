@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "ship-via",
+    "sub_name": "",
+    "format": ":int<via_id>/:page",
+    "build_class": "",
+    "build_method": "",
+    "controller": "FS\\AuctionPlugin:ShipsVia",
+    "context": "fsAuctionShipsVia",
+    "action_prefix": ""
+}

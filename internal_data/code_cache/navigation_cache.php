@@ -394,6 +394,18 @@ return function($__templater, $__selectedNav, array $__vars)
 			$__flat['whatsNewPosts'] =& $__tree['whatsNew']['children']['whatsNewPosts'];
 		}
 
+		$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsWhatsNew'),
+		'href' => $__templater->func('link', array('whats-new/classifieds', ), false),
+		'attributes' => [
+			'rel' => 'nofollow',
+		],
+	];
+		if ($__navTemp) {
+			$__tree['whatsNew']['children']['classifiedsWhatsNew'] = $__navTemp;
+			$__flat['classifiedsWhatsNew'] =& $__tree['whatsNew']['children']['classifiedsWhatsNew'];
+		}
+
 		if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.dbtEcomNewProducts'),
@@ -462,6 +474,134 @@ return function($__templater, $__selectedNav, array $__vars)
 				$__tree['whatsNew']['children']['latestActivity'] = $__navTemp;
 				$__flat['latestActivity'] =& $__tree['whatsNew']['children']['latestActivity'];
 			}
+		}
+
+	}
+
+	if ($__templater->method($__vars['xf']['visitor'], 'canViewClassifieds', array())) {
+		$__navTemp = [
+		'title' => \XF::phrase('nav.classifieds'),
+		'href' => $__templater->func('link', array('classifieds', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['classifieds'] = $__navTemp;
+			$__flat['classifieds'] =& $__tree['classifieds'];
+			if (empty($__tree['classifieds']['children'])) { $__tree['classifieds']['children'] = []; }
+
+			$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsNew'),
+		'href' => $__templater->func('link', array('whats-new/classifieds', ), false),
+		'attributes' => [
+			'rel' => 'nofollow',
+		],
+	];
+			if ($__navTemp) {
+				$__tree['classifieds']['children']['classifiedsNew'] = $__navTemp;
+				$__flat['classifiedsNew'] =& $__tree['classifieds']['children']['classifiedsNew'];
+			}
+
+			if ($__vars['xf']['visitor']['user_id']) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsYourListings'),
+		'href' => $__templater->func('link', array('classifieds/authors', $__vars['xf']['visitor'], ), false),
+		'attributes' => [],
+	];
+				if ($__navTemp) {
+					$__tree['classifieds']['children']['classifiedsYourListings'] = $__navTemp;
+					$__flat['classifiedsYourListings'] =& $__tree['classifieds']['children']['classifiedsYourListings'];
+				}
+			}
+
+			if ($__templater->method($__vars['xf']['visitor'], 'canAddClassified', array())) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsAddListing'),
+		'href' => $__templater->func('link', array('classifieds/add', ), false),
+		'attributes' => [
+			'data-xf-click' => 'overlay',
+		],
+	];
+				if ($__navTemp) {
+					$__tree['classifieds']['children']['classifiedsAddListing'] = $__navTemp;
+					$__flat['classifiedsAddListing'] =& $__tree['classifieds']['children']['classifiedsAddListing'];
+				}
+			}
+
+			if ($__vars['xf']['visitor']['user_id']) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsWatched'),
+		'href' => $__templater->func('link', array('watched/classifieds', ), false),
+		'attributes' => [],
+	];
+				if ($__navTemp) {
+					$__tree['classifieds']['children']['classifiedsWatched'] = $__navTemp;
+					$__flat['classifiedsWatched'] =& $__tree['classifieds']['children']['classifiedsWatched'];
+					if (empty($__tree['classifieds']['children']['classifiedsWatched']['children'])) { $__tree['classifieds']['children']['classifiedsWatched']['children'] = []; }
+
+					if ($__vars['xf']['visitor']['user_id']) {
+						$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsWatchedListings'),
+		'href' => $__templater->func('link', array('watched/classifieds', ), false),
+		'attributes' => [],
+	];
+						if ($__navTemp) {
+							$__tree['classifieds']['children']['classifiedsWatched']['children']['classifiedsWatchedListings'] = $__navTemp;
+							$__flat['classifiedsWatchedListings'] =& $__tree['classifieds']['children']['classifiedsWatched']['children']['classifiedsWatchedListings'];
+						}
+					}
+
+					if ($__vars['xf']['visitor']['user_id']) {
+						$__navTemp = [
+		'title' => \XF::phrase('nav.classifiedsWatchedCategories'),
+		'href' => $__templater->func('link', array('watched/classifieds-categories', ), false),
+		'attributes' => [],
+	];
+						if ($__navTemp) {
+							$__tree['classifieds']['children']['classifiedsWatched']['children']['classifiedsWatchedCategories'] = $__navTemp;
+							$__flat['classifiedsWatchedCategories'] =& $__tree['classifieds']['children']['classifiedsWatched']['children']['classifiedsWatchedCategories'];
+						}
+					}
+
+				}
+			}
+
+			if ($__vars['xf']['visitor']['user_id']) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.z61ClassifiedsMarkRead'),
+		'href' => $__templater->func('link', array('classifieds/mark-read', null, array('date' => $__vars['xf']['time'], ), ), false),
+		'attributes' => [
+			'data-xf-click' => 'overlay',
+		],
+	];
+				if ($__navTemp) {
+					$__tree['classifieds']['children']['z61ClassifiedsMarkRead'] = $__navTemp;
+					$__flat['z61ClassifiedsMarkRead'] =& $__tree['classifieds']['children']['z61ClassifiedsMarkRead'];
+				}
+			}
+
+		}
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.fs_auction_category'),
+		'href' => $__templater->func('link', array('auction', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fs_auction_category'] = $__navTemp;
+		$__flat['fs_auction_category'] =& $__tree['fs_auction_category'];
+		if (empty($__tree['fs_auction_category']['children'])) { $__tree['fs_auction_category']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.auctionAddListing'),
+		'href' => 'auction/add',
+		'attributes' => [
+			'data-xf-click' => 'overlay',
+		],
+	];
+		if ($__navTemp) {
+			$__tree['fs_auction_category']['children']['auctionAddListing'] = $__navTemp;
+			$__flat['auctionAddListing'] =& $__tree['fs_auction_category']['children']['auctionAddListing'];
 		}
 
 	}
@@ -612,6 +752,16 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 
 		}
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.bh_brand_hub'),
+		'href' => $__templater->func('link', array('bh_brands', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['bh_brand_hub'] = $__navTemp;
+		$__flat['bh_brand_hub'] =& $__tree['bh_brand_hub'];
 	}
 
 	$__navTemp = [

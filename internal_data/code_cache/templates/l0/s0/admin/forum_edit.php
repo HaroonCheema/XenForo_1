@@ -357,6 +357,13 @@ return array(
 		'label' => 'Include threads from this forum when users click "New posts"',
 		'hint' => 'If disabled, threads from this forum will never appear in the list of new / unread posts.',
 		'_type' => 'option',
+	),
+	array(
+		'name' => 'z61c_replace_action_btn',
+		'selected' => $__vars['forum']['z61c_replace_action_btn'],
+		'label' => 'Replace \'Post thread\' with post listing',
+		'hint' => 'When enabled will replace the "Post threads" button in this forum\'s thread list with a button for posting new listings.',
+		'_type' => 'option',
 	)), array(
 		'rowid' => 'advancedToggles',
 	)) . '

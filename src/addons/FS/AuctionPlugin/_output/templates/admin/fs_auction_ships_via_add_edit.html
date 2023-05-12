@@ -1,0 +1,22 @@
+<xf:title>
+  <xf:if is="$data.ship_via"> {{ phrase('fs_edit_auction_via') }}
+  <xf:else /> {{ phrase('fs_add_auction_add') }} </xf:if>
+</xf:title>
+<xf:form
+  action="{{ link('ship-via/save', $data) }}"
+  ajax="true"
+  class="block"
+  data-force-flash-message="true"
+>
+  <div class="block-container">
+    <div class="block-body">
+      <xf:textboxrow
+        name="ship_via"
+        value="{$data.ship_via}"
+        label="{{ phrase('fs_auction_via_label') }}"
+        autosize="true"
+      />
+    </div>
+    <xf:submitrow submit="" icon="save" />
+  </div>
+</xf:form>

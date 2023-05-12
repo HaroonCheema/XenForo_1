@@ -1,6 +1,9 @@
 <?php
 return array (
+  'permission_interface.bh_brand_hub' => '[XB] Brand-Hub',
   'permission_interface.bookmarkPermissions' => 'Bookmark permissions',
+  'permission_interface.classifieds' => 'Classifieds permissions',
+  'permission_interface.classifiedsModeratorPermissions' => 'Classifieds moderator permissions',
   'permission_interface.conversationModeratorPermissions' => 'Conversation moderator permissions',
   'permission_interface.conversationPermissions' => 'Conversation permissions',
   'permission_interface.dbtechEcommerce' => 'DragonByte eCommerce permissions',
@@ -9,6 +12,7 @@ return array (
   'permission_interface.formThreadModeration' => 'Form Thread Moderation',
   'permission_interface.forumModeratorPermissions' => 'Forum moderator permissions',
   'permission_interface.forumPermissions' => 'Forum permissions',
+  'permission_interface.fs_auction' => 'Auction permissions',
   'permission_interface.fs_thread_replies_abrove' => 'Thread Post Approve',
   'permission_interface.generalModeratorPermissions' => 'General moderator permissions',
   'permission_interface.generalPermissions' => 'General permissions',

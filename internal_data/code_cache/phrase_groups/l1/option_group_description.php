@@ -5,8 +5,10 @@ return array (
   'option_group_description.alerts' => 'When events happen that affect individual users, they are alerted via this system. If you are using a supported device, alerts can be sent directly to the device as a push notification. As large volumes of alerts are generated, they are periodically pruned from the database.',
   'option_group_description.appearance' => 'These options control how your site appears to your visitors.',
   'option_group_description.attachments' => 'Attachments are files that are uploaded to the board along with messages.',
+  'option_group_description.auction' => '[FS] Auction Plugin',
   'option_group_description.awedo_post_areas' => '',
   'option_group_description.basicBoard' => '',
+  'option_group_description.bh_brand_hub' => '',
   'option_group_description.boardActive' => 'Turn your board on and off here.',
   'option_group_description.censoringOptions' => 'User-generated text will be subject to the censorship rules you define here.',
   'option_group_description.checkAttachment' => 'For check attachments exist or not.',
@@ -48,4 +50,5 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.usersAndRegistration' => '',
   'option_group_description.xb_stop_human_span' => '',
   'option_group_description.xfrm' => 'Options that control the resource manager add-on.',
+  'option_group_description.z61Classifieds' => 'Options that control the classifieds add-on.',
 );

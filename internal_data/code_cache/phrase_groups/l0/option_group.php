@@ -5,8 +5,10 @@ return array (
   'option_group.alerts' => 'User alerts and notifications',
   'option_group.appearance' => 'Appearance',
   'option_group.attachments' => 'Attachments',
+  'option_group.auction' => '[FS] Auction',
   'option_group.awedo_post_areas' => 'Post Areas',
   'option_group.basicBoard' => 'Basic options',
+  'option_group.bh_brand_hub' => '[XB] Brand Hub',
   'option_group.boardActive' => 'Board active',
   'option_group.censoringOptions' => 'Censoring',
   'option_group.checkAttachment' => '[FS] Check Attachment',
@@ -44,4 +46,5 @@ return array (
   'option_group.usersAndRegistration' => 'User registration',
   'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',
   'option_group.xfrm' => 'XenForo Resource Manager',
+  'option_group.z61Classifieds' => 'Classifieds',
 );

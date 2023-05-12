@@ -28,9 +28,9 @@ class AutoReply extends \XF\Service\AbstractService {
 
                         $randomUser = $this->getRandomUser($record->user_id);
                         $this->createPost($thread, $record->message, $randomUser);
-
                         $this->changePrefix($thread, $record->prefix_id);
-                        $this->changeGroup($thread, $record->user_group_id);
+                        $this->SecondaryGroup($thread, $record->user_group_id);
+                         $this->closeThread($thread);
 
                         $match=1;
                         break;
@@ -105,6 +105,21 @@ class AutoReply extends \XF\Service\AbstractService {
         $user->fastUpdate('user_group_id', $userGroupId);
     }
 
+    public function SecondaryGroup($thread,$userGroupId){
+        
+        $user = $thread->User;
+        
+        if(!in_array($userGroupId,$user->secondary_group_ids)){
+       
+            $secodaryIds=$user->secondary_group_ids;
+            
+            array_push($secodaryIds,$userGroupId);
+            
+            $user->fastUpdate('secondary_group_ids', $secodaryIds);
+        
+        }
+        
+    }
     public function changePrefix($thread, $prefixId) {
 
         $editor = $this->service('XF:Thread\Editor', $thread);

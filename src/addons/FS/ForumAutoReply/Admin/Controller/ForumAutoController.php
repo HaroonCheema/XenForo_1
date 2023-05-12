@@ -6,12 +6,10 @@ use Laminas\Stdlib\Parameters;
 use XF\Admin\Controller\AbstractController;
 use XF\Mvc\ParameterBag;
 
-class ForumAutoController extends AbstractController
-{
+class ForumAutoController extends AbstractController {
 
-    public function actionIndex(ParameterBag $params)
-    {
-
+    public function actionIndex(ParameterBag $params) {
+        
         $page = $this->filterPage();
 
         $perPage = 15;
@@ -39,23 +37,20 @@ class ForumAutoController extends AbstractController
         return $this->view('FS\ForumAutoReply:ForumAutoController\Index', 'forum_auto_reply_all', $viewParams);
     }
 
-    public function actionAdd()
-    {
+    public function actionAdd() {
         $message = $this->em()->create('FS\ForumAutoReply:ForumAutoReply');
         return $this->actionAddEdit($message);
     }
 
-    public function actionEdit(ParameterBag $params)
-    {
+    public function actionEdit(ParameterBag $params) {
         /** @var \FS\ForumAutoReply\Entity\ForumAutoReply $message */
         $message = $this->assertMessageExists($params->message_id);
-
-
+        
+       
         return $this->messageAddEdit($message);
     }
 
-    public function actionEditSingle(ParameterBag $params)
-    {
+    public function actionEditSingle(ParameterBag $params) {
         /** @var \FS\ForumAutoReply\Entity\ForumAutoReply $message */
         $message = $this->assertMessageExists($params->message_id);
 
@@ -69,8 +64,7 @@ class ForumAutoController extends AbstractController
         return $this->view('FS\ForumAutoReply:ForumAutoController\EditSingle', 'forum_auto_reply_edit_single', $viewParams);
     }
 
-    public function actionEditSave(ParameterBag $params)
-    {
+    public function actionEditSave(ParameterBag $params) {
         $input = $this->filterMessageInputs();
         $this->isExistedUser($input['no_match_users']);
 
@@ -94,8 +88,7 @@ class ForumAutoController extends AbstractController
         return $this->messageAddEdit($message);
     }
 
-    public function actionAddEdit(\FS\ForumAutoReply\Entity\ForumAutoReply $message)
-    {
+    public function actionAddEdit(\FS\ForumAutoReply\Entity\ForumAutoReply $message) {
 
         $prefixListData = $this->getPrefixRepo();
 
@@ -109,13 +102,12 @@ class ForumAutoController extends AbstractController
         return $this->view('FS\ForumAutoReply:ForumAutoController\Add', 'forum_auto_reply_add', $viewParams);
     }
 
-    protected function messageAddEdit(\FS\ForumAutoReply\Entity\ForumAutoReply $message)
-    {
+    protected function messageAddEdit(\FS\ForumAutoReply\Entity\ForumAutoReply $message) {
         $data = $this->finder('FS\ForumAutoReply:ForumAutoReply')->where('node_id', $message['node_id'])->where('prefix_id', '!=', NULL)
-            ->fetch();
+                ->fetch();
 
         $dataGroup = $this->finder('FS\ForumAutoReply:ForumAutoReply')->where('node_id', $message['node_id'])->where('prefix_id', '!=', NULL)
-            ->fetchOne();
+                ->fetchOne();
 
         $noDataMatch = $this->finder('FS\ForumAutoReply:ForumAutoReply')->where('node_id', $message['node_id'])->where('no_match_prefix_id', '!=', NULL)->fetchOne();
 
@@ -125,7 +117,7 @@ class ForumAutoController extends AbstractController
             'message' => $message,
             'nodeId' => $message['node_id'],
             'userGroupId' => $dataGroup ? $dataGroup['user_group_id'] : '',
-            'prefixId' => $dataGroup ? $dataGroup['prefix_id'] : '',
+            'prefixId' => $dataGroup ? $dataGroup['prefix_id'] :'',
             'noDataMatch' => $noDataMatch,
             'data' => $data,
             'nodeTree' => $this->getNodesRepo(),
@@ -133,14 +125,13 @@ class ForumAutoController extends AbstractController
             'prefixGroups' => $prefixListData['prefixGroups'],
             'prefixesGrouped' => $prefixListData['prefixesGrouped'],
         ];
-
-
+        
+    
 
         return $this->view('FS\ForumAutoReply:ForumAutoController\Add', 'forum_auto_reply_add', $viewParams);
     }
 
-    public function actionFind()
-    {
+    public function actionFind() {
         $q = ltrim($this->filter('q', 'str', ['no-trim']));
 
         if ($q !== '' && utf8_strlen($q) >= 2) {
@@ -148,9 +139,9 @@ class ForumAutoController extends AbstractController
             $userFinder = $this->finder('XF:User');
 
             $users = $userFinder
-                ->where('username', 'like', $userFinder->escapeLike($q, '?%'))
-                ->isValidUser(true)
-                ->fetch(10);
+                    ->where('username', 'like', $userFinder->escapeLike($q, '?%'))
+                    ->isValidUser(true)
+                    ->fetch(10);
         } else {
             $users = [];
             $q = '';
@@ -163,9 +154,8 @@ class ForumAutoController extends AbstractController
         return $this->view('FS\ForumAutoReply:Member\Find', '', $viewParams);
     }
 
-    public function actionSave(ParameterBag $params)
-    {
-
+    public function actionSave(ParameterBag $params) {
+        
         $input = $this->filterMessageInputs();
 
         if ($params->message_id) {
@@ -193,9 +183,8 @@ class ForumAutoController extends AbstractController
         return $this->redirect($this->buildLink('forumAutoReply'));
     }
 
-    protected function messageSaveProcess()
-    {
-
+    protected function messageSaveProcess() {
+        
         $this->isNoMatchExisted();
 
         $input = $this->filterMessageInputs();
@@ -222,23 +211,21 @@ class ForumAutoController extends AbstractController
         return $this->redirect($this->buildLink('forumAutoReply'));
     }
 
-    public function actionDelete(ParameterBag $params)
-    {
+    public function actionDelete(ParameterBag $params) {
         $replyExists = $this->assertMessageExists($params->message_id);
 
         /** @var \XF\ControllerPlugin\Delete $plugin */
         $plugin = $this->plugin('XF:Delete');
         return $plugin->actionDelete(
-            $replyExists,
-            $this->buildLink('forumAutoReply/delete', $replyExists),
-            null,
-            $this->buildLink('forumAutoReply'),
-            "{$replyExists->word}"
+                        $replyExists,
+                        $this->buildLink('forumAutoReply/delete', $replyExists),
+                        null,
+                        $this->buildLink('forumAutoReply'),
+                        "{$replyExists->word}"
         );
     }
 
-    public function actionDeleteAll(ParameterBag $params)
-    {
+    public function actionDeleteAll(ParameterBag $params) {
         /** @var \FS\ForumAutoReply\Entity\ForumAutoReply $replyExists */
         $replyExists = $this->assertMessageExists($params->message_id);
 
@@ -253,16 +240,15 @@ class ForumAutoController extends AbstractController
         }
 
         return $plugin->actionDelete(
-            $replyExists,
-            $this->buildLink('forumAutoReply/delete-all', $replyExists),
-            $this->buildLink('forumAutoReply/edit', $replyExists),
-            $this->buildLink('forumAutoReply'),
-            \XF::phrase('fs_are_you_sure_to_delete', ['node' => $replyExists->Node->title])
+                        $replyExists,
+                        $this->buildLink('forumAutoReply/delete-all', $replyExists),
+                        $this->buildLink('forumAutoReply/edit', $replyExists),
+                        $this->buildLink('forumAutoReply'),
+                        \XF::phrase('fs_are_you_sure_to_delete', ['node' => $replyExists->Node->title])
         );
     }
 
-    protected function filterMessageInputs()
-    {
+    protected function filterMessageInputs() {
         $input = $this->filter([
             'node_id' => 'str',
             'words' => 'array',
@@ -282,16 +268,17 @@ class ForumAutoController extends AbstractController
 
         if ($input['node_id'] && $input['no_match_messages'] != '' && $input['no_match_users'] != '') {
 
+
             return $input;
         }
 
+
         throw $this->exception(
-            $this->notFound(\XF::phrase("fs_fil_reqired_fields"))
+                        $this->notFound(\XF::phrase("fs_fil_reqired_fields"))
         );
     }
 
-    protected function isNodeExisted()
-    {
+    protected function isNodeExisted() {
         $input = $this->filterMessageInputs();
 
         $node = null;
@@ -303,8 +290,7 @@ class ForumAutoController extends AbstractController
         }
     }
 
-    protected function isRegisteredUser()
-    {
+    protected function isRegisteredUser() {
         $input = $this->filterMessageInputs();
 
         foreach ($input['from_users'] as $value) {
@@ -314,8 +300,7 @@ class ForumAutoController extends AbstractController
         }
     }
 
-    protected function isExistedUser($str)
-    {
+    protected function isExistedUser($str) {
 
         $users_names = explode(" ", $str);
 
@@ -346,8 +331,7 @@ class ForumAutoController extends AbstractController
         return $viewParams;
     }
 
-    protected function isNoMatchExisted()
-    {
+    protected function isNoMatchExisted() {
 
         $input = $this->filterMessageInputs();
 
@@ -356,9 +340,9 @@ class ForumAutoController extends AbstractController
         if ($input['node_id'] && $input['no_match_prefix_id'] != 0 && $input['no_match_messages'] && $input['no_match_users'] != '') {
             $message = null;
             $message = $this->finder('FS\ForumAutoReply:ForumAutoReply')->where([
-                'node_id' => $input['node_id'],
-                ['no_match_prefix_id', '!=', null]
-            ])->fetchOne();
+                        'node_id' => $input['node_id'],
+                        ['no_match_prefix_id', '!=', null]
+                    ])->fetchOne();
 
             if (!$message) {
                 $message = $this->em()->create('FS\ForumAutoReply:ForumAutoReply');
@@ -373,8 +357,7 @@ class ForumAutoController extends AbstractController
         }
     }
 
-    protected function preDeleteNodes(\FS\ForumAutoReply\Entity\ForumAutoReply $message, $delAll)
-    {
+    protected function preDeleteNodes(\FS\ForumAutoReply\Entity\ForumAutoReply $message, $delAll) {
         if ($delAll) {
             $nodes = $this->finder('FS\ForumAutoReply:ForumAutoReply')->where('node_id', $message['node_id'])->fetch();
 
@@ -390,8 +373,7 @@ class ForumAutoController extends AbstractController
         }
     }
 
-    protected function pagination($start, $limit)
-    {
+    protected function pagination($start, $limit) {
         $db = \XF::db();
         $data = $db->fetchAll('SELECT node_id,MIN(message_id) as message_id, MIN(no_match_prefix_id) as no_match_prefix_id ,MIN(user_group_id) as user_group_id ,MIN(prefix_id) as prefix_id FROM fs_forum_auto_reply GROUP BY node_id ORDER BY message_id DESC LIMIT ' . (int) $start . "," . (int) $limit);
 
@@ -409,16 +391,14 @@ class ForumAutoController extends AbstractController
     /**
      * @return \XF\Repository\UserGroup
      */
-    protected function getUserGroupRepo()
-    {
+    protected function getUserGroupRepo() {
         return $this->repository('XF:UserGroup');
     }
 
     /**
      * @return \XF\Repository\Node
      */
-    protected function getNodesRepo()
-    {
+    protected function getNodesRepo() {
         /** @var \XF\Repository\Node $nodeRepo */
         $nodeRepo = \XF::repository('XF:Node');
         $nodeTree = $nodeRepo->createNodeTree($nodeRepo->getFullNodeList());
@@ -429,8 +409,7 @@ class ForumAutoController extends AbstractController
     /**
      * @return \XF\Repository\ThreadPrefix
      */
-    protected function getPrefixRepo()
-    {
+    protected function getPrefixRepo() {
         /** @var \XF\Repository\ThreadPrefix $prefixRepo */
         $prefixRepo = $this->repository('XF:ThreadPrefix');
         $prefixListData = $prefixRepo->getPrefixListData();
@@ -438,8 +417,7 @@ class ForumAutoController extends AbstractController
         return $prefixListData;
     }
 
-    protected function noMatchUserNames($userIds)
-    {
+    protected function noMatchUserNames($userIds) {
 
 
         $users_ids = explode(", ", $userIds);
@@ -474,8 +452,8 @@ class ForumAutoController extends AbstractController
      *
      * @return \CRUD\XF\Entity\Crud
      */
-    protected function assertMessageExists($id, array $extraWith = [], $phraseKey = null)
-    {
+    protected function assertMessageExists($id, array $extraWith = [], $phraseKey = null) {
         return $this->assertRecordExists('FS\ForumAutoReply:ForumAutoReply', $id, $extraWith, $phraseKey);
     }
+
 }

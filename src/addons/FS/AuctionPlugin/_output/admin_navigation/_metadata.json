@@ -1,0 +1,14 @@
+{
+    "fsAuctionCategory.json": {
+        "hash": "21518b09da50a0348357afdc4225b8a5"
+    },
+    "fsAuctionPlugin.json": {
+        "hash": "f5d1191a019e480862b0b2b87ace7150"
+    },
+    "fsAuctionShippingTerms.json": {
+        "hash": "db45226714e1c4f4e2de701e546d1d90"
+    },
+    "fsAuctionShipsVia.json": {
+        "hash": "1f0e23967c3f45769d67e1ba527e54d6"
+    }
+}

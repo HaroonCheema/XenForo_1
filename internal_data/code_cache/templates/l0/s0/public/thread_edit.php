@@ -20,22 +20,49 @@ return array(
 
 ';
 	$__compilerTemp1 = '';
-	$__compilerTemp2 = '';
-	$__compilerTemp2 .= '
-					' . $__templater->filter($__templater->method($__vars['thread']['TypeHandler'], 'renderExtraDataEdit', array($__vars['thread'], 'edit', 'thread', )), array(array('raw', array()),), true) . '
-				';
-	if (strlen(trim($__compilerTemp2)) > 0) {
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('bh_brand_hub', 'bh_can_assignThreadsToHub', ))) {
 		$__compilerTemp1 .= '
-				<hr class="formRowSep" />
-				' . $__compilerTemp2 . '
-			';
+';
+		$__compilerTemp2 = array(array(
+			'value' => '0',
+			'selected' => !$__vars['thread']['item_id'],
+			'label' => $__vars['xf']['language']['parenthesis_open'] . 'None' . $__vars['xf']['language']['parenthesis_close'],
+			'_type' => 'option',
+		));
+		if ($__templater->isTraversable($__vars['items'])) {
+			foreach ($__vars['items'] AS $__vars['item']) {
+				$__compilerTemp2[] = array(
+					'value' => $__vars['item']['item_id'],
+					'label' => $__templater->escape($__vars['item']['item_title']),
+					'_type' => 'option',
+				);
+			}
+		}
+		$__compilerTemp1 .= $__templater->formSelectRow(array(
+			'name' => 'item_id',
+			'value' => $__vars['thread']['item_id'],
+		), $__compilerTemp2, array(
+			'label' => 'Item',
+		)) . '
+';
 	}
 	$__compilerTemp3 = '';
 	$__compilerTemp4 = '';
 	$__compilerTemp4 .= '
+					' . $__templater->filter($__templater->method($__vars['thread']['TypeHandler'], 'renderExtraDataEdit', array($__vars['thread'], 'edit', 'thread', )), array(array('raw', array()),), true) . '
+				';
+	if (strlen(trim($__compilerTemp4)) > 0) {
+		$__compilerTemp3 .= '
+				<hr class="formRowSep" />
+				' . $__compilerTemp4 . '
+			';
+	}
+	$__compilerTemp5 = '';
+	$__compilerTemp6 = '';
+	$__compilerTemp6 .= '
 					';
 	if ($__templater->method($__vars['thread'], 'canEditSchedule', array())) {
-		$__compilerTemp4 .= '
+		$__compilerTemp6 .= '
 	' . $__templater->formRow('
 		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
 			'value' => $__vars['thread']['Schedule']['posting_date'],
@@ -45,7 +72,7 @@ return array(
 		)) . '
 ';
 	}
-	$__compilerTemp4 .= '
+	$__compilerTemp6 .= '
 ' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 		'type' => 'threads',
 		'set' => $__vars['thread']['custom_fields'],
@@ -53,16 +80,16 @@ return array(
 		'onlyInclude' => $__vars['forum']['field_cache'],
 	), $__vars) . '
 				';
-	if (strlen(trim($__compilerTemp4)) > 0) {
-		$__compilerTemp3 .= '
+	if (strlen(trim($__compilerTemp6)) > 0) {
+		$__compilerTemp5 .= '
 				<hr class="formRowSep" />
-				' . $__compilerTemp4 . '
+				' . $__compilerTemp6 . '
 				<hr class="formRowSep" />
 			';
 	}
-	$__compilerTemp5 = '';
+	$__compilerTemp7 = '';
 	if ($__templater->method($__vars['thread'], 'canDelete', array())) {
-		$__compilerTemp5 .= '
+		$__compilerTemp7 .= '
 					' . $__templater->button('Delete' . $__vars['xf']['language']['ellipsis'], array(
 			'href' => $__templater->func('link', array('threads/delete', $__vars['thread'], ), false),
 			'icon' => 'delete',
@@ -71,16 +98,16 @@ return array(
 		)) . '
 				';
 	}
-	$__compilerTemp6 = '';
+	$__compilerTemp8 = '';
 	if ($__vars['noInlineMod']) {
-		$__compilerTemp6 .= '
+		$__compilerTemp8 .= '
 		' . $__templater->formHiddenVal('_xfNoInlineMod', '1', array(
 		)) . '
 	';
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp9 = '';
 	if ($__vars['forumName']) {
-		$__compilerTemp7 .= '
+		$__compilerTemp9 .= '
 		' . $__templater->formHiddenVal('_xfForumName', '1', array(
 		)) . '
 	';
@@ -100,10 +127,12 @@ return array(
 	), array(
 		'label' => 'Title',
 	)) . '
+' . $__compilerTemp1 . '
 
-			' . $__compilerTemp1 . '
 
 			' . $__compilerTemp3 . '
+
+			' . $__compilerTemp5 . '
 
 			' . $__templater->callMacro('helper_thread_options', 'thread_status', array(
 		'thread' => $__vars['thread'],
@@ -115,13 +144,13 @@ return array(
 		'sticky' => 'true',
 	), array(
 		'html' => '
-				' . $__compilerTemp5 . '
+				' . $__compilerTemp7 . '
 			',
 	)) . '
 	</div>
 
-	' . $__compilerTemp6 . '
-	' . $__compilerTemp7 . '
+	' . $__compilerTemp8 . '
+	' . $__compilerTemp9 . '
 ', array(
 		'action' => $__templater->func('link', array('threads/edit', $__vars['thread'], ), false),
 		'class' => 'block',

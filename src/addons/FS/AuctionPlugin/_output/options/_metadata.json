@@ -1,0 +1,14 @@
+{
+    "auction_TimeZone.json": {
+        "hash": "2756411aa8208ea2c900bdba3a9a3dd5"
+    },
+    "auction_thread_prefix_id.json": {
+        "hash": "a835e4ed3f287d4b9ddb8f4edeef1d31"
+    },
+    "minimumBidIncreament.json": {
+        "hash": "18d53d897c690eb256a74a96ba3cd044"
+    },
+    "paymentOptions.json": {
+        "hash": "69b34cfd7bf1e3b5a843424718c0e0cf"
+    }
+}

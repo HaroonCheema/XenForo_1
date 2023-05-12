@@ -49,6 +49,8 @@ abstract class AbstractCategoryTree extends AbstractPlugin
 	public function actionDelete(ParameterBag $params)
 	{
 		$category = $this->assertCategoryExists($params->{$this->primaryKey});
+		
+
 		if ($this->isPost())
 		{
 			$childAction = $this->filter('child_nodes_action', 'str');
@@ -59,14 +61,17 @@ abstract class AbstractCategoryTree extends AbstractPlugin
 		}
 		else
 		{
+			
 			$viewParams = [
 				'category' => $category
 			];
+			
 			return $this->view(
 				$this->formatView('Delete'),
 				$this->formatTemplate('delete'),
 				$viewParams
 			);
+
 		}
 	}
 

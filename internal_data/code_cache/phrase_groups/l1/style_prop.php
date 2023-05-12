@@ -293,5 +293,11 @@ return array (
   'style_prop.warningColor' => 'Warning message text color',
   'style_prop.warningFeatureColor' => 'Warning message feature color',
   'style_prop.whatsNewNavStyle' => 'What\'s new navigation style',
+  'style_prop.z61ClassifiedsFeedbackNegative' => 'Negative feedback color',
+  'style_prop.z61ClassifiedsFeedbackNegativeIcon' => 'Negative feedback icon',
+  'style_prop.z61ClassifiedsFeedbackNeutral' => 'Neutral feedback color',
+  'style_prop.z61ClassifiedsFeedbackNeutralIcon' => 'Neutral feedback icon',
+  'style_prop.z61ClassifiedsFeedbackPositive' => 'Positive feedback color',
+  'style_prop.z61ClassifiedsFeedbackPositiveIcon' => 'Positive feedback icon',
   'style_prop.zIndexMultiplier' => 'Z-index multiplier',
 );

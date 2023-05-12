@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "auction",
+    "sub_name": "categories",
+    "format": "categories/:int<category_id,title>/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "FS\\AuctionPlugin:Category",
+    "context": "fsAuctionCategory",
+    "action_prefix": ""
+}

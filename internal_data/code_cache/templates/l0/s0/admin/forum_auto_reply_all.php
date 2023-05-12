@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 08e0adc921dc8522538d504003f7805c
+// FROM HASH: c68d257f296ee4be253ee9aa4fed50af
 return array(
 'macros' => array('message_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -18,18 +18,6 @@ return array(
 	), array(array(
 		'_type' => 'cell',
 		'html' => ' ' . 'Forum' . ' ',
-	),
-	array(
-		'_type' => 'cell',
-		'html' => ' ' . 'User Group' . ' ',
-	),
-	array(
-		'_type' => 'cell',
-		'html' => ' ' . 'Prefix' . ' ',
-	),
-	array(
-		'_type' => 'cell',
-		'html' => ' ' . 'No Match Prefix' . ' ',
 	),
 	array(
 		'class' => 'dataList-cell--min',
@@ -60,65 +48,6 @@ return array(
 					}
 				}
 			}
-			if ($__vars['msg']['user_group_id'] != null) {
-				if ($__templater->isTraversable($__vars['userGroups'])) {
-					foreach ($__vars['userGroups'] AS $__vars['userGroup']) {
-						if ($__vars['userGroup']['user_group_id'] == $__vars['msg']['user_group_id']) {
-							$__compilerTemp1[] = array(
-								'_type' => 'cell',
-								'html' => ' ' . $__templater->escape($__vars['userGroup']['title']) . ' ',
-							);
-						}
-					}
-				}
-			} else {
-				$__compilerTemp1[] = array(
-					'_type' => 'cell',
-					'html' => '  ',
-				);
-			}
-			if ($__vars['msg']['prefix_id'] != null) {
-				if ($__templater->isTraversable($__vars['prefixGroups'])) {
-					foreach ($__vars['prefixGroups'] AS $__vars['prefixGroupId'] => $__vars['prefixGroup']) {
-						if ($__templater->isTraversable($__vars['prefixesGrouped'][$__vars['prefixGroupId']])) {
-							foreach ($__vars['prefixesGrouped'][$__vars['prefixGroupId']] AS $__vars['prefix_id'] => $__vars['prefix']) {
-								if ($__vars['msg']['prefix_id'] == $__vars['prefix_id']) {
-									$__compilerTemp1[] = array(
-										'_type' => 'cell',
-										'html' => ' ' . $__templater->escape($__vars['prefix']['title']) . ' ',
-									);
-								}
-							}
-						}
-					}
-				}
-			} else {
-				$__compilerTemp1[] = array(
-					'_type' => 'cell',
-					'html' => '  ',
-				);
-			}
-			if ($__vars['msg']['no_match_prefix_id'] != null) {
-				if ($__templater->isTraversable($__vars['prefixGroups'])) {
-					foreach ($__vars['prefixGroups'] AS $__vars['prefixGroupId'] => $__vars['prefixGroup']) {
-						if ($__templater->isTraversable($__vars['prefixesGrouped'][$__vars['prefixGroupId']])) {
-							foreach ($__vars['prefixesGrouped'][$__vars['prefixGroupId']] AS $__vars['prefix_id'] => $__vars['prefix']) {
-								if ($__vars['msg']['no_match_prefix_id'] == $__vars['prefix_id']) {
-									$__compilerTemp1[] = array(
-										'_type' => 'cell',
-										'html' => ' ' . $__templater->escape($__vars['prefix']['title']) . ' ',
-									);
-								}
-							}
-						}
-					}
-				}
-			} else {
-				$__compilerTemp1[] = array(
-					'_type' => 'cell',
-					'html' => '  ',
-				);
-			}
 			$__compilerTemp1[] = array(
 				'href' => $__templater->func('link', array('forumAutoReply/edit', $__vars['msg'], ), false),
 				'_type' => 'action',
@@ -145,6 +74,7 @@ return array(
 	$__finalCompiled = '';
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Forum Auto Reply');
 	$__finalCompiled .= '
+
 
 ';
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('

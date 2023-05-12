@@ -398,15 +398,25 @@ return array(
 
 ';
 	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+		$__compilerTemp1 = '';
+		if (!$__templater->test($__vars['forum']['ClassifiedsCategories'], 'empty', array()) AND $__vars['forum']['z61c_replace_action_btn']) {
+			$__compilerTemp1 .= '
+	' . $__templater->includeTemplate('z61_classifieds_forum_view_page_action', $__vars) . '
+	';
+		} else {
+			$__compilerTemp1 .= '
 	' . $__templater->button('
 		' . 'Post thread' . '
 	', array(
-			'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-		), '', array(
-		)) . '
+				'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+				'class' => 'button--cta',
+				'icon' => 'write',
+			), '', array(
+			)) . '
+';
+		}
+		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__compilerTemp1 . '
 ');
 	}
 	$__finalCompiled .= '
@@ -434,6 +444,54 @@ return array(
 	$__finalCompiled .= '	
 
 ' . $__templater->renderExtension('above_node_list', $__vars, $__extensions) . '
+';
+	if (!$__templater->test($__vars['items'], 'empty', array()) AND (!$__vars['xf']['options']['hide_forum_items'])) {
+		$__finalCompiled .= '
+	';
+		$__templater->includeCss('bh_brandHub_list.less');
+		$__finalCompiled .= '
+<br>
+<div class="block-container">
+	<div class="block-body">
+			
+			<div class="brandHub">	
+				<div>
+					<h4> ' . 'Popular items' . '
+				<a href="' . $__templater->func('link', array('bh_brands/brand', $__vars['brand'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['brand']['brand_title']) . '"> (view all)</a>
+				
+					</h4>
+				</div>
+					<ul class="grid-list">
+						';
+		if ($__templater->isTraversable($__vars['items'])) {
+			foreach ($__vars['items'] AS $__vars['item']) {
+				$__finalCompiled .= '
+							<li class="bh_item">
+								<a href="' . $__templater->func('link', array('bh_brands/item', $__vars['item'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['item']['item_title']) . '">' . $__templater->escape($__vars['item']['item_title']) . ' (' . $__templater->escape($__vars['item']['discussion_count']) . ')</a>
+							</li>
+						';
+			}
+		}
+		$__finalCompiled .= '
+				
+					 ';
+		if ($__vars['itemCount'] > $__templater->func('count', array($__vars['items'], ), false)) {
+			$__finalCompiled .= '
+						<a href="' . $__templater->func('link', array('bh_brands/brand', $__vars['brand'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['brand']['brand_title']) . '">' . 'bh_item_more' . '</a>
+					';
+		}
+		$__finalCompiled .= '
+						
+					</ul>	
+				</div>
+	
+	</div>
+</div>
+	<br>
+';
+	}
+	$__finalCompiled .= '
+
 
 ';
 	if ($__vars['nodeTree']) {
@@ -481,19 +539,19 @@ return array(
 <div class="block ' . $__templater->escape($__templater->renderExtension('thread_list_block_classes', $__vars, $__extensions)) . '" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="thread" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 
 	<div class="block-outer">';
-	$__compilerTemp1 = '';
 	$__compilerTemp2 = '';
-	$__compilerTemp2 .= '
+	$__compilerTemp3 = '';
+	$__compilerTemp3 .= '
 					';
 	if ($__vars['canInlineMod']) {
-		$__compilerTemp2 .= '
+		$__compilerTemp3 .= '
 						' . $__templater->callMacro('inline_mod_macros', 'button', array(), $__vars) . '
 					';
 	}
-	$__compilerTemp2 .= '
+	$__compilerTemp3 .= '
 					';
 	if ($__vars['xf']['visitor']['user_id']) {
-		$__compilerTemp2 .= '
+		$__compilerTemp3 .= '
 						' . $__templater->button('
 							' . 'Mark read' . '
 						', array(
@@ -504,19 +562,19 @@ return array(
 		)) . '
 					';
 	}
-	$__compilerTemp2 .= '
+	$__compilerTemp3 .= '
 					';
 	if ($__templater->method($__vars['forum'], 'canWatch', array())) {
-		$__compilerTemp2 .= '
+		$__compilerTemp3 .= '
 						';
-		$__compilerTemp3 = '';
+		$__compilerTemp4 = '';
 		if ($__vars['forum']['Watch'][$__vars['xf']['visitor']['user_id']]) {
-			$__compilerTemp3 .= 'Unwatch';
+			$__compilerTemp4 .= 'Unwatch';
 		} else {
-			$__compilerTemp3 .= 'Watch';
+			$__compilerTemp4 .= 'Watch';
 		}
-		$__compilerTemp2 .= $__templater->button('
-							' . $__compilerTemp3 . '
+		$__compilerTemp3 .= $__templater->button('
+							' . $__compilerTemp4 . '
 						', array(
 			'href' => $__templater->func('link', array('forums/watch', $__vars['forum'], ), false),
 			'class' => 'button--link',
@@ -527,13 +585,13 @@ return array(
 		)) . '
 					';
 	}
-	$__compilerTemp2 .= '
+	$__compilerTemp3 .= '
 				';
-	if (strlen(trim($__compilerTemp2)) > 0) {
-		$__compilerTemp1 .= '
+	if (strlen(trim($__compilerTemp3)) > 0) {
+		$__compilerTemp2 .= '
 			<div class="block-outer-opposite">
 				<div class="buttonGroup">
-				' . $__compilerTemp2 . '
+				' . $__compilerTemp3 . '
 				</div>
 			</div>
 		';
@@ -548,7 +606,7 @@ return array(
 		'wrapperclass' => 'block-outer-main',
 		'perPage' => $__vars['perPage'],
 	))) . '
-		' . $__compilerTemp1 . '
+		' . $__compilerTemp2 . '
 	') . '</div>
 
 	<div class="block-container">

@@ -1,6 +1,9 @@
 <?php
 return array (
   'widget_pos_desc.category_view_sidebar' => 'Position in the sidebar of the category_view template. Widget templates rendered in this position can use the current category entity in the <code>{$context.category}</code> param. Widgets here will only be visible if the \'Create pages for categories\' option is enabled.',
+  'widget_pos_desc.classifieds_category_sidenav' => 'Displays inside the side navigation on the classifieds category pages. Widget templates rendered in this position can use the current category entity in the <code>{$context.category}</code> param.',
+  'widget_pos_desc.classifieds_listing_view_sidebar' => 'Displays inside the side navigation on the classifieds listing view page.',
+  'widget_pos_desc.classifieds_overview_sidenav' => 'Displays inside the side navigation on the classifieds overview page.',
   'widget_pos_desc.conversation_list_sidebar' => 'Position in the sidebar while viewing a list of conversations.',
   'widget_pos_desc.conversation_view_sidebar' => 'Position in the conversation_view template sidebar. Widget templates rendered in this position can use the current conversation entity in the <code>{$context.conversation}</code> param.',
   'widget_pos_desc.dbtech_ecommerce_category_sidenav' => 'Displays inside the side navigation on the product category pages. Widget templates rendered in this position can use the current category entity in the <code>{$context.category}</code> param.',

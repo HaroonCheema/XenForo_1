@@ -16,3 +16,5 @@ $config['development']['defaultAddOn'] = 'Demo';
 $config['designer']['enabled'] = true;
 
 $config['fullUnicode'] = true;
+
+$config['development']['defaultAddOn'] = 'FS/AuctionPlugin';

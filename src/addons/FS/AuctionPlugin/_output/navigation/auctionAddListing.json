@@ -1,0 +1,13 @@
+{
+    "parent_navigation_id": "fs_auction_category",
+    "display_order": 20,
+    "navigation_type_id": "basic",
+    "type_config": {
+        "link": "auction/add",
+        "display_condition": "",
+        "extra_attributes": {
+            "data-xf-click": "overlay"
+        }
+    },
+    "enabled": true
+}

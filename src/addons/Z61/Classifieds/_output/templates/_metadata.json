@@ -1,0 +1,22 @@
+{
+    "public/z61_classifieds_category_add_listing.html": {
+        "version_id": 1001470,
+        "version_string": "1.0.14",
+        "hash": "393e409880b109bde65b2f08d3b9181c"
+    },
+    "public/z61_classifieds_listing_edit_macros.html": {
+        "version_id": 1001470,
+        "version_string": "1.0.14",
+        "hash": "72316d4a9194c061ef6d24f8bc35f4cd"
+    },
+    "public/z61_classifieds_overview.html": {
+        "version_id": 1001470,
+        "version_string": "1.0.14",
+        "hash": "ef0475dfbd6d369d742ad34ecb58b9a7"
+    },
+    "public/z61_classifieds_overview_macros.html": {
+        "version_id": 1001470,
+        "version_string": "1.0.14",
+        "hash": "3678e2bb263c695104962cb7613322d9"
+    }
+}
