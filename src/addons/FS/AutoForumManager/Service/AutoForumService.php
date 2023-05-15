@@ -15,6 +15,13 @@ class AutoForumService extends \XF\Service\AbstractService
             $findNode = $this->finder('XF:Node')->where('node_id', $value->node_id)->where('display_in_list', 0)->fetchOne();
             if ($findNode) {
                 $findNode->fastUpdate('display_in_list', 1);
+
+                if ($findNode->parent_node_id != 0) {
+                    $getParent = \XF::finder('XF:Node')->whereId($findNode->parent_node_id)->where('display_in_list', 0)->fetchOne();
+                    if ($getParent) {
+                        $getParent->fastUpdate('display_in_list', 1);
+                    }
+                }
             }
         }
     }

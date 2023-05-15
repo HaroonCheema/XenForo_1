@@ -10,7 +10,6 @@ class Auction extends AbstractController
 
     public function actionIndex(ParameterBag $params)
     {
-
         return $this->message("Index page. Template not created yet.");
 
         $viewpParams = [];
@@ -20,40 +19,9 @@ class Auction extends AbstractController
 
     public function actionAdd(ParameterBag $params)
     {
-        $options = \XF::options();
-        $bidIncreaments = $options->minimumBidIncreament;
+        $data = $this->em()->create('FS\AuctionPlugin:Bidding');
 
-        $bidIncreamentsArray = explode("\n", $bidIncreaments);
-
-        $timeZones = $options->auction_TimeZone;
-
-        $timeZonesArray = explode("\n", $timeZones);
-
-        $paymentMethodOptions = $options->paymentOptions;
-
-        $paymentMethodOptionsArray = explode("\n", $paymentMethodOptions);
-
-        $auctionPrefixId = $options->auction_thread_prefix_id;
-
-        $shipsVia = $this->finder('FS\AuctionPlugin:ShipsVia')->fetch();
-
-        $shipTerms = $this->finder('FS\AuctionPlugin:ShipTerms')->fetch();
-
-        $prefixMap[] = $this->finder('XF:ThreadPrefix')
-            ->fetch()->toArray();
-
-        $viewpParams = [
-            'category' => $params,
-            'shipsVia' => $shipsVia,
-            'shipTerms' => $shipTerms,
-            'timeZones' => $timeZonesArray,
-            'bidIncreaments' => $bidIncreamentsArray,
-            'paymentMethods' => $paymentMethodOptionsArray,
-            'auctionPrefixId' => $auctionPrefixId,
-
-            'prefixes' => $prefixMap,
-        ];
-        return $this->view('FS\AuctionPlugin', 'addEdit_Auction', $viewpParams);
+        return $this->actionAddEdit($data, $params);
     }
 
     public function actionEdit(ParameterBag $params)
@@ -66,7 +34,6 @@ class Auction extends AbstractController
 
     public function actionAddEdit(\FS\AuctionPlugin\Entity\Bidding $data, $params)
     {
-
         $options = \XF::options();
         $bidIncreaments = $options->minimumBidIncreament;
 
@@ -89,6 +56,9 @@ class Auction extends AbstractController
         $prefixMap[] = $this->finder('XF:ThreadPrefix')
             ->fetch()->toArray();
 
+        $attachmentRepo = $this->repository('XF:Attachment');
+        $attachmentData = $attachmentRepo->getEditorData('fs_auction', $data);
+
         $viewParams = [
             'category' => $params,
             'data' => $data,
@@ -99,6 +69,9 @@ class Auction extends AbstractController
             'bidIncreaments' => $bidIncreamentsArray,
             'paymentMethods' => $paymentMethodOptionsArray,
             'auctionPrefixId' => $auctionPrefixId,
+
+            'attachmentData' => $attachmentData,
+            'attachment_time' => $attachmentData['attachments'] ? end($attachmentData['attachments'])->attach_date : '',
 
             'prefixes' => $prefixMap,
         ];
@@ -116,6 +89,22 @@ class Auction extends AbstractController
         }
 
         $this->saveProcess($editAdd);
+
+        $hash = $this->filter('attachment_hash', 'str');
+
+
+        $sql = "Update xf_attachment set content_id=$editAdd->bidding_id where temp_hash='$hash'";
+        $db = \XF::db();
+        $db->query($sql);
+
+
+        $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
+        foreach ($attachments as $attachment) {
+            $attachment->temp_hash = '';
+            $attachment->unassociated = 0;
+            $attachment->save();
+        }
+
 
         return $this->redirect($this->buildLink('auction'));
     }
@@ -187,7 +176,6 @@ class Auction extends AbstractController
 
     public function actionDelete(ParameterBag $params)
     {
-
         $replyExists = $this->assertDataExists($params->bidding_id);
 
         /** @var \XF\ControllerPlugin\Delete $plugin */
@@ -196,6 +184,22 @@ class Auction extends AbstractController
         if ($this->isPost()) {
 
             $this->deleteAndDecreament($replyExists, true);
+
+            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->bidding_id)->fetch();
+
+            if (count($attachments)) {
+
+                foreach ($attachments as $attachment) {
+
+                    $path = \XF::getRootDirectory() . $this->getAbstractDepositAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id);
+
+                    if (file_exists($path)) {
+
+                        $this->App()->fs()->delete($this->getAbstractCustomAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id));
+                    }
+                    $attachment->delete();
+                }
+            }
 
             return $this->redirect($this->buildLink('auction'));
         }
@@ -258,6 +262,19 @@ class Auction extends AbstractController
         ];
 
         return $options;
+    }
+
+    public function getAbstractDepositAttachmentPath($hash, $id)
+    {
+        $path = sprintf('/data/attachments/0/' . $id . '-' . $hash . '.jpg');
+        return $path;
+    }
+
+    public function getAbstractCustomAttachmentPath($hash, $id)
+    {
+        $path = sprintf('data://attachments/0/' . $id . '-' . $hash . '.jpg');
+
+        return $path;
     }
 
     /**

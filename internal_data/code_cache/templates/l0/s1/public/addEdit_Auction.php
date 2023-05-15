@@ -1,11 +1,19 @@
 <?php
-// FROM HASH: d24c1753938deafd0f64ae7a34cd920c
+// FROM HASH: a7764c0b09de33b26b5872a9c02e3e95
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post Thread');
 	$__finalCompiled .= '
+
+';
+	$__templater->includeJs(array(
+		'prod' => 'xf/attachment_manager-compiled.js',
+		'dev' => 'vendor/flow.js/flow-compiled.js, xf/attachment_manager.js',
+	));
+	$__finalCompiled .= '
+
 ';
 	$__compilerTemp1 = array(array(
 		'value' => '0',
@@ -81,6 +89,8 @@ return array(
 	$__finalCompiled .= $__templater->form('
   <div class="block-container">
     <div class="block-body">	
+		' . $__templater->formHiddenVal('attachment_time', $__vars['attachment_time'], array(
+	)) . '
 		' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
 		'type' => 'thread',
 		'prefix-value' => ($__vars['data'] ? $__vars['data']['prefix_id'] : $__vars['auctionPrefixId']),
@@ -110,7 +120,6 @@ return array(
         
             ' . $__templater->callMacro('helper_attach_upload', 'upload_block', array(
 		'attachmentData' => $__vars['attachmentData'],
-		'forceHash' => $__vars['category']['draft_listing']['attachment_hash'],
 	), $__vars) . '
          
         ', array(

@@ -4,6 +4,7 @@ namespace FS\AuctionPlugin\Entity;
 
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
+use XF\Util\Arr;
 
 class Bidding extends Entity
 {
@@ -11,7 +12,7 @@ class Bidding extends Entity
     {
         $structure->table = 'fs_auction_category_bidding';
         $structure->shortName = 'FS\AuctionPlugin:Bidding';
-        $structure->contentType = 'fs_auction_category_bidding';
+        $structure->contentType = 'fs_auction';
         $structure->primaryKey = 'bidding_id';
         $structure->columns = [
             'bidding_id' => ['type' => self::UINT, 'autoIncrement' => true],
@@ -51,11 +52,34 @@ class Bidding extends Entity
                 'type' => self::TO_ONE,
                 'conditions' => 'category_id',
             ],
+
+            'Attachment' => [
+                'entity' => 'XF:Attachment',
+                'type' => self::TO_ONE,
+                'conditions' => [
+                    ['content_type', '=', 'fs_auction'],
+                    ['content_id', '=', '$bidding_id']
+                ],
+                'with' => 'Data',
+            ]
         ];
         $structure->defaultWith = [];
         $structure->getters = [];
         $structure->behaviors = [];
 
         return $structure;
+    }
+
+    public function getAttachmentConstraints()
+    {
+
+        $options = $this->app()->options();
+
+        $extensions = [];
+        $extensions = array_merge($extensions, Arr::stringToArray($options->bh_ImageExtensions));
+
+        return [
+            'extensions' => $extensions,
+        ];
     }
 }

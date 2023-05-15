@@ -10,8 +10,10 @@ class UpgradeUserGroup extends AbstractController
 
     public function actionIndex(ParameterBag $params)
     {
+        $url = $this->getUrlType();
 
-
+        var_dump($url);
+        exit;
         $finder = $this->finder('FS\UpgradeUserGroup:UpgradeUserGroup')->where($this->fetchFunc())->order('usg_id', 'DESC');
 
         $page = $params->page;

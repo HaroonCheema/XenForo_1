@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phrases>
-  <phrase title="admin_navigation.fsAuctionPlugin" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Auction Ship Methods]]></phrase>
+  <phrase title="admin_navigation.fsAuctionCategory" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction categories]]></phrase>
+  <phrase title="admin_navigation.fsAuctionPlugin" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
   <phrase title="admin_navigation.fsAuctionShippingTerms" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Shipping Terms]]></phrase>
   <phrase title="admin_navigation.fsAuctionShipsVia" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Ships Via]]></phrase>
   <phrase title="auctionPostThread" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Post Thread]]></phrase>
@@ -34,6 +35,12 @@
   <phrase title="bumpingRule_statement" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[I have read and accept the auction bumping rules.]]></phrase>
   <phrase title="fs_add_auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Term]]></phrase>
   <phrase title="fs_add_auction_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Via]]></phrase>
+  <phrase title="fs_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
+  <phrase title="fs_auction_categories" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction categories]]></phrase>
+  <phrase title="fs_auction_categories_add_listing" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Bidiing]]></phrase>
+  <phrase title="fs_auction_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
+  <phrase title="fs_auction_no_categories_exist_at_this_time" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No classifieds categories exist at this time.]]></phrase>
+  <phrase title="fs_auction_requested_category_not_found" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Requested category not found...!]]></phrase>
   <phrase title="fs_auction_term_label" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Shipping Term]]></phrase>
   <phrase title="fs_auction_via_label" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Ship Via]]></phrase>
   <phrase title="fs_cell_ship_via" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Ships Via]]></phrase>
@@ -45,13 +52,20 @@
   <phrase title="fs_title_auction_via" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Ships Via]]></phrase>
   <phrase title="guidlines" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[AUCTION GUIDLINES]]></phrase>
   <phrase title="guidlines_statement" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[These are the Auction Guidelines. Please read carefully.]]></phrase>
+  <phrase title="nav.auctionAddListing" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Bidding]]></phrase>
+  <phrase title="nav.fs_auction_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
   <phrase title="option.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
+  <phrase title="option.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Thread Prefix Id]]></phrase>
   <phrase title="option.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Minimum Bid Increament]]></phrase>
+  <phrase title="option.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Payment Options]]></phrase>
   <phrase title="option_explain.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
+  <phrase title="option_explain.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_explain.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bid increament options...!]]></phrase>
+  <phrase title="option_explain.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[payment options]]></phrase>
   <phrase title="option_group.auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Auction]]></phrase>
   <phrase title="option_group_description.auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Auction Plugin]]></phrase>
   <phrase title="payment_methods" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[PAYMENTS ACCEPTED]]></phrase>
+  <phrase title="permission_interface.fs_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction permissions]]></phrase>
   <phrase title="receiveEmailNotification" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[and receive email notifications]]></phrase>
   <phrase title="shippingTerms" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[SHIPPING TERMS]]></phrase>
   <phrase title="shippingVia" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[SHIPS VIA]]></phrase>

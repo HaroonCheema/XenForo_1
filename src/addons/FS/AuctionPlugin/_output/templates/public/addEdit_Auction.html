@@ -1,4 +1,7 @@
 <xf:title>{{ phrase('auctionPostThread') }}</xf:title>
+
+<xf:js prod="xf/attachment_manager-compiled.js" dev="vendor/flow.js/flow-compiled.js, xf/attachment_manager.js" />
+
 <xf:form
   action="{{ link('auction/categories/save', $data) }}"
   ajax="true"
@@ -9,6 +12,7 @@
 >
   <div class="block-container">
     <div class="block-body">	
+		<xf:hiddenval name="attachment_time">{$attachment_time}</xf:hiddenval>
 		<xf:prefixinputrow
 				label="{{ phrase('title') }}"
 				prefixes="{$prefixes}"
@@ -38,7 +42,6 @@
               template="helper_attach_upload"
               name="upload_block"
               arg-attachmentData="{$attachmentData}"
-              arg-forceHash="{$category.draft_listing.attachment_hash}"
             />
          
         </xf:formrow>
