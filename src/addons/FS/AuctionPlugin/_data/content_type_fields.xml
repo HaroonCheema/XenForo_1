@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<content_type_fields/>
+<content_type_fields>
+  <field content_type="fs_auction" field_name="attachment_handler_class">FS\AuctionPlugin\Attachment\Bidding</field>
+  <field content_type="fs_auction" field_name="entity">FS\AuctionPlugin:Bidding</field>
+</content_type_fields>

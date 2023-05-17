@@ -49,12 +49,7 @@ class Category extends AbstractController
             $attachmentRepo = $this->repository('XF:Attachment');
 
             $draft = $category->draft_listing;
-
-            // if ($category->canUploadAndManageAttachments()) {
-            //     $attachmentData = $attachmentRepo->getEditorData('classifieds_listing', $category, $draft->attachment_hash);
-            // } else {
                 $attachmentData = null;
-            // }
 
             $listing = $category->getNewListing();
 
@@ -64,10 +59,6 @@ class Category extends AbstractController
                 'category' => $category,
                 'listing' => $listing,
                 'attachmentData' => $attachmentData,
-                // 'prefixes' => $category->getUsablePrefixes(),
-                // 'listingTypes' => $category->listing_types,
-                // 'conditions' => $category->conditions,
-                // 'packages' => $category->packages
             ];
             return $this->view(
                 'FS\AuctionPlugin:Category\Add',

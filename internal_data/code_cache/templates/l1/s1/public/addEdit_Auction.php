@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: a7764c0b09de33b26b5872a9c02e3e95
+// FROM HASH: d1e3ee1681afae70819f664fdefabae1
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -46,14 +46,18 @@ return array(
 		}
 	}
 	$__compilerTemp3 = array();
-	if ($__templater->isTraversable($__vars['paymentMethods'])) {
-		foreach ($__vars['paymentMethods'] AS $__vars['val']) {
-			$__compilerTemp3[] = array(
-				'value' => $__vars['val'],
-				'checked' => ($__templater->func('in_array', array($__vars['val'], $__vars['data']['payment_methods'], ), false) ? 'checked' : ''),
-				'label' => $__templater->escape($__vars['val']),
-				'_type' => 'option',
-			);
+	if ($__vars['paymentMethods']['0']) {
+		if ($__templater->isTraversable($__vars['paymentMethods'])) {
+			foreach ($__vars['paymentMethods'] AS $__vars['val']) {
+				$__compilerTemp3[] = array(
+					'value' => $__vars['val'],
+					'checked' => ($__templater->func('in_array', array($__vars['val'], $__vars['data']['payment_methods'], ), false) ? 'checked' : ''),
+					'label' => '
+					 ' . $__templater->escape($__vars['val']) . '
+				',
+					'_type' => 'option',
+				);
+			}
 		}
 	}
 	$__compilerTemp4 = array(array(
@@ -93,13 +97,14 @@ return array(
 	)) . '
 		' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
 		'type' => 'thread',
-		'prefix-value' => ($__vars['data'] ? $__vars['data']['prefix_id'] : $__vars['auctionPrefixId']),
+		'prefix-value' => $__vars['auctionPrefixId'],
 		'textbox-value' => ($__vars['data'] ? $__vars['data']['title'] : ''),
 		'textbox-class' => 'input--title',
 		'placeholder' => $__vars['forum']['thread_prompt'],
 		'autofocus' => 'autofocus',
 		'maxlength' => $__templater->func('max_length', array('XF:Thread', 'title', ), false),
 		'help-href' => $__templater->func('link', array('forums/prefix-help', $__vars['forum'], ), false),
+		'required' => 'true',
 	), array(
 		'label' => 'Title',
 		'rowtype' => 'fullWidth noLabel',
@@ -110,6 +115,7 @@ return array(
         ' . $__templater->formEditorRow(array(
 		'name' => 'message',
 		'value' => ($__vars['data'] ? $__vars['data']['content'] : ''),
+		'required' => 'true',
 		'attachments' => ($__vars['attachmentData'] ? $__vars['attachmentData']['attachments'] : array()),
 	), array(
 		'rowtype' => 'fullWidth noLabel mergePrev',
@@ -128,11 +134,11 @@ return array(
       
 		
         ' . $__templater->formRow('
-		
+
 		 ' . $__templater->formDateInput(array(
 		'name' => 'ends_on',
 		'class' => 'date end',
-		'value' => ($__vars['data'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
+		'value' => ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
 		'required' => 'true',
 	)) . '
         ', array(
@@ -143,7 +149,7 @@ return array(
 		
 		' . $__templater->formSelectRow(array(
 		'name' => 'timezone',
-		'required' => 'required',
+		'required' => 'true',
 	), $__compilerTemp1, array(
 		'label' => 'AUCTION ENDS AT',
 		'hint' => 'Required',
@@ -162,22 +168,24 @@ return array(
 		
 		' . $__templater->formSelectRow(array(
 		'name' => 'bid_increament',
-		'required' => 'required',
+		'required' => 'true',
 	), $__compilerTemp2, array(
 		'label' => 'MINIMUM BID INCREMENT',
 		'hint' => 'Required',
 	)) . '
 		' . $__templater->formCheckBoxRow(array(
 		'name' => 'payment_methods[]',
+		'required' => 'true',
 	), $__compilerTemp3, array(
 		'label' => 'PAYMENTS ACCEPTED',
 		'hint' => 'Required',
-		'explain' => 'Chose which forms of payment you accept.',
+		'explain' => ($__vars['paymentMethods']['0'] ? 'Chose which forms of payment you accept.' : 'auction_payment_notAdded_explain'),
 	)) . '
+		
 		
 		' . $__templater->formSelectRow(array(
 		'name' => 'shipping_term',
-		'required' => 'required',
+		'required' => 'true',
 	), $__compilerTemp4, array(
 		'label' => 'SHIPPING TERMS',
 		'hint' => 'Required',
@@ -186,7 +194,7 @@ return array(
 		
 		' . $__templater->formSelectRow(array(
 		'name' => 'ships_via',
-		'required' => 'required',
+		'required' => 'true',
 	), $__compilerTemp5, array(
 		'label' => 'SHIPS VIA',
 		'hint' => 'Required',
@@ -195,9 +203,11 @@ return array(
 		
 		' . $__templater->formCheckBoxRow(array(
 		'name' => 'auction_guidelines',
+		'required' => 'true',
 	), array(array(
 		'value' => '1',
 		'checked' => ($__vars['data']['auction_guidelines'] ? 'checked' : ''),
+		'required' => 'true',
 		'label' => '
 					' . 'These are the Auction Guidelines. Please read carefully.' . '
 				',
@@ -219,6 +229,7 @@ return array(
 		
 		' . $__templater->formCheckBoxRow(array(
 		'name' => 'bumping_rules',
+		'required' => 'true',
 	), array(array(
 		'value' => '1',
 		'checked' => ($__vars['data']['bumping_rules'] ? 'checked' : ''),

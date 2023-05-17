@@ -1,0 +1,249 @@
+<xf:macro name="listing"
+	arg-listing="!"
+	arg-category="{{ null }}"
+	arg-showWatched="{{ true }}"
+	arg-allowInlineMod="{{ true }}"
+	arg-chooseName=""
+	arg-extraInfo="">
+	<xf:css src="structured_list.less" />
+	<xf:css src="fs_auction_list_view.less" />
+
+	<div class="structItem structItem--listing js-inlineModContainer " data-author="{{ $listing.User.username ?: $listing.username }}">
+		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
+			<div class="structItem-iconContainer">
+				<xf:if is="$listing.ends_on > $xf.time">
+				<img src="{$listing.getImage()}" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})">
+				<xf:else />
+				 <img src="{$listing.getImage()}" >
+				</xf:if>
+						
+			</div>
+		</div>
+			
+				
+		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
+		
+			<div class="structItem-title">
+			<span class="label label--primary label--smallest">
+						{{ phrase_dynamic($listing.Prefix.getPhraseName()) }}
+					</span>
+				<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.title}</a>
+					<span class="structItem-listingDescription"> {{ $listing.starting_bid}} {{ phrase('dollorSymbol') }}</span>
+			</div>
+			<div class="structItem-minor">
+
+					<ul class="structItem-parts">
+						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
+						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
+						
+							<li>{$listing.Category.title}</li>
+				
+				</ul>
+			</div>
+			
+			<!--	<div class="structItem-listingDescription">{{ $listing.starting_bid}}</div> -->
+			
+				<div class="structItem-listingDescription">{{ snippet($listing.content, 150, {'stripBbCode': true}) }}</div>
+			
+		
+		</div>
+		<div class="structItem-cell structItem-cell--listingMeta">
+
+			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
+				<dt>{{ phrase('auctionEndsOn') }}</dt>
+				<dd><xf:date time="{$listing.ends_on}" /></dd>
+			</dl>
+			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
+				<dt>
+					<xf:if is="$listing.ends_on < $xf.time">
+						<li>
+							<span class="label label--orange label--smallest">{{ phrase('auctionBidClosed') }} 
+								<i class="structItem-status structItem-status--locked" 
+								   aria-hidden="true" title="{{ phrase('locked')|for_attr }}"></i>
+							<span class="u-srOnly">{{ phrase('auctionLocked') }}</span>
+							</span>
+						</li>
+					<xf:else />
+						<li>
+							<div>
+								
+						<span class="label label--smallest label--primary" id="days-auction-{{$listing.auction_id}}">
+							 {{phrase('D')}}
+						</span>
+						<span class="label label--smallest label--primary" id="hours-auction-{{$listing.auction_id}}">
+							 {{phrase('H')}}
+						</span>
+							<span class="label label--smallest label--primary" id="minutes-auction-{{$listing.auction_id}}">
+							{{phrase('M')}}
+						</span>
+							<span class="label label--smallest label--primary" id="seconds-auction-{{$listing.auction_id}}">
+							 {{phrase('S')}}
+						</span>
+							</div>
+						
+					</li>
+					</xf:if>
+				</dt>
+				<dd> </dd>
+			</dl>
+			
+		</div>
+	</div>
+</xf:macro>
+	
+<xf:macro name="listing_simple" arg-listing="!" arg-withMeta="{{ true }}">
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<xf:avatar user="$listing.User" size="xxs" />
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<a href="{{ link('classifieds', $listing) }}">{{ prefix('classifieds_listing', $listing) }}{$listing.title}</a>
+			<div class="contentRow-lesser">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
+			<xf:if is="$withMeta">
+				<div class="contentRow-minor contentRow-minor--smaller">
+					<ul class="listInline listInline--bullet">
+						<li>{{ $listing.User.username ?: $listing.username }}</li>
+						<li>{{ phrase('created:') }} <xf:date time="{$listing.created_date}" /></li>
+					</ul>
+				</div>
+			</xf:if>
+		</div>
+	</div>
+</xf:macro>
+
+<xf:macro name="listing_grid"
+		  arg-listing="!"
+		  arg-category="{{ null }}"
+		  arg-showWatched="{{ true }}"
+		  arg-allowInlineMod="{{ true }}"
+		  arg-chooseName=""
+		  arg-extraInfo="">
+
+	<xf:css src="structured_list.less" />
+	
+	<xf:css src="fs_auctions.less" />
+	
+	<xf:css src="fs_auction_listing_grid_view.less" />
+
+	
+	<div class="structItem structItem--listing js-inlineModContainer js-listingListItem-{$listing.auction_id}" style="display: grid;
+    justify-content: center;
+}">
+		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
+			<div class="structItem-iconContainer" >
+				<xf:if is="$listing.ends_on > $xf.time">
+						<img src ="{$listing.getImage()}" loading="lazy">
+						
+				<xf:else />
+				 		<img src ="{$listing.getImage()}" class="auction-itemGrid-img" loading="lazy">
+
+				</xf:if>
+				
+			</div>
+		</div>
+		
+		<div class="structItem-cell structItem-cell--listingMeta">
+			<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
+				
+			<xf:if contentcheck="true">
+				<div >
+					<span class="auction-category">{{$listing.Category.title }}</span>
+				</div>
+				
+				<div >
+												
+					<xf:if is="$listing.ends_on > $xf.time">
+					
+										<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt>{{ phrase('auctionEndsOn') }}</dt>
+					<dd>			<span class="label label--smallest label--primary" id="days-auction-{{$listing.auction_id}}">
+							 {{phrase('D')}}
+						</span>
+										<span class="label label--smallest label--primary" id="hours-auction-{{$listing.auction_id}}">
+							{{phrase('H')}}
+						</span>
+											<span class="label label--smallest label--primary" id="minutes-auction-{{$listing.auction_id}}">
+						 {{phrase('M')}}
+						</span>
+										<span class="label label--smallest label--primary" id="seconds-auction-{{$listing.auction_id}}">
+							{{phrase('S')}}
+						</span></dd>
+				</dl>
+							
+					<xf:else />
+
+										<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt>{{ phrase('auctionEndsOn') }}</dt>
+					<dd>		
+						<span class="label label--orange label--smallest">{{ phrase('auctionBidClosed') }} 
+								<i class="structItem-status structItem-status--locked" 
+								   aria-hidden="true" title="{{ phrase('locked')|for_attr }}"></i>
+							<span class="u-srOnly">{{ phrase('auctionLocked') }}</span>
+							</span>
+											</dd>
+				</dl>				
+
+						
+						
+			</xf:if>
+				</div>
+				
+				
+				<ul class="structItem-statuses">
+					<xf:contentcheck>
+							
+					<xf:if is="$listing.ends_on > $xf.time">
+								<li>
+					
+								</li>
+					<xf:else />
+						<li>			
+						</li>
+						
+					</xf:if>
+						
+					</xf:contentcheck>
+				</ul>
+			</xf:if>
+
+			<div class="structItem-title">
+					<span class="label label--primary label--smallest">
+						{{ phrase_dynamic($listing.Prefix.getPhraseName()) }}
+							
+					</span>
+			<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.title}</a>
+			</div>
+			<div class="structItem-minor">
+					<ul class="structItem-parts">
+						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
+						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
+						<xf:if is="!$category OR $category.hasChildren()">
+							<li>{{phrase('auctionEndsOn')}} . <xf:date time="{{ $listing.ends_on }}" /></li>
+						</xf:if>
+					</ul>
+				
+			</div>
+				<div class="structItem-listingDescription">{{ snippet($listing.content, 150, {'stripBbCode': true}) }}</div>
+
+				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt style="color:black; font-size:17px">{{ phrase('AuctionStarting_bid') }}</dt>
+					<dd style="color:black; font-size:17px">
+							{$listing.starting_bid} {{phrase('dollorSymbol')}}
+					</dd>
+				</dl>
+		
+		</div>
+			
+			<!--	<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt style="color:black; font-size:17px">{{ phrase('AuctionStarting_bid') }}</dt>
+					<dd style="color:black; font-size:17px">
+							{$listing.starting_bid} {{phrase('dollorSymbol')}}
+					</dd>
+				</dl>-->
+		
+		
+	
+
+		</div>
+	</div>
+</xf:macro>

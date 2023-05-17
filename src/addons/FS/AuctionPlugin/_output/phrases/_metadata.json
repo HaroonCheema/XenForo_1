@@ -1,4 +1,16 @@
 {
+    "AuctionStarting_bid.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "e36ba1e187ae2b3ebcfd0a4c68367caf"
+    },
+    "BidCost.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "de2eed136b135a3e827364924ab06914"
+    },
     "admin_navigation.fsAuctionCategory.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -23,6 +35,48 @@
         "version_string": "1.0.0 Alpha",
         "hash": "84bf8219597ffb414524521d0f6ac175"
     },
+    "auctionBidClosed.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "067644dea39c39adc4d8b0c4daccaa7b"
+    },
+    "auctionCustomBid.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "deaa9833674cfd5a9b1a65c8775e0f76"
+    },
+    "auctionDropdownBid.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "358a01d9c57421ae5f10204543c72fd6"
+    },
+    "auctionEndsOn.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "4a4998a3b2da0d8aa25b4067aba9d501"
+    },
+    "auctionOwnerCanNotBid.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "14fff04bc4c40a3e580ab44d632655a2"
+    },
+    "biddingNotAllowed.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "c2f7086cb3886910637fcfd6d5f66456"
+    },
+    "dollorSymbol.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "38bfa9b8c49f61389bcae20715268d30"
+    },
     "fs_add_auction.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -40,6 +94,18 @@
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
         "hash": "f1db2dcda8ad492cc6598a30b9e73dfa"
+    },
+    "fs_auction_active.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "4d3d769b812b6faa6b76e1a8abaece2d"
+    },
+    "fs_auction_cat.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "152005a931e35a7e8023a27772a8d56f"
     },
     "fs_auction_categories.txt": {
         "global_cache": false,
@@ -59,6 +125,24 @@
         "version_string": "1.0.1 Alpha",
         "hash": "f1db2dcda8ad492cc6598a30b9e73dfa"
     },
+    "fs_auction_expired.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "24fe48030f7d3097d5882535b04c3fa8"
+    },
+    "fs_auction_grid_view_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "5cb1b6cf8c5557cb18c0f27758bdbbf0"
+    },
+    "fs_auction_list_view_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "570bcd0e56708fba42771727f7a8f2f5"
+    },
     "fs_auction_no_categories_exist_at_this_time.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -71,11 +155,23 @@
         "version_string": "1.0.1 Alpha",
         "hash": "8e3ed6cc1c7fc1585d8a6c135caa7c9b"
     },
+    "fs_auction_status.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "747baa95e410dbbe5b36cab708d4a45d"
+    },
     "fs_auction_term_label.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "80095e66296865596d4fb8cd44954e51"
+    },
+    "fs_auction_username.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "f6039d44b29456b20f8f373155ae4973"
     },
     "fs_auction_via_label.txt": {
         "global_cache": false,
@@ -149,6 +245,18 @@
         "version_string": "1.0.1 Alpha",
         "hash": "1a8b50b934ff35ec20f9dd399e6a8749"
     },
+    "option.fs_auction_ImageExtensions.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "3c13f4968cba95765c541b350e4155c2"
+    },
+    "option.fs_auction_list_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "d4d0ee9985bf14169e809b164524b0b0"
+    },
     "option.minimumBidIncreament.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -172,6 +280,18 @@
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.fs_auction_ImageExtensions.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "cd05e3a5067801035810416f973d0250"
+    },
+    "option_explain.fs_auction_list_layout.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "d13995ac5c68e8b5dbf9a23a68390507"
     },
     "option_explain.minimumBidIncreament.txt": {
         "global_cache": false,

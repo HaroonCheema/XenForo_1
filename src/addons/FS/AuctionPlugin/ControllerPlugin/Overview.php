@@ -26,7 +26,7 @@ class Overview extends AbstractPlugin
         $listingRepo = $this->getListingRepo();
         $allowOwnPending = /*is_callable([$this->controller, 'hasContentPendingApproval'])
             ? $this->controller->hasContentPendingApproval()
-            : */true;
+            : */ true;
 
         $listingFinder = $listingRepo->findListingsForOverviewList($sourceCategoryIds, [
             'allowOwnPending' => $allowOwnPending
@@ -35,37 +35,31 @@ class Overview extends AbstractPlugin
         $filters = $this->getListingFilterInput();
 
         $this->applyListingFilters($listingFinder, $filters);
-        
-        if (!empty($fetchOptions['listing_status']))
-        {
+
+        if (!empty($fetchOptions['listing_status'])) {
             $listingFinder->where('listing_status', $fetchOptions['listing_status']);
         }
 
-        if (!empty($fetchOptions['creator_id']))
-        {
+        if (!empty($fetchOptions['creator_id'])) {
             $listingFinder->where('user_id', $fetchOptions['creator_id']);
         }
-//        else
-//        {
-//            $listingFinder->whereOr(['listing_status' => 'active'], ['listing_status' => 'sold', 'user_id' => \XF::visitor()->user_id]);
-//        }
+        //        else
+        //        {
+        //            $listingFinder->whereOr(['listing_status' => 'active'], ['listing_status' => 'sold', 'user_id' => \XF::visitor()->user_id]);
+        //        }
 
         $totalListings = $listingFinder->total();
 
         $page = $this->filterPage();
 
-        if ($category)
-        {
+        if ($category) {
             $layoutStyle = $category->layout_type;
-        }
-        else
-        {
-            $layoutStyle = $this->options()->z61ClassifiedsListLayout;
+        } else {
+            $layoutStyle = $this->options()->fs_auction_list_layout;
         }
 
 
-        switch($layoutStyle)
-        {
+        switch ($layoutStyle) {
             case 'grid_view':
                 $perPage = $this->options()->z61ClassifiedsListingsPerPageGrid;
                 break;
@@ -79,48 +73,34 @@ class Overview extends AbstractPlugin
 
         $listings = $listingFinder->fetch()->filterViewable();
 
-        if (!empty($filters['creator_id']))
-        {
+        if (!empty($filters['creator_id'])) {
             $creatorFilter = $this->em()->find('XF:User', $filters['creator_id']);
-        }
-        else
-        {
+        } else {
             $creatorFilter = null;
         }
 
-        if (!empty($filters['condition_id']))
-        {
+        if (!empty($filters['condition_id'])) {
             $conditionFilter = $this->em()->find('FS\AuctionPlugin:Condition', $filters['condition_id']);
-        }
-        else
-        {
+        } else {
             $conditionFilter = null;
         }
 
-        if (!empty($filters['listing_type_id']))
-        {
+        if (!empty($filters['listing_type_id'])) {
             $listingTypeFilter = $this->em()->find('FS\AuctionPlugin:ListingType', $filters['listing_type_id']);
-        }
-        else
-        {
+        } else {
             $listingTypeFilter = null;
         }
 
-        if (!empty($filters['address']))
-        {
+        if (!empty($filters['address'])) {
             $addressFilter = $filters['address'];
-        }
-        else
-        {
+        } else {
             $addressFilter = null;
         }
 
         $canInlineMod = false;
-        foreach ($listings AS $listing)
-        {
+        foreach ($listings as $listing) {
             /** @var \FS\AuctionPlugin\Entity\Listing $listing */
-            if ($listing->canUseInlineModeration())
-            {
+            if ($listing->canUseInlineModeration()) {
                 $canInlineMod = true;
                 break;
             }
@@ -146,8 +126,7 @@ class Overview extends AbstractPlugin
     {
         $filters = $this->getListingFilterInput();
 
-        if ($this->filter('apply', 'bool'))
-        {
+        if ($this->filter('apply', 'bool')) {
             return $this->redirect($this->buildLink(
                 $category ? 'classifieds/categories' : 'classifieds',
                 $category,
@@ -155,48 +134,35 @@ class Overview extends AbstractPlugin
             ));
         }
 
-        if (!empty($filters['creator_id']))
-        {
+        if (!empty($filters['creator_id'])) {
             $creatorFilter = $this->em()->find('XF:User', $filters['creator_id']);
-        }
-        else
-        {
+        } else {
             $creatorFilter = null;
         }
 
-        if (!empty($filters['condition_id']))
-        {
+        if (!empty($filters['condition_id'])) {
             $conditionFilter = $this->em()->find('FS\AuctionPlugin:Condition', $filters['condition_id']);
-        }
-        else
-        {
+        } else {
             $conditionFilter = null;
         }
 
-        if (!empty($filters['listing_type_id']))
-        {
+        if (!empty($filters['listing_type_id'])) {
             $listingTypeFilter = $this->em()->find('FS\AuctionPlugin:ListingType', $filters['listing_type_id']);
-        }
-        else
-        {
+        } else {
             $listingTypeFilter = null;
         }
 
-        if ($category == null)
-        {
+        if ($category == null) {
             $conditions = $this->finder('FS\AuctionPlugin:Condition')->fetch();
             $listingTypes = $this->finder('FS\AuctionPlugin:ListingType')->fetch();
-        }
-        else
-        {
+        } else {
             $conditions = $category->conditions;
             $listingTypes = $category->listing_types;
         }
 
         $applicableCategories = $this->getCategoryRepo()->getViewableCategories($category);
         $applicableCategoryIds = $applicableCategories->keys();
-        if ($category)
-        {
+        if ($category) {
             $applicableCategoryIds[] = $category->category_id;
         }
 
@@ -209,12 +175,10 @@ class Overview extends AbstractPlugin
         $defaultOrder = $this->options()->z61ClassifiedsListDefaultOrder ?: 'expiration_date';
         $defaultDir = $defaultOrder == 'title' ? 'asc' : 'desc';
 
-        if (empty($filters['order']))
-        {
+        if (empty($filters['order'])) {
             $filters['order'] = $defaultOrder;
         }
-        if (empty($filters['direction']))
-        {
+        if (empty($filters['direction'])) {
             $filters['direction'] = $defaultDir;
         }
 
@@ -233,28 +197,23 @@ class Overview extends AbstractPlugin
 
     public function applyListingFilters(\FS\AuctionPlugin\Finder\Listing $listingFinder, array $filters)
     {
-        if (!empty($filters['prefix_id']))
-        {
+        if (!empty($filters['prefix_id'])) {
             $listingFinder->where('prefix_id', intval($filters['prefix_id']));
         }
 
-        if (!empty($filters['creator_id']))
-        {
+        if (!empty($filters['creator_id'])) {
             $listingFinder->where('user_id', intval($filters['creator_id']));
         }
 
-        if (!empty($filters['condition_id']))
-        {
+        if (!empty($filters['condition_id'])) {
             $listingFinder->where('condition_id', intval($filters['condition_id']));
         }
 
-        if (!empty($filters['listing_type_id']))
-        {
+        if (!empty($filters['listing_type_id'])) {
             $listingFinder->where('listing_type_id', intval($filters['listing_type_id']));
         }
 
-        if (!empty($filters['address']))
-        {
+        if (!empty($filters['address'])) {
             $listingFinder->withinDistance(
                 $filters['address']['distance'],
                 $filters['address']['distance_unit'],
@@ -265,8 +224,7 @@ class Overview extends AbstractPlugin
 
         $sorts = $this->getAvailableListingSorts();
 
-        if (!empty($filters['order']) && isset($sorts[$filters['order']]))
-        {
+        if (!empty($filters['order']) && isset($sorts[$filters['order']])) {
             $listingFinder->order($sorts[$filters['order']], $filters['direction']);
         }
         // else the default order has already been applied
@@ -290,36 +248,28 @@ class Overview extends AbstractPlugin
             'distance_unit' => 'str'
         ]);
 
-        if ($input['prefix_id'])
-        {
+        if ($input['prefix_id']) {
             $filters['prefix_id'] = $input['prefix_id'];
         }
 
-        if ($input['condition_id'])
-        {
+        if ($input['condition_id']) {
             $filters['condition_id'] = $input['condition_id'];
         }
 
-        if ($input['listing_type_id'])
-        {
+        if ($input['listing_type_id']) {
             $filters['listing_type_id'] = $input['listing_type_id'];
         }
 
-        if ($input['creator_id'])
-        {
+        if ($input['creator_id']) {
             $filters['creator_id'] = $input['creator_id'];
-        }
-        else if ($input['creator'])
-        {
+        } else if ($input['creator']) {
             $user = $this->em()->findOne('XF:User', ['username' => $input['creator']]);
-            if ($user)
-            {
+            if ($user) {
                 $filters['creator_id'] = $user->user_id;
             }
         }
 
-        if ($input['address'])
-        {
+        if ($input['address']) {
             $eventLocation = $input['address'];
 
             /** @var ListingLocation $locationRepo */
@@ -327,10 +277,8 @@ class Overview extends AbstractPlugin
 
             list($response, $status) = $locationRepo->getLocationDataForAddress($eventLocation);
 
-            if ($response)
-            {
-                if ($status == 'OK')
-                {
+            if ($response) {
+                if ($status == 'OK') {
                     $filters['address'] = [
                         'distance' => $input['distance'],
                         'distance_unit' => $input['distance_unit'],
@@ -344,23 +292,20 @@ class Overview extends AbstractPlugin
 
         $sorts = $this->getAvailableListingSorts();
 
-        if ($input['order'] && isset($sorts[$input['order']]))
-        {
-            if (!in_array($input['direction'], ['asc', 'desc']))
-            {
+        if ($input['order'] && isset($sorts[$input['order']])) {
+            if (!in_array($input['direction'], ['asc', 'desc'])) {
                 $input['direction'] = 'desc';
             }
 
             $defaultOrder = $this->options()->z61ClassifiedsListDefaultOrder ?: 'expiration_date';
             $defaultDir = $defaultOrder == 'expiration_date' ? 'asc' : 'desc';
 
-            if ($input['order'] != $defaultOrder || $input['direction'] != $defaultDir)
-            {
+            if ($input['order'] != $defaultOrder || $input['direction'] != $defaultDir) {
                 $filters['order'] = $input['order'];
                 $filters['direction'] = $input['direction'];
             }
         }
-// Address is in filters at this point, so wtf
+        // Address is in filters at this point, so wtf
         return $filters;
     }
 

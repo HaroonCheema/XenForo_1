@@ -27,7 +27,7 @@ class Auction extends AbstractController
     public function actionEdit(ParameterBag $params)
     {
         /** @var \FS\AuctionPlugin\Entity\Bidding $data */
-        $data = $this->assertDataExists($params->bidding_id);
+        $data = $this->assertDataExists($params->auction_id);
 
         return $this->actionAddEdit($data, $params);
     }
@@ -82,8 +82,8 @@ class Auction extends AbstractController
     public function actionSave(ParameterBag $params)
     {
 
-        if ($params->bidding_id) {
-            $editAdd = $this->assertDataExists($params->bidding_id);
+        if ($params->auction_id) {
+            $editAdd = $this->assertDataExists($params->auction_id);
         } else {
             $editAdd = $this->em()->create('FS\AuctionPlugin:Bidding');
         }
@@ -93,7 +93,7 @@ class Auction extends AbstractController
         $hash = $this->filter('attachment_hash', 'str');
 
 
-        $sql = "Update xf_attachment set content_id=$editAdd->bidding_id where temp_hash='$hash'";
+        $sql = "Update xf_attachment set content_id=$editAdd->auction_id where temp_hash='$hash'";
         $db = \XF::db();
         $db->query($sql);
 
@@ -124,6 +124,7 @@ class Auction extends AbstractController
         $data->user_id = $visitor->user_id;
         $data->prefix_id = $input['prefix_id'];
         $data->ends_on = strtotime($input['ends_on']);
+        $data->created_date = \XF::$time;
         $data->timezone = $input['timezone'];
         $data->starting_bid = $input['starting_bid'];
         $data->bid_increament = $input['bid_increament'];
@@ -135,7 +136,7 @@ class Auction extends AbstractController
         $data->receive_email = $input['receive_email'];
         $data->payment_methods = $input['payment_methods'];
 
-        if ($data->bidding_id == null) {
+        if ($data->auction_id == null) {
             $bidCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($input['category_id'])->fetchOne();
 
             $increament = $bidCounter->bid_count + 1;
@@ -176,7 +177,7 @@ class Auction extends AbstractController
 
     public function actionDelete(ParameterBag $params)
     {
-        $replyExists = $this->assertDataExists($params->bidding_id);
+        $replyExists = $this->assertDataExists($params->auction_id);
 
         /** @var \XF\ControllerPlugin\Delete $plugin */
         $plugin = $this->plugin('XF:Delete');
@@ -185,7 +186,7 @@ class Auction extends AbstractController
 
             $this->deleteAndDecreament($replyExists, true);
 
-            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->bidding_id)->fetch();
+            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->auction_id)->fetch();
 
             if (count($attachments)) {
 
@@ -262,6 +263,229 @@ class Auction extends AbstractController
         ];
 
         return $options;
+    }
+
+    public function actionArchive(ParameterBag $params)
+    {
+
+
+
+
+        /** @var \Z61\Classifieds\ControllerPlugin\Overview $overviewPlugin */
+        $overviewPlugin = $this->plugin('Z61\Classifieds:Overview');
+
+        $categoryParams = $overviewPlugin->getCategoryListData();
+        //$viewableCategoryIds = $categoryParams['categories']->keys();
+
+        //$listParams = $overviewPlugin->getCoreListData($viewableCategoryIds);
+
+        //$this->assertValidPage($listParams['page'], $listParams['perPage'], $listParams['total'], 'classifieds');
+        //$this->assertCanonicalUrl($this->buildLink('classifieds/auction/archive', null, ['page' => $listParams['page']]));
+
+        // $viewParams = $categoryParams
+
+
+        $listings = [
+            [
+                "id" => 1,
+                "img" => 'http://localhost/xenforo/data/attachments/0/7-b7a23a788d296087c1e353700d3bbe8b.jpg',
+                "created_date" => 1681117716,
+                "expired_date" => 1683797716,
+                "username" => 'admin',
+                "title" => 'title 1 of auction here',
+
+                "prefix_id" => 1,
+
+                "start_bid" => 200,
+                "User" => \XF::visitor(),
+                "category" => 'category name',
+                "content" => 'content here ',
+                "side_bar" => 'side bar',
+
+            ],
+            [
+                "title" => 'title  2 of auction  here',
+
+                "id" => 2,
+                "img" => 'http://localhost/xenforo/data/attachments/0/10-1828d61e931f13be59fce9d15dc5f6b8.jpg',
+                "created_date" => 1681117716,
+                "expired_date" => 1699677316,
+                "username" => 'admin',
+                "prefix_id" => 2,
+                "start_bid" => 300,
+                "User" => \XF::visitor(),
+                "category" => 'category name',
+                "content" => 'content here ',
+                "side_bar" => 'side bar',
+
+            ],
+            [
+                "title" => 'title  3 of auction  here',
+                "id" => 3,
+                "img" => 'http://localhost/xenforo/data/attachments/0/10-1828d61e931f13be59fce9d15dc5f6b8.jpg',
+                "created_date" => 1681217716,
+                "expired_date" => 1692671316,
+                "username" => 'admin',
+                "prefix_id" => 2,
+                "start_bid" => 300,
+                "User" => \XF::visitor(),
+                "category" => 'category 3 name',
+                "content" => 'content 3 here ',
+                "side_bar" => 'side bar',
+
+            ],
+            [
+                "id" => 4,
+                "img" => 'http://localhost/xenforo/data/attachments/0/7-b7a23a788d296087c1e353700d3bbe8b.jpg',
+                "created_date" => 1681117716,
+                "expired_date" => 1683797716,
+                "username" => 'admin',
+                "title" => 'title 4 of auction here',
+
+                "prefix_id" => 1,
+
+                "start_bid" => 200,
+                "User" => \XF::visitor(),
+                "category" => 'category 4 name',
+                "content" => 'content 4 here ',
+                "side_bar" => 'side bar',
+
+            ],
+            [
+                "title" => 'title  5 of auction  here',
+                "id" => 5,
+                "img" => 'http://localhost/xenforo/data/attachments/0/10-1828d61e931f13be59fce9d15dc5f6b8.jpg',
+                "created_date" => 1681217716,
+                "expired_date" => 1692671316,
+                "username" => 'user',
+                "prefix_id" => 2,
+                "start_bid" => 300,
+                "User" => \XF::visitor(),
+                "category" => 'category 5 name',
+                "content" => 'content 5 here ',
+                "side_bar" => 'side bar',
+
+            ],
+            [
+                "title" => 'title  6 of auction  here',
+
+                "id" => 6,
+                "img" => 'http://localhost/xenforo/data/attachments/0/10-1828d61e931f13be59fce9d15dc5f6b8.jpg',
+                "created_date" => 1681117716,
+                "expired_date" => 1699677316,
+                "username" => 'admin',
+                "prefix_id" => 2,
+                "start_bid" => 300,
+                "User" => \XF::visitor(),
+                "category" => 'category 6 name',
+                "content" => 'content 6 here ',
+                "side_bar" => 'side bar',
+
+            ],
+
+        ];
+
+        $myCategories = [
+            [
+                "category_id" => 1,
+                "title" => 'title 1',
+                "description" => '1681117716',
+                "parent_category_id" => 0,
+                "display_order" => 2,
+                "depth" => 1,
+                "lft" => 1,
+                "rgt" => 4,
+                "bid_count" => 4,
+
+
+
+            ],
+            [
+                "category_id" => 2,
+                "title" => '2title 2',
+                "description" => '1681117716',
+                "parent_category_id" => 0,
+                "display_order" => 1,
+                "depth" => 1,
+                "lft" => 1,
+                "rgt" => 1,
+                "bid_count" => 4,
+
+            ],
+
+        ];
+
+        $myCategoriesExtra = [
+            [
+                "listing_count" => 1,
+                "catTittle" => 'catTittle',
+
+                "childCount" => 3,
+                "last_listing_date" => 1681117716,
+                "last_listing_title" => 'sell item in custom list',
+                "last_listing_id" => 2,
+
+            ],
+            [
+                "listing_count" => 0,
+                "childCount" => 10,
+                "catTittle" => 'catTittle',
+
+                "last_listing_date" => 1681217716,
+                "last_listing_title" => 'sell item in custom list',
+                "last_listing_id" => 2,
+
+            ],   [
+                "listing_count" => 4,
+                "catTittle" => 'catTittle',
+
+                "childCount" => 12,
+                "last_listing_date" => 1681317716,
+                "last_listing_title" => 'sell item in custom list',
+                "last_listing_id" => 2,
+
+            ],
+
+        ];
+        $categoryTree = [
+            [
+                4 => 4,
+                2 => 2,
+            ],
+            [
+                4 => 4,
+                2 => 2,
+                [
+                    4 => 4,
+                    2 => 2,
+                ],
+            ],
+
+            [
+                13 => 13,
+
+
+            ],
+        ];
+        $viewParams = $categoryParams;
+
+        //$viewParams = ['categoryParams'=>$categoryParams,'myCategories'=> $myCategories];
+
+        //$viewParams = ['listings' => $listings];
+        //$viewParams = $categoryParams;
+
+        //$viewParams = ['categoryTree' => $categoryTree,'categoryExtras' => $myCategoriesExtra];
+
+        //var_dump(gettype($myCategories));
+
+        //echo '<pre>';
+        //var_dump($listings);exit;
+        // var_dump($listParams);exit;
+        //var_dump($categoryParams);exit;
+
+
+
+        return $this->view('FS\AuctionPlugin', 'fs_auctionArchive', $viewParams);
     }
 
     public function getAbstractDepositAttachmentPath($hash, $id)

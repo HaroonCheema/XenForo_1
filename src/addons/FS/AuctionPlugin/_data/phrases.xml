@@ -56,10 +56,12 @@
   <phrase title="nav.fs_auction_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
   <phrase title="option.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Thread Prefix Id]]></phrase>
+  <phrase title="option.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Allowed image extensions]]></phrase>
   <phrase title="option.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Minimum Bid Increament]]></phrase>
   <phrase title="option.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Payment Options]]></phrase>
   <phrase title="option_explain.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option_explain.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[]]></phrase>
+  <phrase title="option_explain.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List the file extensions that are allowed to be uploaded for images. Use spaces or line breaks between extensions.]]></phrase>
   <phrase title="option_explain.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bid increament options...!]]></phrase>
   <phrase title="option_explain.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[payment options]]></phrase>
   <phrase title="option_group.auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Auction]]></phrase>

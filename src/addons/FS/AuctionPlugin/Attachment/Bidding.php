@@ -57,9 +57,6 @@ class Bidding extends AbstractHandler
 		}
 	}
 
-
-
-
 	public function onAttachmentDelete(Attachment $attachment, Entity $container = null)
 	{
 		if (!$container) {
@@ -72,9 +69,9 @@ class Bidding extends AbstractHandler
 
 		$em = \XF::em();
 
-		if (!empty($context['bidding_id'])) {
+		if (!empty($context['auction_id'])) {
 
-			$Item = $em->find('FS\AuctionPlugin:Bidding', intval($context['bidding_id']));
+			$Item = $em->find('FS\AuctionPlugin:Bidding', intval($context['auction_id']));
 			return $Item->getAttachmentConstraints();
 		} else {
 			$Item = $em->create('FS\AuctionPlugin:Bidding');
@@ -84,7 +81,7 @@ class Bidding extends AbstractHandler
 
 	public function getContainerIdFromContext(array $context)
 	{
-		return isset($context['bidding_id']) ? intval($context['bidding_id']) : null;
+		return isset($context['auction_id']) ? intval($context['auction_id']) : null;
 	}
 
 	public function getContainerLink(Entity $container, array $extraParams = [])
@@ -96,7 +93,7 @@ class Bidding extends AbstractHandler
 	{
 
 		if ($entity instanceof \FS\AuctionPlugin\Entity\Bidding) {
-			$extraContext['bidding_id'] = $entity->bidding_id;
+			$extraContext['auction_id'] = $entity->auction_id;
 		} else if (!$entity) {
 			// need nothing
 		} else {

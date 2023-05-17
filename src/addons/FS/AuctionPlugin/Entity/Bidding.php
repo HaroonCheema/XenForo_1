@@ -13,9 +13,9 @@ class Bidding extends Entity
         $structure->table = 'fs_auction_category_bidding';
         $structure->shortName = 'FS\AuctionPlugin:Bidding';
         $structure->contentType = 'fs_auction';
-        $structure->primaryKey = 'bidding_id';
+        $structure->primaryKey = 'auction_id';
         $structure->columns = [
-            'bidding_id' => ['type' => self::UINT, 'autoIncrement' => true],
+            'auction_id' => ['type' => self::UINT, 'autoIncrement' => true],
             'category_id' => [
                 'type' => self::UINT,
                 'required' => 'z61_classifieds_please_enter_valid_category'
@@ -34,6 +34,7 @@ class Bidding extends Entity
             'prefix_id' => ['type' => self::UINT, 'default' => 0],
             'attach_count' => ['type' => self::UINT, 'default' => 0],
             'ends_on' => ['type' => self::UINT, 'required' => true],
+            'created_date' => ['type' => self::UINT, 'required' => false],
             'timezone' => ['type' => self::STR, 'required' => true],
             'starting_bid' => ['type' => self::UINT, 'required' => true],
             'bid_increament' => ['type' => self::UINT, 'required' => true],
@@ -52,13 +53,40 @@ class Bidding extends Entity
                 'type' => self::TO_ONE,
                 'conditions' => 'category_id',
             ],
+            'ShipVia' => [
+                'entity' => 'FS\AuctionPlugin:ShipsVia',
+                'type' => self::TO_ONE,
+                'conditions' => [
+                    ['via_id', '=', '$ships_via'],
+                ]
+            ],
+
+            'ShipTerm' => [
+                'entity' => 'FS\AuctionPlugin:ShipTerms',
+                'type' => self::TO_ONE,
+                'conditions' => [
+                    ['term_id', '=', '$shipping_term'],
+                ]
+            ],
+
+            'User' => [
+                'entity' => 'XF:User',
+                'type' => self::TO_ONE,
+                'conditions' => 'user_id',
+            ],
+            'Prefix' => [
+                'entity' => 'XF:ThreadPrefix',
+                'type' => self::TO_ONE,
+                'conditions' => 'prefix_id',
+                'primary' => true
+            ],
 
             'Attachment' => [
                 'entity' => 'XF:Attachment',
                 'type' => self::TO_ONE,
                 'conditions' => [
                     ['content_type', '=', 'fs_auction'],
-                    ['content_id', '=', '$bidding_id']
+                    ['content_id', '=', '$auction_id']
                 ],
                 'with' => 'Data',
             ]
@@ -76,10 +104,17 @@ class Bidding extends Entity
         $options = $this->app()->options();
 
         $extensions = [];
-        $extensions = array_merge($extensions, Arr::stringToArray($options->bh_ImageExtensions));
+        $extensions = array_merge($extensions, Arr::stringToArray($options->fs_auction_ImageExtensions));
 
         return [
             'extensions' => $extensions,
         ];
+    }
+
+    public function getImage()
+    {
+        $attachmentData = $this->finder('XF:Attachment')->where('content_id', $this->auction_id)->where('content_type', 'fs_auction')->fetchOne();
+
+        return $attachmentData->Data ? $attachmentData->Data->getThumbnailUrl() : '';
     }
 }

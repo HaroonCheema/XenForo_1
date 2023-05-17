@@ -28,17 +28,17 @@ class Bidding extends Repository
 	{
 		$options = $this->options();
 
-		$imageExtensions = Arr::stringToArray($options->bh_ImageExtensions);
-		//		$videoExtensions = Arr::stringToArray($options->xfmgVideoExtensions);
-		//		$audioExtensions = Arr::stringToArray($options->xfmgAudioExtensions);
+		$imageExtensions = Arr::stringToArray($options->fs_auction_ImageExtensions);
 
 		if (in_array($extension, $imageExtensions)) {
 			return 'image';
-		} else if (in_array($extension, $videoExtensions)) {
-			return 'video';
-		} else if (in_array($extension, $audioExtensions)) {
-			return 'audio';
-		} else {
+		}
+		// else if (in_array($extension, $videoExtensions)) {
+		// 	return 'video';
+		// } else if (in_array($extension, $audioExtensions)) {
+		// 	return 'audio';
+		// }
+		else {
 			return false;
 		}
 	}

@@ -1,0 +1,1 @@
+List the file extensions that are allowed to be uploaded for images. Use spaces or line breaks between extensions.

@@ -163,6 +163,8 @@ return array (
   'option.floodCheckLengthDiscussion' => 'Minimum time between discussions',
   'option.forum_items_display' => 'Items display on forum',
   'option.forumsDefaultPage' => 'Forums default page',
+  'option.fs_auction_ImageExtensions' => 'Allowed image extensions',
+  'option.fs_auction_list_layout' => 'Layout type',
   'option.fs_enable_image' => 'Display Image',
   'option.fs_mts_customMsgColor' => 'Custom message Text Color',
   'option.fs_mts_customMsgbackGroundColor' => 'Custom message Background Color',

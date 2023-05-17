@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: aa34a74b6c6b5a6835d5179911bbf6db
+// FROM HASH: 5c1c10e6c9c8055dbb600bd4bbaa4532
 return array(
 'macros' => array('simple_category_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -26,6 +26,7 @@ return array(
 				'children' => $__vars['child'],
 				'childExtras' => $__vars['extras'],
 			), $__vars) . '
+			
 		';
 		}
 	}

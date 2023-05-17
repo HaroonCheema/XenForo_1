@@ -1,0 +1,115 @@
+<xf:macro name="featured_carousel" arg-featuredListings="!" arg-viewAllLink="!">
+	<xf:if is="$featuredListings is not empty">
+		<xf:css src="carousel.less" />
+		<xf:css src="lightslider.less" />
+
+		<xf:js prod="xf/carousel-compiled.js" dev="vendor/lightslider/lightslider.min.js, xf/carousel.js" />
+
+		<div class="carousel carousel--withFooter">
+			<ul class="carousel-body carousel-body--show2" data-xf-init="carousel">
+				<xf:foreach loop="$featuredListings" value="$listing">
+					<li>
+						<div class="carousel-item">
+							<div class="contentRow">
+								<div class="contentRow-figure">
+										<xf:avatar user="$listing.User.username" size="m" notooltip="true" />
+								</div>
+								<div class="contentRow-main">
+									<h4 class="contentRow-title"><a href="{{ link('classifieds', $listing) }}">{{ prefix('classifieds_listing', $listing) }}{$listing.title}</a></h4>
+									<div class="contentRow-minor contentRow-minor--smaller">
+										<ul class="listInline listInline--bullet">
+											<li>{{ $listing.User.username ?: $listing.User.username }}</li>
+											<li>{{ phrase('updated:') }} <xf:date time="{$listing.last_edit_date}" /></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</xf:foreach>
+			</ul>
+			<div class="carousel-footer">
+				<a href="{$viewAllLink}">{{ phrase('classifieds_view_all_featured_listings') }}</a>
+			</div>
+		</div>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="list_filter_bar" arg-filters="!" arg-baseLinkPath="!" arg-category="{{ null }}" arg-creatorFilter="{{ null }}" arg-conditionFilter="{{ null }}" arg-listingTypeFilter="{{ null }}">
+	<xf:set var="$sortOrders" value="{{ {
+		'last_update': phrase('z61_classifieds_last_updated'),
+		'expiration_date': phrase('z61_classifieds_expiration_date'),
+		'title': phrase('title'),
+		'price': phrase('price')
+	} }}" />
+
+	<div class="block-filterBar">
+		<div class="filterBar">
+			<xf:if contentcheck="true">
+				<ul class="filterBar-filters">
+					<xf:contentcheck>
+						<xf:if is="$filters.prefix_id">
+							<li><a href="{{ link($baseLinkPath, $category, $filters|replace('prefix_id', null)) }}"
+								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
+								<span class="filterBar-filterToggle-label">{{ phrase('prefix:') }}</span>
+								{{ prefix_title('classifieds_listing', $filters.prefix_id) }}</a></li>
+						</xf:if>
+						<xf:if is="$filters.condition_id">
+						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('condition_id', null)) }}"
+							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
+							<span class="filterBar-filterToggle-label">{{ phrase('z61_classifieds_condition:') }}</span>
+							{{ $conditionFilter.title }}</a></li>
+					</xf:if>
+						
+					<xf:if is="$xf.options.z61ClassifiedsGoogleApi && $filters.address AND $addressFilter">
+						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('address', null)) }}"
+							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
+							<span class="filterBar-filterToggle-label">{{ phrase('z61_classifieds_within:') }}</span>
+							{{ phrase('z61_classifieds_x_y_of_z', 
+								{'distance': $address.distance,
+								 'unit': {$address.distance_unit|to_upper()},
+								 'address': $address.formatted
+								})
+							}}</a></li>
+					</xf:if>
+
+					<xf:if is="$filters.listing_type_id">
+						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('listing_type_id', null)) }}"
+							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
+							<span class="filterBar-filterToggle-label">{{ phrase('type:') }}</span>
+							{{ $listingTypeFilter.title }}</a></li>
+					</xf:if>
+
+						<xf:if is="$filters.creator_id AND $creatorFilter">
+							<li><a href="{{ link($baseLinkPath, $category, $filters|replace('creator_id', null)) }}"
+								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
+								<span class="filterBar-filterToggle-label">{{ phrase('author:') }}</span>
+								{$creatorFilter.username}</a></li>
+						</xf:if>
+						<xf:if is="$filters.order AND {$sortOrders.{$filters.order}}">
+							<li><a href="{{ link($baseLinkPath, $category, $filters|replace({'order': null, 'direction': null})) }}"
+								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('return_to_default_order')|for_attr }}">
+								<span class="filterBar-filterToggle-label">{{ phrase('sort_by:') }}</span>
+								{$sortOrders.{$filters.order}}
+								<i class="fa {{ $filters.direction == 'asc' ? 'fa-angle-up' : 'fa-angle-down' }}" aria-hidden="true"></i>
+								<span class="u-srOnly"><xf:if is="$filters.direction == 'asc'">{{ phrase('ascending') }}<xf:else />{{ phrase('descending') }}</xf:if></span>
+							</a></li>
+						</xf:if>
+					</xf:contentcheck>
+				</ul>
+			</xf:if>
+
+			<a class="filterBar-menuTrigger" data-xf-click="menu" role="button" tabindex="0" aria-expanded="false" aria-haspopup="true">{{ phrase('filters') }}</a>
+			<div class="menu menu--wide" data-menu="menu" aria-hidden="true"
+				data-href="{{ link($baseLinkPath . '/filters', $category, $filters) }}"
+				data-load-target=".js-filterMenuBody">
+				<div class="menu-content">
+					<h4 class="menu-header">{{ phrase('show_only:') }}</h4>
+					<div class="js-filterMenuBody">
+						<div class="menu-row">{{ phrase('loading...') }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</xf:macro>

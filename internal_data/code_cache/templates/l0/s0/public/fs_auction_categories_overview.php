@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 9d0b098551e1d2f90a3f07b58de10784
+// FROM HASH: 99bf7b2614f293390a1a3705e3322cb8
 return array(
 'macros' => array('table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -60,6 +60,78 @@ return array(
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
 
+
+<script>
+//For Mulitiple counter
+
+// For All OtherAuctions
+function DateTimeConverter(unixdatetime) {
+  var wStart_time = new Date(unixdatetime * 1000).toLocaleString("en-GB", {
+    hour12: false,
+    // timeZone:\'Europe/London\',
+    timeStyle: "short",
+  });
+  var humanDate = new Date(unixdatetime * 1000);
+  var year = humanDate.getFullYear();
+
+  var month = (humanDate.getMonth() + 1).toString().padStart(2, "0");
+  var date = humanDate.getDate();
+
+  var fulldate = year + "-" + month + "-" + date + " " + wStart_time + ":00";
+
+  // FormatingDateEspecialyForIOS
+  var tempCountTimmer = fulldate.split(/[- :]/);
+  // Apply each element to the Date function
+  var tempDateObject = new Date(
+    tempCountTimmer[0],
+    tempCountTimmer[1] - 1,
+    tempCountTimmer[2],
+    tempCountTimmer[3],
+    tempCountTimmer[4],
+    tempCountTimmer[5]
+  );
+  var CountDownDateTime = new Date(tempDateObject).getTime();
+
+  return CountDownDateTime;
+}
+
+function timmerCounter(auction_id, start_datetime) {
+  let auc_id = auction_id;
+	console.log(document.getElementById("hours-auction-" + auc_id));
+  let humanDateTime = DateTimeConverter(start_datetime);
+
+  var countDownDate = new Date(humanDateTime).getTime();
+  var counter = setInterval(function () {
+    // Get today\'s date and time
+    var now = new Date().getTime();
+    // Find the distance between now and the count down date
+    var timeDistance = countDownDate - now;
+    document.getElementById("days-auction-" + auc_id).innerHTML =
+      Math.floor(timeDistance / (1000  60  60 * 24)) + " D";
+    document.getElementById("hours-auction-" + auc_id).innerHTML =
+      Math.floor((timeDistance % (1000  60  60  24)) / (1000  60 * 60)) +
+      " H";
+    document.getElementById("minutes-auction-" + auc_id).innerHTML =
+      Math.floor((timeDistance % (1000  60  60)) / (1000 * 60)) + " M";
+    document.getElementById("seconds-auction-" + auc_id).innerHTML =
+      Math.floor((timeDistance % (1000 * 60)) / 1000) + " S";
+
+    // If the count down is over, write some text
+    if (timeDistance < 0) {
+      clearInterval(counter);
+    //  var url = window.location.origin + "/classified/auction/" + auc_id;
+ //     document.getElementById("days-" + auc_id).innerHTML =
+  //      "<a href=" + url + ">Join</a>";
+  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
+   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
+   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
+    }
+  }, 1000);
+}
+
+</script>
+
+
 ';
 	$__templater->setPageParam('searchConstraints', array('Listings' => array('search_type' => 'classifieds_listing', ), ));
 	$__finalCompiled .= '
@@ -83,6 +155,42 @@ return array(
 	if (!$__templater->test($__vars['data'], 'empty', array())) {
 		$__compilerTemp1 .= '
 	<div class="block-body">
+		
+		';
+		if ($__vars['xf']['options']['fs_auction_list_layout'] == 'list_view') {
+			$__compilerTemp1 .= '
+				';
+			if (!$__templater->test($__vars['listings'], 'empty', array())) {
+				$__compilerTemp1 .= '
+					<div class="structItemContainer">
+						';
+				if ($__templater->isTraversable($__vars['listings'])) {
+					foreach ($__vars['listings'] AS $__vars['listing']) {
+						$__compilerTemp1 .= '
+							' . $__templater->callMacro('fs_auction_listing_list_macros', 'listing', array(
+							'listing' => $__vars['listing'],
+						), $__vars) . '
+						';
+					}
+				}
+				$__compilerTemp1 .= '
+					</div>
+					';
+			} else if ($__vars['filters']) {
+				$__compilerTemp1 .= '
+					<div class="block-row">' . 'There are currently no listings that match your filters.' . '</div>
+					';
+			} else {
+				$__compilerTemp1 .= '
+					<div class="block-row">' . 'No listings have been created yet.' . '</div>
+				';
+			}
+			$__compilerTemp1 .= '
+				';
+		}
+		$__compilerTemp1 .= '
+			
+			
 			' . $__templater->dataList('
 					
 				' . $__templater->callMacro(null, 'table_list', array(
@@ -123,26 +231,10 @@ return array(
 	$__templater->setPageParam('sideNavTitle', 'Categories');
 	$__finalCompiled .= '
 ';
-	$__compilerTemp2 = '';
-	if ($__templater->isTraversable($__vars['categories'])) {
-		foreach ($__vars['categories'] AS $__vars['child']) {
-			$__compilerTemp2 .= '
-		<li class="categoryList-item">
-		<div class="categoryList-itemRow">
-			
-			<a href="' . $__templater->func('link', array('classifieds/categories', $__vars['category'], ), true) . '" class="categoryList-link' . ($__vars['isSelected'] ? ' is-selected' : '') . '">
-				' . $__templater->escape($__vars['child']['title']) . '
-			</a>
-			<span class="categoryList-label">
-				<span class="label label--subtle label--smallest">' . $__templater->filter($__vars['child']['bid_count'], array(array('number_short', array()),), true) . '</span>
-			</span>
-		</div>
-	</li>
-	';
-		}
-	}
 	$__templater->modifySideNavHtml(null, '
-	' . $__compilerTemp2 . '
+	' . $__templater->callMacro('fs_auction_category_list_macros', 'simple_list_block', array(
+		'categoryTree' => $__vars['categoryTree'],
+	), $__vars) . '
 
 ', 'replace');
 	$__finalCompiled .= '
