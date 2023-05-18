@@ -13,58 +13,41 @@ use Z61\Classifieds\Notifier\Listing\Sold;
 
 use XF\Pub\Controller\AbstractController;
 
-class Bidding extends AbstractController
+class AuctionListing extends AbstractController
 {
 
     public function actionIndex(ParameterBag $params)
     {
-        if ($params->listing_id) {
-            return $this->rerouteController(__CLASS__, 'view', $params);
-        }
-
-        // $finder = $this->finder('FS\AuctionPlugin:Category')->order('category_id', 'DESC')->fetch();
-        // $biddingFinder = $this->finder('FS\AuctionPlugin:Bidding')->order('auction_id', 'DESC')->fetch();
-
         $categories = $this->finder('FS\AuctionPlugin:Category')->fetch();
         $categoryTree = $this->createCategoryTree($categories);
 
-        $finder = $this->finder('FS\AuctionPlugin:Bidding');
+        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
-        // ager filter search wala set hai to ye code chaley ga or is k ander wala function or code run ho ga
         if ($this->filter('search', 'uint')) {
             $finder = $this->getCrudSearchFinder();
 
             if (count($finder->getConditions()) == 0) {
                 return $this->error(\XF::phrase('please_complete_required_field'));
             }
-        }
-        // nai to ye wala run ho ga code jo is ka defaul hai or sarey record show kerwaye ga
-        else {
+        } else if ($params->category_id) {
+            $finder->where('category_id', $params->category_id);
+        } else {
             $finder->order('auction_id', 'DESC');
         }
-
-        // return [
-        //     'categories' => $categories,
-        //     'categoryTree' => $categoryTree,
-        // ];
 
         $viewParams = [
             'categories' => $categories,
             'categoryTree' => $categoryTree,
-            // 'listings' => $biddingFinder,
             'listings' => $finder->fetch(),
             'conditions' => $this->filterSearchConditions(),
         ];
 
-        return $this->view('FS\AuctionPlugin:Overview', 'fs_auctionArchive', $viewParams);
-        // return $this->view('FS\AuctionPlugin:Overview', 'addEdit_Auction', $viewParams);
+        return $this->view('FS\AuctionPlugin:AuctionListing', 'fs_auctionArchive', $viewParams);
     }
 
     public function actionViewAuction(ParameterBag $params)
     {
-        ///* @var \FS\AuctionPlugin\Entity\Bidding $data /
-        //$auction = $this->assertDataExists($params->auction_id);
-        $auction = $this->Finder('FS\AuctionPlugin:Bidding')->whereId($params->auction_id)->fetchOne();
+        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
         if (!$auction) {
             return $this->error('data not found');
         }
@@ -86,10 +69,7 @@ class Bidding extends AbstractController
     {
         $conditions = $this->filterSearchConditions();
 
-        // var_dump($conditions);
-        // exit;
-
-        $finder = $this->finder('FS\AuctionPlugin:Bidding');
+        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
         if ($conditions['fs_auction_username'] != '') {
 
@@ -100,7 +80,7 @@ class Bidding extends AbstractController
         }
 
         if ($conditions['fs_auction_status'] != 'all') {
-            $finder->where('bidding_status', $conditions['fs_auction_status']);
+            $finder->where('auction_status', $conditions['fs_auction_status']);
         }
 
         if ($conditions['fs_auction_cat'] != '0') {
@@ -124,39 +104,19 @@ class Bidding extends AbstractController
         return new \XF\Tree($categories, 'parent_category_id', $rootId);
     }
 
-    public function actionView(ParameterBag $params)
+    public function actionViewType(ParameterBag $params)
     {
-        $listing = $this->assertViewableListing($params->listing_id, $this->getListingExtraWiths());
+        $visitor = \XF::visitor();
 
-        $snippet = $this->app->stringFormatter()->wholeWordTrim(
-            $listing->content,
-            250
-        );
+        if ($visitor->user_id != 0 && $visitor->layout_type != $params->category_id) {
 
-        if ($this->options()->z61ClassifiedsAuthorOtherListingsCount && $listing->User) {
-            $authorOthers = $this->getListingRepo()
-                ->findOtherListingsByAuthor($listing)
-                ->fetch($this->options()->z61ClassifiedsAuthorOtherListingsCount);
-            $authorOthers = $authorOthers->filterViewable();
-        } else {
-            $authorOthers = $this->em()->getEmptyCollection();
+            $visitor->fastUpdate('layout_type', $params->category_id);
         }
 
-        $listingRepo = $this->getListingRepo();
-
-        $listingRepo->markListingReadByVisitor($listing);
-        $listingRepo->logListingView($listing);
-
-        $viewParams = [
-            'listing' => $listing,
-            'descSnippet' => $snippet,
-            'category' => $listing->Category,
-            'authorOthers' => $authorOthers,
-            'iconError' => $this->filter('icon_error', 'bool')
-        ];
-        return $this->view('Z61\Classifieds:Listing\View', 'z61_classifieds_listing_view', $viewParams);
+        return $this->redirect(
+            $this->getDynamicRedirect($this->buildLink('auction'), false)
+        );
     }
-
 
     public function actionAddListingChooser()
     {
@@ -186,7 +146,7 @@ class Bidding extends AbstractController
 
     public function actionAdd(ParameterBag $params)
     {
-        return $this->rerouteController('FS\AuctionPlugin:Bidding', 'addListingChooser', $params);
+        return $this->rerouteController('FS\AuctionPlugin:AuctionListing', 'addListingChooser', $params);
     }
 
     public function actionRefineSearch(ParameterBag $params)
@@ -198,7 +158,7 @@ class Bidding extends AbstractController
             'categories' => $categories,
         ];
 
-        return $this->view('FS\AuctionPlugin:Auction\RefineSearch', 'fs_auction_search_filter', $viewParams);
+        return $this->view('FS\AuctionPlugin:AuctionListing\RefineSearch', 'fs_auction_search_filter', $viewParams);
     }
 
     protected function filterSearchConditions()

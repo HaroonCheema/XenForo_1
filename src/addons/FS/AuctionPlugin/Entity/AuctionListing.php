@@ -6,12 +6,12 @@ use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
 use XF\Util\Arr;
 
-class Bidding extends Entity
+class AuctionListing extends Entity
 {
     public static function getStructure(Structure $structure)
     {
-        $structure->table = 'fs_auction_category_bidding';
-        $structure->shortName = 'FS\AuctionPlugin:Bidding';
+        $structure->table = 'fs_auction_listing';
+        $structure->shortName = 'FS\AuctionPlugin:AuctionListing';
         $structure->contentType = 'fs_auction';
         $structure->primaryKey = 'auction_id';
         $structure->columns = [
@@ -30,7 +30,7 @@ class Bidding extends Entity
                 'censor' => true
             ],
             'user_id' => ['type' => self::UINT, 'required' => true],
-            'bidding_status' => ['type' => self::BOOL, 'default' => true],
+            'auction_status' => ['type' => self::BOOL, 'default' => true],
             'prefix_id' => ['type' => self::UINT, 'default' => 0],
             'attach_count' => ['type' => self::UINT, 'default' => 0],
             'ends_on' => ['type' => self::UINT, 'required' => true],

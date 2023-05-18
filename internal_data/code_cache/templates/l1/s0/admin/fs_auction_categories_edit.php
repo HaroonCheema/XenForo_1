@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: cd735479b42c78922850d71bba4cb6ea
+// FROM HASH: 3a85ab34ab9b0c0cb393f82a7ad30fe2
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -60,25 +60,6 @@ return array(
 			' . $__templater->callMacro('display_order_macros', 'row', array(
 		'value' => $__vars['category']['display_order'],
 	), $__vars) . '
-
-			' . $__templater->formSelectRow(array(
-		'name' => 'layout_type',
-		'value' => $__vars['category']['layout_type'],
-		'id' => 'js-classifiedsLayoutType',
-	), array(array(
-		'value' => 'list_view',
-		'selected' => ($__vars['category']['layout_type'] == 'list_view'),
-		'label' => 'List view layout',
-		'_type' => 'option',
-	),
-	array(
-		'value' => 'grid_view',
-		'selected' => ($__vars['category']['layout_type'] == 'grid_view'),
-		'label' => 'Grid view layout',
-		'_type' => 'option',
-	)), array(
-		'label' => 'List layout type',
-	)) . '
 			
 			' . $__templater->formSubmitRow(array(
 		'sticky' => 'true',

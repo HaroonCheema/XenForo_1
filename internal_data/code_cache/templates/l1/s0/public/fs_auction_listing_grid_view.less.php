@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: afc099918fd80c89ac3480dceb686ce5
+// FROM HASH: 6703d0d42af5bbaa891c3ef934df8f39
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -15,15 +15,19 @@ return array(
 @listing-grid-thumb: 108px;
 
 .auction-itemGrid-img{
+	height: 167px;
+	min-width:275px;
+	max-width:275px;
 	
-	min-width:188px;
-	max-width:188px;
-	
+}
+.label--counter{
+	color:black !important;
 }
 .auction-category{
 	font-size: 12px;
     color: #8c8c8c;
 }
+
 @media(min-width:767.5){
 	.auction-itemGrid-img{
 	

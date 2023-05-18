@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 51e4f3243f8dacaae59314cbc534cd93
+// FROM HASH: 7120ab204c48c3ae47cdc70d17f66296
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -10,7 +10,13 @@ return array(
 {
 	width: 250px;
 }
-
+.label--counter{
+	color:black !important;
+}
+.auction-category{
+	font-size: 12px;
+    color: #8c8c8c;
+}
 .structItem-metaItem--ratingf
 {
 	font-size: @xf-fontSizeSmall;

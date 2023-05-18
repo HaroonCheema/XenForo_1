@@ -32,14 +32,14 @@ class MySql
             $table->addKey(['lft', 'rgt']);
         };
 
-        $tables['fs_auction_category_bidding'] = function ($table) {
+        $tables['fs_auction_listing'] = function ($table) {
             /** @var Create|Alter $table */
             $this->addOrChangeColumn($table, 'auction_id', 'int')->autoIncrement();
             $this->addOrChangeColumn($table, 'category_id', 'int')->setDefault(0);
             $this->addOrChangeColumn($table, 'title', 'varchar', 100);
             $this->addOrChangeColumn($table, 'content', 'mediumtext');
             $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'bidding_status', 'tinyint', 3)->setDefault(1);
+            $this->addOrChangeColumn($table, 'auction_status', 'tinyint', 3)->setDefault(1);
             $this->addOrChangeColumn($table, 'prefix_id', 'int')->setDefault(0);
             $this->addOrChangeColumn($table, 'attach_count', 'int')->setDefault(0);
             $this->addOrChangeColumn($table, 'ends_on', 'int')->setDefault(0);

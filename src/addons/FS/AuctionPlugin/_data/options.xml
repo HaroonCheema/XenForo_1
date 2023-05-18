@@ -19,6 +19,12 @@ gif</default_value>
     <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>
+  <option option_id="fs_auction_list_layout" edit_format="radio" data_type="string">
+    <default_value>list_view</default_value>
+    <edit_format_params>list_view={{ phrase('fs_auction_list_view_layout') }}
+grid_view={{ phrase('fs_auction_grid_view_layout') }}</edit_format_params>
+    <relation group_id="auction" display_order="1"/>
+  </option>
   <option option_id="minimumBidIncreament" edit_format="textbox" data_type="string">
     <default_value>5
 10

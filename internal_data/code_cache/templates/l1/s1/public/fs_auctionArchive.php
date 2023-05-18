@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: f91dda10074ba51b7d6c89fcfac4fe34
+// FROM HASH: 860fcbf5a4f760abf1e29b66a8ec655d
 return array(
 'macros' => array('search_menu' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -159,13 +159,18 @@ function timmerCounter(auction_id, start_datetime) {
 	$__compilerTemp1 = '';
 	$__compilerTemp2 = '';
 	$__compilerTemp2 .= '
-					';
-	if ($__vars['canInlineMod']) {
-		$__compilerTemp2 .= '
-						' . $__templater->callMacro('inline_mod_macros', 'button', array(), $__vars) . '
-					';
-	}
-	$__compilerTemp2 .= '
+					
+							' . $__templater->callMacro('fs_auction_inline_mod_macros', 'button', array(
+		'tooltip' => 'List View',
+		'linkParam' => '0',
+		'iconClass' => 'list',
+	), $__vars) . '
+					' . $__templater->callMacro('fs_auction_inline_mod_macros', 'button', array(
+		'tooltip' => 'Grid View',
+		'linkParam' => '1',
+		'iconClass' => 'th',
+	), $__vars) . '
+					
 				';
 	if (strlen(trim($__compilerTemp2)) > 0) {
 		$__compilerTemp1 .= '
@@ -200,7 +205,7 @@ function timmerCounter(auction_id, start_datetime) {
 		<div class="block-body">
 		
 			';
-	if ($__vars['xf']['options']['fs_auction_list_layout'] == 'list_view') {
+	if ($__vars['xf']['visitor']['layout_type'] == '0') {
 		$__finalCompiled .= '
 				';
 		if (!$__templater->test($__vars['listings'], 'empty', array())) {
@@ -230,7 +235,7 @@ function timmerCounter(auction_id, start_datetime) {
 		}
 		$__finalCompiled .= '
 			';
-	} else if ($__vars['xf']['options']['fs_auction_list_layout'] == 'grid_view') {
+	} else if ($__vars['xf']['visitor']['layout_type'] == '1') {
 		$__finalCompiled .= '
 				';
 		if (!$__templater->test($__vars['featuredListings'], 'empty', array())) {
@@ -310,7 +315,6 @@ function timmerCounter(auction_id, start_datetime) {
 	
 	' . $__templater->callMacro('fs_auction_category_list_macros', 'simple_list_block', array(
 		'categoryTree' => $__vars['categoryTree'],
-		'categoryExtras' => $__vars['categoryExtras'],
 	), $__vars) . '
 ', 'replace');
 	$__finalCompiled .= '

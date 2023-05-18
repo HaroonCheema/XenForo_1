@@ -8,9 +8,8 @@ use XF\Util\Arr;
 use XF\Entity\Attachment;
 
 
-class Bidding extends Repository
+class AuctionListing extends Repository
 {
-
 
 	public function getMediaTypeFromAttachment(\XF\Entity\Attachment $attachment)
 	{

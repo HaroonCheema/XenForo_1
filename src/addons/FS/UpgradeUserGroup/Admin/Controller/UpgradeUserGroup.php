@@ -12,8 +12,6 @@ class UpgradeUserGroup extends AbstractController
     {
         $url = $this->getUrlType();
 
-        var_dump($url);
-        exit;
         $finder = $this->finder('FS\UpgradeUserGroup:UpgradeUserGroup')->where($this->fetchFunc())->order('usg_id', 'DESC');
 
         $page = $params->page;

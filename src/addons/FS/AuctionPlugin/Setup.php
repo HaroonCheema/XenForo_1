@@ -18,8 +18,6 @@ class Setup extends AbstractSetup
 	use StepRunnerUpgradeTrait;
 	use StepRunnerUninstallTrait;
 
-	// use InstallerHelper;
-
 	public function installstep1()
 	{
 		$sm = $this->schemaManager();
@@ -42,6 +40,11 @@ class Setup extends AbstractSetup
 			$table->addPrimaryKey('via_id');
 		});
 
+		$this->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
+
+			$table->addColumn('layout_type', 'int')->setDefault(0);
+		});
+
 		$this->insertDefaultData();
 	}
 
@@ -53,7 +56,7 @@ class Setup extends AbstractSetup
 			$sm->dropTable($tableName);
 		}
 
-		$sm->dropTable('fs_auction_category_bidding');
+		$sm->dropTable('fs_auction_listing');
 		$sm->dropTable('fs_auction_ship_terms');
 		$sm->dropTable('fs_auction_ship_via');
 	}

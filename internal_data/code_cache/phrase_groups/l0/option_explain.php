@@ -210,7 +210,6 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.forum_items_display' => 'Number of items display in items-Block on forum',
   'option_explain.forumsDefaultPage' => 'When entering the forums section, this will be the default page users will be taken to. They will be able to access the alternative page via sub-navigation options.',
   'option_explain.fs_auction_ImageExtensions' => 'List the file extensions that are allowed to be uploaded for images. Use spaces or line breaks between extensions.',
-  'option_explain.fs_auction_list_layout' => 'The layout type you want used on the Auction index. <b>Note:</b> Can be overridden by categories.',
   'option_explain.fs_enable_image' => '',
   'option_explain.fs_mts_customMsgColor' => 'Enter the colour name or colour code for Custom message',
   'option_explain.fs_mts_customMsgbackGroundColor' => 'Enter the colour name or colour code for custom message Background',

@@ -7,14 +7,14 @@
 	arg-extraInfo="">
 	<xf:css src="structured_list.less" />
 	<xf:css src="fs_auction_list_view.less" />
-
+	
 	<div class="structItem structItem--listing js-inlineModContainer " data-author="{{ $listing.User.username ?: $listing.username }}">
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer">
 				<xf:if is="$listing.ends_on > $xf.time">
-				<img src="{$listing.getImage()}" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})">
+						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})" style="height: 57px;">
 				<xf:else />
-				 <img src="{$listing.getImage()}" >
+						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" style="height: 57px;">
 				</xf:if>
 						
 			</div>
@@ -24,7 +24,7 @@
 		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
 		
 			<div class="structItem-title">
-			<span class="label label--primary label--smallest">
+			<span class="label label--blue label--smallest">
 						{{ phrase_dynamic($listing.Prefix.getPhraseName()) }}
 					</span>
 				<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.title}</a>
@@ -36,14 +36,14 @@
 						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
 						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
 						
-							<li>{$listing.Category.title}</li>
+							<li>{{ snippet($listing.Category.title, 50, {'stripBbCode': true}) }}</li>
 				
 				</ul>
 			</div>
 			
 			<!--	<div class="structItem-listingDescription">{{ $listing.starting_bid}}</div> -->
 			
-				<div class="structItem-listingDescription">{{ snippet($listing.content, 150, {'stripBbCode': true}) }}</div>
+				<div class="auction-category">{{ snippet($listing.content, 100, {'stripBbCode': true}) }}</div>
 			
 		
 		</div>
@@ -67,16 +67,16 @@
 						<li>
 							<div>
 								
-						<span class="label label--smallest label--primary" id="days-auction-{{$listing.auction_id}}">
+						<span class="label label--smallest label--primary label--counter" id="days-auction-{{$listing.auction_id}}">
 							 {{phrase('D')}}
 						</span>
-						<span class="label label--smallest label--primary" id="hours-auction-{{$listing.auction_id}}">
+						<span class="label label--smallest label--primary label--counter" id="hours-auction-{{$listing.auction_id}}">
 							 {{phrase('H')}}
 						</span>
-							<span class="label label--smallest label--primary" id="minutes-auction-{{$listing.auction_id}}">
+							<span class="label label--smallest label--primary label--counter" id="minutes-auction-{{$listing.auction_id}}">
 							{{phrase('M')}}
 						</span>
-							<span class="label label--smallest label--primary" id="seconds-auction-{{$listing.auction_id}}">
+							<span class="label label--smallest label--primary label--counter" id="seconds-auction-{{$listing.auction_id}}">
 							 {{phrase('S')}}
 						</span>
 							</div>
@@ -132,86 +132,67 @@
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer" >
 				<xf:if is="$listing.ends_on > $xf.time">
-						<img src ="{$listing.getImage()}" loading="lazy">
-						
+						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})">
 				<xf:else />
-				 		<img src ="{$listing.getImage()}" class="auction-itemGrid-img" loading="lazy">
-
+						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" class="auction-itemGrid-img" loading="lazy">
 				</xf:if>
 				
 			</div>
 		</div>
 		
 		<div class="structItem-cell structItem-cell--listingMeta">
-			<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
-				
-			<xf:if contentcheck="true">
+			<div class="structItem-cell structItem-cell--main" >
+
+			
 				<div >
-					<span class="auction-category">{{$listing.Category.title }}</span>
+					<span class="auction-category">{{ snippet($listing.Category.title, 50, {'stripBbCode': true}) }}</span>
 				</div>
 				
 				<div >
-												
-					<xf:if is="$listing.ends_on > $xf.time">
-					
-										<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt>{{ phrase('auctionEndsOn') }}</dt>
-					<dd>			<span class="label label--smallest label--primary" id="days-auction-{{$listing.auction_id}}">
-							 {{phrase('D')}}
-						</span>
-										<span class="label label--smallest label--primary" id="hours-auction-{{$listing.auction_id}}">
-							{{phrase('H')}}
-						</span>
-											<span class="label label--smallest label--primary" id="minutes-auction-{{$listing.auction_id}}">
-						 {{phrase('M')}}
-						</span>
-										<span class="label label--smallest label--primary" id="seconds-auction-{{$listing.auction_id}}">
-							{{phrase('S')}}
-						</span></dd>
-				</dl>
-							
-					<xf:else />
-
-										<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+	
+					<xf:if is="$listing.ends_on < $xf.time">
+						
+				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 					<dt>{{ phrase('auctionEndsOn') }}</dt>
 					<dd>		
 						<span class="label label--orange label--smallest">{{ phrase('auctionBidClosed') }} 
 								<i class="structItem-status structItem-status--locked" 
 								   aria-hidden="true" title="{{ phrase('locked')|for_attr }}"></i>
 							<span class="u-srOnly">{{ phrase('auctionLocked') }}</span>
-							</span>
-											</dd>
-				</dl>				
+						</span>
+						</dd>
+				</dl>
+									
+					<xf:else />
 
 						
-						
+				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+						<dt>{{ phrase('auctionEndsOn') }}</dt>
+						<dd>			
+							<span class="label label--smallest label--primary label--counter" id="days-auction-{{$listing.auction_id}}">
+								 {{phrase('D')}}
+							</span>
+							<span class="label label--smallest label--primary label--counter" id="hours-auction-{{$listing.auction_id}}">
+								{{phrase('H')}}
+							</span>
+							<span class="label label--smallest label--primary label--counter" id="minutes-auction-{{$listing.auction_id}}">
+						 		{{phrase('M')}}
+							</span>
+							<span class="label label--smallest label--primary label--counter" id="seconds-auction-{{$listing.auction_id}}">
+								{{phrase('S')}}
+							</span>
+						</dd>
+				</dl>
+	
 			</xf:if>
 				</div>
-				
-				
-				<ul class="structItem-statuses">
-					<xf:contentcheck>
-							
-					<xf:if is="$listing.ends_on > $xf.time">
-								<li>
-					
-								</li>
-					<xf:else />
-						<li>			
-						</li>
-						
-					</xf:if>
-						
-					</xf:contentcheck>
-				</ul>
-			</xf:if>
 
 			<div class="structItem-title">
-					<span class="label label--primary label--smallest">
+					<span class="label label--blue label--smallest">
 						{{ phrase_dynamic($listing.Prefix.getPhraseName()) }}
 							
 					</span>
-			<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.title}</a>
+			<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{{ snippet($listing.title, 33, {'stripBbCode': true}) }}</a>
 			</div>
 			<div class="structItem-minor">
 					<ul class="structItem-parts">
@@ -223,7 +204,7 @@
 					</ul>
 				
 			</div>
-				<div class="structItem-listingDescription">{{ snippet($listing.content, 150, {'stripBbCode': true}) }}</div>
+				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 					<dt style="color:black; font-size:17px">{{ phrase('AuctionStarting_bid') }}</dt>
@@ -233,16 +214,6 @@
 				</dl>
 		
 		</div>
-			
-			<!--	<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt style="color:black; font-size:17px">{{ phrase('AuctionStarting_bid') }}</dt>
-					<dd style="color:black; font-size:17px">
-							{$listing.starting_bid} {{phrase('dollorSymbol')}}
-					</dd>
-				</dl>-->
-		
-		
-	
 
 		</div>
 	</div>

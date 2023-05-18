@@ -1,10 +1,10 @@
 <?php
-// FROM HASH: 56c754e8e85d0cbfbd79677d4c5accac
+// FROM HASH: 260da51485d375be7284ce1e73f354e2
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('auctionPostThreadTitle');
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['auction']['title']));
 	$__finalCompiled .= '
 ';
 	if ($__vars['xf']['visitor']['user_id'] == $__vars['auction']['User']['user_id']) {
@@ -116,7 +116,7 @@ return array(
 <div>
 	
 
-				<img src="' . $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+				<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 
 </div>

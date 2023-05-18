@@ -67,50 +67,9 @@ class Category extends AbstractController
             'description' => 'str',
             'parent_category_id' => 'uint',
             'display_order' => 'uint',
-            // 'node_id' => 'uint',
-            // 'moderate_listings' => 'bool',
-            // 'thread_prefix_id' => 'uint',
-            // 'allow_paid' => 'bool',
-            // 'paid_feature_enable' => 'bool',
-            // 'paid_feature_days' => 'uint',
-            // 'payment_profile_ids' => 'array-uint',
-            // 'listing_type_ids' => 'array-uint',
-            // 'condition_ids' => 'array-uint',
-            // 'package_ids' => 'array-uint',
-            // 'contact_conversation' => 'bool',
-            // 'contact_email' => 'bool',
-            // 'contact_custom' => 'bool',
-            // 'price' => 'str',
-            // 'currency' => 'str',
-            // 'require_listing_image' => 'bool',
-            'layout_type' => 'str',
-            // 'location_enable' => 'bool',
-            // 'require_sold_user' => 'bool',
-            // 'replace_forum_action_button' => 'bool',
-            // 'phrase_listing_type' => 'str',
-            // 'phrase_listing_condition' => 'str',
-            // 'phrase_listing_price' => 'str',
         ]);
 
-        // $category->listing_template = $this->plugin('XF:Editor')->fromInput('listing_template');
-
         $form->basicEntitySave($category, $input);
-
-        // $prefixIds = $this->filter('available_prefixes', 'array-uint');
-        // $form->complete(function() use ($category, $prefixIds)
-        // {
-        //     /** @var \Z61\Classifieds\Repository\CategoryPrefix $repo */
-        //     $repo = $this->repository('Z61\Classifieds:CategoryPrefix');
-        //     $repo->updateContentAssociations($category->category_id, $prefixIds);
-        // });
-
-        // $fieldIds = $this->filter('available_fields', 'array-str');
-        // $form->complete(function() use ($category, $fieldIds)
-        // {
-        //     /** @var \Z61\Classifieds\Repository\CategoryField $repo */
-        //     $repo = $this->repository('Z61\Classifieds:CategoryField');
-        //     $repo->updateContentAssociations($category->category_id, $fieldIds);
-        // });
 
         return $form;
     }

@@ -98,9 +98,20 @@ function timmerCounter(auction_id, start_datetime) {
 			<div class="block-outer-opposite">
 				<div class="buttonGroup">
 				<xf:contentcheck>
-					<xf:if is="$canInlineMod">
-						<xf:macro template="inline_mod_macros" name="button" />
-					</xf:if>
+					
+							<xf:macro template="fs_auction_inline_mod_macros" name="button" 
+								  arg-tooltip="List View"
+								  arg-linkParam="0"
+								  arg-iconClass="list"
+								  
+								  />
+					<xf:macro template="fs_auction_inline_mod_macros" name="button" 
+								  arg-tooltip="Grid View"
+								  arg-linkParam="1"
+								  arg-iconClass="th"
+								  
+								  />
+					
 				</xf:contentcheck>
 				</div>
 			</div>
@@ -114,7 +125,7 @@ function timmerCounter(auction_id, start_datetime) {
 		<!--Listing View--->
 		<div class="block-body">
 		
-			<xf:if is="$xf.options.fs_auction_list_layout == 'list_view'">
+			<xf:if is="$xf.visitor.layout_type == '0'">
 				<xf:if is="$listings is not empty">
 					<div class="structItemContainer">
 						<xf:foreach loop="$listings" value="$listing">
@@ -127,7 +138,7 @@ function timmerCounter(auction_id, start_datetime) {
 					<xf:else />
 					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
 				</xf:if>
-			<xf:elseif is="$xf.options.fs_auction_list_layout == 'grid_view'" />
+			<xf:elseif is="$xf.visitor.layout_type == '1'" />
 				<xf:if is="$featuredListings is not empty">
 					<div class="structItemContainer">
 						<xf:foreach loop="$featuredListings" value="$listing">
@@ -168,8 +179,7 @@ function timmerCounter(auction_id, start_datetime) {
 <xf:sidenav>
 	
 	<xf:macro template="fs_auction_category_list_macros" name="simple_list_block"
-		arg-categoryTree="{$categoryTree}"
-		arg-categoryExtras="{$categoryExtras}" />
+		arg-categoryTree="{$categoryTree}" />
 </xf:sidenav>
 
 <xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />

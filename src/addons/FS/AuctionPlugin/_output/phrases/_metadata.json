@@ -101,6 +101,12 @@
         "version_string": "1.0.1 Alpha",
         "hash": "4d3d769b812b6faa6b76e1a8abaece2d"
     },
+    "fs_auction_attachment_reqired.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "ddd94c0bc6c5afd2072cb242672df3eb"
+    },
     "fs_auction_cat.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -251,12 +257,6 @@
         "version_string": "1.0.1 Alpha",
         "hash": "3c13f4968cba95765c541b350e4155c2"
     },
-    "option.fs_auction_list_layout.txt": {
-        "global_cache": false,
-        "version_id": 1000100,
-        "version_string": "1.0.1 Alpha",
-        "hash": "d4d0ee9985bf14169e809b164524b0b0"
-    },
     "option.minimumBidIncreament.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -286,12 +286,6 @@
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
         "hash": "cd05e3a5067801035810416f973d0250"
-    },
-    "option_explain.fs_auction_list_layout.txt": {
-        "global_cache": false,
-        "version_id": 1000100,
-        "version_string": "1.0.1 Alpha",
-        "hash": "d13995ac5c68e8b5dbf9a23a68390507"
     },
     "option_explain.minimumBidIncreament.txt": {
         "global_cache": false,

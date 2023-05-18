@@ -26,11 +26,6 @@
 
 			<xf:macro template="display_order_macros" name="row"
 					  arg-value="{$category.display_order}" />
-
-			<xf:selectrow name="layout_type" value="{$category.layout_type}" id="js-classifiedsLayoutType"  label="{{ phrase('option.fs_auction_list_layout') }}">
-					<xf:option value="list_view" selected="{{ $category.layout_type == 'list_view' }}">{{ phrase('z61_classifieds_list_view_layout') }}</xf:option>
-					<xf:option value="grid_view" selected="{{ $category.layout_type == 'grid_view' }}">{{ phrase('z61_classifieds_grid_view_layout') }}</xf:option>
-			</xf:selectrow>
 			
 			<xf:submitrow sticky="true" icon="save" />
 		</div>

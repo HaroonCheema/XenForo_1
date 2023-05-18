@@ -1,1 +1,0 @@
-The layout type you want used on the Auction index. <b>Note:</b> Can be overridden by categories.

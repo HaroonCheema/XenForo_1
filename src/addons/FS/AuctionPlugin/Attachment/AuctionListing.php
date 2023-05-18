@@ -1,12 +1,12 @@
 <?php
 
-namespace XenBulletins\BrandHub\Attachment;
+namespace FS\AuctionPlugin\Attachment;
 
 use XF\Attachment\AbstractHandler;
 use XF\Entity\Attachment;
 use XF\Mvc\Entity\Entity;
 
-class OwnerPage extends AbstractHandler
+class AuctionListing extends AbstractHandler
 {
 	public function getContainerWith()
 	{
@@ -17,7 +17,7 @@ class OwnerPage extends AbstractHandler
 
 	public function canView(Attachment $attachment, Entity $container, &$error = null)
 	{
-		
+
 		return $container->canView();
 	}
 
@@ -29,31 +29,27 @@ class OwnerPage extends AbstractHandler
 
 	public function validateAttachmentUpload(\XF\Http\Upload $upload, \XF\Attachment\Manipulator $manipulator)
 	{
-          
-		if (!$upload->getTempFile())
-		{
+
+		if (!$upload->getTempFile()) {
 			return;
 		}
 
 		$extension = $upload->getExtension();
 
-		$repo = \XF::repository('XenBulletins\BrandHub:OwnerPage');
+		$repo = \XF::repository('FS\AuctionPlugin:AuctionListing');
 
 
-                
+
 		$mediaType = $repo->getMediaTypeFromExtension($extension);
 
-		if (in_array($mediaType, ['audio', 'image', 'video']))
-		{
+		if (in_array($mediaType, ['audio', 'image', 'video'])) {
 			$visitor = \XF::visitor();
 			$constraints = $manipulator->getConstraints();
 
 			$thisFileSize = $runningTotal = $upload->getFileSize();
 			$newAttachments = $manipulator->getNewAttachments();
-			if (count($newAttachments))
-			{
-				foreach ($newAttachments AS $attachment)
-				{
+			if (count($newAttachments)) {
+				foreach ($newAttachments as $attachment) {
 					/** @var \XF\Entity\Attachment $attachment */
 					$runningTotal += intval($attachment->getFileSize());
 				}
@@ -61,16 +57,11 @@ class OwnerPage extends AbstractHandler
 		}
 	}
 
-	
-	
-
 	public function onAttachmentDelete(Attachment $attachment, Entity $container = null)
 	{
-		if (!$container)
-		{
+		if (!$container) {
 			return;
 		}
-
 	}
 
 	public function getConstraints(array $context)
@@ -78,37 +69,35 @@ class OwnerPage extends AbstractHandler
 
 		$em = \XF::em();
 
-		if (!empty($context['page_id']))
-		{
-			$Item = $em->find('XenBulletins\BrandHub:OwnerPage', intval($context['page_id']));
+		if (!empty($context['auction_id'])) {
+
+			$Item = $em->find('FS\AuctionPlugin:AuctionListing', intval($context['auction_id']));
 			return $Item->getAttachmentConstraints();
-		}
-		else
-		{
-			$Item = $em->create('XenBulletins\BrandHub:OwnerPage');
+		} else {
+			$Item = $em->create('FS\AuctionPlugin:AuctionListing');
 			return $Item->getAttachmentConstraints();
 		}
 	}
 
 	public function getContainerIdFromContext(array $context)
 	{
-		return isset($context['page_id']) ? intval($context['page_id']) : null;
+		return isset($context['auction_id']) ? intval($context['auction_id']) : null;
 	}
 
 	public function getContainerLink(Entity $container, array $extraParams = [])
 	{
-		return \XF::app()->router('public')->buildLink('item-list', $container, $extraParams);
+		return \XF::app()->router('admin')->buildLink('item-list', $container, $extraParams);
 	}
 
 	public function getContext(Entity $entity = null, array $extraContext = [])
 	{
-		if ($entity instanceof \XenBulletins\BrandHub\Entity\OwnerPage)
-		{
-			$extraContext['page_id'] = $entity->page_id;
-		}
-		else
-		{
-			throw new \InvalidArgumentException("Entity must be Owner Page");
+
+		if ($entity instanceof \FS\AuctionPlugin\Entity\AuctionListing) {
+			$extraContext['auction_id'] = $entity->auction_id;
+		} else if (!$entity) {
+			// need nothing
+		} else {
+			throw new \InvalidArgumentException("Entity must be media, record or category");
 		}
 
 		return $extraContext;
