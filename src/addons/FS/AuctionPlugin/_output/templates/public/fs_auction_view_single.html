@@ -1,7 +1,8 @@
 <xf:title>{{$auction.title}}</xf:title>
 <xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id">
-	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
+	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
+	<xf:button href="{{ link('auction/categories/bumping', $auction) }}" class="button button--icon button--icon--add" icon="add">{{ phrase('fs_auction_bumping') }}</xf:button>
 </xf:pageaction>
 
 <header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
@@ -12,6 +13,7 @@
 			</li>
 		</ul>
 	</header>
+  <div class="block-container">
 
 		<div class="message-fields message-fields--after">
 	
@@ -95,34 +97,26 @@
 
 
 			<xf:form
-				  action="{{ link('classifieds/auction/save', $category) }}"
+				  action="{{ link('auction/categories/bidding', $auction) }}"
 				  ajax="true"
 				  class="block"
 				  data-xf-init="attachment-manager"
-				  draft="{{ link('classifieds/categories/draft', $category) }}"
-				  data-preview-url="{{ link('classifieds/categories/listing-preview', $category) }}"
 				>
-				<xf:formrow name="{$inputName}[{$option.option_id}]" value="{$option.option_value.{$option.option_id}}"
-					label="{$option.title}"
-					hint="{$hintHtml}"
-					explain="{$explainHtml}"
-					html="{$listedHtml}">
+				<xf:formrow 
+					label="{{ phrase('BidCost') }}">
 	
 			<!--bidDropDownRange value is  bid dropdown List items count-->
 	
 					<xf:set var="$bidDropDownRange" value="{{range(0,$dropDownListLimit)}}" />
 
 					<div class="inputChoices">
-						<div class="inputChoices-choice" style="padding-left:0;">			
-						<div class="inputChoices-spacer">{{ phrase('BidCost') }}</div>
-							<xf:radio name="bidPaymentType" value="{{ $option.option_value.imapAuth ? $option.option_value.imapAuth : 'none' }}">
-								<xf:option value="0" label="{{ phrase('auctionDropdownBid') }}">
+							<xf:radio>
+								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
 										<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" />
 
-										<xf:select>
-											<xf:option value="0">{{ phrase('(none)') }}</xf:option>
+										<xf:select name="bidding_amount">
 												<xf:foreach loop="$bidDropDownRange" key="$key" value="$val">
 													<xf:option value="{{$sum+$bidIncrementFromDb}}">{{$sum+$bidIncrementFromDb}}</xf:option>
 													<xf:set var="$sum" value="{{$sum+$auction.bid_increament}}" />
@@ -131,9 +125,9 @@
 									</xf:dependent>
 								</xf:option>
 
-								<xf:option value="1" label="{{ phrase('auctionCustomBid') }}">
+								<xf:option label="{{ phrase('auctionCustomBid') }}">
 									<xf:dependent>
-										 <xf:numberbox name="starting_bid" value="" min="0" 			
+										 <xf:numberbox name="bidding_amount" value="" min="0" 			
 										label="{{ phrase('auctionCustomBid') }}" />
 									</xf:dependent>
 
@@ -153,3 +147,32 @@
 <xf:else />
 	{{phrase('biddingNotAllowed')}}
 </xf:if>
+</div>
+
+<div class="block">
+  <div class="block-container">
+    <div class="block-body">
+      <xf:datalist data-xf-init="responsive-data-list">
+          <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
+      </xf:datalist>
+    </div>
+  </div>
+</div>
+
+
+<xf:macro name="bidding_table_list" arg-bidding="{$bidding}">
+  <xf:datarow rowtype="header">
+    <xf:cell> {{phrase('fs_auction_bidding_username')}} </xf:cell>
+    <xf:cell> {{phrase('fs_auction_bid_at')}} </xf:cell>
+    <xf:cell> {{phrase('fs_auction_bid_amount')}} </xf:cell>
+    <xf:cell class="dataList-cell--min"></xf:cell>
+  </xf:datarow>
+  <xf:foreach loop="{$bidding}" value="$val">
+    <xf:datarow>
+      <xf:cell href="{{ link('crud/edit', $val) }}"> {{$val.User.username}} </xf:cell>
+      <xf:cell> <xf:date time="{{$val.created_at}}" /></xf:cell>
+      <xf:cell> {{$val.bidding_amount}} </xf:cell>
+      <xf:action href="{{ link('ship-via/edit', $value) }}" >{{ phrase('edit') }}</xf:action>
+    </xf:datarow>
+  </xf:foreach>
+</xf:macro>

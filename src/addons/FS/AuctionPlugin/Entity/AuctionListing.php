@@ -30,11 +30,10 @@ class AuctionListing extends Entity
                 'censor' => true
             ],
             'user_id' => ['type' => self::UINT, 'required' => true],
-            'auction_status' => ['type' => self::BOOL, 'default' => true],
             'prefix_id' => ['type' => self::UINT, 'default' => 0],
             'attach_count' => ['type' => self::UINT, 'default' => 0],
             'ends_on' => ['type' => self::UINT, 'required' => true],
-            'created_date' => ['type' => self::UINT, 'required' => false],
+            'created_date' => ['type' => self::UINT, 'default' => \XF::$time],
             'timezone' => ['type' => self::STR, 'required' => true],
             'starting_bid' => ['type' => self::UINT, 'required' => true],
             'bid_increament' => ['type' => self::UINT, 'required' => true],
@@ -45,6 +44,8 @@ class AuctionListing extends Entity
             'watch_thread' => ['type' => self::BOOL, 'default' => false],
             'receive_email' => ['type' => self::BOOL, 'default' => false],
             'payment_methods' => ['type' => self::JSON_ARRAY, 'default' => []],
+            'last_bumping' => ['type' => self::UINT, 'default' => \XF::$time],
+            'bumping_counts' => ['type' => self::UINT, 'default' => 0],
         ];
 
         $structure->relations = [

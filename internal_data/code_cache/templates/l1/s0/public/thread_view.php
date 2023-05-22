@@ -682,7 +682,6 @@ return array(
 
 ' . $__templater->renderExtension('content_top', $__vars, $__extensions) . '
 ' . '
-' . $__templater->includeTemplate('z61_classifieds_thread_insert', $__vars) . '
 
 ';
 	if ((!$__vars['xf']['visitor']['user_id']) AND ($__templater->method($__vars['xf']['request'], 'get', array('pending_approval', )) AND $__vars['pendingApproval'])) {

@@ -6,6 +6,11 @@ use XF\Mvc\Entity\Structure;
 
 class User extends XFCP_User
 {
+    public function canAddAuctions()
+    {
+        return ($this->user_id && $this->hasPermission('fs_auction', 'add'));
+    }
+
     public static function getStructure(Structure $structure)
     {
         $structure = parent::getStructure($structure);

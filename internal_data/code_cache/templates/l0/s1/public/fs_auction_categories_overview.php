@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 99bf7b2614f293390a1a3705e3322cb8
+// FROM HASH: 2515375c398f94d9fa186c6d1ae78861
 return array(
 'macros' => array('table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -137,7 +137,7 @@ function timmerCounter(auction_id, start_datetime) {
 	$__finalCompiled .= '
 
 ';
-	if ($__templater->method($__vars['xf']['visitor'], 'canAddClassified', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
+	if ($__templater->method($__vars['xf']['visitor'], 'canAddAuctions', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('Add Bidiing' . $__vars['xf']['language']['ellipsis'], array(
 			'href' => $__templater->func('link', array('auction/add', ), false),

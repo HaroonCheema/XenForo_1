@@ -1,10 +1,22 @@
 <?php
-// FROM HASH: d1e3ee1681afae70819f664fdefabae1
+// FROM HASH: 20ee422b9c1bf629fec21942a453aa1e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post Thread');
+	if ($__templater->method($__vars['data'], 'isInsert', array())) {
+		$__finalCompiled .= '
+	';
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post Thread');
+		$__finalCompiled .= '
+';
+	} else {
+		$__finalCompiled .= '
+	';
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Edit Post Thread');
+		$__finalCompiled .= '
+';
+	}
 	$__finalCompiled .= '
 
 ';
@@ -135,12 +147,14 @@ return array(
 		
         ' . $__templater->formRow('
 
-		 ' . $__templater->formDateInput(array(
-		'name' => 'ends_on',
-		'class' => 'date end',
-		'value' => ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
-		'required' => 'true',
-	)) . '
+		 <input
+              name="ends_on"
+			  type="date"
+              class="date end"
+              value="' . ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), true) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), true)) . '"
+              min="' . $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), true) . '"
+              required="true"
+            />
         ', array(
 		'label' => 'AUCTION ENDS ON',
 		'hint' => 'Required',

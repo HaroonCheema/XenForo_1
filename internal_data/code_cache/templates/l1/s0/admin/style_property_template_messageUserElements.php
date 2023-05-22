@@ -76,14 +76,6 @@ return array(
 		' . 'Custom fields' . '
 	',
 		'_type' => 'option',
-	),
-	array(
-		'name' => $__vars['formBaseKey'] . '[z61ClassifiedsFeedbackBasic]',
-		'selected' => $__vars['property']['property_value']['z61ClassifiedsFeedbackBasic'],
-		'label' => '
-	' . 'Classifieds feedback' . '
-',
-		'_type' => 'option',
 	)), array(
 		'rowclass' => $__vars['rowClass'],
 		'label' => $__templater->escape($__vars['titleHtml']),

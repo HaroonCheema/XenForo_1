@@ -383,7 +383,6 @@ return array(
 	}
 	$__finalCompiled .= '
 				' . '
-' . $__templater->includeTemplate('z61_classifieds_member_view_tab', $__vars) . '
 			</span>
 		</h2>
 	</div>
@@ -393,6 +392,24 @@ return array(
 		'user' => $__vars['user'],
 	), $__vars) . '
 
+';
+	if ($__vars['user']['is_banned']) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfo', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
+';
+	}
+	$__finalCompiled .= '
+';
+	if ($__vars['user']['ScheduleBan']['ban_date'] AND (!$__vars['user']['is_banned'])) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfoBeforeBanProfile', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
+';
+	}
+	$__finalCompiled .= '
 <ul class="tabPanes js-memberTabPanes">
 	' . '
 	';
@@ -564,7 +581,6 @@ return array(
 	}
 	$__finalCompiled .= '
 	' . '
-' . $__templater->includeTemplate('z61_classifieds_member_view_tab_content', $__vars) . '
 </ul>
 
 ';

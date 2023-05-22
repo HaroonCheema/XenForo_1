@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1b29de92f9945c414e2968f008665c79
+// FROM HASH: 1c1f2a0f90605049210690ed9dd2782a
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -229,7 +229,8 @@ return array(
 
 .structItem-cell.structItem-cell--icon.structItem-cell--iconExpanded.structItem-cell--iconListingCoverImage
 {
-	width: 292px;
+	max-width: 292px;
+	min-width: 292px;
 }
 
 .structItem-cell--iconListingCoverImage .structItem-iconContainer .avatar

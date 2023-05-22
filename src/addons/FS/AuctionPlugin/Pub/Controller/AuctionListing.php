@@ -18,6 +18,8 @@ class AuctionListing extends AbstractController
 
     public function actionIndex(ParameterBag $params)
     {
+        $page = 0;
+        $perPage = 0;
         $categories = $this->finder('FS\AuctionPlugin:Category')->fetch();
         $categoryTree = $this->createCategoryTree($categories);
 
@@ -32,13 +34,23 @@ class AuctionListing extends AbstractController
         } else if ($params->category_id) {
             $finder->where('category_id', $params->category_id);
         } else {
-            $finder->order('auction_id', 'DESC');
+            $page = $params->page;
+            $perPage = 9;
+
+            $finder->limitByPage($page, $perPage);
+            $finder->order('last_bumping', 'DESC');
         }
 
         $viewParams = [
             'categories' => $categories,
             'categoryTree' => $categoryTree,
             'listings' => $finder->fetch(),
+
+            'page' => $page,
+            'perPage' => $perPage,
+            'total' => $finder->total(),
+            'totalReturn' => count($finder->fetch()),
+
             'conditions' => $this->filterSearchConditions(),
         ];
 
@@ -53,10 +65,12 @@ class AuctionListing extends AbstractController
         }
         $dropDownListLimit = 10;
 
+        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id);
+
         $viewParams = [
             'auction' => $auction,
+            'bidding' => $bidding,
             'dropDownListLimit' => $dropDownListLimit,
-
         ];
         return $this->view(
             'FS\AuctionPlugin',
@@ -80,7 +94,11 @@ class AuctionListing extends AbstractController
         }
 
         if ($conditions['fs_auction_status'] != 'all') {
-            $finder->where('auction_status', $conditions['fs_auction_status']);
+            if ($conditions['fs_auction_status'] == '1') {
+                $finder->where('ends_on', '>=', \XF::$time);
+            } else {
+                $finder->where('ends_on', '<=', \XF::$time);
+            }
         }
 
         if ($conditions['fs_auction_cat'] != '0') {
@@ -122,7 +140,7 @@ class AuctionListing extends AbstractController
     {
         /** @var \FS\AuctionPlugin\XF\Entity\User $visitor */
         $visitor = \XF::visitor();
-        if (!$visitor->canAddClassified()) {
+        if (!$visitor->canAddAuctions()) {
             return $this->noPermission();
         }
         $this->assertCanonicalUrl($this->buildLink('auction/add-listing-chooser'));

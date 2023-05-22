@@ -144,7 +144,6 @@ return array(
 					';
 		}
 		$__compilerTemp1 .= '
-' . $__templater->includeTemplate('z61_classifieds_message_macros_feedback', $__vars) . '
 					';
 		if ($__vars['extras']['custom_fields']) {
 			$__compilerTemp1 .= '

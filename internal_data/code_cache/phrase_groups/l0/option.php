@@ -164,6 +164,7 @@ return array (
   'option.forum_items_display' => 'Items display on forum',
   'option.forumsDefaultPage' => 'Forums default page',
   'option.fs_auction_ImageExtensions' => 'Allowed image extensions',
+  'option.fs_auction_max_attachments' => 'Maximum attachments per auction',
   'option.fs_enable_image' => 'Display Image',
   'option.fs_mts_customMsgColor' => 'Custom message Text Color',
   'option.fs_mts_customMsgbackGroundColor' => 'Custom message Background Color',

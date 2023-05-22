@@ -39,7 +39,6 @@ class MySql
             $this->addOrChangeColumn($table, 'title', 'varchar', 100);
             $this->addOrChangeColumn($table, 'content', 'mediumtext');
             $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'auction_status', 'tinyint', 3)->setDefault(1);
             $this->addOrChangeColumn($table, 'prefix_id', 'int')->setDefault(0);
             $this->addOrChangeColumn($table, 'attach_count', 'int')->setDefault(0);
             $this->addOrChangeColumn($table, 'ends_on', 'int')->setDefault(0);
@@ -54,9 +53,21 @@ class MySql
             $this->addOrChangeColumn($table, 'watch_thread', 'tinyint', 3)->setDefault(0);
             $this->addOrChangeColumn($table, 'receive_email', 'tinyint', 3)->setDefault(0);
             $this->addOrChangeColumn($table, 'payment_methods', 'mediumblob');
+            $this->addOrChangeColumn($table, 'last_bumping', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'bumping_counts', 'int')->setDefault(0);
 
 
             $table->addKey('user_id');
+        };
+
+        $tables['fs_auction_bidding'] = function ($table) {
+            /** @var Create|Alter $table */
+            $this->addOrChangeColumn($table, 'bidding_id', 'int')->autoIncrement();
+            $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'auction_id', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'created_at', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'bidding_amount', 'int')->setDefault(0);
+            $table->addUniqueKey('bidding_id');
         };
 
         return $tables;

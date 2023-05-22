@@ -79,7 +79,7 @@ function timmerCounter(auction_id, start_datetime) {
 	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
 } }}" />
 
-<xf:pageaction if="$xf.visitor.canAddClassified() && $categories is not empty">
+<xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
 	<xf:button href="{{ link('auction/add') }}" class="button--cta" icon="write" overlay="true">{{ phrase('fs_auction_categories_add_listing...') }}</xf:button>
 </xf:pageaction>
 
@@ -91,7 +91,7 @@ function timmerCounter(auction_id, start_datetime) {
 	<div class="block-outer"><xf:trim>
 
 		<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
-			link="classifieds" params="{$filters}"
+			link="auction" params="{$filters}"
 			wrapperclass="block-outer-main" />
 
 		<xf:if contentcheck="true">
@@ -162,13 +162,18 @@ function timmerCounter(auction_id, start_datetime) {
 					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
 				</xf:if>
 			</xf:if>
+			<div class="block-footer">
+					  <span class="block-footer-counter"
+						>{{ display_totals($totalReturn, $total) }}</span
+					  >
+				</div>
 		</div>
 	</div>
 
 	<div class="block-outer block-outer--after">
 		<xf:pagenav
 			page="{$page}" perpage="{$perPage}" total="{$total}"
-			link="classifieds" params="{$filters}"
+			link="auction" params="{$filters}"
 			wrapperclass="block-outer-main" />
 		<xf:showignored wrapperclass="block-outer-opposite" />
 	</div>

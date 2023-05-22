@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 860fcbf5a4f760abf1e29b66a8ec655d
+// FROM HASH: 9abd72a4a36f58f1a74dfefbc1d2e5d2
 return array(
 'macros' => array('search_menu' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -128,7 +128,7 @@ function timmerCounter(auction_id, start_datetime) {
 	$__finalCompiled .= '
 
 ';
-	if ($__templater->method($__vars['xf']['visitor'], 'canAddClassified', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
+	if ($__templater->method($__vars['xf']['visitor'], 'canAddAuctions', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('Add Bidiing' . $__vars['xf']['language']['ellipsis'], array(
 			'href' => $__templater->func('link', array('auction/add', ), false),
@@ -186,7 +186,7 @@ function timmerCounter(auction_id, start_datetime) {
 		' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['total'],
-		'link' => 'classifieds',
+		'link' => 'auction',
 		'params' => $__vars['filters'],
 		'wrapperclass' => 'block-outer-main',
 		'perPage' => $__vars['perPage'],
@@ -288,6 +288,11 @@ function timmerCounter(auction_id, start_datetime) {
 			';
 	}
 	$__finalCompiled .= '
+			<div class="block-footer">
+					  <span class="block-footer-counter"
+						>' . $__templater->func('display_totals', array($__vars['totalReturn'], $__vars['total'], ), true) . '</span
+					  >
+				</div>
 		</div>
 	</div>
 
@@ -295,7 +300,7 @@ function timmerCounter(auction_id, start_datetime) {
 		' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['total'],
-		'link' => 'classifieds',
+		'link' => 'auction',
 		'params' => $__vars['filters'],
 		'wrapperclass' => 'block-outer-main',
 		'perPage' => $__vars['perPage'],

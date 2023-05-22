@@ -2,6 +2,7 @@
 
 namespace FS\AuctionPlugin\Pub\Controller;
 
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Difference;
 use XF\Mvc\ParameterBag;
 use XF\Pub\Controller\AbstractController;
 
@@ -123,9 +124,18 @@ class Auction extends AbstractController
             );
         }
 
+        $options = \XF::options();
+        $maxAttachments = $options->fs_auction_max_attachments;
+
+        if (count($attachments) > $maxAttachments) {
+
+            throw $this->exception(
+                $this->error(\XF::phrase("fs_auction_maximum_attachments") . $maxAttachments)
+            );
+        }
+
         return true;
     }
-
 
     protected function saveProcess(\FS\AuctionPlugin\Entity\AuctionListing $data)
     {
@@ -141,7 +151,6 @@ class Auction extends AbstractController
         $data->user_id = $visitor->user_id;
         $data->prefix_id = $input['prefix_id'];
         $data->ends_on = strtotime($input['ends_on']);
-        $data->created_date = \XF::$time;
         $data->timezone = $input['timezone'];
         $data->starting_bid = $input['starting_bid'];
         $data->bid_increament = $input['bid_increament'];
@@ -164,6 +173,50 @@ class Auction extends AbstractController
         $data->save();
     }
 
+    public function actionBumping(ParameterBag $params)
+    {
+        $bumping = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
+
+        $difference = time() - $bumping->last_bumping;
+
+        if ($difference <= 86400 && $bumping->bumping_counts != 2 && $bumping->bumping_counts <= 3) {
+            $bumping->fastUpdate('last_bumping', time());
+            $bumping->fastUpdate('bumping_counts', ($bumping->bumping_counts + 1));
+        } elseif ($difference > 86400) {
+            $bumping->fastUpdate('last_bumping', time());
+            $bumping->fastUpdate('bumping_counts', 1);
+        }
+
+        return $this->redirect($this->buildLink('auction'));
+    }
+
+    public function actionBidding(ParameterBag $params)
+    {
+        $input = $this->filter([
+            'bidding_amount' => 'int',
+        ]);
+
+        if ($input['bidding_amount'] == '0') {
+            throw $this->exception(
+                $this->notFound(\XF::phrase("fs_auction_select_amount"))
+            );
+        }
+
+        $visitor = \XF::visitor();
+
+        $addBidding = $this->em()->create('FS\AuctionPlugin:Bidding');
+
+        $addBidding->user_id = $visitor->user_id;
+        $addBidding->auction_id = $params['auction_id'];
+        $addBidding->bidding_amount = $input['bidding_amount'];
+
+        $addBidding->save();
+
+        return $this->redirect(
+            $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
+        );
+    }
+
     protected function filterInputs()
     {
         $input = $this->filter([
@@ -183,7 +236,7 @@ class Auction extends AbstractController
             'payment_methods' => 'array',
         ]);
 
-        if ($input['title'] != '') {
+        if ($input['title'] != '' && $input['timezone'] != '0' && $input['prefix_id'] != '0' && $input['starting_bid'] != '0' && $input['bid_increament'] != '0' && $input['shipping_term'] != '0' && $input['ships_via'] != '0' && $input['auction_guidelines'] != false && $input['bumping_rules'] != false && count($input['payment_methods']) != 0) {
             return $input;
         }
 

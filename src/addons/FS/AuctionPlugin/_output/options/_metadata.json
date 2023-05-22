@@ -8,6 +8,9 @@
     "fs_auction_ImageExtensions.json": {
         "hash": "bb2c70f9343c1084302989828aac50a9"
     },
+    "fs_auction_max_attachments.json": {
+        "hash": "81b48ea4550456af40038b03d33df367"
+    },
     "minimumBidIncreament.json": {
         "hash": "18d53d897c690eb256a74a96ba3cd044"
     },

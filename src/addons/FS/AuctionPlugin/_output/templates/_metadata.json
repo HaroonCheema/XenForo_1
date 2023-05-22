@@ -47,12 +47,12 @@
     "public/addEdit_Auction.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "d1e3ee1681afae70819f664fdefabae1"
+        "hash": "20ee422b9c1bf629fec21942a453aa1e"
     },
     "public/fs_auctionArchive.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "860fcbf5a4f760abf1e29b66a8ec655d"
+        "hash": "9abd72a4a36f58f1a74dfefbc1d2e5d2"
     },
     "public/fs_auction_categories_add_listing_chooser.html": {
         "version_id": 1000100,
@@ -62,7 +62,7 @@
     "public/fs_auction_categories_overview.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "99bf7b2614f293390a1a3705e3322cb8"
+        "hash": "2515375c398f94d9fa186c6d1ae78861"
     },
     "public/fs_auction_category_add_listing.html": {
         "version_id": 1000100,
@@ -107,11 +107,11 @@
     "public/fs_auction_view_single.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "260da51485d375be7284ce1e73f354e2"
+        "hash": "38c9068eea59ea7af6b74f533896b94f"
     },
     "public/fs_auctions.less": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "1b29de92f9945c414e2968f008665c79"
+        "hash": "1c1f2a0f90605049210690ed9dd2782a"
     }
 }

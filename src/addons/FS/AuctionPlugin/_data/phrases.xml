@@ -46,13 +46,17 @@
   <phrase title="fs_add_auction_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Via]]></phrase>
   <phrase title="fs_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
   <phrase title="fs_auction_active" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Active]]></phrase>
+  <phrase title="fs_auction_attachment_reqired" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Attachment Required...!]]></phrase>
+  <phrase title="fs_auction_bumping" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bumping]]></phrase>
   <phrase title="fs_auction_cat" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[By Category]]></phrase>
   <phrase title="fs_auction_categories" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction categories]]></phrase>
   <phrase title="fs_auction_categories_add_listing" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Bidiing]]></phrase>
   <phrase title="fs_auction_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
+  <phrase title="fs_auction_edit_post" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Edit Post Thread]]></phrase>
   <phrase title="fs_auction_expired" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Expired]]></phrase>
   <phrase title="fs_auction_grid_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Grid view layout]]></phrase>
   <phrase title="fs_auction_list_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List view layout]]></phrase>
+  <phrase title="fs_auction_maximum_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Maximum attachments per auction : ]]></phrase>
   <phrase title="fs_auction_no_categories_exist_at_this_time" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No classifieds categories exist at this time.]]></phrase>
   <phrase title="fs_auction_requested_category_not_found" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Requested category not found...!]]></phrase>
   <phrase title="fs_auction_status" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Status]]></phrase>
@@ -73,19 +77,20 @@
   <phrase title="option.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Thread Prefix Id]]></phrase>
   <phrase title="option.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Allowed image extensions]]></phrase>
-  <phrase title="option.fs_auction_list_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Layout type]]></phrase>
+  <phrase title="option.fs_auction_max_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Maximum attachments per auction]]></phrase>
   <phrase title="option.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Minimum Bid Increament]]></phrase>
   <phrase title="option.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Payment Options]]></phrase>
   <phrase title="option_explain.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option_explain.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_explain.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List the file extensions that are allowed to be uploaded for images. Use spaces or line breaks between extensions.]]></phrase>
-  <phrase title="option_explain.fs_auction_list_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[The layout type you want used on the Auction index. <b>Note:</b> Can be overridden by categories.]]></phrase>
+  <phrase title="option_explain.fs_auction_max_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Use 0 to allow an unlimited number of attachments per message.]]></phrase>
   <phrase title="option_explain.minimumBidIncreament" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bid increament options...!]]></phrase>
   <phrase title="option_explain.paymentOptions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[payment options]]></phrase>
   <phrase title="option_group.auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Auction]]></phrase>
   <phrase title="option_group_description.auction" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Auction Plugin]]></phrase>
   <phrase title="payment_methods" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[PAYMENTS ACCEPTED]]></phrase>
-  <phrase title="permission_interface.fs_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction permissions]]></phrase>
+  <phrase title="permission.fs_auction_add" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add auction listing]]></phrase>
+  <phrase title="permission_interface.fs_auction_permissions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[FS Auction Plugin Permissions]]></phrase>
   <phrase title="receiveEmailNotification" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[and receive email notifications]]></phrase>
   <phrase title="shippingTerms" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[SHIPPING TERMS]]></phrase>
   <phrase title="shippingVia" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[SHIPS VIA]]></phrase>

@@ -12,7 +12,7 @@ return array (
   'permission_interface.formThreadModeration' => 'Form Thread Moderation',
   'permission_interface.forumModeratorPermissions' => 'Forum moderator permissions',
   'permission_interface.forumPermissions' => 'Forum permissions',
-  'permission_interface.fs_auction' => 'Auction permissions',
+  'permission_interface.fs_auction_permissions' => 'FS Auction Plugin Permissions',
   'permission_interface.fs_thread_replies_abrove' => 'Thread Post Approve',
   'permission_interface.generalModeratorPermissions' => 'General moderator permissions',
   'permission_interface.generalPermissions' => 'General permissions',

@@ -76,7 +76,7 @@ function timmerCounter(auction_id, start_datetime) {
 	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
 } }}" />
 
-<xf:pageaction if="$xf.visitor.canAddClassified() && $categories is not empty">
+<xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
 	<xf:button href="{{ link('auction/add') }}" class="button--cta" icon="write" overlay="true">{{ phrase('fs_auction_categories_add_listing...') }}</xf:button>
 </xf:pageaction>
 

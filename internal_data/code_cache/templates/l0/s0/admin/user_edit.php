@@ -721,7 +721,6 @@ return array(
 	), array(
 		'label' => 'Trophy points',
 	)) . '
-' . $__templater->includeTemplate('z61_classifieds_user_edit_feedback', $__vars) . '
 				</div>
 
 				<h3 class="block-formSectionHeader">

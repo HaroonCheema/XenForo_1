@@ -1,0 +1,1 @@
+Use 0 to allow an unlimited number of attachments per message.

@@ -22,6 +22,7 @@ return array (
   'cron_entry.forumStatistics' => 'Rebuild forum statistics',
   'cron_entry.fsAutoForumManager' => '[FS] Auto Forum Manager',
   'cron_entry.fs_schdulerposting' => 'Scheduler posting',
+  'cron_entry.fs_scheduleBanUsers' => '[FS] Schedule Ban User',
   'cron_entry.fs_upgradeUsergroup' => '[FS] Upgrade Usergroup by Messages',
   'cron_entry.fs_upgradeUsergroups' => '[FS] Upgrade Usergroup by Login',
   'cron_entry.memberStatsCache' => 'Rebuild member stats cache',
