@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: cedce7e21b9f37492788e0804c61b6ab
+// FROM HASH: 9b0be4a62dca971fbb37c8630e50fc0b
 return array(
 'macros' => array('category_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -34,7 +34,7 @@ return array(
 			</div>
 			<div class="contentRow-suffix">
 				<dl class="pairs pairs--rows pairs--rows--centered">
-					<dt>' . 'Listings' . '</dt>
+					<dt>' . 'Auctions' . '</dt>
 					<dd>' . $__templater->filter($__vars['category']['bid_count'], array(array('number_short', array()),), true) . '</dd>
 				</dl>
 			</div>
@@ -51,7 +51,7 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Add listing to' . $__vars['xf']['language']['ellipsis']);
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Add Auction to' . $__vars['xf']['language']['ellipsis']);
 	$__finalCompiled .= '
 
 ' . $__templater->callMacro(null, 'category_list', array(

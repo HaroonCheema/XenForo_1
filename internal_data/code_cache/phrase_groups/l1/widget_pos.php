@@ -1,9 +1,6 @@
 <?php
 return array (
   'widget_pos.category_view_sidebar' => 'Category view: Sidebar',
-  'widget_pos.classifieds_category_sidenav' => 'Classifieds category: Sidenav',
-  'widget_pos.classifieds_listing_view_sidebar' => 'Classifieds listing view: Sidebar',
-  'widget_pos.classifieds_overview_sidenav' => 'Classifieds overview: Sidenav',
   'widget_pos.conversation_list_sidebar' => 'Conversation list: Sidebar',
   'widget_pos.conversation_view_sidebar' => 'Conversation view: Sidebar',
   'widget_pos.dbtech_ecommerce_category_sidenav' => 'Product category: Sidenav',

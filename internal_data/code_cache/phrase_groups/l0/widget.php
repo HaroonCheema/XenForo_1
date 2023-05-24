@@ -27,5 +27,4 @@ return array (
   'widget.xfrm_overview_latest_reviews' => '',
   'widget.xfrm_overview_top_authors' => '',
   'widget.xfrm_whats_new_overview_new_resources' => '',
-  'widget.z61_classifieds_latest_listings_overview' => 'Latest classifieds listings',
 );

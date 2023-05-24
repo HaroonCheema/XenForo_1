@@ -43,7 +43,14 @@ return array(
 	}
 	$__finalCompiled .= '
 
-
+		<div class="file-content">
+			<div class="file-info">
+				<span class="file-name" title="' . $__templater->escape($__vars['attachment']['filename']) . '">' . $__templater->escape($__vars['attachment']['filename']) . '</span>
+				<div class="file-meta">
+					' . $__templater->filter($__vars['attachment']['file_size'], array(array('file_size', array()),), true) . ' &middot; ' . 'Views' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->filter($__vars['attachment']['view_count'], array(array('number', array()),), true) . '
+				</div>
+			</div>
+		</div>
 	</li>
 ';
 	return $__finalCompiled;

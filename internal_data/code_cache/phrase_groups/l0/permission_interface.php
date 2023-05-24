@@ -2,8 +2,6 @@
 return array (
   'permission_interface.bh_brand_hub' => '[XB] Brand-Hub',
   'permission_interface.bookmarkPermissions' => 'Bookmark permissions',
-  'permission_interface.classifieds' => 'Classifieds permissions',
-  'permission_interface.classifiedsModeratorPermissions' => 'Classifieds moderator permissions',
   'permission_interface.conversationModeratorPermissions' => 'Conversation moderator permissions',
   'permission_interface.conversationPermissions' => 'Conversation permissions',
   'permission_interface.dbtechEcommerce' => 'DragonByte eCommerce permissions',

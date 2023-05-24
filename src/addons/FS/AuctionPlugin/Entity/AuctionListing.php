@@ -5,9 +5,40 @@ namespace FS\AuctionPlugin\Entity;
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
 use XF\Util\Arr;
+use XF\Entity\BookmarkTrait;
+use XF\Entity\LinkableInterface;
 
-class AuctionListing extends Entity
+
+class AuctionListing extends Entity implements LinkableInterface
 {
+
+    use  BookmarkTrait;
+
+    protected function canBookmarkContent(&$error = null)
+    {
+
+        return true;
+    }
+
+    public function getContentPublicRoute()
+    {
+        return 'auction/view-auction';
+    }
+
+    public function getContentTitle(string $context = '')
+    {
+        if ($this->title) {
+
+            return $this->title;
+        }
+    }
+    public function getContentUrl(bool $canonical = false, array $extraParams = [], $hash = null)
+    {
+
+        $route = $canonical ? 'canonical:auction/view-auction' : 'auction/view-auction';
+
+        return $this->app()->router('public')->buildLink($route, $this, $extraParams, $hash);
+    }
     public static function getStructure(Structure $structure)
     {
         $structure->table = 'fs_auction_listing';
@@ -18,7 +49,7 @@ class AuctionListing extends Entity
             'auction_id' => ['type' => self::UINT, 'autoIncrement' => true],
             'category_id' => [
                 'type' => self::UINT,
-                'required' => 'z61_classifieds_please_enter_valid_category'
+                'required' => 'fs_auctions_please_enter_valid_category'
             ],
             'title' => [
                 'type' => self::STR, 'maxLength' => 100,
@@ -95,6 +126,7 @@ class AuctionListing extends Entity
         $structure->defaultWith = [];
         $structure->getters = [];
         $structure->behaviors = [];
+        static::addBookmarkableStructureElements($structure);
 
         return $structure;
     }
@@ -117,5 +149,11 @@ class AuctionListing extends Entity
         $attachmentData = $this->finder('XF:Attachment')->where('content_id', $this->auction_id)->where('content_type', 'fs_auction')->fetchOne();
 
         return $attachmentData->Data ? $attachmentData->Data->getThumbnailUrl() : '';
+    }
+
+    public function getMaxBid($auction_id)
+    {
+        $db = \XF::db();
+        return  $db->fetchOne("SELECT MAX(bidding_amount) FROM fs_auction_bidding WHERE auction_id = $this->auction_id");
     }
 }

@@ -46,7 +46,7 @@ class ApprovalQueue extends XFCP_ApprovalQueue
     protected function wordHighlight($message)
     {
         $options = \XF::options();
-        $applicable_words = $options->spamPhrases['phrases'];
+        $applicable_words = $options->shsBannedPostContentWords;
 
         $wordsArray = str_word_count($applicable_words, 1);
 

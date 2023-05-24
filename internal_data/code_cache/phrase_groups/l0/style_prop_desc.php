@@ -294,11 +294,5 @@ return array (
   'style_prop_desc.warningColor' => '',
   'style_prop_desc.warningFeatureColor' => '',
   'style_prop_desc.whatsNewNavStyle' => 'This controls how the navigation is displayed in the <i>What\'s new</i> section. Side navigation works better with more sections but requires more space.',
-  'style_prop_desc.z61ClassifiedsFeedbackNegative' => '',
-  'style_prop_desc.z61ClassifiedsFeedbackNegativeIcon' => 'The css classes to use for negative feedback. Ex: <b>fa fa-thumbs-down</b>',
-  'style_prop_desc.z61ClassifiedsFeedbackNeutral' => '',
-  'style_prop_desc.z61ClassifiedsFeedbackNeutralIcon' => 'The css classes to use for positive feedback. Ex: <b>fa fa-meh</b>',
-  'style_prop_desc.z61ClassifiedsFeedbackPositive' => '',
-  'style_prop_desc.z61ClassifiedsFeedbackPositiveIcon' => 'The css classes to use for positive feedback. Ex: <b>fa fa-thumbs-up</b>',
   'style_prop_desc.zIndexMultiplier' => 'Controls the relative \'height\' of elements in the Z-dimension (perpendicular to the screen). Unless you have a specific reason to change this, leave it alone...',
 );

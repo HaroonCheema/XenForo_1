@@ -46,5 +46,4 @@ return array (
   'option_group.usersAndRegistration' => 'User registration',
   'option_group.xb_stop_human_span' => '[XB] Stop Human Spam',
   'option_group.xfrm' => 'XenForo Resource Manager',
-  'option_group.z61Classifieds' => 'Classifieds',
 );

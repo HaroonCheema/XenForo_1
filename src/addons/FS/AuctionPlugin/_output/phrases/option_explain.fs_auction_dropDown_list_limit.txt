@@ -1,0 +1,1 @@
+Bidding amount dropdown list limit example 5 options display in dropdown or more

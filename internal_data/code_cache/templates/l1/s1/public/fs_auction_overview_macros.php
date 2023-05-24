@@ -84,7 +84,7 @@ return array(
 	$__finalCompiled = '';
 	$__finalCompiled .= '
 	';
-	$__vars['sortOrders'] = array('last_update' => 'z61_classifieds_last_updated', 'expiration_date' => 'Expiration date', 'title' => 'Title', 'price' => 'Price', );
+	$__vars['sortOrders'] = array('last_update' => 'z61_classifieds_last_updated', 'expiration_date' => 'z61_classifieds_expiration_date', 'title' => 'Title', 'price' => 'Price', );
 	$__finalCompiled .= '
 
 	<div class="block-filterBar">
@@ -107,7 +107,7 @@ return array(
 		$__compilerTemp1 .= '
 						<li><a href="' . $__templater->func('link', array($__vars['baseLinkPath'], $__vars['category'], $__templater->filter($__vars['filters'], array(array('replace', array('condition_id', null, )),), false), ), true) . '"
 							   class="filterBar-filterToggle" data-xf-init="tooltip" title="' . $__templater->filter('Remove this filter', array(array('for_attr', array()),), true) . '">
-							<span class="filterBar-filterToggle-label">' . 'Condition' . $__vars['xf']['language']['label_separator'] . '</span>
+							<span class="filterBar-filterToggle-label">' . 'z61_classifieds_condition:' . '</span>
 							' . $__templater->escape($__vars['conditionFilter']['title']) . '</a></li>
 					';
 	}
@@ -118,7 +118,7 @@ return array(
 		$__compilerTemp1 .= '
 						<li><a href="' . $__templater->func('link', array($__vars['baseLinkPath'], $__vars['category'], $__templater->filter($__vars['filters'], array(array('replace', array('address', null, )),), false), ), true) . '"
 							   class="filterBar-filterToggle" data-xf-init="tooltip" title="' . $__templater->filter('Remove this filter', array(array('for_attr', array()),), true) . '">
-							<span class="filterBar-filterToggle-label">' . 'Within' . $__vars['xf']['language']['label_separator'] . '</span>
+							<span class="filterBar-filterToggle-label">' . 'z61_classifieds_within:' . '</span>
 							' . '' . $__templater->escape($__vars['address']['distance']) . ' ' . $__templater->filter($__vars['address']['distance_unit'], array(array('to_upper', array()),), true) . ' of ' . $__templater->escape($__vars['address']['formatted']) . '' . '</a></li>
 					';
 	}

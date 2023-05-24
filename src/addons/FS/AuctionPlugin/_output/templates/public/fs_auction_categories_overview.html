@@ -73,7 +73,7 @@ function timmerCounter(auction_id, start_datetime) {
 
 
 <xf:page option="searchConstraints" value="{{ {
-	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">

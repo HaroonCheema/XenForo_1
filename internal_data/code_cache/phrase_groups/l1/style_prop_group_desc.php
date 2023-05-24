@@ -28,5 +28,4 @@ return array (
   'style_prop_group_desc.rte' => 'The rich text (or WYSIWYG) editor is the preferred method of entering text for messages posted to the forum. Various parts of the editor can be styled with the settings in this group.',
   'style_prop_group_desc.tab' => 'Standalone tabs - those that are not part of the main page navigation, are controlled here.',
   'style_prop_group_desc.tooltip' => 'Tooltips are (usually) small hints that appear when the mouse pointer hovers over page elements that may require additional information to convey their purpose or content.',
-  'style_prop_group_desc.z61ClassifiedsFeedback' => 'This defines the set of colors and icons used for coloring the classifieds feedback system. It is recommended to respect the XenForo icon weight.',
 );

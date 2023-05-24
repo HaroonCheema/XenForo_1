@@ -109,11 +109,11 @@ class Auction extends AbstractController
     protected function checkAttachments($hash, $data)
     {
         if ($data->auction_id) {
-            $conditions = [
-                ['content_id', $data->auction_id],
-                ['temp_hash', $hash],
-            ];
-            $attachments = $this->finder('XF:Attachment')->whereOr($conditions)->fetch();
+            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $data->auction_id)->fetch();
+
+            if (!count($attachments)) {
+                $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
+            }
         } else {
             $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
         }
@@ -150,7 +150,7 @@ class Auction extends AbstractController
         $data->content = $message;
         $data->user_id = $visitor->user_id;
         $data->prefix_id = $input['prefix_id'];
-        $data->ends_on = strtotime($input['ends_on']);
+        $data->ends_on = strtotime($input['ends_on'] . ' 00:00 America/New_York');
         $data->timezone = $input['timezone'];
         $data->starting_bid = $input['starting_bid'];
         $data->bid_increament = $input['bid_increament'];
@@ -175,16 +175,25 @@ class Auction extends AbstractController
 
     public function actionBumping(ParameterBag $params)
     {
+
         $bumping = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
 
         $difference = time() - $bumping->last_bumping;
 
-        if ($difference <= 86400 && $bumping->bumping_counts != 2 && $bumping->bumping_counts <= 3) {
+        $options = \XF::options();
+        $allowBumping = $options->fs_auction_bumping_allowed;
+
+        if ($difference <= 86400 && $bumping->bumping_counts != $allowBumping && $bumping->bumping_counts < ($allowBumping + 1)) {
             $bumping->fastUpdate('last_bumping', time());
             $bumping->fastUpdate('bumping_counts', ($bumping->bumping_counts + 1));
         } elseif ($difference > 86400) {
             $bumping->fastUpdate('last_bumping', time());
             $bumping->fastUpdate('bumping_counts', 1);
+        } else {
+            throw $this->exception(
+                // $this->error(\XF::phrase("fs_auction_you_already_bumping"), $allowBumping)
+                $this->error(\XF::phrase("fs_auction_you_already_bumping") . $allowBumping . ' times...!')
+            );
         }
 
         return $this->redirect($this->buildLink('auction'));
@@ -219,6 +228,7 @@ class Auction extends AbstractController
 
     protected function filterInputs()
     {
+
         $input = $this->filter([
             'category_id' => 'int',
             'title' => 'str',
@@ -235,6 +245,12 @@ class Auction extends AbstractController
             'watch_thread' => 'bool',
             'payment_methods' => 'array',
         ]);
+
+        if (strtotime($input['ends_on']) <= time()) {
+            throw $this->exception(
+                $this->notFound(\XF::phrase("fs_auction_Please_enter_future_date"))
+            );
+        }
 
         if ($input['title'] != '' && $input['timezone'] != '0' && $input['prefix_id'] != '0' && $input['starting_bid'] != '0' && $input['bid_increament'] != '0' && $input['shipping_term'] != '0' && $input['ships_via'] != '0' && $input['auction_guidelines'] != false && $input['bumping_rules'] != false && count($input['payment_methods']) != 0) {
             return $input;
@@ -256,21 +272,9 @@ class Auction extends AbstractController
 
             $this->deleteAndDecreament($replyExists, true);
 
-            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->auction_id)->fetch();
+            $this->deleteAttachments($params->auction_id);
 
-            if (count($attachments)) {
-
-                foreach ($attachments as $attachment) {
-
-                    $path = \XF::getRootDirectory() . $this->getAbstractDepositAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id);
-
-                    if (file_exists($path)) {
-
-                        $this->App()->fs()->delete($this->getAbstractCustomAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id));
-                    }
-                    $attachment->delete();
-                }
-            }
+            $this->deleteBiddings($params->auction_id);
 
             return $this->redirect($this->buildLink('auction'));
         }
@@ -282,6 +286,34 @@ class Auction extends AbstractController
             $this->buildLink('auction'),
             "{$replyExists->title}"
         );
+    }
+
+    protected function deleteBiddings($auction_id)
+    {
+        $biddingFounds = $this->finder('FS\AuctionPlugin:Bidding')->where('auction_id', $auction_id)->fetch();
+
+        foreach ($biddingFounds as $bid) {
+            $bid->delete();
+        }
+    }
+
+    protected function deleteAttachments($auction_id)
+    {
+        $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->auction_id)->fetch();
+
+        if (count($attachments)) {
+
+            foreach ($attachments as $attachment) {
+
+                $path = \XF::getRootDirectory() . $this->getAbstractDepositAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id);
+
+                if (file_exists($path)) {
+
+                    $this->App()->fs()->delete($this->getAbstractCustomAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id));
+                }
+                $attachment->delete();
+            }
+        }
     }
 
     protected function deleteAndDecreament(\FS\AuctionPlugin\Entity\AuctionListing $data)

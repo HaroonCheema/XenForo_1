@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 9abd72a4a36f58f1a74dfefbc1d2e5d2
+// FROM HASH: 7105bb878e8d4a0537bfda35ff739c61
 return array(
 'macros' => array('search_menu' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -43,22 +43,29 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Classifieds');
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Auction');
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
 <script>
-//For Mulitiple counter
 
-// For All OtherAuctions
+// For All Auctions
 function DateTimeConverter(unixdatetime) {
-  var wStart_time = new Date(unixdatetime * 1000).toLocaleString("en-GB", {
-    hour12: false,
-    // timeZone:\'Europe/London\',
-    timeStyle: "short",
-  });
-  var humanDate = new Date(unixdatetime * 1000);
-  var year = humanDate.getFullYear();
 
+  var wStart_time = new Date(unixdatetime *1000).toLocaleString("en-US", {
+    hour12: false,
+	 //  timeZone: \'America/New_York\',
+    // timeZone:\'Europe/London\',
+    timeStyle: "long",
+  });
+  var tempHumanDate = new Date(unixdatetime * 1000).toLocaleDateString("en-US", {
+	 timeZone: \'America/New_York\',
+	 year: \'numeric\', 
+	 month: \'numeric\', 
+	 day: \'numeric\',
+  });
+
+  var humanDate = new Date(tempHumanDate);
+  var year = humanDate.getFullYear();
   var month = (humanDate.getMonth() + 1).toString().padStart(2, "0");
   var date = humanDate.getDate();
 
@@ -81,10 +88,10 @@ function DateTimeConverter(unixdatetime) {
 }
 
 function timmerCounter(auction_id, start_datetime) {
-	console.log(start_datetime);
+	
 	
   let auc_id = auction_id;
-	console.log(document.getElementById("hours-auction-" + auc_id));
+
   let humanDateTime = DateTimeConverter(start_datetime);
 
   var countDownDate = new Date(humanDateTime).getTime();
@@ -106,12 +113,6 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
-    //  var url = window.location.origin + "/classified/auction/" + auc_id;
- //     document.getElementById("days-" + auc_id).innerHTML =
-  //      "<a href=" + url + ">Join</a>";
-  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
-   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
-   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
     }
   }, 1000);
 }
@@ -124,13 +125,13 @@ function timmerCounter(auction_id, start_datetime) {
 	), $__vars) . '
 
 ';
-	$__templater->setPageParam('searchConstraints', array('Listings' => array('search_type' => 'classifieds_listing', ), ));
+	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'classifieds_listing', ), ));
 	$__finalCompiled .= '
 
 ';
 	if ($__templater->method($__vars['xf']['visitor'], 'canAddAuctions', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-	' . $__templater->button('Add Bidiing' . $__vars['xf']['language']['ellipsis'], array(
+	' . $__templater->button('Add Auction' . $__vars['xf']['language']['ellipsis'], array(
 			'href' => $__templater->func('link', array('auction/add', ), false),
 			'class' => 'button--cta',
 			'icon' => 'write',
@@ -226,11 +227,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 		} else if ($__vars['filters']) {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'There are currently no listings that match your filters.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
 					';
 		} else {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'No listings have been created yet.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
 				';
 		}
 		$__finalCompiled .= '
@@ -277,11 +278,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 		} else if ($__vars['filters']) {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'There are currently no listings that match your filters.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
 					';
 		} else {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'No listings have been created yet.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
 				';
 		}
 		$__finalCompiled .= '
@@ -320,6 +321,10 @@ function timmerCounter(auction_id, start_datetime) {
 	
 	' . $__templater->callMacro('fs_auction_category_list_macros', 'simple_list_block', array(
 		'categoryTree' => $__vars['categoryTree'],
+	), $__vars) . '
+	
+	' . $__templater->callMacro('fs_auction_list_statistics_macros', 'fs_auction_stats', array(
+		'stats' => $__vars['stats'],
 	), $__vars) . '
 ', 'replace');
 	$__finalCompiled .= '

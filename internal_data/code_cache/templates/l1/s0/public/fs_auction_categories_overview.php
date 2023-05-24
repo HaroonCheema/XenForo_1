@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 2515375c398f94d9fa186c6d1ae78861
+// FROM HASH: 3ef81d564445fb1d561b98d1b5a458dc
 return array(
 'macros' => array('table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -133,13 +133,13 @@ function timmerCounter(auction_id, start_datetime) {
 
 
 ';
-	$__templater->setPageParam('searchConstraints', array('Listings' => array('search_type' => 'classifieds_listing', ), ));
+	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'classifieds_listing', ), ));
 	$__finalCompiled .= '
 
 ';
 	if ($__templater->method($__vars['xf']['visitor'], 'canAddAuctions', array()) AND !$__templater->test($__vars['categories'], 'empty', array())) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-	' . $__templater->button('Add Bidiing' . $__vars['xf']['language']['ellipsis'], array(
+	' . $__templater->button('Add Auction' . $__vars['xf']['language']['ellipsis'], array(
 			'href' => $__templater->func('link', array('auction/add', ), false),
 			'class' => 'button--cta',
 			'icon' => 'write',
@@ -178,11 +178,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 			} else if ($__vars['filters']) {
 				$__compilerTemp1 .= '
-					<div class="block-row">' . 'There are currently no listings that match your filters.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
 					';
 			} else {
 				$__compilerTemp1 .= '
-					<div class="block-row">' . 'No listings have been created yet.' . '</div>
+					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
 				';
 			}
 			$__compilerTemp1 .= '

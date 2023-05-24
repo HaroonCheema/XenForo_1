@@ -1,17 +1,24 @@
-<xf:title page="{$page}">{{ phrase('z61_classifieds') }}</xf:title>
+<xf:title page="{$page}">{{ phrase('fs_auction') }}</xf:title>
 <script>
-//For Mulitiple counter
 
-// For All OtherAuctions
+// For All Auctions
 function DateTimeConverter(unixdatetime) {
-  var wStart_time = new Date(unixdatetime * 1000).toLocaleString("en-GB", {
-    hour12: false,
-    // timeZone:'Europe/London',
-    timeStyle: "short",
-  });
-  var humanDate = new Date(unixdatetime * 1000);
-  var year = humanDate.getFullYear();
 
+  var wStart_time = new Date(unixdatetime *1000).toLocaleString("en-US", {
+    hour12: false,
+	 //  timeZone: 'America/New_York',
+    // timeZone:'Europe/London',
+    timeStyle: "long",
+  });
+  var tempHumanDate = new Date(unixdatetime * 1000).toLocaleDateString("en-US", {
+	 timeZone: 'America/New_York',
+	 year: 'numeric', 
+	 month: 'numeric', 
+	 day: 'numeric',
+  });
+
+  var humanDate = new Date(tempHumanDate);
+  var year = humanDate.getFullYear();
   var month = (humanDate.getMonth() + 1).toString().padStart(2, "0");
   var date = humanDate.getDate();
 
@@ -34,10 +41,10 @@ function DateTimeConverter(unixdatetime) {
 }
 
 function timmerCounter(auction_id, start_datetime) {
-	console.log(start_datetime);
+	
 	
   let auc_id = auction_id;
-	console.log(document.getElementById("hours-auction-" + auc_id));
+
   let humanDateTime = DateTimeConverter(start_datetime);
 
   var countDownDate = new Date(humanDateTime).getTime();
@@ -59,12 +66,6 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
-    //  var url = window.location.origin + "/classified/auction/" + auc_id;
- //     document.getElementById("days-" + auc_id).innerHTML =
-  //      "<a href=" + url + ">Join</a>";
-  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
-   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
-   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
     }
   }, 1000);
 }
@@ -76,7 +77,7 @@ function timmerCounter(auction_id, start_datetime) {
 	arg-canonicalUrl="{{ link('canonical:classifieds', null, {'page': $page}) }}" />
 
 <xf:page option="searchConstraints" value="{{ {
-	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -185,6 +186,9 @@ function timmerCounter(auction_id, start_datetime) {
 	
 	<xf:macro template="fs_auction_category_list_macros" name="simple_list_block"
 		arg-categoryTree="{$categoryTree}" />
+	
+	<xf:macro template="fs_auction_list_statistics_macros" name="fs_auction_stats"
+		arg-stats="{$stats}" />
 </xf:sidenav>
 
 <xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />

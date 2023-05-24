@@ -304,15 +304,11 @@
       
 		
         <xf:formrow label="{{ phrase('auction_endDate') }}" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
-
-		 <input
-              name="ends_on"
-			  type="date"
-              class="date end"
-              value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
-              min="{{date($xf.time, 'Y-m-d')}}"
+<xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
               required="true"
-            />
+				
+				label="{{ phrase('auction_endDate') }}" />
+
         </xf:formrow>
 		
 		<xf:selectrow
@@ -462,20 +458,27 @@
     <xf:submitrow icon="save" sticky="true" />
   </div>
 </xf:form>]]></template>
-  <template type="public" title="fs_auctionArchive" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('z61_classifieds') }}</xf:title>
+  <template type="public" title="fs_auctionArchive" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_auction') }}</xf:title>
 <script>
-//For Mulitiple counter
 
-// For All OtherAuctions
+// For All Auctions
 function DateTimeConverter(unixdatetime) {
-  var wStart_time = new Date(unixdatetime * 1000).toLocaleString("en-GB", {
-    hour12: false,
-    // timeZone:'Europe/London',
-    timeStyle: "short",
-  });
-  var humanDate = new Date(unixdatetime * 1000);
-  var year = humanDate.getFullYear();
 
+  var wStart_time = new Date(unixdatetime *1000).toLocaleString("en-US", {
+    hour12: false,
+	 //  timeZone: 'America/New_York',
+    // timeZone:'Europe/London',
+    timeStyle: "long",
+  });
+  var tempHumanDate = new Date(unixdatetime * 1000).toLocaleDateString("en-US", {
+	 timeZone: 'America/New_York',
+	 year: 'numeric', 
+	 month: 'numeric', 
+	 day: 'numeric',
+  });
+
+  var humanDate = new Date(tempHumanDate);
+  var year = humanDate.getFullYear();
   var month = (humanDate.getMonth() + 1).toString().padStart(2, "0");
   var date = humanDate.getDate();
 
@@ -498,10 +501,10 @@ function DateTimeConverter(unixdatetime) {
 }
 
 function timmerCounter(auction_id, start_datetime) {
-	console.log(start_datetime);
+	
 	
   let auc_id = auction_id;
-	console.log(document.getElementById("hours-auction-" + auc_id));
+
   let humanDateTime = DateTimeConverter(start_datetime);
 
   var countDownDate = new Date(humanDateTime).getTime();
@@ -523,12 +526,6 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
-    //  var url = window.location.origin + "/classified/auction/" + auc_id;
- //     document.getElementById("days-" + auc_id).innerHTML =
-  //      "<a href=" + url + ">Join</a>";
-  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
-   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
-   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
     }
   }, 1000);
 }
@@ -540,7 +537,7 @@ function timmerCounter(auction_id, start_datetime) {
 	arg-canonicalUrl="{{ link('canonical:classifieds', null, {'page': $page}) }}" />
 
 <xf:page option="searchConstraints" value="{{ {
-	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -649,6 +646,9 @@ function timmerCounter(auction_id, start_datetime) {
 	
 	<xf:macro template="fs_auction_category_list_macros" name="simple_list_block"
 		arg-categoryTree="{$categoryTree}" />
+	
+	<xf:macro template="fs_auction_list_statistics_macros" name="fs_auction_stats"
+		arg-stats="{$stats}" />
 </xf:sidenav>
 
 <xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />
@@ -684,7 +684,25 @@ function timmerCounter(auction_id, start_datetime) {
     </div>
   </div>
 </xf:macro>]]></template>
-  <template type="public" title="fs_auction_categories_add_listing_chooser" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('z61_classifieds_add_listing_to...') }}</xf:title>
+  <template type="public" title="fs_auction_bookmark_macros" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:macro name="link"
+	arg-content="!"
+	arg-confirmUrl="!"
+	arg-editText="{{ phrase('edit_bookmark') }}"
+	arg-addText="{{ phrase('add_bookmark') }}"
+	arg-showText="{{ true }}"
+	arg-class="actionBar-action actionBar-action--bookmarkLink">
+	
+		<a href="{$confirmUrl}" class="bookmarkLink"
+			title="{{ $showText ? '' : phrase('bookmark')|for_attr }}"
+			data-xf-click="bookmark-click"
+			data-label=".js-bookmarkText"
+			data-sk-bookmarked="addClass:is-bookmarked, {$editText|for_attr}"
+			data-sk-bookmarkremoved="removeClass:is-bookmarked, {$addText|for_attr}"><xf:trim>
+			<span class="js-bookmarkText {{ $showText ? '' : 'u-srOnly' }}"><xf:if is="$auction">{$editText}<xf:else/>{$addText}</xf:if></span>
+		</xf:trim></a>
+
+</xf:macro>]]></template>
+  <template type="public" title="fs_auction_categories_add_listing_chooser" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('fs_auctions_add_auction_to...') }}</xf:title>
 
 <xf:macro name="category_list" arg-children="{$categories}" />
 
@@ -706,7 +724,7 @@ function timmerCounter(auction_id, start_datetime) {
 			</div>
 			<div class="contentRow-suffix">
 				<dl class="pairs pairs--rows pairs--rows--centered">
-					<dt>{{ phrase('z61_classifieds_listings') }}</dt>
+					<dt>{{ phrase('fs_auction_auctions') }}</dt>
 					<dd>{$category.bid_count|number_short}</dd>
 				</dl>
 			</div>
@@ -789,7 +807,7 @@ function timmerCounter(auction_id, start_datetime) {
 
 
 <xf:page option="searchConstraints" value="{{ {
-	phrase('z61_classifieds_listings'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -1002,6 +1020,38 @@ function timmerCounter(auction_id, start_datetime) {
 								<i class="fas fa-{{$iconClass}}"></i>
 							</xf:button>
 </xf:macro>]]></template>
+  <template type="public" title="fs_auction_list_statistics_macros" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:macro name="fs_auction_stats" arg-stats="!">
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">{{ phrase('fs_auction_statistics') }}</h3>
+			<div class="block-body">
+				<xf:if is="$stats">
+							
+					<ol class="categoryList toggleTarget is-active">
+
+		<xf:foreach loop="$stats" key="$id" value="$category">
+			
+			<li class="categoryList-item">
+		<div class="categoryList-itemRow">
+			<div class="categoryList-link" style="color:#2577b1;">
+				{$category.title}
+			</div>
+			<span class="categoryList-label">
+				<span class="label label--subtle label--smallest">{$category.count}</span>
+			</span>
+		</div>
+	</li>
+		
+		</xf:foreach>
+	</ol>
+				<xf:else />
+					<div class="block-row">{{ phrase('n_a') }}</div>
+				</xf:if>
+				
+			</div>
+		</div>
+	</div>
+</xf:macro>]]></template>
   <template type="public" title="fs_auction_list_view.less" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[// ############################ Auction List View ######################
 
 .structItem-cell.structItem-cell--listingMeta
@@ -1009,7 +1059,7 @@ function timmerCounter(auction_id, start_datetime) {
 	width: 250px;
 }
 .label--counter{
-	color:black !important;
+	font-size:13px;
 }
 .auction-category{
 	font-size: 12px;
@@ -1259,13 +1309,14 @@ function timmerCounter(auction_id, start_datetime) {
 @listing-grid-thumb: 108px;
 
 .auction-itemGrid-img{
-	height: 167px;
+min-height:275px;
+	max-height:275px;
 	min-width:275px;
 	max-width:275px;
 	
 }
 .label--counter{
-	color:black !important;
+	font-size:13px;
 }
 .auction-category{
 	font-size: 12px;
@@ -1277,14 +1328,17 @@ function timmerCounter(auction_id, start_datetime) {
 	
 	min-width:388px;
 	max-width:388px;
-	
+	min-height:388px;
+	max-height:388px;
 }
 }
 @media (min-width: @xf-responsiveMedium)
 {
 	.auction-itemGrid-img{
 		min-width:340px;
-		max-width:340
+		max-width:340px;
+		min-height:340px;
+		max-height:340px;
 		
 	}
 	@supports(display: grid)
@@ -1403,6 +1457,8 @@ function timmerCounter(auction_id, start_datetime) {
 
 @media  (min-width:1024.5px){
 	.auction-itemGrid-img{
+	min-height:277px;
+	max-height:277px;
 	min-width:277px;
 	max-width:277px;
 		
@@ -1418,13 +1474,15 @@ function timmerCounter(auction_id, start_datetime) {
 	<xf:css src="structured_list.less" />
 	<xf:css src="fs_auction_list_view.less" />
 	
-	<div class="structItem structItem--listing js-inlineModContainer " data-author="{{ $listing.User.username ?: $listing.username }}">
+	<div class="structItem structItem--listing js-inlineModContainer " id="auction-{{$listing.auction_id}}" data-author="{{ $listing.User.username ?: $listing.username }}">
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer">
 				<xf:if is="$listing.ends_on > $xf.time">
-						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})" style="height: 57px;">
+						<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">
+							<img src ="{{$listing.Attachment.thumbnail_url ?: base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})" style="min-height: 92px; max-height: 92px;"></a>
 				<xf:else />
-						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" style="height: 57px;">
+						<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">
+							<img src ="{{$listing.Attachment.thumbnail_url ?: base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" style="min-height: 92px; max-height: 92px;"></a>
 				</xf:if>
 						
 			</div>
@@ -1444,7 +1502,10 @@ function timmerCounter(auction_id, start_datetime) {
 
 					<ul class="structItem-parts">
 						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
-						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
+						<li class="structItem-startDate">
+							<xf:date time="{$listing.created_date}" /> 
+							
+						</li>
 						
 							<li>{{ snippet($listing.Category.title, 50, {'stripBbCode': true}) }}</li>
 				
@@ -1461,7 +1522,10 @@ function timmerCounter(auction_id, start_datetime) {
 
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt>{{ phrase('auctionEndsOn') }}</dt>
-				<dd><xf:date time="{$listing.ends_on}" /></dd>
+				<dd>
+					{{date($listing.ends_on,'F j, Y')}}
+			<!--		<xf:date time="{$listing.ends_on}" /> -->
+				</dd>
 			</dl>
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt>
@@ -1477,17 +1541,17 @@ function timmerCounter(auction_id, start_datetime) {
 						<li>
 							<div>
 								
-						<span class="label label--smallest label--primary label--counter" id="days-auction-{{$listing.auction_id}}">
-							 {{phrase('D')}}
+						<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
+							 {{phrase('fs_auction_DD')}}
 						</span>
-						<span class="label label--smallest label--primary label--counter" id="hours-auction-{{$listing.auction_id}}">
-							 {{phrase('H')}}
+						<span class="label  label--blue label--counter" id="hours-auction-{{$listing.auction_id}}">
+							 {{phrase('fs_auction_HH')}}
 						</span>
-							<span class="label label--smallest label--primary label--counter" id="minutes-auction-{{$listing.auction_id}}">
-							{{phrase('M')}}
+							<span class="label  label--blue label--counter" id="minutes-auction-{{$listing.auction_id}}">
+							{{phrase('fs_auction_MM')}}
 						</span>
-							<span class="label label--smallest label--primary label--counter" id="seconds-auction-{{$listing.auction_id}}">
-							 {{phrase('S')}}
+							<span class="label  label--blue label--counter" id="seconds-auction-{{$listing.auction_id}}">
+							 {{phrase('fs_auction_SS')}}
 						</span>
 							</div>
 						
@@ -1536,15 +1600,15 @@ function timmerCounter(auction_id, start_datetime) {
 	<xf:css src="fs_auction_listing_grid_view.less" />
 
 	
-	<div class="structItem structItem--listing js-inlineModContainer js-listingListItem-{$listing.auction_id}" style="display: grid;
+	<div id="auction-{{$listing.auction_id}}" class="structItem structItem--listing js-inlineModContainer js-listingListItem-{$listing.auction_id}" style="display: grid;
     justify-content: center;
 }">
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer" >
 				<xf:if is="$listing.ends_on > $xf.time">
-						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})">
+					<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on"><img src ="{{$listing.Attachment.thumbnail_url ?: base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter({{$listing.auction_id}},{{$listing.ends_on}})"></a>
 				<xf:else />
-						<img src ="{{$listing.getImage() ? $listing.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" class="auction-itemGrid-img" loading="lazy">
+							<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on"><img src ="{{$listing.Attachment.thumbnail_url ?: base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" class="auction-itemGrid-img" loading="lazy"></a>
 				</xf:if>
 				
 			</div>
@@ -1579,17 +1643,17 @@ function timmerCounter(auction_id, start_datetime) {
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>{{ phrase('auctionEndsOn') }}</dt>
 						<dd>			
-							<span class="label label--smallest label--primary label--counter" id="days-auction-{{$listing.auction_id}}">
-								 {{phrase('D')}}
+							<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
+								 {{phrase('fs_auction_DD')}}
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="hours-auction-{{$listing.auction_id}}">
-								{{phrase('H')}}
+							<span class="label  label--blue label--counter" id="hours-auction-{{$listing.auction_id}}">
+								{{phrase('fs_auction_HH')}}
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="minutes-auction-{{$listing.auction_id}}">
-						 		{{phrase('M')}}
+							<span class="label  label--blue label--counter" id="minutes-auction-{{$listing.auction_id}}">
+						 		{{phrase('fs_auction_MM')}}
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="seconds-auction-{{$listing.auction_id}}">
-								{{phrase('S')}}
+							<span class="label  label--blue label--counter" id="seconds-auction-{{$listing.auction_id}}">
+								{{phrase('fs_auction_SS')}}
 							</span>
 						</dd>
 				</dl>
@@ -1609,10 +1673,11 @@ function timmerCounter(auction_id, start_datetime) {
 						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
 						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
 						<xf:if is="!$category OR $category.hasChildren()">
-							<li>{{phrase('auctionEndsOn')}} . <xf:date time="{{ $listing.ends_on }}" /></li>
+							<li>{{phrase('auctionEndsOn')}} . {{date($listing.ends_on,'F j, Y')}}
+</li>
 						</xf:if>
 					</ul>
-				
+
 			</div>
 				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
 
@@ -1794,24 +1859,95 @@ function timmerCounter(auction_id, start_datetime) {
 <xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
+	<xf:if is="$auction.ends_on > $xf.time">
 	<xf:button href="{{ link('auction/categories/bumping', $auction) }}" class="button button--icon button--icon--add" icon="add">{{ phrase('fs_auction_bumping') }}</xf:button>
+	</xf:if>
 </xf:pageaction>
 
-<header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
-		<ul class="message-attribution-main listInline ">
+	<xf:css src="message.less" />
 
+<header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
+		<ul class="message-attribution-main listInline {$mainClass}">
 			<li class="u-concealed">
+				<a href="{{ link('threads/post', $thread, {'post_id': $post.post_id}) }}" rel="nofollow">
 					<xf:date time="{{$auction.created_date}}" itemprop="datePublished" />
+				</a>
 			</li>
 		</ul>
+		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
+				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
+			
+			<li>
+				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}" 
+				   class="message-attribution-gadget" 
+				   data-xf-init="share-tooltip" 
+				   data-href="/xenforo/index.php?posts/1/share" 
+				   aria-label="Share" 
+				   rel="nofollow" 
+				   id="js-XFUniqueId6">
+					<i class="fa--xf far fa-share-alt" aria-hidden="true"></i>
+				</a>
+			</li>
+			
+			<li>
+				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}" 
+				   class="message-attribution-gadget" 
+				   data-xf-init="share-tooltip" 
+				   data-href="/xenforo/index.php?posts/1/share" 
+				   aria-label="Share" 
+				   rel="nofollow" 
+				   id="js-XFUniqueId6">
+					<i class="fa--xf far fa-share-alt" aria-hidden="true"></i>
+				</a>
+			</li>
+			
+			<li>
+				<a href="{{ link('threads/post', $thread, {'post_id': $post.post_id}) }}"
+					class="message-attribution-gadget"
+					data-xf-init="share-tooltip"
+					data-href="{{ link('posts/share', $post) }}"
+					aria-label="{{ phrase('share')|for_attr }}"
+					rel="nofollow">
+					<xf:fa icon="fa-share-alt"/>
+				</a>
+			</li>
+			
+			<li>
+				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}"
+					class="message-attribution-gadget"
+					data-xf-init="share-tooltip"
+					data-href="{{ link('auction/share', $auction) }}"
+					aria-label="{{ phrase('share')|for_attr }}"
+					rel="nofollow">
+					<xf:fa icon="fa-share-alt"/>
+				</a>
+			</li>
+			
+				<li>	
+						<xf:macro template="fs_auction_bookmark_macros" name="link"
+							arg-content="{$auction}"
+							arg-class="message-attribution-gadget bookmarkLink--highlightable"
+							arg-confirmUrl="{{ link('auction/bookmark', $auction) }}"
+							arg-showText="{{ false }}"/>
+				</li>
+				<li>
+					<a href="{{ link('auction', $auction, {'auction_id': $auction.auction_id}) }}" rel="nofollow">
+						#{{ $auction.auction_id }}
+					</a>
+				</li>
+		</ul>
 	</header>
+  <div style="margin-top:1rem">
 
 		<div class="message-fields message-fields--after">
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_endDate') }}</dt>
 					
-					<dd><xf:date time="{{$auction.ends_on}}" /></dd>
+					<dd>
+						{{date($auction.ends_on,'F j, Y')}}
+					<!--	<xf:date time="{{$auction.ends_on}}" /> -->
+					</dd>
 				</dl>
 			
 		</div>
@@ -1872,50 +2008,53 @@ function timmerCounter(auction_id, start_datetime) {
 					<dd>{{ $auction.ShipVia.ship_via }}</dd>
 				</dl>
 		</div>
+	  
+	  <div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>{{ phrase('guidlines') }}</dt>
+					<dd>{{ phrase('auction_guidlines_explain') }}</dd>
+				</dl>
+			
+		</div>
 
 
 <br><br>
 <div>
-	
-
 				<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-
 </div>
 
+	   <div class="block-container">
+		<div class="block-body">
 <xf:if is="$auction.ends_on > $xf.time AND $xf.visitor.user_id != 0">
 		<xf:if is="$xf.visitor.user_id != $auction.User.user_id">
-
-
 			<xf:form
-				  action="{{ link('classifieds/auction/save', $category) }}"
+				  action="{{ link('auction/categories/bidding', $auction) }}"
 				  ajax="true"
 				  class="block"
 				  data-xf-init="attachment-manager"
-				  draft="{{ link('classifieds/categories/draft', $category) }}"
-				  data-preview-url="{{ link('classifieds/categories/listing-preview', $category) }}"
 				>
-				<xf:formrow name="{$inputName}[{$option.option_id}]" value="{$option.option_value.{$option.option_id}}"
-					label="{$option.title}"
-					hint="{$hintHtml}"
-					explain="{$explainHtml}"
-					html="{$listedHtml}">
+				<xf:formrow 
+					label="{{ phrase('BidCost') }}">
 	
 			<!--bidDropDownRange value is  bid dropdown List items count-->
 	
 					<xf:set var="$bidDropDownRange" value="{{range(0,$dropDownListLimit)}}" />
+					
 
 					<div class="inputChoices">
-						<div class="inputChoices-choice" style="padding-left:0;">			
-						<div class="inputChoices-spacer">{{ phrase('BidCost') }}</div>
-							<xf:radio name="bidPaymentType" value="{{ $option.option_value.imapAuth ? $option.option_value.imapAuth : 'none' }}">
-								<xf:option value="0" label="{{ phrase('auctionDropdownBid') }}">
+							<xf:radio name="use_biddingAmountTyp">
+								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-										<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" />
+									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> -->
+										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />
+										
+										<xf:set var="$sum" value="{{$tempSum}}" />
+										
 
-										<xf:select>
-											<xf:option value="0">{{ phrase('(none)') }}</xf:option>
+										<xf:select name="bidding_amount">
 												<xf:foreach loop="$bidDropDownRange" key="$key" value="$val">
 													<xf:option value="{{$sum+$bidIncrementFromDb}}">{{$sum+$bidIncrementFromDb}}</xf:option>
 													<xf:set var="$sum" value="{{$sum+$auction.bid_increament}}" />
@@ -1924,9 +2063,9 @@ function timmerCounter(auction_id, start_datetime) {
 									</xf:dependent>
 								</xf:option>
 
-								<xf:option value="1" label="{{ phrase('auctionCustomBid') }}">
+								<xf:option label="{{ phrase('auctionCustomBid') }}" name="use_biddingAmountTyp">
 									<xf:dependent>
-										 <xf:numberbox name="starting_bid" value="" min="0" 			
+										 <xf:numberbox name="bidding_amount" value="{{$tempSum}}" min="{{$tempSum}}" 			
 										label="{{ phrase('auctionCustomBid') }}" />
 									</xf:dependent>
 
@@ -1936,7 +2075,7 @@ function timmerCounter(auction_id, start_datetime) {
 	
 		</xf:formrow>
 
-			<xf:submitrow icon="reply" sticky="true" />
+			<xf:submitrow icon="save" sticky="true" />
 
 		</xf:form>
 	<xf:else />
@@ -1945,14 +2084,46 @@ function timmerCounter(auction_id, start_datetime) {
 	
 <xf:else />
 	{{phrase('biddingNotAllowed')}}
-</xf:if>]]></template>
+</xf:if>
+		   </div>
+	  </div>
+</div>
+<xf:if is="count($bidding)">
+	<div class="block">
+	  <div class="block-container">
+		<div class="block-body">
+		  <xf:datalist data-xf-init="responsive-data-list">
+			  <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
+		  </xf:datalist>
+		</div>
+	  </div>
+	</div>
+</xf:if>
+
+
+<xf:macro name="bidding_table_list" arg-bidding="{$bidding}">
+  <xf:datarow rowtype="header">
+    <xf:cell> {{phrase('fs_auction_bidding_username')}} </xf:cell>
+    <xf:cell> {{phrase('fs_auction_bid_at')}} </xf:cell>
+    <xf:cell> {{phrase('fs_auction_bid_amount')}} </xf:cell>
+  </xf:datarow>
+  <xf:foreach loop="{$bidding}" value="$val">
+    <xf:datarow>
+      <xf:cell href="{{ link('members/', $val) }}"> {{$val.User.username}} </xf:cell>
+      <xf:cell> <xf:date time="{{$val.created_at}}" /></xf:cell>
+      <xf:cell> {{$val.bidding_amount}} </xf:cell>
+    </xf:datarow>
+  </xf:foreach>
+</xf:macro>]]></template>
   <template type="public" title="fs_auctions.less" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[// ############################ Auction LISTING ######################
 
 .structItem-cell.structItem-cell--listingMeta
 {
 	width: 270px;
 }
-
+.state-label{
+	color:#2577b1;
+}
 .structItem-metaItem--rating
 {
 	font-size: @xf-fontSizeSmall;
@@ -2171,7 +2342,8 @@ function timmerCounter(auction_id, start_datetime) {
 
 .structItem-cell.structItem-cell--icon.structItem-cell--iconExpanded.structItem-cell--iconListingCoverImage
 {
-	width: 292px;
+	max-width: 292px;
+	min-width: 292px;
 }
 
 .structItem-cell--iconListingCoverImage .structItem-iconContainer .avatar

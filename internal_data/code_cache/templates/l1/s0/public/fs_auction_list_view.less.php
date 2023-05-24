@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 7120ab204c48c3ae47cdc70d17f66296
+// FROM HASH: 2c0aadaa884c19ba0520d01771ab4cd6
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -11,7 +11,7 @@ return array(
 	width: 250px;
 }
 .label--counter{
-	color:black !important;
+	font-size:13px;
 }
 .auction-category{
 	font-size: 12px;

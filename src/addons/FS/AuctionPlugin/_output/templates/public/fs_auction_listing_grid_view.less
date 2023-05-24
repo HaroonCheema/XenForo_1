@@ -9,13 +9,14 @@
 @listing-grid-thumb: 108px;
 
 .auction-itemGrid-img{
-	height: 167px;
+min-height:275px;
+	max-height:275px;
 	min-width:275px;
 	max-width:275px;
 	
 }
 .label--counter{
-	color:black !important;
+	font-size:13px;
 }
 .auction-category{
 	font-size: 12px;
@@ -27,14 +28,17 @@
 	
 	min-width:388px;
 	max-width:388px;
-	
+	min-height:388px;
+	max-height:388px;
 }
 }
 @media (min-width: @xf-responsiveMedium)
 {
 	.auction-itemGrid-img{
 		min-width:340px;
-		max-width:340
+		max-width:340px;
+		min-height:340px;
+		max-height:340px;
 		
 	}
 	@supports(display: grid)
@@ -153,6 +157,8 @@
 
 @media  (min-width:1024.5px){
 	.auction-itemGrid-img{
+	min-height:277px;
+	max-height:277px;
 	min-width:277px;
 	max-width:277px;
 		

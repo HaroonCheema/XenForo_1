@@ -28,5 +28,4 @@ return array (
   'style_prop_group.rte' => 'Rich text editor',
   'style_prop_group.tab' => 'Tabs',
   'style_prop_group.tooltip' => 'Tooltips',
-  'style_prop_group.z61ClassifiedsFeedback' => 'Classifieds feedback',
 );

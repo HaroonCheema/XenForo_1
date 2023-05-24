@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 6703d0d42af5bbaa891c3ef934df8f39
+// FROM HASH: 93ea209b5df3fd040f8e5b3ec6d7708e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -15,13 +15,14 @@ return array(
 @listing-grid-thumb: 108px;
 
 .auction-itemGrid-img{
-	height: 167px;
+min-height:275px;
+	max-height:275px;
 	min-width:275px;
 	max-width:275px;
 	
 }
 .label--counter{
-	color:black !important;
+	font-size:13px;
 }
 .auction-category{
 	font-size: 12px;
@@ -33,14 +34,17 @@ return array(
 	
 	min-width:388px;
 	max-width:388px;
-	
+	min-height:388px;
+	max-height:388px;
 }
 }
 @media (min-width: @xf-responsiveMedium)
 {
 	.auction-itemGrid-img{
 		min-width:340px;
-		max-width:340
+		max-width:340px;
+		min-height:340px;
+		max-height:340px;
 		
 	}
 	@supports(display: grid)
@@ -159,6 +163,8 @@ return array(
 
 @media  (min-width:1024.5px){
 	.auction-itemGrid-img{
+	min-height:277px;
+	max-height:277px;
 	min-width:277px;
 	max-width:277px;
 		

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 20ee422b9c1bf629fec21942a453aa1e
+// FROM HASH: 1627d5fed7560d9d649c152af4c38d61
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -146,15 +146,12 @@ return array(
       
 		
         ' . $__templater->formRow('
+' . $__templater->formDateInput(array(
+		'name' => 'ends_on',
+		'value' => ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
+		'required' => 'true',
+	)) . '
 
-		 <input
-              name="ends_on"
-			  type="date"
-              class="date end"
-              value="' . ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), true) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), true)) . '"
-              min="' . $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), true) . '"
-              required="true"
-            />
         ', array(
 		'label' => 'AUCTION ENDS ON',
 		'hint' => 'Required',

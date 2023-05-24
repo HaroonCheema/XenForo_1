@@ -394,20 +394,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			$__flat['whatsNewPosts'] =& $__tree['whatsNew']['children']['whatsNewPosts'];
 		}
 
-		if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.dbtEcomNewProducts'),
-		'href' => $__templater->func('link', array('whats-new/ecommerce-products', ), false),
-		'attributes' => [
-			'rel' => 'nofollow',
-		],
-	];
-			if ($__navTemp) {
-				$__tree['whatsNew']['children']['dbtEcomNewProducts'] = $__navTemp;
-				$__flat['dbtEcomNewProducts'] =& $__tree['whatsNew']['children']['dbtEcomNewProducts'];
-			}
-		}
-
 		if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.xfrmNewResources'),
@@ -419,6 +405,20 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['whatsNew']['children']['xfrmNewResources'] = $__navTemp;
 				$__flat['xfrmNewResources'] =& $__tree['whatsNew']['children']['xfrmNewResources'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.dbtEcomNewProducts'),
+		'href' => $__templater->func('link', array('whats-new/ecommerce-products', ), false),
+		'attributes' => [
+			'rel' => 'nofollow',
+		],
+	];
+			if ($__navTemp) {
+				$__tree['whatsNew']['children']['dbtEcomNewProducts'] = $__navTemp;
+				$__flat['dbtEcomNewProducts'] =& $__tree['whatsNew']['children']['dbtEcomNewProducts'];
 			}
 		}
 
@@ -478,7 +478,7 @@ return function($__templater, $__selectedNav, array $__vars)
 
 		$__navTemp = [
 		'title' => \XF::phrase('nav.auctionAddListing'),
-		'href' => 'auction/add',
+		'href' => $__templater->func('link', array('auction/add', ), false),
 		'attributes' => [
 			'data-xf-click' => 'overlay',
 		],
@@ -691,16 +691,6 @@ return function($__templater, $__selectedNav, array $__vars)
 		if (empty($__tree['demoPadNotes']['children'])) { $__tree['demoPadNotes']['children'] = []; }
 
 		$__navTemp = [
-		'title' => \XF::phrase('nav.demoPadPassParams'),
-		'href' => $__templater->func('link', array('notes/pass-params', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['demoPadNotes']['children']['demoPadPassParams'] = $__navTemp;
-			$__flat['demoPadPassParams'] =& $__tree['demoPadNotes']['children']['demoPadPassParams'];
-		}
-
-		$__navTemp = [
 		'title' => \XF::phrase('nav.demoPadNote'),
 		'href' => $__templater->func('link', array('notes/test', ), false),
 		'attributes' => [],
@@ -708,6 +698,16 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['demoPadNotes']['children']['demoPadNote'] = $__navTemp;
 			$__flat['demoPadNote'] =& $__tree['demoPadNotes']['children']['demoPadNote'];
+		}
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.demoPadPassParams'),
+		'href' => $__templater->func('link', array('notes/pass-params', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['demoPadNotes']['children']['demoPadPassParams'] = $__navTemp;
+			$__flat['demoPadPassParams'] =& $__tree['demoPadNotes']['children']['demoPadPassParams'];
 		}
 
 	}

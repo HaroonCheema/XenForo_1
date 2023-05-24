@@ -50,5 +50,4 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.usersAndRegistration' => '',
   'option_group_description.xb_stop_human_span' => '',
   'option_group_description.xfrm' => 'Options that control the resource manager add-on.',
-  'option_group_description.z61Classifieds' => 'Options that control the classifieds add-on.',
 );

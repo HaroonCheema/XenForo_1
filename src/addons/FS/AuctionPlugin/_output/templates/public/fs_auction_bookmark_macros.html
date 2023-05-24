@@ -1,0 +1,18 @@
+<xf:macro name="link"
+	arg-content="!"
+	arg-confirmUrl="!"
+	arg-editText="{{ phrase('edit_bookmark') }}"
+	arg-addText="{{ phrase('add_bookmark') }}"
+	arg-showText="{{ true }}"
+	arg-class="actionBar-action actionBar-action--bookmarkLink">
+	
+		<a href="{$confirmUrl}" class="bookmarkLink {$class} {{ $content.isBookmarked() ? 'is-bookmarked' : '' }}"
+			title="{{ $showText ? '' : phrase('bookmark')|for_attr }}"
+			data-xf-click="bookmark-click"
+			data-label=".js-bookmarkText"
+			data-sk-bookmarked="addClass:is-bookmarked, {$editText|for_attr}"
+			data-sk-bookmarkremoved="removeClass:is-bookmarked, {$addText|for_attr}"><xf:trim>
+			<span class="js-bookmarkText {{ $showText ? '' : 'u-srOnly' }}"><xf:if is="$auction">{$editText}<xf:else/>{$addText}</xf:if></span>
+		</xf:trim></a>
+
+</xf:macro>

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1c1f2a0f90605049210690ed9dd2782a
+// FROM HASH: c652df644552a3d5ab955d5c883b8098
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -10,7 +10,9 @@ return array(
 {
 	width: 270px;
 }
-
+.state-label{
+	color:#2577b1;
+}
 .structItem-metaItem--rating
 {
 	font-size: @xf-fontSizeSmall;

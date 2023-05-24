@@ -1,9 +1,6 @@
 <?php
 return array (
   'widget_def.birthdays' => 'Today\'s birthdays',
-  'widget_def.classifieds_near_listings' => 'Classifieds: Nearby listings',
-  'widget_def.classifieds_new_listings' => 'Classifieds: Latest listings',
-  'widget_def.classifieds_user_feedback' => 'Classifieds: User feedback',
   'widget_def.dbt_ecom_latest_reviews' => 'DragonByte eCommerce: Latest reviews',
   'widget_def.dbt_ecom_new_products' => 'DragonByte eCommerce: New Products',
   'widget_def.dbt_ecom_rnd_products' => 'DragonByte eCommerce: Random Products',

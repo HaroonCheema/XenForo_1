@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1d8e61dfa8365bf2bcba1034de7cc6ff
+// FROM HASH: 0c461421e3ecc06423a06f99a9ece03c
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -21,17 +21,19 @@ return array(
 	$__templater->includeCss('fs_auction_list_view.less');
 	$__finalCompiled .= '
 	
-	<div class="structItem structItem--listing js-inlineModContainer " data-author="' . ($__templater->escape($__vars['listing']['User']['username']) ?: $__templater->escape($__vars['listing']['username'])) . '">
+	<div class="structItem structItem--listing js-inlineModContainer " id="auction-' . $__templater->escape($__vars['listing']['auction_id']) . '" data-author="' . ($__templater->escape($__vars['listing']['User']['username']) ?: $__templater->escape($__vars['listing']['username'])) . '">
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer">
 				';
 	if ($__vars['listing']['ends_on'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-						<img src ="' . ($__templater->method($__vars['listing'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['listing'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['ends_on']) . ')" style="height: 57px;">
+						<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">
+							<img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['ends_on']) . ')" style="min-height: 92px; max-height: 92px;"></a>
 				';
 	} else {
 		$__finalCompiled .= '
-						<img src ="' . ($__templater->method($__vars['listing'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['listing'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" style="height: 57px;">
+						<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">
+							<img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" style="min-height: 92px; max-height: 92px;"></a>
 				';
 	}
 	$__finalCompiled .= '
@@ -55,8 +57,11 @@ return array(
 						<li>' . $__templater->func('username_link', array($__vars['listing']['User'], false, array(
 		'defaultname' => $__vars['listing']['User'],
 	))) . '</li>
-						<li class="structItem-startDate">' . $__templater->func('date_dynamic', array($__vars['listing']['created_date'], array(
-	))) . '</li>
+						<li class="structItem-startDate">
+							' . $__templater->func('date_dynamic', array($__vars['listing']['created_date'], array(
+	))) . ' 
+							
+						</li>
 						
 							<li>' . $__templater->func('snippet', array($__vars['listing']['Category']['title'], 50, array('stripBbCode' => true, ), ), true) . '</li>
 				
@@ -73,8 +78,11 @@ return array(
 
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt>' . 'Expire' . '</dt>
-				<dd>' . $__templater->func('date_dynamic', array($__vars['listing']['ends_on'], array(
-	))) . '</dd>
+				<dd>
+					' . $__templater->func('date', array($__vars['listing']['ends_on'], 'F j, Y', ), true) . '
+			<!--		' . $__templater->func('date_dynamic', array($__vars['listing']['ends_on'], array(
+	))) . ' -->
+				</dd>
 			</dl>
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt>
@@ -94,17 +102,17 @@ return array(
 						<li>
 							<div>
 								
-						<span class="label label--smallest label--primary label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-							 ' . 'D' . '
+						<span class="label  label--blue label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+							 ' . '00 D' . '
 						</span>
-						<span class="label label--smallest label--primary label--counter" id="hours-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-							 ' . 'H' . '
+						<span class="label  label--blue label--counter" id="hours-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+							 ' . '00 H' . '
 						</span>
-							<span class="label label--smallest label--primary label--counter" id="minutes-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-							' . 'M' . '
+							<span class="label  label--blue label--counter" id="minutes-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+							' . '00 M' . '
 						</span>
-							<span class="label label--smallest label--primary label--counter" id="seconds-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-							 ' . 'S' . '
+							<span class="label  label--blue label--counter" id="seconds-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+							 ' . '00 S' . '
 						</span>
 							</div>
 						
@@ -185,7 +193,7 @@ return array(
 	$__finalCompiled .= '
 
 	
-	<div class="structItem structItem--listing js-inlineModContainer js-listingListItem-' . $__templater->escape($__vars['listing']['auction_id']) . '" style="display: grid;
+	<div id="auction-' . $__templater->escape($__vars['listing']['auction_id']) . '" class="structItem structItem--listing js-inlineModContainer js-listingListItem-' . $__templater->escape($__vars['listing']['auction_id']) . '" style="display: grid;
     justify-content: center;
 }">
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
@@ -193,11 +201,11 @@ return array(
 				';
 	if ($__vars['listing']['ends_on'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-						<img src ="' . ($__templater->method($__vars['listing'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['listing'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['ends_on']) . ')">
+					<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on"><img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['ends_on']) . ')"></a>
 				';
 	} else {
 		$__finalCompiled .= '
-						<img src ="' . ($__templater->method($__vars['listing'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['listing'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" class="auction-itemGrid-img" loading="lazy">
+							<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on"><img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" class="auction-itemGrid-img" loading="lazy"></a>
 				';
 	}
 	$__finalCompiled .= '
@@ -238,17 +246,17 @@ return array(
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>' . 'Expire' . '</dt>
 						<dd>			
-							<span class="label label--smallest label--primary label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-								 ' . 'D' . '
+							<span class="label  label--blue label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+								 ' . '00 D' . '
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="hours-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-								' . 'H' . '
+							<span class="label  label--blue label--counter" id="hours-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+								' . '00 H' . '
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="minutes-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-						 		' . 'M' . '
+							<span class="label  label--blue label--counter" id="minutes-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+						 		' . '00 M' . '
 							</span>
-							<span class="label label--smallest label--primary label--counter" id="seconds-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
-								' . 'S' . '
+							<span class="label  label--blue label--counter" id="seconds-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
+								' . '00 S' . '
 							</span>
 						</dd>
 				</dl>
@@ -275,13 +283,13 @@ return array(
 						';
 	if ((!$__vars['category']) OR $__templater->method($__vars['category'], 'hasChildren', array())) {
 		$__finalCompiled .= '
-							<li>' . 'Expire' . ' . ' . $__templater->func('date_dynamic', array($__vars['listing']['ends_on'], array(
-		))) . '</li>
+							<li>' . 'Expire' . ' . ' . $__templater->func('date', array($__vars['listing']['ends_on'], 'F j, Y', ), true) . '
+</li>
 						';
 	}
 	$__finalCompiled .= '
 					</ul>
-				
+
 			</div>
 				<div class="auction-category">' . $__templater->func('snippet', array($__vars['listing']['content'], 50, array('stripBbCode' => true, ), ), true) . '</div>
 

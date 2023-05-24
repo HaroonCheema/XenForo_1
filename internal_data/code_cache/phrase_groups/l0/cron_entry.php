@@ -37,6 +37,4 @@ return array (
   'cron_entry.views' => 'Update view counters',
   'cron_entry.warningExpiry' => 'Handle expired warnings',
   'cron_entry.xfrmViews' => 'XFRM: Update view counters',
-  'cron_entry.z61ClassifiedsExpire' => 'Classifieds: Close expired listings',
-  'cron_entry.z61ClassifiedsViews' => 'Classifieds: Update view counters',
 );

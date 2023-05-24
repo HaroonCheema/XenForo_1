@@ -56,15 +56,11 @@
       
 		
         <xf:formrow label="{{ phrase('auction_endDate') }}" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
-
-		 <input
-              name="ends_on"
-			  type="date"
-              class="date end"
-              value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
-              min="{{date($xf.time, 'Y-m-d')}}"
+<xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
               required="true"
-            />
+				
+				label="{{ phrase('auction_endDate') }}" />
+
         </xf:formrow>
 		
 		<xf:selectrow

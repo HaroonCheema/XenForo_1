@@ -2,14 +2,7 @@
 
 namespace FS\AuctionPlugin\Pub\Controller;
 
-use phpDocumentor\Reflection\DocBlock\Tags\Param;
-use XF\Entity\User;
 use XF\Mvc\ParameterBag;
-use XF\Mvc\Reply\View;
-use Z61\Classifieds\Entity\Condition;
-use Z61\Classifieds\Entity\ListingType;
-use Z61\Classifieds\Notifier\Listing\FeedbackGiven;
-use Z61\Classifieds\Notifier\Listing\Sold;
 
 use XF\Pub\Controller\AbstractController;
 
@@ -20,13 +13,13 @@ class AuctionListing extends AbstractController
     {
         $page = 0;
         $perPage = 0;
-        $categories = $this->finder('FS\AuctionPlugin:Category')->fetch();
-        $categoryTree = $this->createCategoryTree($categories);
+        $categories = $this->finder('FS\AuctionPlugin:Category');
+        $categoryTree = $this->createCategoryTree($categories->fetch());
 
         $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
         if ($this->filter('search', 'uint')) {
-            $finder = $this->getCrudSearchFinder();
+            $finder = $this->getSearchFinder();
 
             if (count($finder->getConditions()) == 0) {
                 return $this->error(\XF::phrase('please_complete_required_field'));
@@ -34,17 +27,23 @@ class AuctionListing extends AbstractController
         } else if ($params->category_id) {
             $finder->where('category_id', $params->category_id);
         } else {
+
+            $options = \XF::options();
+            $perPage = $options->fs_auction_per_page;
+
             $page = $params->page;
-            $perPage = 9;
 
             $finder->limitByPage($page, $perPage);
             $finder->order('last_bumping', 'DESC');
         }
 
+
         $viewParams = [
             'categories' => $categories,
             'categoryTree' => $categoryTree,
             'listings' => $finder->fetch(),
+
+            'stats' => $this->auctionStatistics(),
 
             'page' => $page,
             'perPage' => $perPage,
@@ -63,13 +62,15 @@ class AuctionListing extends AbstractController
         if (!$auction) {
             return $this->error('data not found');
         }
-        $dropDownListLimit = 10;
 
-        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id);
+        $options = \XF::options();
+        $dropDownListLimit = $options->fs_auction_dropDown_list_limit;
+
+        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
 
         $viewParams = [
             'auction' => $auction,
-            'bidding' => $bidding,
+            'bidding' => $bidding->fetch(),
             'dropDownListLimit' => $dropDownListLimit,
         ];
         return $this->view(
@@ -79,7 +80,28 @@ class AuctionListing extends AbstractController
         );
     }
 
-    protected function getCrudSearchFinder()
+    public function actionShare(ParameterBag $params)
+    {
+
+        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+
+        $sharePlugin = $this->plugin('XF:Share');
+        return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->title, \XF::phrase('share_this_post'));
+    }
+
+    public function actionBookmark(ParameterBag $params)
+    {
+        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+        /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
+        $bookmarkPlugin = $this->plugin('XF:Bookmark');
+
+        return $bookmarkPlugin->actionBookmark(
+            $auction,
+            $this->buildLink('auction/view-auction', $auction)
+        );
+    }
+
+    protected function getSearchFinder()
     {
         $conditions = $this->filterSearchConditions();
 
@@ -186,6 +208,36 @@ class AuctionListing extends AbstractController
             'fs_auction_status' => 'str',
             'fs_auction_cat' => 'str',
         ]);
+    }
+
+    protected function auctionStatistics()
+    {
+        $cat = $this->finder('FS\AuctionPlugin:Category');
+        $getActiveAuctions = $this->finder('FS\AuctionPlugin:AuctionListing');
+        $getExpiredAuctions = $this->finder('FS\AuctionPlugin:AuctionListing');
+        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
+        return [
+            'categories' => [
+                'title' => \XF::phrase('fs_stats_categories'),
+                'count' => $cat->total(),
+            ],
+
+            'auctions' => [
+                'title' => \XF::phrase('fs_stats_auctions'),
+                'count' => $finder->total(),
+            ],
+
+            'activeAuctions' => [
+                'title' => \XF::phrase('fs_stats_auctions_active'),
+                'count' => $getActiveAuctions->where('ends_on', '>', time())->total(),
+            ],
+
+            'expiredAuctions' => [
+                'title' => \XF::phrase('fs_stats_auctions_expired'),
+                'count' => $getExpiredAuctions->where('ends_on', '<', time())->total(),
+            ],
+        ];
     }
 
     protected function getCategoryRepo()

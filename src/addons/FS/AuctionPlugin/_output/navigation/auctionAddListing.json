@@ -3,7 +3,7 @@
     "display_order": 20,
     "navigation_type_id": "basic",
     "type_config": {
-        "link": "auction/add",
+        "link": "{{ link('auction/add') }}",
         "display_condition": "",
         "extra_attributes": {
             "data-xf-click": "overlay"

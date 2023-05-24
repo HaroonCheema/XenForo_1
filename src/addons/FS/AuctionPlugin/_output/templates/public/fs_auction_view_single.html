@@ -2,25 +2,61 @@
 <xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
+	<xf:if is="$auction.ends_on > $xf.time">
 	<xf:button href="{{ link('auction/categories/bumping', $auction) }}" class="button button--icon button--icon--add" icon="add">{{ phrase('fs_auction_bumping') }}</xf:button>
+	</xf:if>
 </xf:pageaction>
 
-<header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
-		<ul class="message-attribution-main listInline ">
+	<xf:css src="message.less" />
 
+<header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
+		<ul class="message-attribution-main listInline {$mainClass}">
 			<li class="u-concealed">
+				<a href="{{ link('threads/post', $thread, {'post_id': $post.post_id}) }}" rel="nofollow">
 					<xf:date time="{{$auction.created_date}}" itemprop="datePublished" />
+				</a>
 			</li>
 		</ul>
+		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
+				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
+		
+			
+			<li>
+				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}"
+					class="message-attribution-gadget"
+					data-xf-init="share-tooltip"
+					data-href="{{ link('auction/share', $auction) }}"
+					aria-label="{{ phrase('share')|for_attr }}"
+					rel="nofollow">
+					<xf:fa icon="fa-share-alt"/>
+				</a>
+			</li>
+			
+				<li>	
+						<xf:macro template="fs_auction_bookmark_macros" name="link"
+							arg-content="{$auction}"
+							arg-class="message-attribution-gadget bookmarkLink--highlightable"
+							arg-confirmUrl="{{ link('auction/bookmark', $auction) }}"
+							arg-showText="{{ false }}"/>
+				</li>
+				<li>
+					<a href="{{ link('auction', $auction, {'auction_id': $auction.auction_id}) }}" rel="nofollow">
+						#{{ $auction.auction_id }}
+					</a>
+				</li>
+		</ul>
 	</header>
-  <div class="block-container">
+  <div style="margin-top:1rem">
 
 		<div class="message-fields message-fields--after">
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_endDate') }}</dt>
 					
-					<dd><xf:date time="{{$auction.ends_on}}" /></dd>
+					<dd>
+						{{date($auction.ends_on,'F j, Y')}}
+					<!--	<xf:date time="{{$auction.ends_on}}" /> -->
+					</dd>
 				</dl>
 			
 		</div>
@@ -81,21 +117,27 @@
 					<dd>{{ $auction.ShipVia.ship_via }}</dd>
 				</dl>
 		</div>
+	  
+	  <div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>{{ phrase('guidlines') }}</dt>
+					<dd>{{ phrase('auction_guidlines_explain') }}</dd>
+				</dl>
+			
+		</div>
 
 
 <br><br>
 <div>
-	
-
 				<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-
 </div>
 
+	   <div class="block-container">
+		<div class="block-body">
 <xf:if is="$auction.ends_on > $xf.time AND $xf.visitor.user_id != 0">
 		<xf:if is="$xf.visitor.user_id != $auction.User.user_id">
-
-
 			<xf:form
 				  action="{{ link('auction/categories/bidding', $auction) }}"
 				  ajax="true"
@@ -108,13 +150,18 @@
 			<!--bidDropDownRange value is  bid dropdown List items count-->
 	
 					<xf:set var="$bidDropDownRange" value="{{range(0,$dropDownListLimit)}}" />
+					
 
 					<div class="inputChoices">
-							<xf:radio>
+							<xf:radio name="use_biddingAmountTyp">
 								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-										<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" />
+									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> -->
+										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />
+										
+										<xf:set var="$sum" value="{{$tempSum}}" />
+										
 
 										<xf:select name="bidding_amount">
 												<xf:foreach loop="$bidDropDownRange" key="$key" value="$val">
@@ -125,9 +172,9 @@
 									</xf:dependent>
 								</xf:option>
 
-								<xf:option label="{{ phrase('auctionCustomBid') }}">
+								<xf:option label="{{ phrase('auctionCustomBid') }}" name="use_biddingAmountTyp">
 									<xf:dependent>
-										 <xf:numberbox name="bidding_amount" value="" min="0" 			
+										 <xf:numberbox name="bidding_amount" value="{{$tempSum}}" min="{{$tempSum}}" 			
 										label="{{ phrase('auctionCustomBid') }}" />
 									</xf:dependent>
 
@@ -137,7 +184,7 @@
 	
 		</xf:formrow>
 
-			<xf:submitrow icon="reply" sticky="true" />
+			<xf:submitrow icon="save" sticky="true" />
 
 		</xf:form>
 	<xf:else />
@@ -147,17 +194,20 @@
 <xf:else />
 	{{phrase('biddingNotAllowed')}}
 </xf:if>
+		   </div>
+	  </div>
 </div>
-
-<div class="block">
-  <div class="block-container">
-    <div class="block-body">
-      <xf:datalist data-xf-init="responsive-data-list">
-          <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
-      </xf:datalist>
-    </div>
-  </div>
-</div>
+<xf:if is="count($bidding)">
+	<div class="block">
+	  <div class="block-container">
+		<div class="block-body">
+		  <xf:datalist data-xf-init="responsive-data-list">
+			  <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
+		  </xf:datalist>
+		</div>
+	  </div>
+	</div>
+</xf:if>
 
 
 <xf:macro name="bidding_table_list" arg-bidding="{$bidding}">
@@ -165,14 +215,12 @@
     <xf:cell> {{phrase('fs_auction_bidding_username')}} </xf:cell>
     <xf:cell> {{phrase('fs_auction_bid_at')}} </xf:cell>
     <xf:cell> {{phrase('fs_auction_bid_amount')}} </xf:cell>
-    <xf:cell class="dataList-cell--min"></xf:cell>
   </xf:datarow>
   <xf:foreach loop="{$bidding}" value="$val">
     <xf:datarow>
-      <xf:cell href="{{ link('crud/edit', $val) }}"> {{$val.User.username}} </xf:cell>
+      <xf:cell href="{{ link('members/', $val) }}"> {{$val.User.username}} </xf:cell>
       <xf:cell> <xf:date time="{{$val.created_at}}" /></xf:cell>
       <xf:cell> {{$val.bidding_amount}} </xf:cell>
-      <xf:action href="{{ link('ship-via/edit', $value) }}" >{{ phrase('edit') }}</xf:action>
     </xf:datarow>
   </xf:foreach>
 </xf:macro>

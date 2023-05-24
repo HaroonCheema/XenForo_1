@@ -2,16 +2,8 @@
 return array (
   'nav._default' => 'Default (no selected tab)',
   'nav.addRecord' => 'Add',
-  'nav.auctionAddListing' => 'Add Bidding',
+  'nav.auctionAddListing' => 'Add Auction',
   'nav.bh_brand_hub' => 'Brand Hub',
-  'nav.classifieds' => 'Classifieds',
-  'nav.classifiedsAddListing' => 'Add listing',
-  'nav.classifiedsNew' => 'New listings',
-  'nav.classifiedsWatched' => 'Watched',
-  'nav.classifiedsWatchedCategories' => 'Watched categories',
-  'nav.classifiedsWatchedListings' => 'Watched listings',
-  'nav.classifiedsWhatsNew' => 'New listings',
-  'nav.classifiedsYourListings' => 'Your listings',
   'nav.contributedThreads' => 'Threads with your posts',
   'nav.createCrud' => 'CRUD',
   'nav.currentVisitors' => 'Current visitors',
@@ -67,5 +59,4 @@ return array (
   'nav.xfrmWatchedResources' => 'Watched resources',
   'nav.xfrmYourResources' => 'Your resources',
   'nav.yourThreads' => 'Your threads',
-  'nav.z61ClassifiedsMarkRead' => 'Mark read',
 );

@@ -1,9 +1,6 @@
 <?php
 return array (
   'widget_def_desc.birthdays' => 'A block containing a heap of avatars of users whose birthday is today.',
-  'widget_def_desc.classifieds_near_listings' => 'Listings near the currently viewed listing',
-  'widget_def_desc.classifieds_new_listings' => 'Displays the most recently added listings.',
-  'widget_def_desc.classifieds_user_feedback' => 'Displays the user the page is for\'s feedback. Recommended to be only used with listing view.',
   'widget_def_desc.dbt_ecom_latest_reviews' => 'Displays the latest product reviews.',
   'widget_def_desc.dbt_ecom_new_products' => 'Displays the most recently updated products.',
   'widget_def_desc.dbt_ecom_rnd_products' => 'Displays random products.',

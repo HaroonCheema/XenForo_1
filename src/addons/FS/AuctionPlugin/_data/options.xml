@@ -19,9 +19,21 @@ gif</default_value>
     <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>
+  <option option_id="fs_auction_bumping_allowed" edit_format="textbox" data_type="integer">
+    <default_value>2</default_value>
+    <relation group_id="auction" display_order="1"/>
+  </option>
+  <option option_id="fs_auction_dropDown_list_limit" edit_format="textbox" data_type="integer">
+    <default_value>5</default_value>
+    <relation group_id="auction" display_order="1"/>
+  </option>
   <option option_id="fs_auction_max_attachments" edit_format="spinbox" data_type="unsigned_integer">
     <default_value>1</default_value>
     <edit_format_params>min=0</edit_format_params>
+    <relation group_id="auction" display_order="1"/>
+  </option>
+  <option option_id="fs_auction_per_page" edit_format="textbox" data_type="integer">
+    <default_value>15</default_value>
     <relation group_id="auction" display_order="1"/>
   </option>
   <option option_id="minimumBidIncreament" edit_format="textbox" data_type="string">
