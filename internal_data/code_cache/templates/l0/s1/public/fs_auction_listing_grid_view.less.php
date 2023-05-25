@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 93ea209b5df3fd040f8e5b3ec6d7708e
+// FROM HASH: 04c825befc323f455c6d93d4c642725f
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -49,7 +49,7 @@ min-height:275px;
 	}
 	@supports(display: grid)
 	{
-		.block[data-type="classifieds_listing"] .structItemContainer
+		.block[data-type="fs_auction_auctions"] .structItemContainer
 		{
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(@listing-grid-width, 1fr));

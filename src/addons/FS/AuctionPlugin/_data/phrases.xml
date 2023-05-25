@@ -51,6 +51,7 @@
   <phrase title="fs_auction_Please_enter_future_date" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Please enter future date...!]]></phrase>
   <phrase title="fs_auction_SS" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[00 S]]></phrase>
   <phrase title="fs_auction_active" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Active]]></phrase>
+  <phrase title="fs_auction_add_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add auction]]></phrase>
   <phrase title="fs_auction_attachment_reqired" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Attachment Required...!]]></phrase>
   <phrase title="fs_auction_auctions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auctions]]></phrase>
   <phrase title="fs_auction_bid_amount" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Amount]]></phrase>
@@ -66,12 +67,15 @@
   <phrase title="fs_auction_grid_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Grid view layout]]></phrase>
   <phrase title="fs_auction_list_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List view layout]]></phrase>
   <phrase title="fs_auction_maximum_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Maximum attachments per auction : ]]></phrase>
-  <phrase title="fs_auction_no_categories_exist_at_this_time" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No classifieds categories exist at this time.]]></phrase>
+  <phrase title="fs_auction_no_auctions_have_been_created_yet" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No auctions have been created yet.]]></phrase>
+  <phrase title="fs_auction_no_categories_exist_at_this_time" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No auction categories exist at this time.]]></phrase>
   <phrase title="fs_auction_requested_category_not_found" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Requested category not found...!]]></phrase>
   <phrase title="fs_auction_select_amount" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Enter Amount first...!]]></phrase>
   <phrase title="fs_auction_statistics" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction statistics]]></phrase>
   <phrase title="fs_auction_status" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Status]]></phrase>
   <phrase title="fs_auction_term_label" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Shipping Term]]></phrase>
+  <phrase title="fs_auction_there_no_auction_matching_your_filters" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[There are currently no auctions that match your filters.]]></phrase>
+  <phrase title="fs_auction_top_bidding" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Top Bid :]]></phrase>
   <phrase title="fs_auction_username" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Username]]></phrase>
   <phrase title="fs_auction_via_label" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Ship Via]]></phrase>
   <phrase title="fs_auction_you_already_bumping" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Sorry! you already bumping this auction ]]></phrase>

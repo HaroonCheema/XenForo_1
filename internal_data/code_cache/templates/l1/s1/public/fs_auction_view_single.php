@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 45daa6d93795b626519f4fd2369d70b5
+// FROM HASH: 9ba54c0394d81f0ae286589abd3aea8d
 return array(
 'macros' => array('bidding_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -102,7 +102,7 @@ return array(
 			</li>
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list ' . $__templater->escape($__vars['oppositeClass']) . '">
-				<li><span class="message-newIndicator">' . 'New' . '</span></li>
+				
 		
 			
 			<li>
@@ -238,6 +238,50 @@ return array(
 
 	   <div class="block-container">
 		<div class="block-body">
+				';
+	if ($__templater->func('count', array($__vars['bidding'], ), false)) {
+		$__finalCompiled .= '
+						<h3 class="block-minorHeader"> ' . 'Top Bid :' . '</h3>
+
+				  ' . $__templater->dataList('
+					  ' . $__templater->dataRow(array(
+			'rowtype' => 'header',
+		), array(array(
+			'_type' => 'cell',
+			'html' => ' ' . 'By User' . ' ',
+		),
+		array(
+			'_type' => 'cell',
+			'html' => ' ' . 'Bid At' . ' ',
+		),
+		array(
+			'_type' => 'cell',
+			'html' => ' ' . 'Amount' . ' ',
+		))) . '
+					' . $__templater->dataRow(array(
+		), array(array(
+			'href' => $__templater->func('link', array('members/', $__vars['bidding'], ), false),
+			'_type' => 'cell',
+			'html' => ' ' . $__templater->escape($__vars['bidding'][$__vars['highestBidId']]['User']['username']) . ' ',
+		),
+		array(
+			'_type' => 'cell',
+			'html' => ' ' . $__templater->func('date_dynamic', array($__vars['bidding'][$__vars['highestBidId']]['created_at'], array(
+		))),
+		),
+		array(
+			'_type' => 'cell',
+			'html' => ' ' . $__templater->escape($__vars['bidding'][$__vars['highestBidId']]['bidding_amount']) . ' ',
+		))) . '
+				', array(
+			'data-xf-init' => 'responsive-data-list',
+			'style' => 'border-bottom:1px solid #dfdfdf;',
+		)) . '
+
+
+			';
+	}
+	$__finalCompiled .= '
 ';
 	if (($__vars['auction']['ends_on'] > $__vars['xf']['time']) AND ($__vars['xf']['visitor']['user_id'] != 0)) {
 		$__finalCompiled .= '
@@ -248,6 +292,7 @@ return array(
 			$__vars['bidDropDownRange'] = $__templater->func('range', array(0, $__vars['dropDownListLimit'], ), false);
 			$__vars['sum'] = ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']);
 			$__vars['tempSum'] = ($__templater->method($__vars['auction'], 'getMaxBid', array($__vars['auction']['auction_id'], )) ? $__templater->method($__vars['auction'], 'getMaxBid', array($__vars['auction']['auction_id'], )) : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
+			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? $__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
 			$__vars['sum'] = $__vars['tempSum'];
 			$__compilerTemp2 = array();
 			if ($__templater->isTraversable($__vars['bidDropDownRange'])) {
@@ -275,9 +320,10 @@ return array(
 				'label' => 'Bid from Dropdown',
 				'_dependent' => array('
 										<!--sum value is  bid increament+bidstart -->
-									<!--	' . '' . ' -->
+									<!--	' . '' . ' 
+										' . '' . '-->
 										' . '' . '
-										
+
 										' . '' . '
 										
 
@@ -320,7 +366,9 @@ return array(
 	';
 		} else {
 			$__finalCompiled .= '
-		<p>' . 'You can not bid your own Auction' . '</p>
+		<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >' . 'You can not bid your own Auction' . '</span>	
+			</div>
 	';
 		}
 		$__finalCompiled .= '
@@ -328,7 +376,10 @@ return array(
 ';
 	} else {
 		$__finalCompiled .= '
-	' . 'Bidding Not Allowed.' . '
+	<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >' . 'Bidding Not Allowed.' . '</span>	
+			</div>
+	
 ';
 	}
 	$__finalCompiled .= '
@@ -338,7 +389,7 @@ return array(
 ';
 	if ($__templater->func('count', array($__vars['bidding'], ), false)) {
 		$__finalCompiled .= '
-	<div class="block">
+	<div class="block" style="margin-top:1rem;">
 	  <div class="block-container">
 		<div class="block-body">
 		  ' . $__templater->dataList('

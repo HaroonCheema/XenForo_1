@@ -47,12 +47,12 @@
     "public/addEdit_Auction.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "1627d5fed7560d9d649c152af4c38d61"
+        "hash": "85a594327f1468b0afcff4b856b02d05"
     },
     "public/fs_auctionArchive.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "7105bb878e8d4a0537bfda35ff739c61"
+        "hash": "24f2af5d707612684bb9ff4e217b49d3"
     },
     "public/fs_auction_bookmark_macros.html": {
         "version_id": 1000100,
@@ -67,12 +67,7 @@
     "public/fs_auction_categories_overview.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "3ef81d564445fb1d561b98d1b5a458dc"
-    },
-    "public/fs_auction_category_add_listing.html": {
-        "version_id": 1000100,
-        "version_string": "1.0.1 Alpha",
-        "hash": "dedf609f5c002da5c655b628ec1712fd"
+        "hash": "cd88070872c2804869ae5ab0c4f4412e"
     },
     "public/fs_auction_category_list_macros.html": {
         "version_id": 1000100,
@@ -97,17 +92,12 @@
     "public/fs_auction_listing_grid_view.less": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "93ea209b5df3fd040f8e5b3ec6d7708e"
+        "hash": "04c825befc323f455c6d93d4c642725f"
     },
     "public/fs_auction_listing_list_macros.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "0c461421e3ecc06423a06f99a9ece03c"
-    },
-    "public/fs_auction_overview_macros.html": {
-        "version_id": 1000100,
-        "version_string": "1.0.1 Alpha",
-        "hash": "db4d338a1af7a8a50ae85a9b55121637"
+        "hash": "30f9ca6b9c6e3febace2e0cb1adc1397"
     },
     "public/fs_auction_search_filter.html": {
         "version_id": 1000100,
@@ -117,7 +107,7 @@
     "public/fs_auction_view_single.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "45daa6d93795b626519f4fd2369d70b5"
+        "hash": "9ba54c0394d81f0ae286589abd3aea8d"
     },
     "public/fs_auctions.less": {
         "version_id": 1000100,

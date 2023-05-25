@@ -98,26 +98,6 @@
 		</div>
 	</div>
 </xf:macro>
-	
-<xf:macro name="listing_simple" arg-listing="!" arg-withMeta="{{ true }}">
-	<div class="contentRow">
-		<div class="contentRow-figure">
-			<xf:avatar user="$listing.User" size="xxs" />
-		</div>
-		<div class="contentRow-main contentRow-main--close">
-			<a href="{{ link('classifieds', $listing) }}">{{ prefix('classifieds_listing', $listing) }}{$listing.title}</a>
-			<div class="contentRow-lesser">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
-			<xf:if is="$withMeta">
-				<div class="contentRow-minor contentRow-minor--smaller">
-					<ul class="listInline listInline--bullet">
-						<li>{{ $listing.User.username ?: $listing.username }}</li>
-						<li>{{ phrase('created:') }} <xf:date time="{$listing.created_date}" /></li>
-					</ul>
-				</div>
-			</xf:if>
-		</div>
-	</div>
-</xf:macro>
 
 <xf:macro name="listing_grid"
 		  arg-listing="!"

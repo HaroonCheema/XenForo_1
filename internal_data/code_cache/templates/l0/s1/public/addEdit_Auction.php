@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1627d5fed7560d9d649c152af4c38d61
+// FROM HASH: 85a594327f1468b0afcff4b856b02d05
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -294,8 +294,6 @@ return array(
 		'ajax' => 'true',
 		'class' => 'block',
 		'data-xf-init' => 'attachment-manager',
-		'draft' => $__templater->func('link', array('auction/categories/draft', $__vars['data'], ), false),
-		'data-preview-url' => $__templater->func('link', array('classifieds/categories/listing-preview', $__vars['category'], ), false),
 	));
 	return $__finalCompiled;
 }

@@ -18,7 +18,7 @@
 			</li>
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
-				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
+				
 		
 			
 			<li>
@@ -136,6 +136,24 @@
 
 	   <div class="block-container">
 		<div class="block-body">
+				<xf:if is="count($bidding)">
+						<h3 class="block-minorHeader"> {{phrase('fs_auction_top_bidding')}}</h3>
+
+				  <xf:datalist data-xf-init="responsive-data-list"  style="border-bottom:1px solid #dfdfdf;">
+					  <xf:datarow rowtype="header">
+						<xf:cell> {{phrase('fs_auction_bidding_username')}} </xf:cell>
+						<xf:cell> {{phrase('fs_auction_bid_at')}} </xf:cell>
+						<xf:cell> {{phrase('fs_auction_bid_amount')}} </xf:cell>
+					  </xf:datarow>
+					<xf:datarow>
+					  <xf:cell href="{{ link('members/', $bidding) }}"> {{$bidding.{$highestBidId}.User.username}} </xf:cell>
+					  <xf:cell> <xf:date time="{{$bidding.{$highestBidId}.created_at}}" /></xf:cell>
+					  <xf:cell> {{$bidding.{$highestBidId}.bidding_amount}} </xf:cell>
+					</xf:datarow>
+				</xf:datalist>
+
+
+			</xf:if>
 <xf:if is="$auction.ends_on > $xf.time AND $xf.visitor.user_id != 0">
 		<xf:if is="$xf.visitor.user_id != $auction.User.user_id">
 			<xf:form
@@ -157,9 +175,10 @@
 								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> -->
-										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />
-										
+									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> 
+										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />-->
+										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount : $auction.bid_increament+$auction.starting_bid}}" />
+
 										<xf:set var="$sum" value="{{$tempSum}}" />
 										
 
@@ -188,17 +207,22 @@
 
 		</xf:form>
 	<xf:else />
-		<p>{{phrase('auctionOwnerCanNotBid')}}</p>
+		<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >{{phrase('auctionOwnerCanNotBid')}}</span>	
+			</div>
 	</xf:if>
 	
 <xf:else />
-	{{phrase('biddingNotAllowed')}}
+	<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >{{phrase('biddingNotAllowed')}}</span>	
+			</div>
+	
 </xf:if>
 		   </div>
 	  </div>
 </div>
 <xf:if is="count($bidding)">
-	<div class="block">
+	<div class="block" style="margin-top:1rem;">
 	  <div class="block-container">
 		<div class="block-body">
 		  <xf:datalist data-xf-init="responsive-data-list">

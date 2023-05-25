@@ -66,11 +66,14 @@ class AuctionListing extends AbstractController
         $options = \XF::options();
         $dropDownListLimit = $options->fs_auction_dropDown_list_limit;
 
-        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
-
+        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetch();
+        $highestBidId = key(reset($bidding));
+  
         $viewParams = [
             'auction' => $auction,
-            'bidding' => $bidding->fetch(),
+            'bidding' => $bidding,
+            'highestBidId' => $highestBidId,
+
             'dropDownListLimit' => $dropDownListLimit,
         ];
         return $this->view(

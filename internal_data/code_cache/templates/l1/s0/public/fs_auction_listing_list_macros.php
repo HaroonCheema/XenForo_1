@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 0c461421e3ecc06423a06f99a9ece03c
+// FROM HASH: 30f9ca6b9c6e3febace2e0cb1adc1397
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -124,42 +124,6 @@ return array(
 				<dd> </dd>
 			</dl>
 			
-		</div>
-	</div>
-';
-	return $__finalCompiled;
-}
-),
-'listing_simple' => array(
-'arguments' => function($__templater, array $__vars) { return array(
-		'listing' => '!',
-		'withMeta' => true,
-	); },
-'code' => function($__templater, array $__vars, $__extensions = null)
-{
-	$__finalCompiled = '';
-	$__finalCompiled .= '
-	<div class="contentRow">
-		<div class="contentRow-figure">
-			' . $__templater->func('avatar', array($__vars['listing']['User'], 'xxs', false, array(
-	))) . '
-		</div>
-		<div class="contentRow-main contentRow-main--close">
-			<a href="' . $__templater->func('link', array('classifieds', $__vars['listing'], ), true) . '">' . $__templater->func('prefix', array('classifieds_listing', $__vars['listing'], ), true) . $__templater->escape($__vars['listing']['title']) . '</a>
-			<div class="contentRow-lesser">' . $__templater->func('snippet', array($__vars['listing']['content'], 50, array('stripBbCode' => true, ), ), true) . '</div>
-			';
-	if ($__vars['withMeta']) {
-		$__finalCompiled .= '
-				<div class="contentRow-minor contentRow-minor--smaller">
-					<ul class="listInline listInline--bullet">
-						<li>' . ($__templater->escape($__vars['listing']['User']['username']) ?: $__templater->escape($__vars['listing']['username'])) . '</li>
-						<li>' . 'Created' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->func('date_dynamic', array($__vars['listing']['created_date'], array(
-		))) . '</li>
-					</ul>
-				</div>
-			';
-	}
-	$__finalCompiled .= '
 		</div>
 	</div>
 ';
@@ -312,8 +276,6 @@ return array(
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '
-	
-' . '
 
 ';
 	return $__finalCompiled;

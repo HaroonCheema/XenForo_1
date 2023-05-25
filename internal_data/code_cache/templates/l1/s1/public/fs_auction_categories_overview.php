@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 3ef81d564445fb1d561b98d1b5a458dc
+// FROM HASH: cd88070872c2804869ae5ab0c4f4412e
 return array(
 'macros' => array('table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -119,12 +119,7 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
-    //  var url = window.location.origin + "/classified/auction/" + auc_id;
- //     document.getElementById("days-" + auc_id).innerHTML =
-  //      "<a href=" + url + ">Join</a>";
-  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
-   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
-   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
+  
     }
   }, 1000);
 }
@@ -133,7 +128,7 @@ function timmerCounter(auction_id, start_datetime) {
 
 
 ';
-	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'classifieds_listing', ), ));
+	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'fs_auction_auctions', ), ));
 	$__finalCompiled .= '
 
 ';
@@ -178,11 +173,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 			} else if ($__vars['filters']) {
 				$__compilerTemp1 .= '
-					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
+					<div class="block-row">' . 'There are currently no auctions that match your filters.' . '</div>
 					';
 			} else {
 				$__compilerTemp1 .= '
-					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
+					<div class="block-row">' . 'No auctions have been created yet.' . '</div>
 				';
 			}
 			$__compilerTemp1 .= '
@@ -237,10 +232,6 @@ function timmerCounter(auction_id, start_datetime) {
 	), $__vars) . '
 
 ', 'replace');
-	$__finalCompiled .= '
-
-';
-	$__templater->modifySideNavHtml('_xfWidgetPositionSideNav4401d3a32bbed9b86a42e889338553d3', $__templater->widgetPosition('classifieds_overview_sidenav', array()), 'replace');
 	return $__finalCompiled;
 }
 );

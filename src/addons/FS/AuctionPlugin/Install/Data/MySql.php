@@ -82,7 +82,7 @@ class MySql
                 `fs_auction_category`
                 (`category_id`, `title`, `description`, `parent_category_id`, `display_order`, `layout_type`,`lft`, `rgt`, `depth`, `breadcrumb_data`, `bid_count`)
              VALUES
-                (1, 'Example category', 'This is an example Classifieds category.', 0, 100, 'grid_view',3, 6, 0, '[]', 0);
+                (1, 'Example category', 'This is an example Auction category.', 0, 100, 'grid_view',3, 6, 0, '[]', 0);
         ";
         return $data;
     }

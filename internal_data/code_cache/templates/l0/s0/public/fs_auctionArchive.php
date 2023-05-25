@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 7105bb878e8d4a0537bfda35ff739c61
+// FROM HASH: 24f2af5d707612684bb9ff4e217b49d3
 return array(
 'macros' => array('search_menu' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -119,13 +119,8 @@ function timmerCounter(auction_id, start_datetime) {
 
 </script>
 
-
-' . $__templater->callMacro('metadata_macros', 'canonical_url', array(
-		'canonicalUrl' => $__templater->func('link', array('canonical:classifieds', null, array('page' => $__vars['page'], ), ), false),
-	), $__vars) . '
-
 ';
-	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'classifieds_listing', ), ));
+	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'fs_auction_auctions', ), ));
 	$__finalCompiled .= '
 
 ';
@@ -155,7 +150,7 @@ function timmerCounter(auction_id, start_datetime) {
 	}
 	$__finalCompiled .= '
 
-<div class="block" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="classifieds_listing" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
+<div class="block" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="fs_auction_auctions" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 	<div class="block-outer">';
 	$__compilerTemp1 = '';
 	$__compilerTemp2 = '';
@@ -227,11 +222,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 		} else if ($__vars['filters']) {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
+					<div class="block-row">' . 'There are currently no auctions that match your filters.' . '</div>
 					';
 		} else {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
+					<div class="block-row">' . 'No auctions have been created yet.' . '</div>
 				';
 		}
 		$__finalCompiled .= '
@@ -278,11 +273,11 @@ function timmerCounter(auction_id, start_datetime) {
 					';
 		} else if ($__vars['filters']) {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'z61_classifieds_there_no_listings_matching_your_filters' . '</div>
+					<div class="block-row">' . 'There are currently no auctions that match your filters.' . '</div>
 					';
 		} else {
 			$__finalCompiled .= '
-					<div class="block-row">' . 'z61_classifieds_no_listings_have_been_created_yet' . '</div>
+					<div class="block-row">' . 'No auctions have been created yet.' . '</div>
 				';
 		}
 		$__finalCompiled .= '
@@ -329,9 +324,6 @@ function timmerCounter(auction_id, start_datetime) {
 ', 'replace');
 	$__finalCompiled .= '
 
-';
-	$__templater->modifySideNavHtml('_xfWidgetPositionSideNav4401d3a32bbed9b86a42e889338553d3', $__templater->widgetPosition('classifieds_overview_sidenav', array()), 'replace');
-	$__finalCompiled .= '
 
 <!-- Filter Bar Macro Start -->
 

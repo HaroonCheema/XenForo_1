@@ -72,12 +72,8 @@ function timmerCounter(auction_id, start_datetime) {
 
 </script>
 
-
-<xf:macro template="metadata_macros" name="canonical_url"
-	arg-canonicalUrl="{{ link('canonical:classifieds', null, {'page': $page}) }}" />
-
 <xf:page option="searchConstraints" value="{{ {
-	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -88,7 +84,7 @@ function timmerCounter(auction_id, start_datetime) {
 	<xf:js src="xf/inline_mod.js" min="1" />
 </xf:if>
 
-<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="classifieds_listing" data-href="{{ link('inline-mod') }}">
+<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_auction_auctions" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer"><xf:trim>
 
 		<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
@@ -135,9 +131,9 @@ function timmerCounter(auction_id, start_datetime) {
 						</xf:foreach>
 					</div>
 					<xf:elseif is="$filters" />
-					<div class="block-row">{{ phrase('z61_classifieds_there_no_listings_matching_your_filters') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_there_no_auction_matching_your_filters') }}</div>
 					<xf:else />
-					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_no_auctions_have_been_created_yet') }}</div>
 				</xf:if>
 			<xf:elseif is="$xf.visitor.layout_type == '1'" />
 				<xf:if is="$featuredListings is not empty">
@@ -158,9 +154,9 @@ function timmerCounter(auction_id, start_datetime) {
 						</xf:foreach>
 					</div>
 					<xf:elseif is="$filters" />
-					<div class="block-row">{{ phrase('z61_classifieds_there_no_listings_matching_your_filters') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_there_no_auction_matching_your_filters') }}</div>
 					<xf:else />
-					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_no_auctions_have_been_created_yet') }}</div>
 				</xf:if>
 			</xf:if>
 			<div class="block-footer">
@@ -191,7 +187,6 @@ function timmerCounter(auction_id, start_datetime) {
 		arg-stats="{$stats}" />
 </xf:sidenav>
 
-<xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />
 
 <!-- Filter Bar Macro Start -->
 

@@ -259,8 +259,6 @@
   ajax="true"
   class="block"
   data-xf-init="attachment-manager"
-  draft="{{ link('auction/categories/draft', $data) }}"
-  data-preview-url="{{ link('classifieds/categories/listing-preview', $category) }}"
 >
   <div class="block-container">
     <div class="block-body">	
@@ -532,12 +530,8 @@ function timmerCounter(auction_id, start_datetime) {
 
 </script>
 
-
-<xf:macro template="metadata_macros" name="canonical_url"
-	arg-canonicalUrl="{{ link('canonical:classifieds', null, {'page': $page}) }}" />
-
 <xf:page option="searchConstraints" value="{{ {
-	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -548,7 +542,7 @@ function timmerCounter(auction_id, start_datetime) {
 	<xf:js src="xf/inline_mod.js" min="1" />
 </xf:if>
 
-<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="classifieds_listing" data-href="{{ link('inline-mod') }}">
+<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_auction_auctions" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer"><xf:trim>
 
 		<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
@@ -595,9 +589,9 @@ function timmerCounter(auction_id, start_datetime) {
 						</xf:foreach>
 					</div>
 					<xf:elseif is="$filters" />
-					<div class="block-row">{{ phrase('z61_classifieds_there_no_listings_matching_your_filters') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_there_no_auction_matching_your_filters') }}</div>
 					<xf:else />
-					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_no_auctions_have_been_created_yet') }}</div>
 				</xf:if>
 			<xf:elseif is="$xf.visitor.layout_type == '1'" />
 				<xf:if is="$featuredListings is not empty">
@@ -618,9 +612,9 @@ function timmerCounter(auction_id, start_datetime) {
 						</xf:foreach>
 					</div>
 					<xf:elseif is="$filters" />
-					<div class="block-row">{{ phrase('z61_classifieds_there_no_listings_matching_your_filters') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_there_no_auction_matching_your_filters') }}</div>
 					<xf:else />
-					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_no_auctions_have_been_created_yet') }}</div>
 				</xf:if>
 			</xf:if>
 			<div class="block-footer">
@@ -651,7 +645,6 @@ function timmerCounter(auction_id, start_datetime) {
 		arg-stats="{$stats}" />
 </xf:sidenav>
 
-<xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />
 
 <!-- Filter Bar Macro Start -->
 
@@ -692,7 +685,7 @@ function timmerCounter(auction_id, start_datetime) {
 	arg-showText="{{ true }}"
 	arg-class="actionBar-action actionBar-action--bookmarkLink">
 	
-		<a href="{$confirmUrl}" class="bookmarkLink"
+		<a href="{$confirmUrl}" class="bookmarkLink {$class} {{ $content.isBookmarked() ? 'is-bookmarked' : '' }}"
 			title="{{ $showText ? '' : phrase('bookmark')|for_attr }}"
 			data-xf-click="bookmark-click"
 			data-label=".js-bookmarkText"
@@ -793,12 +786,7 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
-    //  var url = window.location.origin + "/classified/auction/" + auc_id;
- //     document.getElementById("days-" + auc_id).innerHTML =
-  //      "<a href=" + url + ">Join</a>";
-  //    document.getElementById("hours-" + auc_id).classList.add("d-none");
-   //   document.getElementById("minutes-" + auc_id).classList.add("d-none");
-   //   document.getElementById("seconds-" + auc_id).classList.add("d-none");
+  
     }
   }, 1000);
 }
@@ -807,7 +795,7 @@ function timmerCounter(auction_id, start_datetime) {
 
 
 <xf:page option="searchConstraints" value="{{ {
-	phrase('fs_auction_auctions'): {'search_type': 'classifieds_listing'}
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
 } }}" />
 
 <xf:pageaction if="$xf.visitor.canAddAuctions() && $categories is not empty">
@@ -830,9 +818,9 @@ function timmerCounter(auction_id, start_datetime) {
 						</xf:foreach>
 					</div>
 					<xf:elseif is="$filters" />
-					<div class="block-row">{{ phrase('z61_classifieds_there_no_listings_matching_your_filters') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_there_no_auction_matching_your_filters') }}</div>
 					<xf:else />
-					<div class="block-row">{{ phrase('z61_classifieds_no_listings_have_been_created_yet') }}</div>
+					<div class="block-row">{{ phrase('fs_auction_no_auctions_have_been_created_yet') }}</div>
 				</xf:if>
 				</xf:if>
 			
@@ -886,52 +874,7 @@ function timmerCounter(auction_id, start_datetime) {
 	<xf:macro template="fs_auction_category_list_macros" name="simple_list_block"
 		arg-categoryTree="{$categoryTree}" />
 
-</xf:sidenav>
-
-<xf:widgetpos id="classifieds_overview_sidenav" position="sidenav" />]]></template>
-  <template type="public" title="fs_auction_category_add_listing" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('z61_classifieds_add_listing') }}</xf:title>
-
-<xf:breadcrumb source="$category.getBreadcrumbs()" />
-
-<xf:js src="https://maps.googleapis.com/maps/api/js?key={$xf.options.z61ClassifiedsGoogleApi}&libraries=places"></xf:js>
-<xf:js src="z61/classifieds/geocomplete.js"></xf:js>
-<xf:js>
-	$("#location").geocomplete();  
-</xf:js>
-
-<xf:form action="{{ link('auction/categories/add', $category) }}" ajax="true" class="block"
-	data-xf-init="attachment-manager"
-	draft="{{ link('classifieds/categories/draft', $category) }}"
-	data-preview-url="{{ link('auction/categories/listing-preview', $category) }}">
-
-	<div class="block-container">
-		<div class="block-body">
-			<xf:macro template="z61_classifieds_listing_edit_macros" name="title"
-			    arg-category="{$category}"
-				arg-listing="{$listing}"
-				arg-prefixes="{$prefixes}" />
-
-			<div>
-				<xf:editorrow name="message"
-				  attachments="{{ $attachmentData ? $attachmentData.attachments : [] }}"
-				  rowtype="fullWidth noLabel mergePrev"
-				  label="{{ phrase('message') }}" />
-
-				<xf:formrow>
-					<xf:if is="$attachmentData">
-						<xf:macro template="helper_attach_upload" name="upload_block"
-						  arg-attachmentData="{$attachmentData}"
-						  arg-forceHash="{$category.draft_listing.attachment_hash}" />
-					</xf:if>
-				</xf:formrow>
-			</div>
-	
-		</div>
-
-
-		<xf:submitrow icon="save" sticky="true" />
-	</div>
-</xf:form>]]></template>
+</xf:sidenav>]]></template>
   <template type="public" title="fs_auction_category_list_macros" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:macro name="simple_category_list"
 	arg-selected="0"
 	arg-pathToSelected="{{ [] }}"
@@ -1343,7 +1286,7 @@ min-height:275px;
 	}
 	@supports(display: grid)
 	{
-		.block[data-type="classifieds_listing"] .structItemContainer
+		.block[data-type="fs_auction_auctions"] .structItemContainer
 		{
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(@listing-grid-width, 1fr));
@@ -1564,26 +1507,6 @@ min-height:275px;
 		</div>
 	</div>
 </xf:macro>
-	
-<xf:macro name="listing_simple" arg-listing="!" arg-withMeta="{{ true }}">
-	<div class="contentRow">
-		<div class="contentRow-figure">
-			<xf:avatar user="$listing.User" size="xxs" />
-		</div>
-		<div class="contentRow-main contentRow-main--close">
-			<a href="{{ link('classifieds', $listing) }}">{{ prefix('classifieds_listing', $listing) }}{$listing.title}</a>
-			<div class="contentRow-lesser">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
-			<xf:if is="$withMeta">
-				<div class="contentRow-minor contentRow-minor--smaller">
-					<ul class="listInline listInline--bullet">
-						<li>{{ $listing.User.username ?: $listing.username }}</li>
-						<li>{{ phrase('created:') }} <xf:date time="{$listing.created_date}" /></li>
-					</ul>
-				</div>
-			</xf:if>
-		</div>
-	</div>
-</xf:macro>
 
 <xf:macro name="listing_grid"
 		  arg-listing="!"
@@ -1693,121 +1616,6 @@ min-height:275px;
 		</div>
 	</div>
 </xf:macro>]]></template>
-  <template type="public" title="fs_auction_overview_macros" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:macro name="featured_carousel" arg-featuredListings="!" arg-viewAllLink="!">
-	<xf:if is="$featuredListings is not empty">
-		<xf:css src="carousel.less" />
-		<xf:css src="lightslider.less" />
-
-		<xf:js prod="xf/carousel-compiled.js" dev="vendor/lightslider/lightslider.min.js, xf/carousel.js" />
-
-		<div class="carousel carousel--withFooter">
-			<ul class="carousel-body carousel-body--show2" data-xf-init="carousel">
-				<xf:foreach loop="$featuredListings" value="$listing">
-					<li>
-						<div class="carousel-item">
-							<div class="contentRow">
-								<div class="contentRow-figure">
-										<xf:avatar user="$listing.User.username" size="m" notooltip="true" />
-								</div>
-								<div class="contentRow-main">
-									<h4 class="contentRow-title"><a href="{{ link('classifieds', $listing) }}">{{ prefix('classifieds_listing', $listing) }}{$listing.title}</a></h4>
-									<div class="contentRow-minor contentRow-minor--smaller">
-										<ul class="listInline listInline--bullet">
-											<li>{{ $listing.User.username ?: $listing.User.username }}</li>
-											<li>{{ phrase('updated:') }} <xf:date time="{$listing.last_edit_date}" /></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-				</xf:foreach>
-			</ul>
-			<div class="carousel-footer">
-				<a href="{$viewAllLink}">{{ phrase('classifieds_view_all_featured_listings') }}</a>
-			</div>
-		</div>
-	</xf:if>
-</xf:macro>
-
-<xf:macro name="list_filter_bar" arg-filters="!" arg-baseLinkPath="!" arg-category="{{ null }}" arg-creatorFilter="{{ null }}" arg-conditionFilter="{{ null }}" arg-listingTypeFilter="{{ null }}">
-	<xf:set var="$sortOrders" value="{{ {
-		'last_update': phrase('z61_classifieds_last_updated'),
-		'expiration_date': phrase('z61_classifieds_expiration_date'),
-		'title': phrase('title'),
-		'price': phrase('price')
-	} }}" />
-
-	<div class="block-filterBar">
-		<div class="filterBar">
-			<xf:if contentcheck="true">
-				<ul class="filterBar-filters">
-					<xf:contentcheck>
-						<xf:if is="$filters.prefix_id">
-							<li><a href="{{ link($baseLinkPath, $category, $filters|replace('prefix_id', null)) }}"
-								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
-								<span class="filterBar-filterToggle-label">{{ phrase('prefix:') }}</span>
-								{{ prefix_title('classifieds_listing', $filters.prefix_id) }}</a></li>
-						</xf:if>
-						<xf:if is="$filters.condition_id">
-						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('condition_id', null)) }}"
-							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
-							<span class="filterBar-filterToggle-label">{{ phrase('z61_classifieds_condition:') }}</span>
-							{{ $conditionFilter.title }}</a></li>
-					</xf:if>
-						
-					<xf:if is="$xf.options.z61ClassifiedsGoogleApi && $filters.address AND $addressFilter">
-						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('address', null)) }}"
-							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
-							<span class="filterBar-filterToggle-label">{{ phrase('z61_classifieds_within:') }}</span>
-							{{ phrase('z61_classifieds_x_y_of_z', 
-								{'distance': $address.distance,
-								 'unit': {$address.distance_unit|to_upper()},
-								 'address': $address.formatted
-								})
-							}}</a></li>
-					</xf:if>
-
-					<xf:if is="$filters.listing_type_id">
-						<li><a href="{{ link($baseLinkPath, $category, $filters|replace('listing_type_id', null)) }}"
-							   class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
-							<span class="filterBar-filterToggle-label">{{ phrase('type:') }}</span>
-							{{ $listingTypeFilter.title }}</a></li>
-					</xf:if>
-
-						<xf:if is="$filters.creator_id AND $creatorFilter">
-							<li><a href="{{ link($baseLinkPath, $category, $filters|replace('creator_id', null)) }}"
-								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('remove_this_filter')|for_attr }}">
-								<span class="filterBar-filterToggle-label">{{ phrase('author:') }}</span>
-								{$creatorFilter.username}</a></li>
-						</xf:if>
-						<xf:if is="$filters.order AND {$sortOrders.{$filters.order}}">
-							<li><a href="{{ link($baseLinkPath, $category, $filters|replace({'order': null, 'direction': null})) }}"
-								class="filterBar-filterToggle" data-xf-init="tooltip" title="{{ phrase('return_to_default_order')|for_attr }}">
-								<span class="filterBar-filterToggle-label">{{ phrase('sort_by:') }}</span>
-								{$sortOrders.{$filters.order}}
-								<i class="fa {{ $filters.direction == 'asc' ? 'fa-angle-up' : 'fa-angle-down' }}" aria-hidden="true"></i>
-								<span class="u-srOnly"><xf:if is="$filters.direction == 'asc'">{{ phrase('ascending') }}<xf:else />{{ phrase('descending') }}</xf:if></span>
-							</a></li>
-						</xf:if>
-					</xf:contentcheck>
-				</ul>
-			</xf:if>
-
-			<a class="filterBar-menuTrigger" data-xf-click="menu" role="button" tabindex="0" aria-expanded="false" aria-haspopup="true">{{ phrase('filters') }}</a>
-			<div class="menu menu--wide" data-menu="menu" aria-hidden="true"
-				data-href="{{ link($baseLinkPath . '/filters', $category, $filters) }}"
-				data-load-target=".js-filterMenuBody">
-				<div class="menu-content">
-					<h4 class="menu-header">{{ phrase('show_only:') }}</h4>
-					<div class="js-filterMenuBody">
-						<div class="menu-row">{{ phrase('loading...') }}</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</xf:macro>]]></template>
   <template type="public" title="fs_auction_search_filter" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:form action="{{ link('auction') }}">
 	<div class="menu-row">
     {{ phrase('fs_auction_username:') }}
@@ -1875,42 +1683,8 @@ min-height:275px;
 			</li>
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
-				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
-			
-			<li>
-				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}" 
-				   class="message-attribution-gadget" 
-				   data-xf-init="share-tooltip" 
-				   data-href="/xenforo/index.php?posts/1/share" 
-				   aria-label="Share" 
-				   rel="nofollow" 
-				   id="js-XFUniqueId6">
-					<i class="fa--xf far fa-share-alt" aria-hidden="true"></i>
-				</a>
-			</li>
-			
-			<li>
-				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}" 
-				   class="message-attribution-gadget" 
-				   data-xf-init="share-tooltip" 
-				   data-href="/xenforo/index.php?posts/1/share" 
-				   aria-label="Share" 
-				   rel="nofollow" 
-				   id="js-XFUniqueId6">
-					<i class="fa--xf far fa-share-alt" aria-hidden="true"></i>
-				</a>
-			</li>
-			
-			<li>
-				<a href="{{ link('threads/post', $thread, {'post_id': $post.post_id}) }}"
-					class="message-attribution-gadget"
-					data-xf-init="share-tooltip"
-					data-href="{{ link('posts/share', $post) }}"
-					aria-label="{{ phrase('share')|for_attr }}"
-					rel="nofollow">
-					<xf:fa icon="fa-share-alt"/>
-				</a>
-			</li>
+				
+		
 			
 			<li>
 				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}"
@@ -2027,6 +1801,24 @@ min-height:275px;
 
 	   <div class="block-container">
 		<div class="block-body">
+				<xf:if is="count($bidding)">
+						<h3 class="block-minorHeader"> {{phrase('fs_auction_top_bidding')}}</h3>
+
+				  <xf:datalist data-xf-init="responsive-data-list"  style="border-bottom:1px solid #dfdfdf;">
+					  <xf:datarow rowtype="header">
+						<xf:cell> {{phrase('fs_auction_bidding_username')}} </xf:cell>
+						<xf:cell> {{phrase('fs_auction_bid_at')}} </xf:cell>
+						<xf:cell> {{phrase('fs_auction_bid_amount')}} </xf:cell>
+					  </xf:datarow>
+					<xf:datarow>
+					  <xf:cell href="{{ link('members/', $bidding) }}"> {{$bidding.{$highestBidId}.User.username}} </xf:cell>
+					  <xf:cell> <xf:date time="{{$bidding.{$highestBidId}.created_at}}" /></xf:cell>
+					  <xf:cell> {{$bidding.{$highestBidId}.bidding_amount}} </xf:cell>
+					</xf:datarow>
+				</xf:datalist>
+
+
+			</xf:if>
 <xf:if is="$auction.ends_on > $xf.time AND $xf.visitor.user_id != 0">
 		<xf:if is="$xf.visitor.user_id != $auction.User.user_id">
 			<xf:form
@@ -2048,9 +1840,10 @@ min-height:275px;
 								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> -->
-										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />
-										
+									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> 
+										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />-->
+										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount : $auction.bid_increament+$auction.starting_bid}}" />
+
 										<xf:set var="$sum" value="{{$tempSum}}" />
 										
 
@@ -2079,17 +1872,22 @@ min-height:275px;
 
 		</xf:form>
 	<xf:else />
-		<p>{{phrase('auctionOwnerCanNotBid')}}</p>
+		<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >{{phrase('auctionOwnerCanNotBid')}}</span>	
+			</div>
 	</xf:if>
 	
 <xf:else />
-	{{phrase('biddingNotAllowed')}}
+	<div style="display:flex; justify-content: center; padding:0.7rem;">
+				<span >{{phrase('biddingNotAllowed')}}</span>	
+			</div>
+	
 </xf:if>
 		   </div>
 	  </div>
 </div>
 <xf:if is="count($bidding)">
-	<div class="block">
+	<div class="block" style="margin-top:1rem;">
 	  <div class="block-container">
 		<div class="block-body">
 		  <xf:datalist data-xf-init="responsive-data-list">

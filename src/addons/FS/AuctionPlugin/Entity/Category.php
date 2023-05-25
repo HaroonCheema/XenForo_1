@@ -28,7 +28,7 @@ class Category extends AbstractCategoryTree
         $structure->table = 'fs_auction_category';
         $structure->shortName = 'FS\AuctionPlugin:Category';
         $structure->primaryKey = 'category_id';
-        $structure->contentType = 'classifieds_category';
+        $structure->contentType = 'fs_auction_category';
         $structure->columns = [
             'category_id' => ['type' => self::UINT, 'autoIncrement' => true, 'nullable' => true],
             'title' => [
