@@ -64,19 +64,32 @@ class AuctionListing extends AbstractHandler
 		}
 	}
 
+	// public function getConstraints(array $context)
+	// {
+
+	// 	$em = \XF::em();
+
+	// 	if (!empty($context['auction_id'])) {
+
+	// 		$Item = $em->find('FS\AuctionPlugin:AuctionListing', intval($context['auction_id']));
+	// 		return $Item->getAttachmentConstraints();
+	// 	} else {
+	// 		$Item = $em->create('FS\AuctionPlugin:AuctionListing');
+	// 		return $Item->getAttachmentConstraints();
+	// 	}
+	// }
+
 	public function getConstraints(array $context)
 	{
+		$options = \XF::options();
 
-		$em = \XF::em();
-
-		if (!empty($context['auction_id'])) {
-
-			$Item = $em->find('FS\AuctionPlugin:AuctionListing', intval($context['auction_id']));
-			return $Item->getAttachmentConstraints();
-		} else {
-			$Item = $em->create('FS\AuctionPlugin:AuctionListing');
-			return $Item->getAttachmentConstraints();
-		}
+		return [
+			'extensions' => preg_split('/\s+/', trim($options->attachmentExtensions), -1, PREG_SPLIT_NO_EMPTY),
+			'size' => $options->attachmentMaxFileSize * 1024,
+			'width' => $options->attachmentMaxDimensions['width'],
+			'height' => $options->attachmentMaxDimensions['height'],
+			'count' => $options->fs_auction_max_attachments
+		];
 	}
 
 	public function getContainerIdFromContext(array $context)
