@@ -32,7 +32,7 @@ $0]]></replace>
   <modification type="public" template="post_macros" modification_key="fs_sch_add_in_post_warning_post_macros" description="Add blocking warning" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<div class="message-userContent(.*)"/is]]></find>
     <replace><![CDATA[<xf:if is="$post.User.ScheduleBan.ban_date && !$post.User.is_banned">
-	<xf:macro template="fs_sch_user_ban_macros" name="banInfoBeforeBan" arg-banDate="{$post.User.ScheduleBan.ban_date}" />
+	<xf:macro template="fs_sch_user_ban_macros" name="banInfoBeforeBan" arg-banDate="{$post.User.ScheduleBan}" />
 </xf:if>
 <xf:if is="{$post.User.is_banned}">
 	<xf:macro template="fs_sch_user_ban_macros" name="messageInfo" />

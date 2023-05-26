@@ -407,7 +407,7 @@ data-xf-init="scheduled-post"
 	if ($__vars['post']['User']['ScheduleBan']['ban_date'] AND (!$__vars['post']['User']['is_banned'])) {
 		$__finalCompiled .= '
 	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfoBeforeBan', array(
-			'banDate' => $__vars['post']['User']['ScheduleBan']['ban_date'],
+			'banDate' => $__vars['post']['User']['ScheduleBan'],
 		), $__vars) . '
 ';
 	}

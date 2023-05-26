@@ -175,9 +175,7 @@
 								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> 
-										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />-->
-										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount : $auction.bid_increament+$auction.starting_bid}}" />
+										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount+$auction.bid_increament : $auction.bid_increament+$auction.starting_bid}}" />
 
 										<xf:set var="$sum" value="{{$tempSum}}" />
 										
@@ -228,6 +226,10 @@
 		  <xf:datalist data-xf-init="responsive-data-list">
 			  <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
 		  </xf:datalist>
+			
+			<div class="block-outer block-outer--after">
+		<xf:showignored wrapperclass="block-outer-opposite" />
+	</div>
 		</div>
 	  </div>
 	</div>

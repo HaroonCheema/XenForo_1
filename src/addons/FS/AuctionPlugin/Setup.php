@@ -59,6 +59,9 @@ class Setup extends AbstractSetup
 		$sm->dropTable('fs_auction_listing');
 		$sm->dropTable('fs_auction_ship_terms');
 		$sm->dropTable('fs_auction_ship_via');
+
+		$db = \XF::db();
+		$db->delete('xf_attachment', "content_type = 'fs_auction'");
 	}
 
 	public function insertDefaultData()

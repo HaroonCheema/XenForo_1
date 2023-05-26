@@ -20,6 +20,7 @@ class ScheduleBanUser extends Entity
             'user_id' => ['type' => self::UINT, 'default' => 0],
             'user_banBy_id' => ['type' => self::UINT, 'default' => 0],
             'ban_date' => ['type' => self::UINT, 'default' => 0],
+
             'ban_reason' => ['type' => self::STR, 'default' => null],
         ];
 
@@ -42,5 +43,25 @@ class ScheduleBanUser extends Entity
         $structure->behaviors = [];
 
         return $structure;
+    }
+
+    public function getbanDate()
+    {
+        $timezone = \xf::options()->fs_scheduled_ban_user_timezone;
+        $tz = new \DateTimeZone($timezone);
+
+        $date = new \DateTime('@' . $this->ban_date, $tz);
+
+        return $date->format("H:i");
+    }
+
+    public function getbanTime()
+    {
+        $timezone = \xf::options()->fs_scheduled_ban_user_timezone;
+        $tz = new \DateTimeZone($timezone);
+
+        $date = new \DateTime('@' . $this->ban_date, $tz);
+
+        return $date->format("h:i A");
     }
 }

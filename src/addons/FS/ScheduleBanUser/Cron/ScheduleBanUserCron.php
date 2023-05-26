@@ -8,7 +8,6 @@ class ScheduleBanUserCron
     public static function scheduleBanningUsers()
     {
         $finder = \XF::finder('FS\ScheduleBanUser:ScheduleBanUser')->where('ban_date', '<=', time())->fetch();
-
         foreach ($finder as $value) {
 
             $user = self::assertViewableUser($value->user_id, [], true);
@@ -19,7 +18,6 @@ class ScheduleBanUserCron
             if (!$banningRepo->banUser($user, 0, $value['ban_reason'], $error, $banBy)) {
                 throw new \XF\PrintableException($error);
             }
-
             $value->delete();
         }
     }

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 34cdd40947633dcb522649d8540016d5
+// FROM HASH: 3da9b5637926ef23e8c2756ec77b4b14
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -35,19 +35,36 @@ return array(
 	<div class="block-container">
 		<div class="block-body">
 		
-				' . $__templater->formRow('
-
-					' . $__templater->formDateInput(array(
-		'name' => 'ban_date',
-		'value' => ($__vars['userBanned']['ban_date'] ? $__templater->func('date', array($__vars['userBanned']['ban_date'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
-	)) . '
-		
 					<input type="hidden" name="user_id" value="' . ($__vars['userBanned']['user_id'] ? $__templater->escape($__vars['userBanned']['user_id']) : $__templater->escape($__vars['user_id'])) . '">
 					<input type="hidden" name="ban_id" value="' . ($__vars['userBanned']['ban_id'] ? $__templater->escape($__vars['userBanned']['ban_id']) : null) . '">
 					
-				', array(
-		'label' => 'Ban start',
+			 ' . $__templater->formRow('
+          <div class="inputGroup">
+            	' . $__templater->formDateInput(array(
+		'name' => 'ban_date',
+		'value' => ($__vars['userBanned']['ban_date'] ? $__templater->func('date', array($__vars['userBanned']['ban_date'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
 	)) . '
+			  
+            <span class="inputGroup-splitter"></span>
+          
+			 <span class="inputGroup" dir="ltr">
+			  ' . $__templater->formTextBox(array(
+		'name' => 'ban_time',
+		'class' => 'input--date time start',
+		'required' => 'true',
+		'type' => 'time',
+		'value' => ($__templater->method($__vars['userBanned'], 'getbanDate', array()) ?: ''),
+		'data-xf-init' => 'time-picker',
+		'data-moment' => $__vars['timeFormat'],
+		'data-format' => $__vars['xf']['language']['time_format'],
+	)) . '
+</span>
+          </div>
+        ', array(
+		'label' => 'Ban start',
+		'rowtype' => 'input',
+	)) . '
+			
 
 			' . $__templater->formTextBoxRow(array(
 		'name' => 'ban_reason',

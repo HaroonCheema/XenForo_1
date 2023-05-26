@@ -217,6 +217,7 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.fs_enable_image' => '',
   'option_explain.fs_mts_customMsgColor' => 'Enter the colour name or colour code for Custom message',
   'option_explain.fs_mts_customMsgbackGroundColor' => 'Enter the colour name or colour code for custom message Background',
+  'option_explain.fs_scheduled_ban_user_timezone' => 'According to this Time Zone User will be banned.',
   'option_explain.geoLocationUrl' => 'The URL specified here will be used to give information (such as a map) about a physical location. The URL must include a <strong>{location}</strong> token.',
   'option_explain.giphy' => 'If enabled, users will be able to search for GIFs while composing messages using the rich-text editor. Powered by <a href="https://giphy.com/" target="_blank">GIPHY</a>.',
   'option_explain.googleAnalyticsAnonymize' => 'If Google Analytics is enabled above and you wish to anonymize IP addresses, you can enable this option.',

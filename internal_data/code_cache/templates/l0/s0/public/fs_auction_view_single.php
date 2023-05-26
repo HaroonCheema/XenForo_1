@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 9ba54c0394d81f0ae286589abd3aea8d
+// FROM HASH: 1d2bba08e2641868020d55ff55e5a94a
 return array(
 'macros' => array('bidding_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -290,9 +290,7 @@ return array(
 			$__finalCompiled .= '
 			';
 			$__vars['bidDropDownRange'] = $__templater->func('range', array(0, $__vars['dropDownListLimit'], ), false);
-			$__vars['sum'] = ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']);
-			$__vars['tempSum'] = ($__templater->method($__vars['auction'], 'getMaxBid', array($__vars['auction']['auction_id'], )) ? $__templater->method($__vars['auction'], 'getMaxBid', array($__vars['auction']['auction_id'], )) : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
-			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? $__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
+			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] + $__vars['auction']['bid_increament']) : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
 			$__vars['sum'] = $__vars['tempSum'];
 			$__compilerTemp2 = array();
 			if ($__templater->isTraversable($__vars['bidDropDownRange'])) {
@@ -320,8 +318,6 @@ return array(
 				'label' => 'Bid from Dropdown',
 				'_dependent' => array('
 										<!--sum value is  bid increament+bidstart -->
-									<!--	' . '' . ' 
-										' . '' . '-->
 										' . '' . '
 
 										' . '' . '
@@ -399,6 +395,12 @@ return array(
 		  ', array(
 			'data-xf-init' => 'responsive-data-list',
 		)) . '
+			
+			<div class="block-outer block-outer--after">
+		' . $__templater->func('show_ignored', array(array(
+			'wrapperclass' => 'block-outer-opposite',
+		))) . '
+	</div>
 		</div>
 	  </div>
 	</div>

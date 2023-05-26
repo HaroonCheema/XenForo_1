@@ -66,16 +66,32 @@ class AuctionListing extends AbstractController
         $options = \XF::options();
         $dropDownListLimit = $options->fs_auction_dropDown_list_limit;
 
-        $bidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetch();
-        $highestBidId = key(reset($bidding));
-  
+        // $perPage = 2;
+        // $page = $params->page;
+
+        $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
+
+        // $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->limitByPage($page, $perPage)->order('bidding_amount', 'DESC');
+
+        // $finder->limitByPage($page, $perPage);
+        //     $finder->order('last_bumping', 'DESC');
+        $bidding = $tempBiddings->fetch();
+
+
+
         $viewParams = [
             'auction' => $auction,
             'bidding' => $bidding,
-            'highestBidId' => $highestBidId,
+            'highestBidId' => key(reset($bidding)),
 
             'dropDownListLimit' => $dropDownListLimit,
+
+            // 'page' => $page,
+            // 'perPage' => $perPage,
+            // 'total' => $tempBiddings->total(),
+            // 'totalReturn' => count($tempBiddings->fetch()),
         ];
+
         return $this->view(
             'FS\AuctionPlugin',
             'fs_auction_view_single',

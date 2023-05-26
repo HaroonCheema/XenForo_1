@@ -34,5 +34,29 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "6ddecabd2acfae7530d42f0a2eafa881"
+    },
+    "option.fs_scheduled_ban_user_timezone.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "143f44c1dff35c5f95253d9966bca8d1"
+    },
+    "option_explain.fs_scheduled_ban_user_timezone.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c892e8dfb21f4018e13f47a10fea1879"
+    },
+    "option_group.scheduled.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "62603fff034ee6105818500a95aaf29d"
+    },
+    "option_group_description.scheduled.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
     }
 }

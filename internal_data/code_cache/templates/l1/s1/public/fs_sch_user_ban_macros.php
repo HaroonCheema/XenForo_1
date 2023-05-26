@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 36305e25a81df0659a86eb78a137c9c4
+// FROM HASH: cbd52732289948ad38f964bdebd76546
 return array(
 'macros' => array('banInfo' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -26,7 +26,9 @@ return array(
 	))) . ' <br />
 			<strong>' . $__templater->fontAwesome('fa-calendar fa-fw', array(
 		'title' => $__templater->filter('Ban started', array(array('for_attr', array()),), false),
-	)) . ' ' . 'Ban started' . $__vars['xf']['language']['label_separator'] . '</strong> ' . $__templater->func('date', array($__vars['user']['Ban']['ban_date'], ), true) . '<br />
+	)) . ' ' . 'Ban started' . $__vars['xf']['language']['label_separator'] . '</strong> ' . $__templater->func('date_dynamic', array($__vars['user']['Ban']['ban_date'], array(
+		'itemprop' => 'datePublished',
+	))) . '<br />
 			<strong>' . $__templater->fontAwesome('fa-flag fa-fw', array(
 		'title' => $__templater->filter('Ban ends', array(array('for_attr', array()),), false),
 	)) . ' ' . 'Ban ends' . $__vars['xf']['language']['label_separator'] . '</strong> ' . ($__vars['user']['Ban']['end_date'] ? $__templater->func('date', array($__vars['user']['Ban']['end_date'], ), true) : 'Never') . ' <br>
@@ -65,7 +67,7 @@ return array(
 	))) . ' <br />
 			<strong>' . $__templater->fontAwesome('fa-calendar fa-fw', array(
 		'title' => $__templater->filter('Ban started', array(array('for_attr', array()),), false),
-	)) . ' ' . 'Ban on' . $__vars['xf']['language']['label_separator'] . '</strong> ' . $__templater->func('date', array($__vars['user']['ScheduleBan']['ban_date'], ), true) . '<br />
+	)) . ' ' . 'Ban on' . $__vars['xf']['language']['label_separator'] . '</strong> ' . $__templater->func('date', array($__vars['user']['ScheduleBan']['ban_date'], 'Y-m-d', ), true) . ', ' . $__templater->escape($__templater->method($__vars['user']['ScheduleBan'], 'getbanTime', array())) . ' <br />
 			<strong>' . $__templater->fontAwesome('fa-comment fa-fw', array(
 		'title' => $__templater->filter('Reason for the ban', array(array('for_attr', array()),), false),
 	)) . ' ' . 'Reason for the ban' . $__vars['xf']['language']['label_separator'] . '</strong> ' . $__templater->func('structured_text', array($__vars['user']['ScheduleBan']['ban_reason'], ), true) . ' <br />
@@ -97,8 +99,7 @@ return array(
 	$__finalCompiled = '';
 	$__finalCompiled .= '
 	<div class="blockMessage blockMessage--error">
-		' . '<i class="fas fa-exclamation-triangle"></i> Please note, this user will ban on : ' . $__templater->func('date_dynamic', array($__vars['banDate'], array(
-	))) . '
+		' . '<i class="fas fa-exclamation-triangle"></i> Please note, this user will ban on : ' . ' ' . $__templater->func('date', array($__vars['banDate']['ban_date'], 'Y-m-d', ), true) . ', ' . $__templater->escape($__templater->method($__vars['banDate'], 'getbanTime', array())) . '
 	</div>
 ';
 	return $__finalCompiled;

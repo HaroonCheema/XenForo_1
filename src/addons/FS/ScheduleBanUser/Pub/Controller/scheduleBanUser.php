@@ -43,16 +43,20 @@ class scheduleBanUser extends AbstractController
         $input = $this->filter([
             'ban_date' => 'str',
             'user_id' => 'int',
+            'ban_time' => 'str',
             'ban_reason' => 'str',
         ]);
-        if (strtotime($input['ban_date']) <= time()) {
+
+
+        $ban_Date = $this->getDateTimeCurrent($input['ban_date'], $input['ban_time']);
+
+        if ($ban_Date < time()) {
             return $this->error(\XF::phrase('fs_schedule_Please_enter_future_date'));
         }
-
         $userBan->bulkSet([
             'user_banBy_id' => \XF::visitor()->user_id,
             'user_id' => $input['user_id'],
-            'ban_date' => strtotime($input['ban_date']),
+            'ban_date' => $ban_Date,
             'ban_reason' => $input['ban_reason'],
         ]);
 
@@ -61,6 +65,20 @@ class scheduleBanUser extends AbstractController
         return $this->redirect($this->buildLink('members/' . $input['user_id']));
     }
 
+    public function getDateTimeCurrent($date, $time)
+    {
+        $timezone = \xf::options()->fs_scheduled_ban_user_timezone;
+
+        $tz = new \DateTimeZone($timezone);
+
+        $dateTime = new \DateTime("@" . strtotime($date), $tz);
+
+        list($hours, $minutes) = explode(':', $time);
+
+
+        $dateTime->setTime($hours, $minutes);
+        return $dateTime->getTimestamp();
+    }
     /**
      * @param string $id
      * @param array|string|null $with

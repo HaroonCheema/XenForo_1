@@ -171,6 +171,7 @@ return array (
   'option.fs_enable_image' => 'Display Image',
   'option.fs_mts_customMsgColor' => 'Custom message Text Color',
   'option.fs_mts_customMsgbackGroundColor' => 'Custom message Background Color',
+  'option.fs_scheduled_ban_user_timezone' => 'Timezones',
   'option.geoLocationUrl' => 'Location information URL',
   'option.giphy' => 'Enable GIPHY support',
   'option.googleAnalyticsAnonymize' => 'Anonymize IP addresses for Google Analytics',

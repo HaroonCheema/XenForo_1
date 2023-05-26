@@ -17,6 +17,10 @@
   <phrase title="fs_schedule_Please_enter_future_date" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Please enter a date in the future.]]></phrase>
   <phrase title="fs_schedule_reason_for_banning" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Reason for banning]]></phrase>
   <phrase title="fs_schedule_this_will_be_shown_to_user_if_provided" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[This will be shown to the user if provided.]]></phrase>
+  <phrase title="option.fs_scheduled_ban_user_timezone" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Timezones]]></phrase>
+  <phrase title="option_explain.fs_scheduled_ban_user_timezone" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[According to this Time Zone User will be banned.]]></phrase>
+  <phrase title="option_group.scheduled" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Scheduled Ban User]]></phrase>
+  <phrase title="option_group_description.scheduled" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="permission.general_fs_viewBannedProfile" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[View Banned Profile]]></phrase>
   <phrase title="scheduleBanUser" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Ban Member]]></phrase>
   <phrase title="secheduleBan" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Schedule Ban User]]></phrase>

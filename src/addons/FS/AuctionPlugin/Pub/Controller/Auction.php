@@ -2,7 +2,6 @@
 
 namespace FS\AuctionPlugin\Pub\Controller;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Difference;
 use XF\Mvc\ParameterBag;
 use XF\Pub\Controller\AbstractController;
 
@@ -123,16 +122,6 @@ class Auction extends AbstractController
                 $this->notFound(\XF::phrase("fs_auction_attachment_reqired"))
             );
         }
-
-        // $options = \XF::options();
-        // $maxAttachments = $options->fs_auction_max_attachments;
-
-        // if (count($attachments) > $maxAttachments) {
-
-        //     throw $this->exception(
-        //         $this->error(\XF::phrase("fs_auction_maximum_attachments") . $maxAttachments)
-        //     );
-        // }
 
         return true;
     }

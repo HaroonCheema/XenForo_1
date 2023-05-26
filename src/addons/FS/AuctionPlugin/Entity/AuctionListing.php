@@ -150,10 +150,4 @@ class AuctionListing extends Entity implements LinkableInterface
 
         return $attachmentData->Data ? $attachmentData->Data->getThumbnailUrl() : '';
     }
-
-    public function getMaxBid($auction_id)
-    {
-        $db = \XF::db();
-        return  $db->fetchOne("SELECT MAX(bidding_amount) FROM fs_auction_bidding WHERE auction_id = $this->auction_id");
-    }
 }
