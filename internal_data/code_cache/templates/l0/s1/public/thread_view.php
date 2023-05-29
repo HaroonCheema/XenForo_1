@@ -135,16 +135,7 @@ return array(
 						';
 	$__compilerTemp2 = '';
 	$__compilerTemp2 .= '
-											' . ' 
-
-
-';
-	if ($__vars['xf']['visitor']['is_moderator'] OR $__vars['xf']['visitor']['is_admin']) {
-		$__compilerTemp2 .= '
-<a href="' . $__templater->func('link', array('dropdownreply', $__vars['thread'], ), true) . '"  class="menu-linkRow">' . 'Add Dropdown Reply' . '</a>
-';
-	}
-	$__compilerTemp2 .= '
+											' . '
 											';
 	if ($__templater->method($__vars['thread'], 'canEdit', array())) {
 		$__compilerTemp2 .= '
@@ -1005,7 +996,6 @@ return array(
 			'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
 			'loadExtra' => $__vars['isSimpleDateDisplay'],
 			'showGuestControls' => (!$__vars['isPreRegReply']),
-			'thread' => $__vars['thread'],
 			'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
 		), $__vars) . '
 			</div>

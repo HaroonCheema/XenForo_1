@@ -53,7 +53,7 @@ return array(
 			);
 			$__compilerTemp2[] = array(
 				'_type' => 'cell',
-				'html' => '<a href="' . $__templater->escape($__vars['xf']['options']['traderMembersLink']) . $__templater->escape($__vars['result']['buyer_id']) . '/">' . $__templater->filter($__vars['result']['UserBuyer']['username'], array(array('substr', array(0, 2, )),), true) . '***</a>',
+				'html' => '<a href="' . $__templater->escape($__vars['xf']['options']['traderMembersLink']) . $__templater->escape($__vars['result']['buyer_id']) . '/">' . $__templater->escape($__vars['result']['UserBuyer']['username']) . '</a>',
 			);
 			$__compilerTemp2[] = array(
 				'_type' => 'cell',

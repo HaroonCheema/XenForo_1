@@ -403,23 +403,7 @@ data-xf-init="scheduled-post"
 	$__finalCompiled = '';
 	$__finalCompiled .= '
 
-	';
-	if ($__vars['post']['User']['ScheduleBan']['ban_date'] AND (!$__vars['post']['User']['is_banned'])) {
-		$__finalCompiled .= '
-	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfoBeforeBan', array(
-			'banDate' => $__vars['post']['User']['ScheduleBan'],
-		), $__vars) . '
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__vars['post']['User']['is_banned']) {
-		$__finalCompiled .= '
-	' . $__templater->callMacro('fs_sch_user_ban_macros', 'messageInfo', array(), $__vars) . '
-';
-	}
-	$__finalCompiled .= '
-<div class="message-userContent lbContainer js-lbContainer ' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? 'is-ignored' : '') . '"
+	<div class="message-userContent lbContainer js-lbContainer ' . ($__templater->method($__vars['post'], 'isIgnored', array()) ? 'is-ignored' : '') . '"
 		data-lb-id="post-' . $__templater->escape($__vars['post']['post_id']) . '"
 		data-lb-caption-desc="' . ($__vars['post']['User'] ? $__templater->escape($__vars['post']['User']['username']) : $__templater->escape($__vars['post']['username'])) . ' &middot; ' . $__templater->func('date_time', array($__vars['post']['post_date'], ), true) . '">
 
@@ -739,6 +723,42 @@ data-xf-init="scheduled-post"
 			';
 	}
 	$__compilerTemp2 .= '
+';
+	if ($__templater->method($__vars['post'], 'isFirstPost', array())) {
+		$__compilerTemp2 .= '
+	';
+		if ($__templater->method($__vars['thread'], 'canApproveUnapprove', array()) AND ($__vars['thread']['discussion_state'] == 'moderated')) {
+			$__compilerTemp2 .= '
+	<a href="' . $__templater->func('link', array('threads/approve', $__vars['thread'], ), true) . '"
+					class="actionBar-action actionBar-action--ip actionBar-action--menuItem"
+					data-xf-click="overlay">' . 'Approve' . '</a>
+
+				';
+			$__vars['hasActionBarMenu'] = true;
+			$__compilerTemp2 .= '
+	';
+		}
+		$__compilerTemp2 .= '
+	';
+	} else {
+		$__compilerTemp2 .= '
+	';
+		if ($__templater->method($__vars['post'], 'canApproveUnapprove', array()) AND ($__vars['post']['message_state'] == 'moderated')) {
+			$__compilerTemp2 .= '
+	<a href="' . $__templater->func('link', array('posts/approve', $__vars['post'], ), true) . '"
+					class="actionBar-action actionBar-action--ip actionBar-action--menuItem"
+					data-xf-click="overlay">' . 'Approve' . '</a>
+
+				';
+			$__vars['hasActionBarMenu'] = true;
+			$__compilerTemp2 .= '
+	';
+		}
+		$__compilerTemp2 .= '
+';
+	}
+	$__compilerTemp2 .= '
+
 			';
 	if ($__templater->method($__vars['post'], 'canWarn', array())) {
 		$__compilerTemp2 .= '

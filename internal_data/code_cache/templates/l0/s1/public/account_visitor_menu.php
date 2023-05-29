@@ -195,7 +195,6 @@ return array(
 		<li><a href="' . $__templater->func('link', array('account/following', ), true) . '" class="menu-linkRow">' . 'Following' . '</a></li>
 		<li><a href="' . $__templater->func('link', array('account/ignored', ), true) . '" class="menu-linkRow">' . 'Ignoring' . '</a></li>
 		' . '
-<li><a href="' . $__templater->func('link', array('sec-qu', ), true) . '" class="menu-linkRow">' . 'Security Questions' . '</a></li>
 	</ul>
 
 	' . '
