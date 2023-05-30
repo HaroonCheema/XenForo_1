@@ -161,6 +161,12 @@
         "version_string": "1.0.1 Alpha",
         "hash": "62136470dec93cf1f254b4c8bb028bdb"
     },
+    "fs_auction_bidding_alert_message.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "10f2f4e296335cecc6bd9b25793f22dd"
+    },
     "fs_auction_bidding_username.txt": {
         "global_cache": false,
         "version_id": 1000100,

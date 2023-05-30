@@ -1,0 +1,5 @@
+{
+    "content_type": "fs_auction",
+    "field_name": "alert_handler_class",
+    "field_value": "FS\\AuctionPlugin\\Alert\\AuctionListing"
+}

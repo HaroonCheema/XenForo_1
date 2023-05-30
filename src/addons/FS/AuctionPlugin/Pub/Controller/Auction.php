@@ -210,9 +210,35 @@ class Auction extends AbstractController
 
         $addBidding->save();
 
+        $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
+
+        if ($auction) {
+            /** @var Auction $notifier */
+            $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
+            $notifier->sendAlert($auction->User);
+
+            $this->sendMail();
+        }
+
         return $this->redirect(
             $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
         );
+    }
+
+    protected function sendMail()
+    {
+        // $email = "softhouse8219@gmail.com";
+        $email = "software0house@gmail.com";
+        // $email = "ra.zeeshanahmad@gmail.com";
+        $mailer = $this->app->mailer();
+        $transport = $mailer->getDefaultTransport();
+        $mail = $mailer->newMail();
+        $mail->setTo($email);
+        $mail->setContent(
+            'title1',
+            'body2',
+        );
+        $mail->send($transport, false);
     }
 
     protected function filterInputs()
