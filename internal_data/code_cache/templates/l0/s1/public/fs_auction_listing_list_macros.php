@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 30f9ca6b9c6e3febace2e0cb1adc1397
+// FROM HASH: 84457f35951ba4193962eaaa63b1b1d3
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -77,16 +77,17 @@ return array(
 		<div class="structItem-cell structItem-cell--listingMeta">
 
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>' . 'Expire' . '</dt>
+				<dt >' . 'Expire' . '</dt>
 				<dd>
 					' . $__templater->func('date', array($__vars['listing']['ends_on'], 'F j, Y', ), true) . '
-			<!--		' . $__templater->func('date_dynamic', array($__vars['listing']['ends_on'], array(
-	))) . ' -->
+
 				</dd>
 			</dl>
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>
-					';
+				<dt id="counter-before">
+				
+				</dt>
+				<dd>	';
 	if ($__vars['listing']['ends_on'] < $__vars['xf']['time']) {
 		$__finalCompiled .= '
 						<li>
@@ -100,7 +101,7 @@ return array(
 	} else {
 		$__finalCompiled .= '
 						<li>
-							<div>
+							<div id="auction-counter-' . $__templater->escape($__vars['listing']['auction_id']) . '">
 								
 						<span class="label  label--blue label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
 							 ' . '00 D' . '
@@ -119,9 +120,7 @@ return array(
 					</li>
 					';
 	}
-	$__finalCompiled .= '
-				</dt>
-				<dd> </dd>
+	$__finalCompiled .= ' </dd>
 			</dl>
 			
 		</div>
@@ -209,7 +208,10 @@ return array(
 						
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>' . 'Expire' . '</dt>
-						<dd>			
+						<dd id="auction-counter-' . $__templater->escape($__vars['listing']['auction_id']) . '">	
+						
+								
+							
 							<span class="label  label--blue label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
 								 ' . '00 D' . '
 							</span>
@@ -222,6 +224,7 @@ return array(
 							<span class="label  label--blue label--counter" id="seconds-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
 								' . '00 S' . '
 							</span>
+							
 						</dd>
 				</dl>
 	

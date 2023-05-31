@@ -55,15 +55,17 @@
 		<div class="structItem-cell structItem-cell--listingMeta">
 
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>{{ phrase('auctionEndsOn') }}</dt>
+				<dt >{{ phrase('auctionEndsOn') }}</dt>
 				<dd>
 					{{date($listing.ends_on,'F j, Y')}}
-			<!--		<xf:date time="{$listing.ends_on}" /> -->
+
 				</dd>
 			</dl>
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>
-					<xf:if is="$listing.ends_on < $xf.time">
+				<dt id="counter-before">
+				
+				</dt>
+				<dd>	<xf:if is="$listing.ends_on < $xf.time">
 						<li>
 							<span class="label label--orange label--smallest">{{ phrase('auctionBidClosed') }} 
 								<i class="structItem-status structItem-status--locked" 
@@ -73,7 +75,7 @@
 						</li>
 					<xf:else />
 						<li>
-							<div>
+							<div id="auction-counter-{{$listing.auction_id}}">
 								
 						<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
 							 {{phrase('fs_auction_DD')}}
@@ -90,9 +92,7 @@
 							</div>
 						
 					</li>
-					</xf:if>
-				</dt>
-				<dd> </dd>
+					</xf:if> </dd>
 			</dl>
 			
 		</div>
@@ -156,7 +156,10 @@
 						
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>{{ phrase('auctionEndsOn') }}</dt>
-						<dd>			
+						<dd id="auction-counter-{{$listing.auction_id}}">	
+						
+								
+							
 							<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
 								 {{phrase('fs_auction_DD')}}
 							</span>
@@ -169,6 +172,7 @@
 							<span class="label  label--blue label--counter" id="seconds-auction-{{$listing.auction_id}}">
 								{{phrase('fs_auction_SS')}}
 							</span>
+							
 						</dd>
 				</dl>
 	

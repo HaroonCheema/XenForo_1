@@ -1,0 +1,21 @@
+<xf:set var="$auctionLink">{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}.'/view-auction') }}</xf:set>
+
+<mail:subject>
+	{{ phrase('fs_auction_bid_on_x', {'auction_title': $auction.title}) }}
+</mail:subject>
+
+	{{ phrase('fs_auction_bidding_alert_mail', {
+	'user': username_link($auction.User, false, {'defaultname': $auction.User.username}),
+	'auctionLink': $auctionLink,
+	'auctionTitle': $auction.title
+
+}) }}
+
+
+<table cellpadding="10" cellspacing="0" border="0" width="100%" class="linkBar">
+	<tr>
+		<td>
+			<a href="{{$auctionLink}}" class="button">{{ phrase('fs_auction_visit_auction') }}</a>
+		</td>
+	</tr>
+</table>

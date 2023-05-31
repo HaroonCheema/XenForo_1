@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 24f2af5d707612684bb9ff4e217b49d3
+// FROM HASH: ec8b4234f555ba258c9805e0d78a9182
 return array(
 'macros' => array('search_menu' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -113,6 +113,8 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
+		document.getElementById("auction-counter-"+auc_id).style.display = "none";
+		
     }
   }, 1000);
 }

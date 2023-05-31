@@ -66,6 +66,8 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
+		document.getElementById("auction-counter-"+auc_id).style.display = "none";
+		
     }
   }, 1000);
 }

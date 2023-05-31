@@ -212,33 +212,40 @@ class Auction extends AbstractController
 
         $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
 
-        if ($auction) {
+        if ($auction->watch_thread) {
             /** @var Auction $notifier */
             $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
             $notifier->sendAlert($auction->User);
 
-            $this->sendMail();
+            if ($auction->receive_email) {
+                $this->sendMail($auction);
+            }
         }
-
         return $this->redirect(
             $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
         );
     }
 
-    protected function sendMail()
+    protected function sendMail($auction)
     {
         // $email = "softhouse8219@gmail.com";
-        $email = "software0house@gmail.com";
+        $toEmail = "software0house@gmail.com";
         // $email = "ra.zeeshanahmad@gmail.com";
-        $mailer = $this->app->mailer();
-        $transport = $mailer->getDefaultTransport();
-        $mail = $mailer->newMail();
-        $mail->setTo($email);
-        $mail->setContent(
-            'title1',
-            'body2',
-        );
-        $mail->send($transport, false);
+        // $mailer = $this->app->mailer();
+        // $transport = $mailer->getDefaultTransport();
+        // $mail = $mailer->newMail();
+        // $mail->setTo($email);
+        // $mail->setContent(
+        //     'title1',
+        //     'body2',
+        // );
+        // $mail->send($transport, false);
+
+        $mail = $this->app->mailer()->newMail()->setTo($toEmail);
+        $mail->setTemplate('fs_auction_send_bidding_mail', [
+            'auction' => $auction
+        ]);
+        $mail->send();
     }
 
     protected function filterInputs()

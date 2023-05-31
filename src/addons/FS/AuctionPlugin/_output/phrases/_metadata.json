@@ -161,6 +161,18 @@
         "version_string": "1.0.1 Alpha",
         "hash": "62136470dec93cf1f254b4c8bb028bdb"
     },
+    "fs_auction_bid_on_x.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "672fd21ea8cf2c24157921358b63ca4f"
+    },
+    "fs_auction_bidding_alert_mail.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "ae6f394f285a4878aaa0c5cf4fcd2f00"
+    },
     "fs_auction_bidding_alert_message.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -298,6 +310,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "3351a7ea2db92c80984a02e1953ebc57"
+    },
+    "fs_auction_visit_auction.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "6bec3c6bd11b0c6655f6e1ce400be0f4"
     },
     "fs_auction_you_already_bumping.txt": {
         "global_cache": false,
