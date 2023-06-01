@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 95ca809256b1a6892a27b7bb68dbcd0c
+// FROM HASH: 45e11ede385f5cb271baa94254849c26
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -24,7 +24,9 @@ return array(
 {
 	font-size: @xf-fontSizeSmall;
 }
-
+.label--counter-single{
+	font-size:26px;
+}
 @media (max-width: @xf-responsiveWide)
 {
 	.structItem-cell.structItem-cell--listingMeta

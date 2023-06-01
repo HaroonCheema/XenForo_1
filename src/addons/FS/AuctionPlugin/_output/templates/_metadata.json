@@ -97,7 +97,7 @@
     "public/fs_auction_list_view.less": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "95ca809256b1a6892a27b7bb68dbcd0c"
+        "hash": "45e11ede385f5cb271baa94254849c26"
     },
     "public/fs_auction_listing_grid_view.less": {
         "version_id": 1000100,
@@ -117,7 +117,7 @@
     "public/fs_auction_view_single.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "fa571f838aa0f8124118300b0e23404a"
+        "hash": "ab50fe3274999fdffc1bdee73725e35e"
     },
     "public/fs_auctions.less": {
         "version_id": 1000100,

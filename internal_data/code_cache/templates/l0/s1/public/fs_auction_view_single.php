@@ -1,7 +1,127 @@
 <?php
-// FROM HASH: fa571f838aa0f8124118300b0e23404a
+// FROM HASH: ab50fe3274999fdffc1bdee73725e35e
 return array(
-'macros' => array('bidding_table_list' => array(
+'macros' => array('singleAuction' => array(
+'arguments' => function($__templater, array $__vars) { return array(
+		'auction' => '!',
+	); },
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__finalCompiled .= '
+	';
+	$__templater->includeCss('structured_list.less');
+	$__finalCompiled .= '
+	';
+	$__templater->includeCss('fs_auction_list_view.less');
+	$__finalCompiled .= '
+	
+	<div class="structItem structItem--listing js-inlineModContainer">	
+		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">	
+	
+			<div class="message-fields message-fields--after">
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'AUCTION ENDS ON' . '</dt>
+					<dd>
+						' . $__templater->func('date', array($__vars['auction']['ends_on'], 'F j, Y', ), true) . '
+				
+					</dd>
+				</dl>
+			
+			</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'AUCTION ENDS AT' . '</dt>
+					<dd>' . $__templater->escape($__vars['auction']['timezone']) . '</dd>
+				</dl>
+		</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'STARTING BID' . '</dt>
+					<dd>' . $__templater->escape($__vars['auction']['starting_bid']) . ' ' . ' $' . '</dd>
+				</dl>
+			
+		</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'MINIMUM BID INCREMENT' . '</dt>
+					<dd>' . $__templater->escape($__vars['auction']['bid_increament']) . '</dd>
+				</dl>
+			
+		</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'PAYMENTS ACCEPTED' . '</dt>
+					<dd>
+					';
+	if ($__templater->isTraversable($__vars['auction']['payment_methods'])) {
+		foreach ($__vars['auction']['payment_methods'] AS $__vars['val']) {
+			$__finalCompiled .= '
+						<p style="margin:0px;">' . $__templater->escape($__vars['val']) . '</p>
+        			';
+		}
+	}
+	$__finalCompiled .= '
+					</dd>
+				</dl>
+			
+		</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'SHIPPING TERMS' . '</dt>
+					<dd>' . $__templater->escape($__vars['auction']['ShipTerm']['shipping_term']) . '</dd>
+				</dl>
+			
+		</div>
+
+		<div class="message-fields message-fields--after">
+	
+				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
+					<dt>' . 'SHIPS VIA' . '</dt>
+					<dd>' . $__templater->escape($__vars['auction']['ShipVia']['ship_via']) . '</dd>
+				</dl>
+		</div>
+	  
+	
+		
+		</div>
+		
+		
+		<div class="structItem-cell structItem-cell--listingMeta" style="width:320px">
+
+		<div id="auction-counter">
+								
+						<span class="label  label--blue label--counter-single" id="days-auction">
+							 ' . '00 D' . '
+						</span>
+						<span class="label  label--blue label--counter-single" id="hours-auction">
+							 ' . '00 H' . '
+						</span>
+							<span class="label  label--blue label--counter-single" id="minutes-auction">
+							' . '00 M' . '
+						</span>
+							<span class="label  label--blue label--counter-single" id="seconds-auction">
+							 ' . '00 S' . '
+						</span>
+							</div>
+			
+		</div>
+	</div>
+';
+	return $__finalCompiled;
+}
+),
+'bidding_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
 		'bidding' => $__vars['bidding'],
 	); },
@@ -90,6 +210,79 @@ return array(
 	';
 	$__templater->includeCss('message.less');
 	$__finalCompiled .= '
+<script>
+
+// For All Auctions
+function DateTimeConverter(unixdatetime) {
+
+  var wStart_time = new Date(unixdatetime *1000).toLocaleString("en-US", {
+    hour12: false,
+	 //  timeZone: \'America/New_York\',
+    // timeZone:\'Europe/London\',
+    timeStyle: "long",
+  });
+  var tempHumanDate = new Date(unixdatetime * 1000).toLocaleDateString("en-US", {
+	 timeZone: \'America/New_York\',
+	 year: \'numeric\', 
+	 month: \'numeric\', 
+	 day: \'numeric\',
+  });
+
+  var humanDate = new Date(tempHumanDate);
+  var year = humanDate.getFullYear();
+  var month = (humanDate.getMonth() + 1).toString().padStart(2, "0");
+  var date = humanDate.getDate();
+
+  var fulldate = year + "-" + month + "-" + date + " " + wStart_time + ":00";
+
+  // FormatingDateEspecialyForIOS
+  var tempCountTimmer = fulldate.split(/[- :]/);
+  // Apply each element to the Date function
+  var tempDateObject = new Date(
+    tempCountTimmer[0],
+    tempCountTimmer[1] - 1,
+    tempCountTimmer[2],
+    tempCountTimmer[3],
+    tempCountTimmer[4],
+    tempCountTimmer[5]
+  );
+  var CountDownDateTime = new Date(tempDateObject).getTime();
+
+  return CountDownDateTime;
+}
+
+function timmerCounter(start_datetime) {
+	
+
+
+  let humanDateTime = DateTimeConverter(start_datetime);
+
+  var countDownDate = new Date(humanDateTime).getTime();
+  var counter = setInterval(function () {
+    // Get today\'s date and time
+    var now = new Date().getTime();
+    // Find the distance between now and the count down date
+    var timeDistance = countDownDate - now;
+    document.getElementById("days-auction").innerHTML =
+      Math.floor(timeDistance / (1000 * 60 * 60 * 24)) + " D";
+    document.getElementById("hours-auction").innerHTML =
+      Math.floor((timeDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) +
+      " H";
+    document.getElementById("minutes-auction").innerHTML =
+      Math.floor((timeDistance % (1000 * 60 * 60)) / (1000 * 60)) + " M";
+    document.getElementById("seconds-auction").innerHTML =
+      Math.floor((timeDistance % (1000 * 60)) / 1000) + " S";
+
+    // If the count down is over, write some text
+    if (timeDistance < 0) {
+      clearInterval(counter);
+		document.getElementById("auction-counter").style.display = "none";
+		
+    }
+  }, 1000);
+}
+
+</script>
 
 <header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
 		<ul class="message-attribution-main listInline ' . $__templater->escape($__vars['mainClass']) . '">
@@ -138,86 +331,15 @@ return array(
 				</li>
 		</ul>
 	</header>
-  <div style="margin-top:1rem">
 
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'AUCTION ENDS ON' . '</dt>
-					
-					<dd>
-						' . $__templater->func('date', array($__vars['auction']['ends_on'], 'F j, Y', ), true) . '
-					<!--	' . $__templater->func('date_dynamic', array($__vars['auction']['ends_on'], array(
-	))) . ' -->
-					</dd>
-				</dl>
-			
-		</div>
+<!--- here--->
+' . $__templater->callMacro(null, 'singleAuction', array(
+		'auction' => $__vars['auction'],
+	), $__vars) . '
 
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'AUCTION ENDS AT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['timezone']) . '</dd>
-				</dl>
-			
-		</div>
 
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'STARTING BID' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['starting_bid']) . ' ' . ' $' . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'MINIMUM BID INCREMENT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['bid_increament']) . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'PAYMENTS ACCEPTED' . '</dt>
-					<dd>
-					';
-	if ($__templater->isTraversable($__vars['auction']['payment_methods'])) {
-		foreach ($__vars['auction']['payment_methods'] AS $__vars['val']) {
-			$__finalCompiled .= '
-						<p style="margin:0px;">' . $__templater->escape($__vars['val']) . '</p>
-        			';
-		}
-	}
-	$__finalCompiled .= '
-					</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'SHIPPING TERMS' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['ShipTerm']['shipping_term']) . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'SHIPS VIA' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['ShipVia']['ship_via']) . '</dd>
-				</dl>
-		</div>
-	  
-	  <div class="message-fields message-fields--after">
+' . '
+  <div class="message-fields message-fields--after">
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION GUIDLINES' . '</dt>
@@ -233,13 +355,9 @@ return array(
 </ol>' . '</dd>
 				</dl>
 			
-		</div>
-
-
-<br><br>
-<div>
+		</div>	
 				<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
-					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['ends_on']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 </div>
 
 	   <div class="block-container">
@@ -316,7 +434,6 @@ return array(
 	
 					' . '' . '
 					
-
 					<div class="inputChoices">
 							' . $__templater->formRadio(array(
 				'name' => 'use_biddingAmountTyp',
@@ -328,7 +445,6 @@ return array(
 
 										' . '' . '
 										
-
 										' . $__templater->formSelect(array(
 				'name' => 'bidding_amount',
 			), $__compilerTemp2) . '
@@ -348,17 +464,14 @@ return array(
 				'_type' => 'option',
 			))) . '
 					</div>
-	
 		', array(
 				'label' => 'Bidding Cost',
 			)) . '
-
 			' . $__templater->formSubmitRow(array(
 				'icon' => 'save',
 				'sticky' => 'true',
 			), array(
 			)) . '
-
 		', array(
 				'action' => $__templater->func('link', array('auction/categories/bidding', $__vars['auction'], ), false),
 				'ajax' => 'true',
@@ -375,19 +488,21 @@ return array(
 		}
 		$__finalCompiled .= '
 	
-';
+	';
 	} else {
 		$__finalCompiled .= '
 	<div style="display:flex; justify-content: center; padding:0.7rem;">
-				<span >' . 'Bidding Not Allowed.' . '</span>	
-			</div>
+				<span >' . 'Bidding Not Allowed.' . '</span>	</div>
 	
-';
+	';
 	}
 	$__finalCompiled .= '
 		   </div>
 	  </div>
 </div>
+</div>
+
+
 ';
 	if ($__templater->func('count', array($__vars['bidding'], ), false)) {
 		$__finalCompiled .= '
