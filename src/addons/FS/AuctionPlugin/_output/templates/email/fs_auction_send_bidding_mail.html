@@ -5,16 +5,15 @@
 </mail:subject>
 
 	{{ phrase('fs_auction_bidding_alert_mail', {
-	'user': username_link($auction.User, false, {'defaultname': $auction.User.username}),
+	'user': username_link($bid_visitor, false, {'defaultname': $bid_visitor.username}),
 	'auctionLink': $auctionLink,
-	'auctionTitle': $auction.title
-
+	'auctionTitle': $auction.title,
+	'auction_owner': $auction.User.username
 }) }}
 
-
-<table cellpadding="10" cellspacing="0" border="0" width="100%" class="linkBar">
+<table cellpadding="10" cellspacing="0" border="0" width="100%" class="linkBar" >
 	<tr>
-		<td>
+		<td >
 			<a href="{{$auctionLink}}" class="button">{{ phrase('fs_auction_visit_auction') }}</a>
 		</td>
 	</tr>

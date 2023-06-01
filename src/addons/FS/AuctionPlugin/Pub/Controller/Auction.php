@@ -180,7 +180,6 @@ class Auction extends AbstractController
             $bumping->fastUpdate('bumping_counts', 1);
         } else {
             throw $this->exception(
-                // $this->error(\XF::phrase("fs_auction_you_already_bumping"), $allowBumping)
                 $this->error(\XF::phrase("fs_auction_you_already_bumping") . $allowBumping . ' times...!')
             );
         }
@@ -217,7 +216,7 @@ class Auction extends AbstractController
             $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
             $notifier->sendAlert($auction->User);
 
-            if ($auction->receive_email) {
+            if ($auction->receive_email && $auction->User->email) {
                 $this->sendMail($auction);
             }
         }
@@ -228,22 +227,11 @@ class Auction extends AbstractController
 
     protected function sendMail($auction)
     {
-        // $email = "softhouse8219@gmail.com";
-        $toEmail = "software0house@gmail.com";
-        // $email = "ra.zeeshanahmad@gmail.com";
-        // $mailer = $this->app->mailer();
-        // $transport = $mailer->getDefaultTransport();
-        // $mail = $mailer->newMail();
-        // $mail->setTo($email);
-        // $mail->setContent(
-        //     'title1',
-        //     'body2',
-        // );
-        // $mail->send($transport, false);
-
-        $mail = $this->app->mailer()->newMail()->setTo($toEmail);
+        $mail = $this->app->mailer()->newMail()->setTo($auction->User->email);
         $mail->setTemplate('fs_auction_send_bidding_mail', [
-            'auction' => $auction
+            'auction' => $auction,
+            'bid_visitor' => \XF::visitor()
+
         ]);
         $mail->send();
     }

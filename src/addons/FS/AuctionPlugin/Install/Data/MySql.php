@@ -70,6 +70,15 @@ class MySql
             $table->addUniqueKey('bidding_id');
         };
 
+        $tables['fs_auction_read'] = function ($table) {
+            /** @var Create|Alter $table */
+            $this->addOrChangeColumn($table, 'auction_read_id', 'int')->autoIncrement();
+            $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'auction_id', 'int')->setDefault(0);
+            $this->addOrChangeColumn($table, 'auction_read_date', 'int');
+            $table->addUniqueKey('auction_read_id');
+        };
+
         return $tables;
     }
 

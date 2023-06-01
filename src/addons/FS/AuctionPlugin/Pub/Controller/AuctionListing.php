@@ -63,21 +63,19 @@ class AuctionListing extends AbstractController
             return $this->error('data not found');
         }
 
+        $visitor = \XF::visitor();
+
+        $auctionUnread = $this->Finder('FS\AuctionPlugin:AuctionRead')->where('auction_id', $params->auction_id)->where('user_id', $visitor->user_id)->fetchOne();
+
+        if (!$auctionUnread) {
+            $this->auctionReadInsert($params->auction_id, $visitor->user_id);
+        }
+
         $options = \XF::options();
         $dropDownListLimit = $options->fs_auction_dropDown_list_limit;
 
-        // $perPage = 2;
-        // $page = $params->page;
-
         $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
-
-        // $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->limitByPage($page, $perPage)->order('bidding_amount', 'DESC');
-
-        // $finder->limitByPage($page, $perPage);
-        //     $finder->order('last_bumping', 'DESC');
         $bidding = $tempBiddings->fetch();
-
-
 
         $viewParams = [
             'auction' => $auction,
@@ -86,10 +84,8 @@ class AuctionListing extends AbstractController
 
             'dropDownListLimit' => $dropDownListLimit,
 
-            // 'page' => $page,
-            // 'perPage' => $perPage,
-            // 'total' => $tempBiddings->total(),
-            // 'totalReturn' => count($tempBiddings->fetch()),
+            'auctionUnread' => $auctionUnread ? false : true,
+
         ];
 
         return $this->view(
@@ -97,6 +93,16 @@ class AuctionListing extends AbstractController
             'fs_auction_view_single',
             $viewParams
         );
+    }
+
+    protected function auctionReadInsert($auction_id, $user_id)
+    {
+        $auctionRead = $this->em()->create('FS\AuctionPlugin:AuctionRead');
+
+        $auctionRead->user_id = $user_id;
+        $auctionRead->auction_id = $auction_id;
+
+        $auctionRead->save();
     }
 
     public function actionShare(ParameterBag $params)

@@ -33,7 +33,7 @@ gif</default_value>
     <relation group_id="auction" display_order="1"/>
   </option>
   <option option_id="fs_auction_per_page" edit_format="textbox" data_type="integer">
-    <default_value>15</default_value>
+    <default_value>9</default_value>
     <relation group_id="auction" display_order="1"/>
   </option>
   <option option_id="minimumBidIncreament" edit_format="textbox" data_type="string">

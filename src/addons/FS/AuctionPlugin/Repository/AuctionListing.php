@@ -31,13 +31,7 @@ class AuctionListing extends Repository
 
 		if (in_array($extension, $imageExtensions)) {
 			return 'image';
-		}
-		// else if (in_array($extension, $videoExtensions)) {
-		// 	return 'video';
-		// } else if (in_array($extension, $audioExtensions)) {
-		// 	return 'audio';
-		// }
-		else {
+		} else {
 			return false;
 		}
 	}

@@ -246,6 +246,26 @@
     </xf:datarow>
   </xf:foreach>
 </xf:macro>]]></template>
+  <template type="email" title="fs_auction_send_bidding_mail" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:set var="$auctionLink">{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}.'/view-auction') }}</xf:set>
+
+<mail:subject>
+	{{ phrase('fs_auction_bid_on_x', {'auction_title': $auction.title}) }}
+</mail:subject>
+
+	{{ phrase('fs_auction_bidding_alert_mail', {
+	'user': username_link($bid_visitor, false, {'defaultname': $bid_visitor.username}),
+	'auctionLink': $auctionLink,
+	'auctionTitle': $auction.title,
+	'auction_owner': $auction.User.username
+}) }}
+
+<table cellpadding="10" cellspacing="0" border="0" width="100%" class="linkBar" >
+	<tr>
+		<td >
+			<a href="{{$auctionLink}}" class="button">{{ phrase('fs_auction_visit_auction') }}</a>
+		</td>
+	</tr>
+</table>]]></template>
   <template type="public" title="addEdit_Auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:if is="$data.isInsert()">
 	<xf:title>{{ phrase('auctionPostThread') }}</xf:title>
 <xf:else />
@@ -456,6 +476,13 @@
     <xf:submitrow icon="save" sticky="true" />
   </div>
 </xf:form>]]></template>
+  <template type="public" title="alert_fs_auction_auction_bid" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:set var="$auctionLink">{{ link('auction/'.{$extra.category_id}.'/'.{$alert.content_id}.'/view-auction') }}</xf:set>
+{{ phrase('fs_auction_bidding_alert_message', {
+	'user': username_link($alert.User, false, {'defaultname': $alert.username}),
+	'auctionLink': $auctionLink,
+	'auctionTitle': $extra.title
+
+}) }}]]></template>
   <template type="public" title="fs_auctionArchive" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_auction') }}</xf:title>
 <script>
 
@@ -524,6 +551,8 @@ function timmerCounter(auction_id, start_datetime) {
     // If the count down is over, write some text
     if (timeDistance < 0) {
       clearInterval(counter);
+		document.getElementById("auction-counter-"+auc_id).style.display = "none";
+		
     }
   }, 1000);
 }
@@ -1008,6 +1037,9 @@ function timmerCounter(auction_id, start_datetime) {
 	font-size: 12px;
     color: #8c8c8c;
 }
+#counter-before:after{
+	content:none;
+}
 .structItem-metaItem--ratingf
 {
 	font-size: @xf-fontSizeSmall;
@@ -1464,15 +1496,17 @@ min-height:275px;
 		<div class="structItem-cell structItem-cell--listingMeta">
 
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>{{ phrase('auctionEndsOn') }}</dt>
+				<dt >{{ phrase('auctionEndsOn') }}</dt>
 				<dd>
 					{{date($listing.ends_on,'F j, Y')}}
-			<!--		<xf:date time="{$listing.ends_on}" /> -->
+
 				</dd>
 			</dl>
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
-				<dt>
-					<xf:if is="$listing.ends_on < $xf.time">
+				<dt id="counter-before">
+				
+				</dt>
+				<dd>	<xf:if is="$listing.ends_on < $xf.time">
 						<li>
 							<span class="label label--orange label--smallest">{{ phrase('auctionBidClosed') }} 
 								<i class="structItem-status structItem-status--locked" 
@@ -1482,7 +1516,7 @@ min-height:275px;
 						</li>
 					<xf:else />
 						<li>
-							<div>
+							<div id="auction-counter-{{$listing.auction_id}}">
 								
 						<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
 							 {{phrase('fs_auction_DD')}}
@@ -1499,9 +1533,7 @@ min-height:275px;
 							</div>
 						
 					</li>
-					</xf:if>
-				</dt>
-				<dd> </dd>
+					</xf:if> </dd>
 			</dl>
 			
 		</div>
@@ -1565,7 +1597,10 @@ min-height:275px;
 						
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>{{ phrase('auctionEndsOn') }}</dt>
-						<dd>			
+						<dd id="auction-counter-{{$listing.auction_id}}">	
+						
+								
+							
 							<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
 								 {{phrase('fs_auction_DD')}}
 							</span>
@@ -1578,6 +1613,7 @@ min-height:275px;
 							<span class="label  label--blue label--counter" id="seconds-auction-{{$listing.auction_id}}">
 								{{phrase('fs_auction_SS')}}
 							</span>
+							
 						</dd>
 				</dl>
 	
@@ -1684,7 +1720,9 @@ min-height:275px;
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
 				
-		
+		<xf:if is="$auctionUnread">
+				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
+			</xf:if>
 			
 			<li>
 				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}"
@@ -1840,9 +1878,7 @@ min-height:275px;
 								<xf:option label="{{ phrase('auctionDropdownBid') }}">
 									<xf:dependent>
 										<!--sum value is  bid increament+bidstart -->
-									<!--	<xf:set var="$sum" value="{{$auction.bid_increament+$auction.starting_bid}}" /> 
-										<xf:set var="$tempSum" value="{{$auction.getMaxBid($auction.auction_id)  ? $auction.getMaxBid($auction.auction_id) : $auction.bid_increament+$auction.starting_bid}}" />-->
-										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount : $auction.bid_increament+$auction.starting_bid}}" />
+										<xf:set var="$tempSum" value="{{$bidding.{$highestBidId}.bidding_amount  ? $bidding.{$highestBidId}.bidding_amount+$auction.bid_increament : $auction.bid_increament+$auction.starting_bid}}" />
 
 										<xf:set var="$sum" value="{{$tempSum}}" />
 										
@@ -1893,6 +1929,10 @@ min-height:275px;
 		  <xf:datalist data-xf-init="responsive-data-list">
 			  <xf:macro name="bidding_table_list" arg-bidding="{$bidding}" />
 		  </xf:datalist>
+			
+			<div class="block-outer block-outer--after">
+		<xf:showignored wrapperclass="block-outer-opposite" />
+	</div>
 		</div>
 	  </div>
 	</div>

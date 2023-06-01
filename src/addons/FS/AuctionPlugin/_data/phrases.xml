@@ -56,6 +56,15 @@
   <phrase title="fs_auction_auctions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auctions]]></phrase>
   <phrase title="fs_auction_bid_amount" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Amount]]></phrase>
   <phrase title="fs_auction_bid_at" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bid At]]></phrase>
+  <phrase title="fs_auction_bid_on_x" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bid on auction: {auction_title}]]></phrase>
+  <phrase title="fs_auction_bidding_alert_mail" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<br>
+Hello {auction_owner}, 
+<br><br>
+Your auction <a href="{auctionLink}"> {auctionTitle}</a> get new bid from user: {user}.
+<br><br>
+Thankyou...!
+<br><br>]]></phrase>
+  <phrase title="fs_auction_bidding_alert_message" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Your auction <a href="{auctionLink}"> {auctionTitle}</a> get new bid from user: {user}.]]></phrase>
   <phrase title="fs_auction_bidding_username" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[By User]]></phrase>
   <phrase title="fs_auction_bumping" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bumping]]></phrase>
   <phrase title="fs_auction_cat" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[By Category]]></phrase>
@@ -78,6 +87,7 @@
   <phrase title="fs_auction_top_bidding" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Top Bid :]]></phrase>
   <phrase title="fs_auction_username" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Username]]></phrase>
   <phrase title="fs_auction_via_label" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Ship Via]]></phrase>
+  <phrase title="fs_auction_visit_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Visit auction]]></phrase>
   <phrase title="fs_auction_you_already_bumping" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Sorry! you already bumping this auction ]]></phrase>
   <phrase title="fs_auctions_add_auction_to" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Auction to]]></phrase>
   <phrase title="fs_auctions_please_enter_valid_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Please enter valid category...!]]></phrase>

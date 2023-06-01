@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1d2bba08e2641868020d55ff55e5a94a
+// FROM HASH: fa571f838aa0f8124118300b0e23404a
 return array(
 'macros' => array('bidding_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -103,7 +103,13 @@ return array(
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list ' . $__templater->escape($__vars['oppositeClass']) . '">
 				
-		
+		';
+	if ($__vars['auctionUnread']) {
+		$__finalCompiled .= '
+				<li><span class="message-newIndicator">' . 'New' . '</span></li>
+			';
+	}
+	$__finalCompiled .= '
 			
 			<li>
 				<a href="' . ($__templater->func('link', array((('auction/' . $__vars['auction']['category_id']) . '/') . $__vars['auction']['auction_id'], ), true) . '/view-auction') . '"

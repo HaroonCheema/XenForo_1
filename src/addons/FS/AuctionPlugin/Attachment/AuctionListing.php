@@ -64,21 +64,6 @@ class AuctionListing extends AbstractHandler
 		}
 	}
 
-	// public function getConstraints(array $context)
-	// {
-
-	// 	$em = \XF::em();
-
-	// 	if (!empty($context['auction_id'])) {
-
-	// 		$Item = $em->find('FS\AuctionPlugin:AuctionListing', intval($context['auction_id']));
-	// 		return $Item->getAttachmentConstraints();
-	// 	} else {
-	// 		$Item = $em->create('FS\AuctionPlugin:AuctionListing');
-	// 		return $Item->getAttachmentConstraints();
-	// 	}
-	// }
-
 	public function getConstraints(array $context)
 	{
 		$options = \XF::options();

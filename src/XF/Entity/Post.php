@@ -54,29 +54,23 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function canView(&$error = null)
 	{
-		if (!$this->Thread || !$this->Thread->canView($error))
-		{
+		if (!$this->Thread || !$this->Thread->canView($error)) {
 			return false;
 		}
 
 		$visitor = \XF::visitor();
 		$nodeId = $this->Thread->node_id;
 
-		if ($this->message_state == 'moderated')
-		{
+		if ($this->message_state == 'moderated') {
 			if (
 				!$visitor->hasNodePermission($nodeId, 'viewModerated')
 				&& (!$visitor->user_id || $visitor->user_id != $this->user_id)
-			)
-			{
+			) {
 				$error = \XF::phraseDeferred('requested_post_not_found');
 				return false;
 			}
-		}
-		else if ($this->message_state == 'deleted')
-		{
-			if (!$visitor->hasNodePermission($nodeId, 'viewDeleted'))
-			{
+		} else if ($this->message_state == 'deleted') {
+			if (!$visitor->hasNodePermission($nodeId, 'viewDeleted')) {
 				$error = \XF::phraseDeferred('requested_post_not_found');
 				return false;
 			}
@@ -89,35 +83,29 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$thread = $this->Thread;
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id || !$thread)
-		{
+		if (!$visitor->user_id || !$thread) {
 			return false;
 		}
 
-		if (!$thread->discussion_open && !$thread->canLockUnlock())
-		{
+		if (!$thread->discussion_open && !$thread->canLockUnlock()) {
 			$error = \XF::phraseDeferred('you_may_not_perform_this_action_because_discussion_is_closed');
 			return false;
 		}
 
 		$nodeId = $thread->node_id;
 
-		if ($visitor->hasNodePermission($nodeId, 'editAnyPost'))
-		{
+		if ($visitor->hasNodePermission($nodeId, 'editAnyPost')) {
 			return true;
 		}
 
-		if ($this->user_id == $visitor->user_id && $visitor->hasNodePermission($nodeId, 'editOwnPost'))
-		{
+		if ($this->user_id == $visitor->user_id && $visitor->hasNodePermission($nodeId, 'editOwnPost')) {
 			$editLimit = $visitor->hasNodePermission($nodeId, 'editOwnPostTimeLimit');
-			if ($editLimit != -1 && (!$editLimit || $this->post_date < \XF::$time - 60 * $editLimit))
-			{
+			if ($editLimit != -1 && (!$editLimit || $this->post_date < \XF::$time - 60 * $editLimit)) {
 				$error = \XF::phraseDeferred('message_edit_time_limit_expired', ['minutes' => $editLimit]);
 				return false;
 			}
 
-			if (!$thread->Forum || !$thread->Forum->allow_posting)
-			{
+			if (!$thread->Forum || !$thread->Forum->allow_posting) {
 				$error = \XF::phraseDeferred('you_may_not_perform_this_action_because_forum_does_not_allow_posting');
 				return false;
 			}
@@ -132,15 +120,13 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$thread = $this->Thread;
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id || !$thread)
-		{
+		if (!$visitor->user_id || !$thread) {
 			return false;
 		}
 
 		$nodeId = $thread->node_id;
 
-		if ($visitor->hasNodePermission($nodeId, 'editAnyPost'))
-		{
+		if ($visitor->hasNodePermission($nodeId, 'editAnyPost')) {
 			return true;
 		}
 
@@ -155,18 +141,15 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	public function canViewHistory(&$error = null)
 	{
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id)
-		{
+		if (!$visitor->user_id) {
 			return false;
 		}
 
-		if (!$this->app()->options()->editHistory['enabled'])
-		{
+		if (!$this->app()->options()->editHistory['enabled']) {
 			return false;
 		}
 
-		if ($visitor->hasNodePermission($this->Thread->node_id, 'editAnyPost'))
-		{
+		if ($visitor->hasNodePermission($this->Thread->node_id, 'editAnyPost')) {
 			return true;
 		}
 
@@ -177,45 +160,37 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$thread = $this->Thread;
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id || !$thread)
-		{
+		if (!$visitor->user_id || !$thread) {
 			return false;
 		}
 
 		$nodeId = $thread->node_id;
 
-		if ($type != 'soft' && !$visitor->hasNodePermission($nodeId, 'hardDeleteAnyPost'))
-		{
+		if ($type != 'soft' && !$visitor->hasNodePermission($nodeId, 'hardDeleteAnyPost')) {
 			return false;
 		}
 
-		if (!$thread->discussion_open && !$thread->canLockUnlock())
-		{
+		if (!$thread->discussion_open && !$thread->canLockUnlock()) {
 			$error = \XF::phraseDeferred('you_may_not_perform_this_action_because_discussion_is_closed');
 			return false;
 		}
 
-		if ($this->isFirstPost())
-		{
+		if ($this->isFirstPost()) {
 			return $thread->canDelete($type, $error);
 		}
 
-		if ($visitor->hasNodePermission($nodeId, 'deleteAnyPost'))
-		{
+		if ($visitor->hasNodePermission($nodeId, 'deleteAnyPost')) {
 			return true;
 		}
 
-		if ($this->user_id == $visitor->user_id && $visitor->hasNodePermission($nodeId, 'deleteOwnPost'))
-		{
+		if ($this->user_id == $visitor->user_id && $visitor->hasNodePermission($nodeId, 'deleteOwnPost')) {
 			$editLimit = $visitor->hasNodePermission($nodeId, 'editOwnPostTimeLimit');
-			if ($editLimit != -1 && (!$editLimit || $this->post_date < \XF::$time - 60 * $editLimit))
-			{
+			if ($editLimit != -1 && (!$editLimit || $this->post_date < \XF::$time - 60 * $editLimit)) {
 				$error = \XF::phraseDeferred('message_edit_time_limit_expired', ['minutes' => $editLimit]);
 				return false;
 			}
 
-			if (!$thread->Forum || !$thread->Forum->allow_posting)
-			{
+			if (!$thread->Forum || !$thread->Forum->allow_posting) {
 				$error = \XF::phraseDeferred('you_may_not_perform_this_action_because_forum_does_not_allow_posting');
 				return false;
 			}
@@ -230,8 +205,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$thread = $this->Thread;
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id || !$thread)
-		{
+		if (!$visitor->user_id || !$thread) {
 			return false;
 		}
 
@@ -240,8 +214,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function canApproveUnapprove(&$error = null)
 	{
-		if (!$this->Thread)
-		{
+		if (!$this->Thread) {
 			return false;
 		}
 
@@ -252,17 +225,16 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$visitor = \XF::visitor();
 
-		if (!$this->user_id
+		if (
+			!$this->user_id
 			|| !$visitor->user_id
 			|| $this->user_id == $visitor->user_id
 			|| !$visitor->hasNodePermission($this->Thread->node_id, 'warn')
-		)
-		{
+		) {
 			return false;
 		}
 
-		if ($this->warning_id)
-		{
+		if ($this->warning_id) {
 			$error = \XF::phraseDeferred('user_has_already_been_warned_for_this_content');
 			return false;
 		}
@@ -294,24 +266,20 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	public function canReact(&$error = null)
 	{
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id)
-		{
+		if (!$visitor->user_id) {
 			return false;
 		}
 
-		if ($this->message_state != 'visible')
-		{
+		if ($this->message_state != 'visible') {
 			return false;
 		}
 
-		if ($this->user_id == $visitor->user_id)
-		{
+		if ($this->user_id == $visitor->user_id) {
 			$error = \XF::phraseDeferred('reacting_to_your_own_content_is_considered_cheating');
 			return false;
 		}
 
-		if (!$this->Thread)
-		{
+		if (!$this->Thread) {
 			return false;
 		}
 
@@ -339,8 +307,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	protected function canVoteOnContentInternal(&$error = null): bool
 	{
-		if (!$this->isVisible())
-		{
+		if (!$this->isVisible()) {
 			return false;
 		}
 
@@ -365,13 +332,11 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	{
 		$visitor = \XF::visitor();
 
-		if (!$visitor->user_id || $visitor->user_id == $this->user_id)
-		{
+		if (!$visitor->user_id || $visitor->user_id == $this->user_id) {
 			return false;
 		}
 
-		if ($this->message_state != 'visible')
-		{
+		if ($this->message_state != 'visible') {
 			return false;
 		}
 
@@ -380,16 +345,14 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function canMarkAsQuestionSolution(&$error = null): bool
 	{
-		if (!$this->isVisible())
-		{
+		if (!$this->isVisible()) {
 			return false;
 		}
 
 		$thread = $this->Thread;
 		$typeHandler = $thread->TypeHandler;
 
-		if (!($typeHandler instanceof \XF\ThreadType\Question))
-		{
+		if (!($typeHandler instanceof \XF\ThreadType\Question)) {
 			return false;
 		}
 
@@ -401,8 +364,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 		$thread = $this->Thread;
 		$typeHandler = $thread->TypeHandler;
 
-		if (!($typeHandler instanceof \XF\ThreadType\Question))
-		{
+		if (!($typeHandler instanceof \XF\ThreadType\Question)) {
 			return false;
 		}
 
@@ -411,8 +373,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function isVisible()
 	{
-		return (
-			$this->message_state == 'visible'
+		return ($this->message_state == 'visible'
 			&& $this->Thread
 			&& $this->Thread->discussion_state == 'visible'
 		);
@@ -421,25 +382,21 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	public function isFirstPost()
 	{
 		$thread = $this->Thread;
-		if (!$thread)
-		{
+		if (!$thread) {
 			return false;
 		}
 
-		if ($this->post_id == $thread->first_post_id)
-		{
+		if ($this->post_id == $thread->first_post_id) {
 			return true;
 		}
 
 		// this can be called during an insert where the thread hasn't actually been updated yet
 		// just assume it's the first post
-		if (!$thread->thread_id)
-		{
+		if (!$thread->thread_id) {
 			return true;
 		}
 
-		if (!$thread->first_post_id && $this->post_date == $thread->post_date)
-		{
+		if (!$thread->first_post_id && $this->post_date == $thread->post_date) {
 			return true;
 		}
 
@@ -449,8 +406,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	public function isLastPost()
 	{
 		$thread = $this->Thread;
-		if (!$thread)
-		{
+		if (!$thread) {
 			return false;
 		}
 
@@ -459,14 +415,12 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function isUnread()
 	{
-		if (!$this->Thread)
-		{
+		if (!$this->Thread) {
 			return false;
 		}
 
 		$readDate = $this->Thread->getVisitorReadDate();
-		if ($readDate === null)
-		{
+		if ($readDate === null) {
 			return false;
 		}
 
@@ -475,13 +429,11 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	public function isAttachmentEmbedded($attachmentId)
 	{
-		if (!$this->embed_metadata)
-		{
+		if (!$this->embed_metadata) {
 			return false;
 		}
 
-		if ($attachmentId instanceof Attachment)
-		{
+		if ($attachmentId instanceof Attachment) {
 			$attachmentId = $attachmentId->attachment_id;
 		}
 
@@ -531,49 +483,36 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 		$approvalChange = $this->isStateChanged('message_state', 'moderated');
 		$deletionChange = $this->isStateChanged('message_state', 'deleted');
 
-		if ($this->isUpdate())
-		{
-			if ($visibilityChange == 'enter')
-			{
+		if ($this->isUpdate()) {
+			if ($visibilityChange == 'enter') {
 				$this->postMadeVisible();
 
-				if ($approvalChange)
-				{
+				if ($approvalChange) {
 					$this->submitHamData();
 				}
-			}
-			else if ($visibilityChange == 'leave')
-			{
+			} else if ($visibilityChange == 'leave') {
 				$this->postHidden();
 			}
 
-			if ($deletionChange == 'leave' && $this->DeletionLog)
-			{
+			if ($deletionChange == 'leave' && $this->DeletionLog) {
 				$this->DeletionLog->delete();
 			}
 
-			if ($approvalChange == 'leave' && $this->ApprovalQueue)
-			{
+			if ($approvalChange == 'leave' && $this->ApprovalQueue) {
 				$this->ApprovalQueue->delete();
 			}
-		}
-		else
-		{
+		} else {
 			// insert
-			if ($this->message_state == 'visible')
-			{
+			if ($this->message_state == 'visible') {
 				$this->postInsertedVisible();
 			}
 		}
 
-		if ($approvalChange == 'enter')
-		{
+		if ($approvalChange == 'enter') {
 			$approvalQueue = $this->getRelationOrDefault('ApprovalQueue', false);
 			$approvalQueue->content_date = $this->post_date;
 			$approvalQueue->save();
-		}
-		else if ($deletionChange == 'enter' && !$this->DeletionLog)
-		{
+		} else if ($deletionChange == 'enter' && !$this->DeletionLog) {
 			$delLog = $this->getRelationOrDefault('DeletionLog', false);
 			$delLog->setFromVisitor();
 			$delLog->save();
@@ -583,26 +522,21 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 		$thread = $this->Thread;
 
-		if ($this->isUpdate() && $this->isFirstPost())
-		{
-			if ($this->isChanged('reaction_score'))
-			{
+		if ($this->isUpdate() && $this->isFirstPost()) {
+			if ($this->isChanged('reaction_score')) {
 				$thread->first_post_reaction_score = $this->reaction_score;
 			}
-			if ($this->isChanged('reactions'))
-			{
+			if ($this->isChanged('reactions')) {
 				$thread->first_post_reactions = $this->reactions;
 			}
 			$thread->save();
 		}
 
-		if ($thread)
-		{
+		if ($thread) {
 			$thread->TypeHandler->onPostSave($thread, $this);
 		}
 
-		if ($this->isUpdate() && $this->getOption('log_moderator'))
-		{
+		if ($this->isUpdate() && $this->getOption('log_moderator')) {
 			$this->app()->logger()->logModeratorChanges('post', $this);
 		}
 
@@ -611,20 +545,16 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	protected function updateThreadRecord()
 	{
-		if (!$this->Thread || !$this->Thread->exists())
-		{
+		if (!$this->Thread || !$this->Thread->exists()) {
 			// inserting a thread, don't try to write to it
 			return;
 		}
 
 		$visibilityChange = $this->isStateChanged('message_state', 'visible');
-		if ($visibilityChange == 'enter')
-		{
+		if ($visibilityChange == 'enter') {
 			$this->Thread->postAdded($this);
 			$this->Thread->save();
-		}
-		else if ($visibilityChange == 'leave')
-		{
+		} else if ($visibilityChange == 'leave') {
 			$this->Thread->postRemoved($this);
 			$this->Thread->save();
 		}
@@ -632,52 +562,48 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	protected function adjustUserMessageCountIfNeeded($amount)
 	{
-		if ($this->user_id
+		if (
+			$this->user_id
 			&& $this->User
 			&& !empty($this->Thread->Forum->count_messages)
 			&& $this->Thread->discussion_state == 'visible'
-		)
-		{
+		) {
 			$this->User->fastUpdate('message_count', max(0, $this->User->message_count + $amount));
 		}
 	}
 
 	protected function adjustThreadUserPostCount($amount)
 	{
-		if ($this->user_id)
-		{
+		if ($this->user_id) {
 			$db = $this->db();
 
-			if ($amount > 0)
-			{
+			if ($amount > 0) {
 				$db->insert('xf_thread_user_post', [
 					'thread_id' => $this->thread_id,
 					'user_id' => $this->user_id,
 					'post_count' => $amount
 				], false, 'post_count = post_count + VALUES(post_count)');
-			}
-			else
-			{
+			} else {
 				$existingValue = $db->fetchOne("
 					SELECT post_count
 					FROM xf_thread_user_post
 					WHERE thread_id = ?
 						AND user_id = ?
 				", [$this->thread_id, $this->user_id]);
-				if ($existingValue !== null)
-				{
+				if ($existingValue !== null) {
 					$newValue = $existingValue + $amount;
-					if ($newValue <= 0)
-					{
-						$this->db()->delete('xf_thread_user_post',
-							'thread_id = ? AND user_id = ?', [$this->thread_id, $this->user_id]
+					if ($newValue <= 0) {
+						$this->db()->delete(
+							'xf_thread_user_post',
+							'thread_id = ? AND user_id = ?',
+							[$this->thread_id, $this->user_id]
 						);
-					}
-					else
-					{
-						$this->db()->update('xf_thread_user_post',
+					} else {
+						$this->db()->update(
+							'xf_thread_user_post',
 							['post_count' => $newValue],
-							'thread_id = ? AND user_id = ?', [$this->thread_id, $this->user_id]
+							'thread_id = ? AND user_id = ?',
+							[$this->thread_id, $this->user_id]
 						);
 					}
 				}
@@ -693,13 +619,10 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	protected function postMadeVisible()
 	{
-		if ($this->isChanged('position'))
-		{
+		if ($this->isChanged('position')) {
 			// if we've updated the position, we need to trust what we had is accurate...
 			$basePosition = $this->getExistingValue('position');
-		}
-		else
-		{
+		} else {
 			// ...otherwise, we should always double check the DB for the latest position since this function won't
 			// update cached entities
 			$basePosition = $this->db()->fetchOne("
@@ -707,8 +630,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 				FROM xf_post
 				WHERE post_id = ?
 			", $this->post_id);
-			if ($basePosition === null || $basePosition === false)
-			{
+			if ($basePosition === null || $basePosition === false) {
 				$basePosition = $this->getExistingValue('position');
 			}
 
@@ -733,13 +655,10 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 
 	protected function postHidden($hardDelete = false)
 	{
-		if ($hardDelete || $this->isChanged('position'))
-		{
+		if ($hardDelete || $this->isChanged('position')) {
 			// if we've deleted the post or updated the position, we need to trust what we had is accurate...
 			$basePosition = $this->getExistingValue('position');
-		}
-		else
-		{
+		} else {
 			// ...otherwise, we should always double check the DB for the latest position since this function won't
 			// update cached entities
 			$basePosition = $this->db()->fetchOne("
@@ -747,8 +666,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 				FROM xf_post
 				WHERE post_id = ?
 			", $this->post_id);
-			if ($basePosition === null || $basePosition === false)
-			{
+			if ($basePosition === null || $basePosition === false) {
 				$basePosition = $this->getExistingValue('position');
 			}
 
@@ -786,44 +704,37 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 		// we therefore need to check what the expected position is before the record is gone and ensure we use that.
 		$expectedPosition = $this->db()->fetchOne('SELECT position FROM xf_post WHERE post_id = ?', $this->post_id);
 
-		if ($expectedPosition != $this->position)
-		{
+		if ($expectedPosition != $this->position) {
 			$this->setAsSaved('position', $expectedPosition);
 		}
 	}
 
 	protected function _postDelete()
 	{
-		if ($this->message_state == 'visible')
-		{
+		if ($this->message_state == 'visible') {
 			$this->postHidden(true);
 		}
 
 		$thread = $this->Thread;
 
-		if ($thread && $this->message_state == 'visible')
-		{
+		if ($thread && $this->message_state == 'visible') {
 			$thread->postRemoved($this);
 			$thread->save();
 		}
 
-		if ($this->message_state == 'deleted' && $this->DeletionLog)
-		{
+		if ($this->message_state == 'deleted' && $this->DeletionLog) {
 			$this->DeletionLog->delete();
 		}
 
-		if ($this->message_state == 'moderated' && $this->ApprovalQueue)
-		{
+		if ($this->message_state == 'moderated' && $this->ApprovalQueue) {
 			$this->ApprovalQueue->delete();
 		}
 
-		if ($thread)
-		{
+		if ($thread) {
 			$thread->TypeHandler->onPostDelete($thread, $this);
 		}
 
-		if ($this->getOption('log_moderator'))
-		{
+		if ($this->getOption('log_moderator')) {
 			$this->app()->logger()->logModeratorAction('post', $this, 'delete_hard');
 		}
 
@@ -834,19 +745,16 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 		$attachRepo->fastDeleteContentAttachments('post', $this->post_id);
 
 		$this->_postDeleteBookmarks();
-}
+	}
 
 	public function softDelete($reason = '', User $byUser = null)
 	{
 		$byUser = $byUser ?: \XF::visitor();
 		$thread = $this->Thread;
 
-		if ($this->isFirstPost())
-		{
+		if ($this->isFirstPost()) {
 			return $thread->softDelete($reason, $byUser);
-		}
-		else
-		{
+		} else {
 			$db = $this->db();
 			$db->beginTransaction();
 
@@ -857,8 +765,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 				FOR UPDATE
 			", $this->post_id);
 
-			if ($rawPost['message_state'] == 'deleted')
-			{
+			if ($rawPost['message_state'] == 'deleted') {
 				return false;
 			}
 
@@ -899,18 +806,17 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	 * @api-see XF\Entity\ContentVoteTrait::addContentVoteToApiResult
 	 */
 	protected function setupApiResultData(
-		\XF\Api\Result\EntityResult $result, $verbosity = self::VERBOSITY_NORMAL, array $options = []
-	)
-	{
+		\XF\Api\Result\EntityResult $result,
+		$verbosity = self::VERBOSITY_NORMAL,
+		array $options = []
+	) {
 		$result->username = $this->User ? $this->User->username : $this->username;
 
-		if (!empty($options['with_thread']))
-		{
+		if (!empty($options['with_thread'])) {
 			$result->includeRelation('Thread');
 		}
 
-		if ($this->attach_count)
-		{
+		if ($this->attach_count) {
 			// note that we allow viewing of thumbs and metadata, regardless of permissions, when viewing the
 			// content an attachment is connected to
 			$result->includeRelation('Attachments');
@@ -924,8 +830,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 		$result->is_first_post = $this->isFirstPost();
 		$result->is_last_post = $this->isLastPost();
 
-		if (\XF::visitor()->user_id)
-		{
+		if (\XF::visitor()->user_id) {
 			$result->is_unread = $this->isUnread();
 		}
 
@@ -954,8 +859,7 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 	public function getContentTitle(string $context = '')
 	{
 		// in some situations, referencing the first post is akin
-		if ($this->isFirstPost())
-		{
+		if ($this->isFirstPost()) {
 			return $this->Thread->getContentTitle($context);
 		}
 
@@ -972,15 +876,18 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 			'post_id' => ['type' => self::UINT, 'autoIncrement' => true, 'nullable' => true],
 			'thread_id' => ['type' => self::UINT, 'required' => true, 'api' => true],
 			'user_id' => ['type' => self::UINT, 'required' => true, 'api' => true],
-			'username' => ['type' => self::STR, 'maxLength' => 50,
+			'username' => [
+				'type' => self::STR, 'maxLength' => 50,
 				'required' => 'please_enter_valid_name', 'api' => true
 			],
 			'post_date' => ['type' => self::UINT, 'required' => true, 'default' => \XF::$time, 'api' => true],
-			'message' => ['type' => self::STR,
+			'message' => [
+				'type' => self::STR,
 				'required' => 'please_enter_valid_message', 'api' => true
 			],
 			'ip_id' => ['type' => self::UINT, 'default' => 0],
-			'message_state' => ['type' => self::STR, 'default' => 'visible',
+			'message_state' => [
+				'type' => self::STR, 'default' => 'visible',
 				'allowedValues' => ['visible', 'moderated', 'deleted'], 'api' => true
 			],
 			'attach_count' => ['type' => self::UINT, 'max' => 65535, 'forced' => true, 'default' => 0, 'api' => true],
@@ -1063,20 +970,16 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 				'User.Profile',
 				'User.Privacy',
 				'User.PermissionCombination', // to determine if links are trusted
-				function()
-				{
-					if (\XF::options()->showMessageOnlineStatus)
-					{
+				function () {
+					if (\XF::options()->showMessageOnlineStatus) {
 						return 'User.Activity';
 					}
 
 					return null;
 				},
-				function()
-				{
+				function () {
 					$userId = \XF::visitor()->user_id;
-					if ($userId)
-					{
+					if ($userId) {
 						return [
 							'Reactions|' . $userId,
 							'Bookmarks|' . $userId
@@ -1089,20 +992,16 @@ class Post extends Entity implements LinkableInterface, QuotableInterface, Rende
 			'api' => [
 				'User',
 				'User.api',
-				function($withParams)
-				{
-					if (!empty($withParams['thread']))
-					{
+				function ($withParams) {
+					if (!empty($withParams['thread'])) {
 						return ['Thread.api'];
 					}
 
 					return null;
 				},
-				function()
-				{
+				function () {
 					$userId = \XF::visitor()->user_id;
-					if ($userId)
-					{
+					if ($userId) {
 						return [
 							'Reactions|' . $userId,
 							'ContentVotes|' . $userId

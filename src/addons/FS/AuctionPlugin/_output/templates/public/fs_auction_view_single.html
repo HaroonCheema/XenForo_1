@@ -19,7 +19,9 @@
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
 				
-		
+		<xf:if is="$auctionUnread">
+				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
+			</xf:if>
 			
 			<li>
 				<a href="{{ link('auction/'.{$auction.category_id}.'/'.{$auction.auction_id}).'/view-auction' }}"

@@ -47,7 +47,7 @@
     "email/fs_auction_send_bidding_mail.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "59e2e2892c7e7c5d411539c251ca1426"
+        "hash": "fe452e0d7ce11630a2147e6d3b03d0f4"
     },
     "public/addEdit_Auction.html": {
         "version_id": 1000100,
@@ -62,7 +62,7 @@
     "public/fs_auctionArchive.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "ec8b4234f555ba258c9805e0d78a9182"
+        "hash": "c061d71929559995e4ac18364d79153b"
     },
     "public/fs_auction_bookmark_macros.html": {
         "version_id": 1000100,
@@ -117,7 +117,7 @@
     "public/fs_auction_view_single.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "1d2bba08e2641868020d55ff55e5a94a"
+        "hash": "fa571f838aa0f8124118300b0e23404a"
     },
     "public/fs_auctions.less": {
         "version_id": 1000100,
