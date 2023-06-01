@@ -56,9 +56,12 @@ class Setup extends AbstractSetup
 			$sm->dropTable($tableName);
 		}
 
-		$sm->dropTable('fs_auction_listing');
 		$sm->dropTable('fs_auction_ship_terms');
 		$sm->dropTable('fs_auction_ship_via');
+
+		$this->schemaManager()->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
+			$table->dropColumns(['layout_type']);
+		});
 
 		$db = \XF::db();
 		$db->delete('xf_attachment', "content_type = 'fs_auction'");
