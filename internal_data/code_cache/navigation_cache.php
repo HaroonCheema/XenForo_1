@@ -5,6 +5,11 @@ return function($__templater, $__selectedNav, array $__vars)
 	$__tree = [];
 	$__flat = [];
 
+	\XF\Navigation\NodeType::configureDisplayExtended(11, "fs_questionAnswer_nav", [
+		'title' => null,
+		'with_children' => false,
+		'attributes' => [],
+	]);
 
 	$__navTemp = [
 		'title' => \XF::phrase('nav._default'),
@@ -16,6 +21,16 @@ return function($__templater, $__selectedNav, array $__vars)
 		$__flat['_default'] =& $__tree['_default'];
 		if (empty($__tree['_default']['children'])) { $__tree['_default']['children'] = []; }
 
+		$__navTemp = [
+		'title' => \XF::phrase('nav.defaultLatestActivity'),
+		'href' => $__templater->func('link', array('whats-new/latest-activity', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['_default']['children']['defaultLatestActivity'] = $__navTemp;
+			$__flat['defaultLatestActivity'] =& $__tree['_default']['children']['defaultLatestActivity'];
+		}
+
 		if ($__vars['xf']['visitor']['user_id']) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.defaultNewsFeed'),
@@ -26,16 +41,6 @@ return function($__templater, $__selectedNav, array $__vars)
 				$__tree['_default']['children']['defaultNewsFeed'] = $__navTemp;
 				$__flat['defaultNewsFeed'] =& $__tree['_default']['children']['defaultNewsFeed'];
 			}
-		}
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.defaultLatestActivity'),
-		'href' => $__templater->func('link', array('whats-new/latest-activity', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['_default']['children']['defaultLatestActivity'] = $__navTemp;
-			$__flat['defaultLatestActivity'] =& $__tree['_default']['children']['defaultLatestActivity'];
 		}
 
 		if ($__vars['xf']['visitor']['user_id']) {
@@ -394,18 +399,24 @@ return function($__templater, $__selectedNav, array $__vars)
 			$__flat['whatsNewPosts'] =& $__tree['whatsNew']['children']['whatsNewPosts'];
 		}
 
-		if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.xfrmNewResources'),
-		'href' => $__templater->func('link', array('whats-new/resources', ), false),
-		'attributes' => [
-			'rel' => 'nofollow',
-		],
+		$__navTemp = [
+		'title' => \XF::phrase('nav.fs_new_questions'),
+		'href' => $__templater->func('link', array('whats-new/questions', ), false),
+		'attributes' => [],
 	];
-			if ($__navTemp) {
-				$__tree['whatsNew']['children']['xfrmNewResources'] = $__navTemp;
-				$__flat['xfrmNewResources'] =& $__tree['whatsNew']['children']['xfrmNewResources'];
-			}
+		if ($__navTemp) {
+			$__tree['whatsNew']['children']['fs_new_questions'] = $__navTemp;
+			$__flat['fs_new_questions'] =& $__tree['whatsNew']['children']['fs_new_questions'];
+		}
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.fs_new_answers'),
+		'href' => $__templater->func('link', array('whats-new/answers', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['whatsNew']['children']['fs_new_answers'] = $__navTemp;
+			$__flat['fs_new_answers'] =& $__tree['whatsNew']['children']['fs_new_answers'];
 		}
 
 		if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
@@ -419,6 +430,20 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['whatsNew']['children']['dbtEcomNewProducts'] = $__navTemp;
 				$__flat['dbtEcomNewProducts'] =& $__tree['whatsNew']['children']['dbtEcomNewProducts'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.xfrmNewResources'),
+		'href' => $__templater->func('link', array('whats-new/resources', ), false),
+		'attributes' => [
+			'rel' => 'nofollow',
+		],
+	];
+			if ($__navTemp) {
+				$__tree['whatsNew']['children']['xfrmNewResources'] = $__navTemp;
+				$__flat['xfrmNewResources'] =& $__tree['whatsNew']['children']['xfrmNewResources'];
 			}
 		}
 
@@ -659,28 +684,6 @@ return function($__templater, $__selectedNav, array $__vars)
 	}
 
 	$__navTemp = [
-		'title' => \XF::phrase('nav.createCrud'),
-		'href' => $__templater->func('link', array('crud', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['createCrud'] = $__navTemp;
-		$__flat['createCrud'] =& $__tree['createCrud'];
-		if (empty($__tree['createCrud']['children'])) { $__tree['createCrud']['children'] = []; }
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.addRecord'),
-		'href' => $__templater->func('link', array('crud/add', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
-			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
-		}
-
-	}
-
-	$__navTemp = [
 		'title' => \XF::phrase('nav.demoPadNotes'),
 		'href' => $__templater->func('link', array('notes', ), false),
 		'attributes' => [],
@@ -710,6 +713,34 @@ return function($__templater, $__selectedNav, array $__vars)
 			$__flat['demoPadPassParams'] =& $__tree['demoPadNotes']['children']['demoPadPassParams'];
 		}
 
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.createCrud'),
+		'href' => $__templater->func('link', array('crud', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['createCrud'] = $__navTemp;
+		$__flat['createCrud'] =& $__tree['createCrud'];
+		if (empty($__tree['createCrud']['children'])) { $__tree['createCrud']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.addRecord'),
+		'href' => $__templater->func('link', array('crud/add', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
+			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
+		}
+
+	}
+
+	$__navTemp = \XF\Navigation\NodeType::displayNodeExtended(11, "fs_questionAnswer_nav");
+	if ($__navTemp) {
+		$__tree['fs_questionAnswer_nav'] = $__navTemp;
+		$__flat['fs_questionAnswer_nav'] =& $__tree['fs_questionAnswer_nav'];
 	}
 
 

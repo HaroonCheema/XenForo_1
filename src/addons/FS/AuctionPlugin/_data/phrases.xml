@@ -31,6 +31,7 @@
 <li>PCF (its Owner, Admins, and Moderators) are not responsible for any actions or outcomes that take place in this auction.</li>
 </ol>]]></phrase>
   <phrase title="auction_payment_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Chose which forms of payment you accept.]]></phrase>
+  <phrase title="auction_payment_notAdded_explain" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[At least one payment is required...!]]></phrase>
   <phrase title="auction_required" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Required]]></phrase>
   <phrase title="auction_shippingTerms_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Chose your shipping terms.]]></phrase>
   <phrase title="auction_shippingVia_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Choose the shipping service you will use.]]></phrase>
@@ -72,6 +73,7 @@ Thankyou...!
   <phrase title="fs_auction_categories_add_listing" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add Auction]]></phrase>
   <phrase title="fs_auction_category" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction]]></phrase>
   <phrase title="fs_auction_edit_post" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Edit Post Thread]]></phrase>
+  <phrase title="fs_auction_enter_correct_amount" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[Please enter correct amount..!]]></phrase>
   <phrase title="fs_auction_expired" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Expired]]></phrase>
   <phrase title="fs_auction_grid_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Grid view layout]]></phrase>
   <phrase title="fs_auction_list_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List view layout]]></phrase>

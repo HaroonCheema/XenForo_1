@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 85a594327f1468b0afcff4b856b02d05
+// FROM HASH: 213a4633eefb18606574b43c2536028e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -127,7 +127,6 @@ return array(
         ' . $__templater->formEditorRow(array(
 		'name' => 'message',
 		'value' => ($__vars['data'] ? $__vars['data']['content'] : ''),
-		'required' => 'true',
 		'attachments' => ($__vars['attachmentData'] ? $__vars['attachmentData']['attachments'] : array()),
 	), array(
 		'rowtype' => 'fullWidth noLabel mergePrev',
@@ -190,7 +189,7 @@ return array(
 	), $__compilerTemp3, array(
 		'label' => 'PAYMENTS ACCEPTED',
 		'hint' => 'Required',
-		'explain' => ($__vars['paymentMethods']['0'] ? 'Chose which forms of payment you accept.' : 'auction_payment_notAdded_explain'),
+		'explain' => ($__vars['paymentMethods']['0'] ? 'Chose which forms of payment you accept.' : 'At least one payment is required...!'),
 	)) . '
 		
 		

@@ -122,7 +122,7 @@ class AuctionListing extends AbstractController
 
         return $bookmarkPlugin->actionBookmark(
             $auction,
-            $this->buildLink('auction/view-auction', $auction)
+            $this->buildLink('auction/bookmark', $auction)
         );
     }
 
@@ -180,6 +180,18 @@ class AuctionListing extends AbstractController
 
         return $this->redirect(
             $this->getDynamicRedirect($this->buildLink('auction'), false)
+        );
+    }
+
+    public function actionViewAuctionBookmark(ParameterBag $params)
+    {
+        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+        /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
+        $bookmarkPlugin = $this->plugin('XF:Bookmark');
+
+        return $bookmarkPlugin->actionBookmark(
+            $auction,
+            $this->buildLink('auction/bookmark', $auction)
         );
     }
 

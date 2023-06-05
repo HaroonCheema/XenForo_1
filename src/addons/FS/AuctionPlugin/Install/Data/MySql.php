@@ -2,88 +2,82 @@
 
 namespace FS\AuctionPlugin\Install\Data;
 
-use SV\Utils\InstallerHelper;
 use XF\Db\Schema\Create;
 use XF\Db\Schema\Alter;
 
-class MySql
-{
-    use InstallerHelper;
+class MySql {
 
-    public function getTables()
-    {
+    public function getTables() {
         $tables = [];
 
-        $tables['fs_auction_category'] = function ($table) {
+        $tables['fs_auction_category'] = function (Create $table) {
             /** @var Create|Alter $table */
-            $this->addOrChangeColumn($table, 'category_id', 'int')->autoIncrement();
-            $this->addOrChangeColumn($table, 'title', 'varchar', 100);
-            $this->addOrChangeColumn($table, 'description', 'text');
-            $this->addOrChangeColumn($table, 'parent_category_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'display_order', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'lft', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'rgt', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'depth', 'smallint', 5)->setDefault(0);
-            $this->addOrChangeColumn($table, 'breadcrumb_data', 'blob');
-            $this->addOrChangeColumn($table, 'bid_count', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'layout_type', 'varchar', 20)->setDefault('list_view');
+            $table->addColumn('category_id', 'int')->autoIncrement();
+            $table->addColumn('title', 'varchar', 100);
+            $table->addColumn('description', 'text');
+            $table->addColumn('parent_category_id', 'int')->setDefault(0);
+            $table->addColumn('display_order', 'int')->setDefault(0);
+            $table->addColumn('lft', 'int')->setDefault(0);
+            $table->addColumn('rgt', 'int')->setDefault(0);
+            $table->addColumn('depth', 'smallint', 5)->setDefault(0);
+            $table->addColumn('breadcrumb_data', 'blob');
+            $table->addColumn('bid_count', 'int')->setDefault(0);
+            $table->addColumn('layout_type', 'varchar', 20)->setDefault('list_view');
             $table->addKey(['parent_category_id', 'lft']);
-            $table->addUniqueKey('category_id');
             $table->addKey(['lft', 'rgt']);
+            $table->addPrimaryKey('category_id');
         };
 
-        $tables['fs_auction_listing'] = function ($table) {
+        $tables['fs_auction_listing'] = function (Create $table) {
             /** @var Create|Alter $table */
-            $this->addOrChangeColumn($table, 'auction_id', 'int')->autoIncrement();
-            $this->addOrChangeColumn($table, 'category_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'title', 'varchar', 100);
-            $this->addOrChangeColumn($table, 'content', 'mediumtext');
-            $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'prefix_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'attach_count', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'ends_on', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'created_date', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'timezone', 'mediumtext');
-            $this->addOrChangeColumn($table, 'starting_bid', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'bid_increament', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'shipping_term', 'mediumtext');
-            $this->addOrChangeColumn($table, 'ships_via', 'mediumtext');
-            $this->addOrChangeColumn($table, 'auction_guidelines', 'tinyint', 3)->setDefault(0);
-            $this->addOrChangeColumn($table, 'bumping_rules', 'tinyint', 3)->setDefault(0);
-            $this->addOrChangeColumn($table, 'watch_thread', 'tinyint', 3)->setDefault(0);
-            $this->addOrChangeColumn($table, 'receive_email', 'tinyint', 3)->setDefault(0);
-            $this->addOrChangeColumn($table, 'payment_methods', 'mediumblob');
-            $this->addOrChangeColumn($table, 'last_bumping', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'bumping_counts', 'int')->setDefault(0);
-
-
+            $table->addColumn('auction_id', 'int')->autoIncrement();
+            $table->addColumn('category_id', 'int')->setDefault(0);
+            $table->addColumn('title', 'varchar', 100);
+            $table->addColumn('content', 'mediumtext');
+            $table->addColumn('user_id', 'int')->setDefault(0);
+            $table->addColumn('prefix_id', 'int')->setDefault(0);
+            $table->addColumn('attach_count', 'int')->setDefault(0);
+            $table->addColumn('ends_on', 'int')->setDefault(0);
+            $table->addColumn('created_date', 'int')->setDefault(0);
+            $table->addColumn('timezone', 'mediumtext');
+            $table->addColumn('starting_bid', 'int')->setDefault(0);
+            $table->addColumn('bid_increament', 'int')->setDefault(0);
+            $table->addColumn('shipping_term', 'mediumtext');
+            $table->addColumn('ships_via', 'mediumtext');
+            $table->addColumn('auction_guidelines', 'tinyint', 3)->setDefault(0);
+            $table->addColumn('bumping_rules', 'tinyint', 3)->setDefault(0);
+            $table->addColumn('watch_thread', 'tinyint', 3)->setDefault(0);
+            $table->addColumn('receive_email', 'tinyint', 3)->setDefault(0);
+            $table->addColumn('payment_methods', 'mediumblob');
+            $table->addColumn('last_bumping', 'int')->setDefault(0);
+            $table->addColumn('bumping_counts', 'int')->setDefault(0);
             $table->addKey('user_id');
+            $table->addPrimaryKey('auction_id');
         };
 
-        $tables['fs_auction_bidding'] = function ($table) {
+        $tables['fs_auction_bidding'] = function (Create $table) {
             /** @var Create|Alter $table */
-            $this->addOrChangeColumn($table, 'bidding_id', 'int')->autoIncrement();
-            $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'auction_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'created_at', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'bidding_amount', 'int')->setDefault(0);
-            $table->addUniqueKey('bidding_id');
+            $table->addColumn('bidding_id', 'int')->autoIncrement();
+            $table->addColumn('user_id', 'int')->setDefault(0);
+            $table->addColumn('auction_id', 'int')->setDefault(0);
+            $table->addColumn('created_at', 'int')->setDefault(0);
+            $table->addColumn('bidding_amount', 'int')->setDefault(0);
+            $table->addPrimaryKey('bidding_id');
         };
 
-        $tables['fs_auction_read'] = function ($table) {
+        $tables['fs_auction_read'] = function (Create $table) {
             /** @var Create|Alter $table */
-            $this->addOrChangeColumn($table, 'auction_read_id', 'int')->autoIncrement();
-            $this->addOrChangeColumn($table, 'user_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'auction_id', 'int')->setDefault(0);
-            $this->addOrChangeColumn($table, 'auction_read_date', 'int');
-            $table->addUniqueKey('auction_read_id');
+            $table->addColumn('auction_read_id', 'int')->autoIncrement();
+            $table->addColumn('user_id', 'int')->setDefault(0);
+            $table->addColumn('auction_id', 'int')->setDefault(0);
+            $table->addColumn('auction_read_date', 'int');
+            $table->addPrimaryKey('auction_read_id');
         };
 
         return $tables;
     }
 
-    public function getData()
-    {
+    public function getData() {
         $data = [];
 
         $data['fs_auction_category'] = "

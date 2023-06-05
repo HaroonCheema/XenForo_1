@@ -266,7 +266,7 @@
 		</td>
 	</tr>
 </table>]]></template>
-  <template type="public" title="addEdit_Auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:if is="$data.isInsert()">
+  <template type="public" title="addEdit_Auction" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[<xf:if is="$data.isInsert()">
 	<xf:title>{{ phrase('auctionPostThread') }}</xf:title>
 <xf:else />
 	<xf:title>{{ phrase('fs_auction_edit_post') }}</xf:title>
@@ -302,7 +302,6 @@
         <xf:editorrow
           name="message"
 		  value="{{ $data ? $data.content : ''}}"
-		  required="true"
           attachments="{{ $attachmentData ? $attachmentData.attachments : [] }}"
           rowtype="fullWidth noLabel mergePrev"
           label="{{ phrase('message') }}"
@@ -747,7 +746,7 @@
   </div>
 </xf:macro>
 ]]></template>
-  <template type="public" title="fs_auction_bookmark_macros" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:macro name="link"
+  <template type="public" title="fs_auction_bookmark_macros" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[<xf:macro name="link"
 	arg-content="!"
 	arg-confirmUrl="!"
 	arg-editText="{{ phrase('edit_bookmark') }}"
@@ -1742,7 +1741,7 @@ min-height:275px;
 
   <xf:hiddenval name="search">1</xf:hiddenval>
 </xf:form>]]></template>
-  <template type="public" title="fs_auction_view_single" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{$auction.title}}</xf:title>
+  <template type="public" title="fs_auction_view_single" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[<xf:title>{{$auction.title}}</xf:title>
 <xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>

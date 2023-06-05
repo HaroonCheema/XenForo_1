@@ -978,26 +978,55 @@ return array(
 			'src' => 'xf/message.js',
 			'min' => '1',
 		));
+		$__compilerTemp5 = '';
+		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
+			$__compilerTemp5 .= '
+	';
+			if ($__vars['xf']['visitor']['is_admin']) {
+				$__compilerTemp5 .= '
+' . $__templater->callMacro('quick_reply_macros', 'body', array(
+					'message' => $__vars['thread']['draft_reply']['message'],
+					'attachmentData' => $__vars['attachmentData'],
+					'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
+					'messageSelector' => '.js-post',
+					'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
+					'multiQuoteStorageKey' => 'multiQuoteThread',
+					'lastDate' => $__vars['lastPost']['post_date'],
+					'lastKnownDate' => $__vars['thread']['last_post_date'],
+					'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
+					'loadExtra' => $__vars['isSimpleDateDisplay'],
+					'showGuestControls' => (!$__vars['isPreRegReply']),
+					'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
+				), $__vars) . '
+';
+			}
+			$__compilerTemp5 .= '
+';
+		} else {
+			$__compilerTemp5 .= '
+	' . $__templater->callMacro('quick_reply_macros', 'body', array(
+				'message' => $__vars['thread']['draft_reply']['message'],
+				'attachmentData' => $__vars['attachmentData'],
+				'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
+				'messageSelector' => '.js-post',
+				'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
+				'multiQuoteStorageKey' => 'multiQuoteThread',
+				'lastDate' => $__vars['lastPost']['post_date'],
+				'lastKnownDate' => $__vars['thread']['last_post_date'],
+				'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
+				'loadExtra' => $__vars['isSimpleDateDisplay'],
+				'showGuestControls' => (!$__vars['isPreRegReply']),
+				'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
+			), $__vars) . '
+';
+		}
 		$__finalCompiled .= $__templater->form('
 
 		' . '' . '
 
 		<div class="block-container">
 			<div class="block-body">
-				' . $__templater->callMacro('quick_reply_macros', 'body', array(
-			'message' => $__vars['thread']['draft_reply']['message'],
-			'attachmentData' => $__vars['attachmentData'],
-			'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
-			'messageSelector' => '.js-post',
-			'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
-			'multiQuoteStorageKey' => 'multiQuoteThread',
-			'lastDate' => $__vars['lastPost']['post_date'],
-			'lastKnownDate' => $__vars['thread']['last_post_date'],
-			'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
-			'loadExtra' => $__vars['isSimpleDateDisplay'],
-			'showGuestControls' => (!$__vars['isPreRegReply']),
-			'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
-		), $__vars) . '
+				' . $__compilerTemp5 . '
 			</div>
 		</div>
 	', array(

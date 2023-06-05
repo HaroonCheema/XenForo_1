@@ -23,8 +23,8 @@ class Setup extends AbstractSetup
 		$sm = $this->schemaManager();
 
 		foreach ($this->getTables() as $tableName => $callback) {
-			$sm->createTable($tableName, $callback);
-			$sm->alterTable($tableName, $callback);
+                    $sm->createTable($tableName, $callback);
+			
 		}
 		$this->schemaManager()->createTable('fs_auction_ship_terms', function (Create $table) {
 			$table->addColumn('term_id', 'int', '255')->autoIncrement();

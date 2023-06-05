@@ -138,7 +138,19 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post thread');
+	if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
+		$__finalCompiled .= '
+	';
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Submit your question');
+		$__finalCompiled .= '
+';
+	} else {
+		$__finalCompiled .= '
+	';
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post thread');
+		$__finalCompiled .= '
+';
+	}
 	$__finalCompiled .= '
 
 ';
@@ -267,9 +279,19 @@ return array(
 					' . $__templater->callMacro('helper_thread_options', 'watch_input', array(
 			'thread' => $__vars['thread'],
 		), $__vars) . '
-					' . $__templater->callMacro('helper_thread_options', 'thread_status', array(
-			'thread' => $__vars['thread'],
-		), $__vars) . '
+					';
+		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
+			$__compilerTemp10 .= '
+ 
+';
+		} else {
+			$__compilerTemp10 .= '
+	' . $__templater->callMacro('helper_thread_options', 'thread_status', array(
+				'thread' => $__vars['thread'],
+			), $__vars) . '
+';
+		}
+		$__compilerTemp10 .= '
 				';
 	}
 	$__finalCompiled .= $__templater->form('

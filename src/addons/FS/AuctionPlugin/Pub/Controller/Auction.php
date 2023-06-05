@@ -199,6 +199,21 @@ class Auction extends AbstractController
             );
         }
 
+        $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
+
+        $highestBidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetchOne();
+
+        if ($highestBidding && $input['bidding_amount'] <= $highestBidding->bidding_amount) {
+            throw $this->exception(
+                $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+            );
+        } elseif ($input['bidding_amount'] < ($auction->starting_bid + $auction->bid_increament)) {
+            throw $this->exception(
+                $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+            );
+        }
+
+
         $visitor = \XF::visitor();
 
         $addBidding = $this->em()->create('FS\AuctionPlugin:Bidding');
@@ -209,7 +224,6 @@ class Auction extends AbstractController
 
         $addBidding->save();
 
-        $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
 
         if ($auction->watch_thread) {
             /** @var Auction $notifier */
