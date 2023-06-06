@@ -281,6 +281,7 @@ return array(
 		$__compilerTemp2 .= '
 <a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'thread', 'thread_type' => 'question', 'qa_nodes' => array($__vars['questionForumIds'], ), ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all questions by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
 <a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'fs_answer', ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all answers by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
+<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'thread', 'thread_type' => 'article', ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all articles by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
 	' . '
 						</div>
 					</div>

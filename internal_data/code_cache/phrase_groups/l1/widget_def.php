@@ -17,6 +17,7 @@ return array (
   'widget_def.newest_members' => 'Newest members',
   'widget_def.online_statistics' => 'Online statistics',
   'widget_def.php_callback' => 'PHP callback',
+  'widget_def.questionAnswerStatistics' => 'Question Answers Statistics',
   'widget_def.search_forum' => 'Search forum',
   'widget_def.share_page' => 'Share this page',
   'widget_def.snog_forms' => 'Form list',

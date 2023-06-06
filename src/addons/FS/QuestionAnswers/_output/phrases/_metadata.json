@@ -1,4 +1,10 @@
 {
+    "find_all_article_by_x.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "e197fe5c8625e600b01cd05cf96c7330"
+    },
     "fs_answer_count.txt": {
         "global_cache": false,
         "version_id": 1000700,
@@ -16,5 +22,17 @@
         "version_id": 1000700,
         "version_string": "1.0.7",
         "hash": "2c167c7f6caaa6858b0fcd1388ad56d4"
+    },
+    "widget_def.questionAnswerStatistics.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "82afc0b4e26f60d79d2608408906fb5f"
+    },
+    "widget_def_desc.questionAnswerStatistics.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "0d851cd92199688a24820a38c2266fdb"
     }
 }
