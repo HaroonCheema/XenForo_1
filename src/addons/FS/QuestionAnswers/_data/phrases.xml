@@ -4,6 +4,7 @@
   <phrase title="answers_on_questions_in_which_youve_answered" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Answers on questions in which you've answered]]></phrase>
   <phrase title="answers_on_questions_that_you_youve_started" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Answers on questions that  you've  started]]></phrase>
   <phrase title="find_all_answers_by_x" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Find all answers by {name}]]></phrase>
+  <phrase title="find_all_article_by_x" version_id="1000700" version_string="1.0.7"><![CDATA[Find all articles by {name}]]></phrase>
   <phrase title="find_all_questions_by_x" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Find all questions by {name}]]></phrase>
   <phrase title="fs_answer_count" version_id="1000700" version_string="1.0.7"><![CDATA[Answer Expert]]></phrase>
   <phrase title="fs_new_answers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Answers]]></phrase>
@@ -33,4 +34,6 @@
   <phrase title="unanswered_questions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Unanswered questions]]></phrase>
   <phrase title="unread_answers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Unread answers]]></phrase>
   <phrase title="unread_questions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Unread Questions]]></phrase>
+  <phrase title="widget_def.questionAnswerStatistics" version_id="1000700" version_string="1.0.7"><![CDATA[Question Answers Statistics]]></phrase>
+  <phrase title="widget_def_desc.questionAnswerStatistics" version_id="1000700" version_string="1.0.7"><![CDATA[Displays the total count of questions and answers.]]></phrase>
 </phrases>
