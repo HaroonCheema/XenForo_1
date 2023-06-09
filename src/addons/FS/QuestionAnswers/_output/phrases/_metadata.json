@@ -23,6 +23,54 @@
         "version_string": "1.0.7",
         "hash": "2c167c7f6caaa6858b0fcd1388ad56d4"
     },
+    "nav.fs_question_answers_contributedQuestions.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "43d3d3e34329724f3125f98b58e5cefa"
+    },
+    "nav.fs_question_answers_findThreads.txt": {
+        "global_cache": false,
+        "version_id": 1000800,
+        "version_string": "1.0.8",
+        "hash": "b7d5012826e049284f4548a70b88de3f"
+    },
+    "nav.fs_question_answers_markForumsRead.txt": {
+        "global_cache": false,
+        "version_id": 1000800,
+        "version_string": "1.0.8",
+        "hash": "1afe2e7d1ecf4a16d7b94e0a8999a8f6"
+    },
+    "nav.fs_question_answers_newPosts.txt": {
+        "global_cache": false,
+        "version_id": 1000800,
+        "version_string": "1.0.8",
+        "hash": "3f51c44b3ba9a5e2849bcc6767fef537"
+    },
+    "nav.fs_question_answers_searchForums.txt": {
+        "global_cache": false,
+        "version_id": 1000800,
+        "version_string": "1.0.8",
+        "hash": "310519ddd50d32aead73cd5cad614840"
+    },
+    "nav.fs_question_answers_unanswered.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "c850542518f578f6c20feff7d931c76d"
+    },
+    "nav.fs_question_answers_watchedForums.txt": {
+        "global_cache": false,
+        "version_id": 1000700,
+        "version_string": "1.0.7",
+        "hash": "1a38116241d6d45bc14024e7740f62a9"
+    },
+    "nav.fs_question_answers_yourThreads.txt": {
+        "global_cache": false,
+        "version_id": 1000800,
+        "version_string": "1.0.8",
+        "hash": "097a904462e44520d43cc0f49807c3e3"
+    },
     "widget_def.questionAnswerStatistics.txt": {
         "global_cache": false,
         "version_id": 1000700,

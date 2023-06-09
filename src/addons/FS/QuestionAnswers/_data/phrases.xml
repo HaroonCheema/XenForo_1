@@ -7,6 +7,7 @@
   <phrase title="find_all_article_by_x" version_id="1000700" version_string="1.0.7"><![CDATA[Find all articles by {name}]]></phrase>
   <phrase title="find_all_questions_by_x" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Find all questions by {name}]]></phrase>
   <phrase title="fs_answer_count" version_id="1000700" version_string="1.0.7"><![CDATA[Answer Expert]]></phrase>
+  <phrase title="fs_auction_maxBid" version_id="1000700" version_string="1.0.7"><![CDATA[Top bid]]></phrase>
   <phrase title="fs_new_answers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Answers]]></phrase>
   <phrase title="fs_new_questions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Questions]]></phrase>
   <phrase title="fs_question_and_answer_count" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[QeA]]></phrase>
@@ -18,6 +19,14 @@
   <phrase title="nav.fs_new_answers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Answers]]></phrase>
   <phrase title="nav.fs_new_questions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Questions]]></phrase>
   <phrase title="nav.fs_questionAnswer_nav" version_id="1000100" version_string="1.0.1"><![CDATA[QuestionsAnswers]]></phrase>
+  <phrase title="nav.fs_question_answers_contributedQuestions" version_id="1000700" version_string="1.0.7"><![CDATA[Questions with your answers]]></phrase>
+  <phrase title="nav.fs_question_answers_findThreads" version_id="1000800" version_string="1.0.8"><![CDATA[Find questions]]></phrase>
+  <phrase title="nav.fs_question_answers_markForumsRead" version_id="1000800" version_string="1.0.8"><![CDATA[Mark forum read]]></phrase>
+  <phrase title="nav.fs_question_answers_newPosts" version_id="1000800" version_string="1.0.8"><![CDATA[New questions]]></phrase>
+  <phrase title="nav.fs_question_answers_searchForums" version_id="1000800" version_string="1.0.8"><![CDATA[Search question]]></phrase>
+  <phrase title="nav.fs_question_answers_unanswered" version_id="1000700" version_string="1.0.7"><![CDATA[Unanswered questions]]></phrase>
+  <phrase title="nav.fs_question_answers_watchedForums" version_id="1000700" version_string="1.0.7"><![CDATA[Watched forums]]></phrase>
+  <phrase title="nav.fs_question_answers_yourThreads" version_id="1000800" version_string="1.0.8"><![CDATA[Your questions]]></phrase>
   <phrase title="no_unread_answers_view_latest" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[You have no unread answers. You may <a href="{link}" rel="nofollow">view all latest answers</a> instead.]]></phrase>
   <phrase title="no_unread_questions_view_latest" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[You have no unread questions. You may <a href="{link}" rel="nofollow">view all latest questions</a> instead.]]></phrase>
   <phrase title="option.fs_qa_routeFilterId" version_id="1000100" version_string="1.0.1"><![CDATA[Route Filter ID]]></phrase>

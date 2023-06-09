@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
   <option option_id="auction_TimeZone" edit_format="textbox" data_type="string">
-    <default_value>Mountain Timezone
-Mountain Timezone1</default_value>
+    <default_value>Pacific Timezone (PT)</default_value>
     <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>

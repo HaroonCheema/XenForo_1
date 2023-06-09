@@ -49,7 +49,7 @@
   <phrase title="fs_auction_DD" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[00 D]]></phrase>
   <phrase title="fs_auction_HH" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[00 H]]></phrase>
   <phrase title="fs_auction_MM" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[00 M]]></phrase>
-  <phrase title="fs_auction_Please_enter_future_date" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Please enter future date...!]]></phrase>
+  <phrase title="fs_auction_Please_enter_future_date" version_id="1000400" version_string="1.0.4 Alpha"><![CDATA[Auction end date should be greater then today...!]]></phrase>
   <phrase title="fs_auction_SS" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[00 S]]></phrase>
   <phrase title="fs_auction_active" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Active]]></phrase>
   <phrase title="fs_auction_add_auction" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Add auction]]></phrase>
@@ -77,9 +77,11 @@ Thankyou...!
   <phrase title="fs_auction_expired" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Expired]]></phrase>
   <phrase title="fs_auction_grid_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Grid view layout]]></phrase>
   <phrase title="fs_auction_list_view_layout" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List view layout]]></phrase>
+  <phrase title="fs_auction_maxBid" version_id="1000500" version_string="1.0.5 Alpha"><![CDATA[Current bid]]></phrase>
   <phrase title="fs_auction_maximum_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Maximum attachments per auction : ]]></phrase>
   <phrase title="fs_auction_no_auctions_have_been_created_yet" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No auctions have been created yet.]]></phrase>
   <phrase title="fs_auction_no_categories_exist_at_this_time" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[No auction categories exist at this time.]]></phrase>
+  <phrase title="fs_auction_permission_denied" version_id="1000500" version_string="1.0.5 Alpha"><![CDATA[You must login to add auction]]></phrase>
   <phrase title="fs_auction_requested_category_not_found" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Requested category not found...!]]></phrase>
   <phrase title="fs_auction_select_amount" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Enter Amount first...!]]></phrase>
   <phrase title="fs_auction_statistics" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction statistics]]></phrase>

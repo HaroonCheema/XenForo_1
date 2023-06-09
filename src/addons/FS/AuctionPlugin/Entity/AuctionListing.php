@@ -150,4 +150,14 @@ class AuctionListing extends Entity implements LinkableInterface
 
         return $attachmentData->Data ? $attachmentData->Data->getThumbnailUrl() : '';
     }
+    public function getMaxBidOfAuction()
+    {
+        $maxBid = $this->finder('FS\AuctionPlugin:Bidding')->where('auction_id', $this->auction_id)->order('bidding_amount', 'desc')->fetchOne();
+if ($maxBid){
+    return $maxBid->bidding_amount;
+}
+else{
+    return false;
+}
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: ab50fe3274999fdffc1bdee73725e35e
+// FROM HASH: 2c7253bf4a3d8c592961c1f70938b87a
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -99,7 +99,7 @@ return array(
 		
 		<div class="structItem-cell structItem-cell--listingMeta" style="width:320px">
 
-		<div id="auction-counter">
+		<div id="auction-counter" style="display:none;">
 								
 						<span class="label  label--blue label--counter-single" id="days-auction">
 							 ' . '00 D' . '
@@ -176,7 +176,7 @@ return array(
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['auction']['title']));
 	$__finalCompiled .= '
 ';
-	if ($__vars['xf']['visitor']['user_id'] == $__vars['auction']['User']['user_id']) {
+	if (($__vars['xf']['visitor']['user_id'] == $__vars['auction']['User']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
 		$__compilerTemp1 = '';
 		if ($__vars['auction']['ends_on'] > $__vars['xf']['time']) {
 			$__compilerTemp1 .= '
@@ -234,7 +234,6 @@ function DateTimeConverter(unixdatetime) {
   var date = humanDate.getDate();
 
   var fulldate = year + "-" + month + "-" + date + " " + wStart_time + ":00";
-
   // FormatingDateEspecialyForIOS
   var tempCountTimmer = fulldate.split(/[- :]/);
   // Apply each element to the Date function
@@ -256,6 +255,7 @@ function timmerCounter(start_datetime) {
 
 
   let humanDateTime = DateTimeConverter(start_datetime);
+document.getElementById("auction-counter").style.display = "block";
 
   var countDownDate = new Date(humanDateTime).getTime();
   var counter = setInterval(function () {
@@ -295,7 +295,7 @@ function timmerCounter(start_datetime) {
 			</li>
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list ' . $__templater->escape($__vars['oppositeClass']) . '">
-				
+
 		';
 	if ($__vars['auctionUnread']) {
 		$__finalCompiled .= '
@@ -356,8 +356,20 @@ function timmerCounter(start_datetime) {
 				</dl>
 			
 		</div>	
+';
+	if ($__vars['auction']['ends_on'] > $__vars['xf']['time']) {
+		$__finalCompiled .= '
 				<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['ends_on']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+	';
+	} else {
+		$__finalCompiled .= '
+			<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+';
+	}
+	$__finalCompiled .= '
+	
 </div>
 
 	   <div class="block-container">

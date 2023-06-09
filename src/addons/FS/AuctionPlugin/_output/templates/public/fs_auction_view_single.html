@@ -1,5 +1,5 @@
 <xf:title>{{$auction.title}}</xf:title>
-<xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id">
+<xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id OR $xf.visitor.is_admin">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
 	<xf:if is="$auction.ends_on > $xf.time">
@@ -32,7 +32,6 @@ function DateTimeConverter(unixdatetime) {
   var date = humanDate.getDate();
 
   var fulldate = year + "-" + month + "-" + date + " " + wStart_time + ":00";
-
   // FormatingDateEspecialyForIOS
   var tempCountTimmer = fulldate.split(/[- :]/);
   // Apply each element to the Date function
@@ -54,6 +53,7 @@ function timmerCounter(start_datetime) {
 
 
   let humanDateTime = DateTimeConverter(start_datetime);
+document.getElementById("auction-counter").style.display = "block";
 
   var countDownDate = new Date(humanDateTime).getTime();
   var counter = setInterval(function () {
@@ -91,7 +91,7 @@ function timmerCounter(start_datetime) {
 			</li>
 		</ul>
 		<ul class="message-attribution-opposite message-attribution-opposite--list {$oppositeClass}">
-				
+
 		<xf:if is="$auctionUnread">
 				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
 			</xf:if>
@@ -211,7 +211,7 @@ function timmerCounter(start_datetime) {
 		
 		<div class="structItem-cell structItem-cell--listingMeta" style="width:320px">
 
-		<div id="auction-counter">
+		<div id="auction-counter" style="display:none;">
 								
 						<span class="label  label--blue label--counter-single" id="days-auction">
 							 {{phrase('fs_auction_DD')}}
@@ -238,8 +238,14 @@ function timmerCounter(start_datetime) {
 				</dl>
 			
 		</div>	
+<xf:if is="$auction.ends_on > $xf.time">
 				<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
 					width=" " onload="timmerCounter({$auction.ends_on})" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+	<xf:else />
+			<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
+					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+</xf:if>
+	
 </div>
 
 	   <div class="block-container">

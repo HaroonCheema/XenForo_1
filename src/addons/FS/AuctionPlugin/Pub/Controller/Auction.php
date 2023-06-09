@@ -19,9 +19,17 @@ class Auction extends AbstractController
 
     public function actionAdd(ParameterBag $params)
     {
+        $visitor = \XF::visitor();
+
+        if ($visitor->user_id!=null || $visitor->user_id !=0){
         $data = $this->em()->create('FS\AuctionPlugin:AuctionListing');
 
         return $this->actionAddEdit($data, $params);
+        }else{
+            throw $this->exception(
+                $this->notFound(\XF::phrase("fs_auction_permission_denied"))
+            );
+        }
     }
 
     public function actionEdit(ParameterBag $params)
@@ -139,7 +147,7 @@ class Auction extends AbstractController
         $data->content = $message;
         $data->user_id = $visitor->user_id;
         $data->prefix_id = $input['prefix_id'];
-        $data->ends_on = strtotime($input['ends_on'] . ' 00:00 America/New_York');
+        $data->ends_on = strtotime($input['ends_on'] . ' 00:00 America/Los_Angeles');
         $data->timezone = $input['timezone'];
         $data->starting_bid = $input['starting_bid'];
         $data->bid_increament = $input['bid_increament'];

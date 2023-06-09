@@ -13,8 +13,7 @@ class QuestionAnswer extends AbstractData
 	public function getEntityWith($forView = false)
 	{
 		$get = ['Thread', 'Thread.Forum'];
-		if ($forView)
-		{
+		if ($forView) {
 			$get[] = 'User';
 
 			$visitor = \XF::visitor();
@@ -28,17 +27,15 @@ class QuestionAnswer extends AbstractData
 	{
 		/** @var \XF\Entity\Post $entity */
 
-		if (!$entity->Thread || !$entity->Thread->Forum)
-		{
+		if (!$entity->Thread || !$entity->Thread->Forum) {
 			return null;
 		}
 
 		/** @var \XF\Entity\Thread $thread */
 		$thread = $entity->Thread;
-                
-         
-		if ($entity->isFirstPost())
-		{
+
+
+		if ($entity->isFirstPost()) {
 			return $this->searcher->handler('thread')->getIndexData($thread);
 		}
 
@@ -50,8 +47,7 @@ class QuestionAnswer extends AbstractData
 			'metadata' => $this->getMetaData($entity)
 		]);
 
-		if (!$entity->isVisible())
-		{
+		if (!$entity->isVisible()) {
 			$index->setHidden();
 		}
 
@@ -67,8 +63,7 @@ class QuestionAnswer extends AbstractData
 			'node' => $thread->node_id,
 			'thread' => $entity->thread_id
 		];
-		if ($thread->prefix_id)
-		{
+		if ($thread->prefix_id) {
 			$metadata['prefix'] = $thread->prefix_id;
 		}
 
@@ -85,8 +80,7 @@ class QuestionAnswer extends AbstractData
 	public function canIncludeInResults(Entity $entity, array $resultIds)
 	{
 		/** @var \XF\Entity\Post $entity */
-		if (isset($resultIds['thread-' . $entity->thread_id]) && $entity->isFirstPost())
-		{
+		if (isset($resultIds['thread-' . $entity->thread_id]) && $entity->isFirstPost()) {
 			return false;
 		}
 
@@ -113,12 +107,11 @@ class QuestionAnswer extends AbstractData
 
 	public function getSearchFormTab()
 	{
-                $questionForumId = intval(\XF::options()->fs_questionAnswerForum);
-                if(!$questionForumId)
-                {
-                    return [];
-                }
-                
+		$questionForumId = intval(\XF::options()->fs_questionAnswerForum);
+		if (!$questionForumId) {
+			return [];
+		}
+
 		return [
 			'title' => \XF::phrase('fs_search_question_answers'),
 			'order' => 10
@@ -127,7 +120,7 @@ class QuestionAnswer extends AbstractData
 
 	public function getSectionContext()
 	{
-		return 'forums';
+		return 'fs_questionAnswer_nav';
 	}
 
 	public function getSearchFormData()
@@ -146,38 +139,38 @@ class QuestionAnswer extends AbstractData
 	 * @return \XF\Tree
 	 */
 	protected function getSearchableNodeTree()
-	{   
-            //             ->listable()->setDefaultOrder('lft')
-            
-            $questionForumId = intval(\XF::options()->fs_questionAnswerForum);
-            
-            return \XF::finder('XF:Forum')->where('forum_type_id','question')->where('node_id',$questionForumId)->fetch();
-            
-//            $nodeIds = \XF::finder('XF:Forum')->where('forum_type_id','question')->order('node_id')->pluckFrom('node_id')->fetch()->toArray();
-//            
-//            $nodes = \XF::finder('XF:Node')->whereIds($nodeIds)->fetch();
-            
+	{
+		//             ->listable()->setDefaultOrder('lft')
 
-             
-            
+		$questionForumId = intval(\XF::options()->fs_questionAnswerForum);
+
+		return \XF::finder('XF:Forum')->where('forum_type_id', 'question')->where('node_id', $questionForumId)->fetch();
+
+		//            $nodeIds = \XF::finder('XF:Forum')->where('forum_type_id','question')->order('node_id')->pluckFrom('node_id')->fetch()->toArray();
+		//            
+		//            $nodes = \XF::finder('XF:Node')->whereIds($nodeIds)->fetch();
+
+
+
+
 		/** @var \XF\Repository\Node $nodeRepo */
-//		$nodeRepo = \XF::repository('XF:Node');
-//                
-//                $nodeRepo->loadNodeTypeDataForNodes($nodes);
-////		 $nodeRepo->filterViewable($nodes);
-//                
-//		$nodeTree = $nodeRepo->createNodeTree($nodes);
-                
-                
+		//		$nodeRepo = \XF::repository('XF:Node');
+		//                
+		//                $nodeRepo->loadNodeTypeDataForNodes($nodes);
+		////		 $nodeRepo->filterViewable($nodes);
+		//                
+		//		$nodeTree = $nodeRepo->createNodeTree($nodes);
 
-//		 only list nodes that are forums or contain forums
-//		$nodeTree = $nodeTree->filter(null, function($id, $node, $depth, $children, $tree)
-//		{
-//			return ($children || $node->node_type_id == 'Forum');
-//		});
-                 
-                
-//		return $nodeTree;
+
+
+		//		 only list nodes that are forums or contain forums
+		//		$nodeTree = $nodeTree->filter(null, function($id, $node, $depth, $children, $tree)
+		//		{
+		//			return ($children || $node->node_type_id == 'Forum');
+		//		});
+
+
+		//		return $nodeTree;
 	}
 
 	protected function getPrefixListData()
@@ -190,62 +183,48 @@ class QuestionAnswer extends AbstractData
 	public function applyTypeConstraintsFromInput(\XF\Search\Query\Query $query, \XF\Http\Request $request, array &$urlConstraints)
 	{
 		$minReplyCount = $request->filter('c.min_reply_count', 'uint');
-                
-		if ($minReplyCount)
-		{
+
+		if ($minReplyCount) {
 			$query->withSql(new \XF\Search\Query\SqlConstraint(
 				'thread.reply_count >= %s',
 				$minReplyCount,
 				$this->getThreadQueryTableReference()
 			));
-		}
-		else
-		{
+		} else {
 			unset($urlConstraints['min_reply_count']);
 		}
 
 		$prefixes = $request->filter('c.prefixes', 'array-uint');
 		$prefixes = array_unique($prefixes);
-                                                
-		if ($prefixes && reset($prefixes))
-		{
+
+		if ($prefixes && reset($prefixes)) {
 			$query->withMetadata('prefix', $prefixes);
-		}
-		else
-		{
+		} else {
 			unset($urlConstraints['prefixes']);
 		}
 
-		$threadId = $request->filter('c.thread', 'uint');                      
-		if ($threadId)
-		{
+		$threadId = $request->filter('c.thread', 'uint');
+		if ($threadId) {
 			$query->withMetadata('thread', $threadId);
 
-			if ($query instanceof \XF\Search\Query\KeywordQuery)
-			{
+			if ($query instanceof \XF\Search\Query\KeywordQuery) {
 				$query->inTitleOnly(false);
 			}
-		}
-		else
-		{
+		} else {
 			unset($urlConstraints['thread']);
 
 			$nodeIds = $request->filter('c.nodes', 'array-uint');
-                        
+
 			$nodeIds = array_unique($nodeIds);
-			if ($nodeIds && reset($nodeIds))
-			{
-				if ($request->filter('c.child_nodes', 'bool'))
-				{
+			if ($nodeIds && reset($nodeIds)) {
+				if ($request->filter('c.child_nodes', 'bool')) {
 					/** @var \XF\Repository\Node $nodeRepo */
 					$nodeRepo = \XF::repository('XF:Node');
 					$nodeTree = $nodeRepo->createNodeTree($nodeRepo->getFullNodeListWithTypeData()->filterViewable());
 
 					$searchNodeIds = array_fill_keys($nodeIds, true);
-					$nodeTree->traverse(function($id, $node) use (&$searchNodeIds)
-					{
-						if (isset($searchNodeIds[$id]) || isset($searchNodeIds[$node->parent_node_id]))
-						{
+					$nodeTree->traverse(function ($id, $node) use (&$searchNodeIds) {
+						if (isset($searchNodeIds[$id]) || isset($searchNodeIds[$node->parent_node_id])) {
 							// if we're in the search node list, the user selected the node explicitly
 							// if the parent is in the list, then that node was selected via traversal so we're included too
 							$searchNodeIds[$id] = true;
@@ -255,90 +234,71 @@ class QuestionAnswer extends AbstractData
 					});
 
 					$nodeIds = array_unique(array_keys($searchNodeIds));
-				}
-				else
-				{
+				} else {
 					unset($urlConstraints['child_nodes']);
 				}
 
 				$query->withMetadata('node', $nodeIds);
-			}
-			else
-			{
+			} else {
 				unset($urlConstraints['nodes']);
 				unset($urlConstraints['child_nodes']);
-                                
-                                // applyTypeConstraints if ApplicableQuestion Forum is not set in options
-                                $this->applyTypeConstraints($query);
+
+				// applyTypeConstraints if ApplicableQuestion Forum is not set in options
+				$this->applyTypeConstraints($query);
 			}
 		}
 
 		// this will implicitly limit results to just the thread record so it's not currently exposed to the UI
 		$threadType = $request->filter('c.thread_type', 'str');
-		if ($threadType)
-		{
+		if ($threadType) {
 			$query->withMetadata('thread_type', $threadType);
-		}
-		else
-		{
+		} else {
 			unset($urlConstraints['thread_type']);
 		}
-
 	}
-        
-        public function applyTypeConstraints(\XF\Search\Query\Query $query)
-        {
-            $handler = $query->getHandler();
-            
-            if($handler instanceof \FS\QuestionAnswers\Search\Data\QuestionAnswer)
-            {
-                $questionForumId = \XF::options()->fs_questionAnswerForum;
-                
-                $query->withSql(new \XF\Search\Query\SqlConstraint(
-                                    'thread.node_id = %d',
-                                    intval($questionForumId),
-                                    $this->getThreadQueryTableReference()
-                            ));
-            
-            }
-            
-        }
+
+	public function applyTypeConstraints(\XF\Search\Query\Query $query)
+	{
+		$handler = $query->getHandler();
+
+		if ($handler instanceof \FS\QuestionAnswers\Search\Data\QuestionAnswer) {
+			$questionForumId = \XF::options()->fs_questionAnswerForum;
+
+			$query->withSql(new \XF\Search\Query\SqlConstraint(
+				'thread.node_id = %d',
+				intval($questionForumId),
+				$this->getThreadQueryTableReference()
+			));
+		}
+	}
 
 	public function getTypePermissionConstraints(\XF\Search\Query\Query $query, $isOnlyType)
-	{   
+	{
 		$skip = [];
 		$forums = \XF::em()->getFinder('XF:Forum')
 			->with('Node.Permissions|' . \XF::visitor()->permission_combination_id)
-                        ->fetch();
+			->fetch();
 
-		foreach ($forums AS $forum)
-		{
-			if (!$forum->canView())
-			{
+		foreach ($forums as $forum) {
+			if (!$forum->canView()) {
 				$skip[] = $forum->node_id;
 			}
 		}
 
-		if ($skip)
-		{
+		if ($skip) {
 			return [
 				new MetadataConstraint('node', $skip, MetadataConstraint::MATCH_NONE)
 			];
-		}
-		else
-		{
+		} else {
 			return [];
 		}
 	}
 
 	public function getTypeOrder($order)
 	{
-		if ($order == 'replies')
-		{
+		if ($order == 'replies') {
 			return new \XF\Search\Query\SqlOrder('thread.reply_count DESC', $this->getThreadQueryTableReference());
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}

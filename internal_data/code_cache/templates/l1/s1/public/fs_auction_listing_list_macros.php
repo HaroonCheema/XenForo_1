@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 84457f35951ba4193962eaaa63b1b1d3
+// FROM HASH: 733343f24ad3b10a9da8a7027fec5122
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -49,7 +49,7 @@ return array(
 						' . $__templater->func('phrase_dynamic', array($__templater->method($__vars['listing']['Prefix'], 'getPhraseName', array()), ), true) . '
 					</span>
 				<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">' . $__templater->escape($__vars['listing']['title']) . '</a>
-					<span class="structItem-listingDescription"> ' . $__templater->escape($__vars['listing']['starting_bid']) . ' ' . ' $' . '</span>
+					<span class="structItem-listingDescription">  ' . ' $' . $__templater->escape($__vars['listing']['starting_bid']) . '</span>
 			</div>
 			<div class="structItem-minor">
 
@@ -122,7 +122,20 @@ return array(
 	}
 	$__finalCompiled .= ' </dd>
 			</dl>
-			
+				';
+	if ($__templater->method($__vars['listing'], 'getMaxBidOfAuction', array())) {
+		$__finalCompiled .= '
+					
+							<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt >' . 'Current bid' . '</dt>
+					<dd >
+							' . ' $' . $__templater->escape($__templater->method($__vars['listing'], 'getMaxBidOfAuction', array())) . '
+					</dd>
+				</dl>
+							
+						';
+	}
+	$__finalCompiled .= '
 		</div>
 	</div>
 ';
@@ -199,18 +212,14 @@ return array(
 							<span class="u-srOnly">' . 'auctionLocked' . '</span>
 						</span>
 						</dd>
-				</dl>
-									
+				</dl>						
 					';
 	} else {
 		$__finalCompiled .= '
-
 						
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>' . 'Expire' . '</dt>
 						<dd id="auction-counter-' . $__templater->escape($__vars['listing']['auction_id']) . '">	
-						
-								
 							
 							<span class="label  label--blue label--counter" id="days-auction-' . $__templater->escape($__vars['listing']['auction_id']) . '">
 								 ' . '00 D' . '
@@ -255,15 +264,30 @@ return array(
 						';
 	}
 	$__finalCompiled .= '
+				<div class="auction-category">' . $__templater->func('snippet', array($__vars['listing']['content'], 50, array('stripBbCode' => true, ), ), true) . '</div>
+						';
+	if ($__templater->method($__vars['listing'], 'getMaxBidOfAuction', array())) {
+		$__finalCompiled .= '
+					
+							<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt >' . 'Current bid' . '</dt>
+					<dd >
+							' . ' $' . $__templater->escape($__templater->method($__vars['listing'], 'getMaxBidOfAuction', array())) . '
+					</dd>
+				</dl>
+							
+						';
+	}
+	$__finalCompiled .= '
+							
 					</ul>
 
 			</div>
-				<div class="auction-category">' . $__templater->func('snippet', array($__vars['listing']['content'], 50, array('stripBbCode' => true, ), ), true) . '</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 					<dt style="color:black; font-size:17px">' . 'Bid' . '</dt>
 					<dd style="color:black; font-size:17px">
-							' . $__templater->escape($__vars['listing']['starting_bid']) . ' ' . ' $' . '
+							 ' . ' $' . $__templater->escape($__vars['listing']['starting_bid']) . '
 					</dd>
 				</dl>
 		

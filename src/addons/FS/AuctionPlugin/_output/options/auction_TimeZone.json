@@ -6,7 +6,7 @@
     "validation_class": "",
     "validation_method": "",
     "advanced": false,
-    "default_value": "Mountain Timezone\nMountain Timezone1",
+    "default_value": "Pacific Timezone (PT)",
     "relations": {
         "auction": 1
     }

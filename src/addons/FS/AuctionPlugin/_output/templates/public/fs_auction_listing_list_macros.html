@@ -30,7 +30,7 @@
 						{{ phrase_dynamic($listing.Prefix.getPhraseName()) }}
 					</span>
 				<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.title}</a>
-					<span class="structItem-listingDescription"> {{ $listing.starting_bid}} {{ phrase('dollorSymbol') }}</span>
+					<span class="structItem-listingDescription">  {{ phrase('dollorSymbol') }}{{ $listing.starting_bid}}</span>
 			</div>
 			<div class="structItem-minor">
 
@@ -94,7 +94,16 @@
 					</li>
 					</xf:if> </dd>
 			</dl>
-			
+				<xf:if is="$listing.getMaxBidOfAuction()">
+					
+							<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt >{{phrase('fs_auction_maxBid')}}</dt>
+					<dd >
+							{{ phrase('dollorSymbol') }}{{$listing.getMaxBidOfAuction()}}
+					</dd>
+				</dl>
+							
+						</xf:if>
 		</div>
 	</div>
 </xf:macro>
@@ -149,16 +158,12 @@
 							<span class="u-srOnly">{{ phrase('auctionLocked') }}</span>
 						</span>
 						</dd>
-				</dl>
-									
+				</dl>						
 					<xf:else />
-
 						
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 						<dt>{{ phrase('auctionEndsOn') }}</dt>
 						<dd id="auction-counter-{{$listing.auction_id}}">	
-						
-								
 							
 							<span class="label  label--blue label--counter" id="days-auction-{{$listing.auction_id}}">
 								 {{phrase('fs_auction_DD')}}
@@ -194,15 +199,26 @@
 							<li>{{phrase('auctionEndsOn')}} . {{date($listing.ends_on,'F j, Y')}}
 </li>
 						</xf:if>
+				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
+						<xf:if is="$listing.getMaxBidOfAuction()">
+					
+							<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt >{{phrase('fs_auction_maxBid')}}</dt>
+					<dd >
+							{{ phrase('dollorSymbol') }}{{$listing.getMaxBidOfAuction()}}
+					</dd>
+				</dl>
+							
+						</xf:if>
+							
 					</ul>
 
 			</div>
-				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
 					<dt style="color:black; font-size:17px">{{ phrase('AuctionStarting_bid') }}</dt>
 					<dd style="color:black; font-size:17px">
-							{$listing.starting_bid} {{phrase('dollorSymbol')}}
+							 {{phrase('dollorSymbol')}}{$listing.starting_bid}
 					</dd>
 				</dl>
 		
