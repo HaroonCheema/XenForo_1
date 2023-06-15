@@ -141,7 +141,7 @@ document.getElementById("auction-counter").style.display = "block";
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_endDate') }}</dt>
 					<dd>
-						{{date($auction.ends_on,'F j, Y')}}
+						{{$auction.getFormatedTime12()}}
 				
 					</dd>
 				</dl>

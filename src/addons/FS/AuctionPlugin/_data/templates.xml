@@ -266,7 +266,7 @@
 		</td>
 	</tr>
 </table>]]></template>
-  <template type="public" title="addEdit_Auction" version_id="1000200" version_string="1.0.2 Alpha"><![CDATA[<xf:if is="$data.isInsert()">
+  <template type="public" title="addEdit_Auction" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[<xf:if is="$data.isInsert()">
 	<xf:title>{{ phrase('auctionPostThread') }}</xf:title>
 <xf:else />
 	<xf:title>{{ phrase('fs_auction_edit_post') }}</xf:title>
@@ -319,13 +319,28 @@
         </xf:formrow>
       </div>
       
-		
+		<!--
         <xf:formrow label="{{ phrase('auction_endDate') }}" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
 <xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
               required="true"
 				
 				label="{{ phrase('auction_endDate') }}" />
 
+        </xf:formrow>
+		-->
+		 <xf:formrow label="{{ phrase('auction_endDate') }}" rowtype="input" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
+          <div class="inputGroup">
+            	<xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"   required="true"
+				 />
+			  
+            <span class="inputGroup-splitter"></span>
+          
+			 <span class="inputGroup" dir="ltr">
+			  <xf:textbox name="ends_on_time" class="input--date time start" required="true" type="time"
+						value="{{$data.ends_on ? $data.getFormatedTime() : ''}}"
+						data-xf-init="time-picker" data-moment="{$timeFormat}" />
+</span>
+          </div>
         </xf:formrow>
 		
 		<xf:selectrow
@@ -1481,7 +1496,7 @@ min-height:275px;
 		
 	}
 }]]></template>
-  <template type="public" title="fs_auction_listing_list_macros" version_id="1000500" version_string="1.0.5 Alpha"><![CDATA[<xf:macro name="listing"
+  <template type="public" title="fs_auction_listing_list_macros" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[<xf:macro name="listing"
 	arg-listing="!"
 	arg-category="{{ null }}"
 	arg-showWatched="{{ true }}"
@@ -1540,7 +1555,7 @@ min-height:275px;
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt >{{ phrase('auctionEndsOn') }}</dt>
 				<dd>
-					{{date($listing.ends_on,'F j, Y')}}
+					{{$listing.getFormatedTime12()}}
 
 				</dd>
 			</dl>
@@ -1679,7 +1694,7 @@ min-height:275px;
 						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
 						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
 						<xf:if is="!$category OR $category.hasChildren()">
-							<li>{{phrase('auctionEndsOn')}} . {{date($listing.ends_on,'F j, Y')}}
+							<li>{{phrase('auctionEndsOn')}} . {{$listing.getFormatedTime12()}}
 </li>
 						</xf:if>
 				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>
@@ -1757,7 +1772,7 @@ min-height:275px;
 
   <xf:hiddenval name="search">1</xf:hiddenval>
 </xf:form>]]></template>
-  <template type="public" title="fs_auction_view_single" version_id="1000400" version_string="1.0.4 Alpha"><![CDATA[<xf:title>{{$auction.title}}</xf:title>
+  <template type="public" title="fs_auction_view_single" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[<xf:title>{{$auction.title}}</xf:title>
 <xf:pageaction if="$xf.visitor.user_id == $auction.User.user_id OR $xf.visitor.is_admin">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('auction/categories/edit', $auction) }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
@@ -1900,7 +1915,7 @@ document.getElementById("auction-counter").style.display = "block";
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_endDate') }}</dt>
 					<dd>
-						{{date($auction.ends_on,'F j, Y')}}
+						{{$auction.getFormatedTime12()}}
 				
 					</dd>
 				</dl>

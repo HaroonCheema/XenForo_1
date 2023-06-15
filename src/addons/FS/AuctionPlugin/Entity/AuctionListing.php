@@ -144,6 +144,20 @@ class AuctionListing extends Entity implements LinkableInterface
         ];
     }
 
+
+    public function getFormatedTime()
+    {
+        $tempDate = new \DateTime('@' . $this->ends_on);
+        $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
+        return $date->format("H:i");
+    }
+    public function getFormatedTime12()
+    {
+        $tempDate = new \DateTime('@' . $this->ends_on);
+        $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
+        return $date->format("F j Y, h:i A");
+    }
+
     public function getImage()
     {
         $attachmentData = $this->finder('XF:Attachment')->where('content_id', $this->auction_id)->where('content_type', 'fs_auction')->fetchOne();

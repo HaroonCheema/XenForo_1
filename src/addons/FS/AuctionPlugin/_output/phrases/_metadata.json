@@ -71,6 +71,12 @@
         "version_string": "1.0.2 Alpha",
         "hash": "ae72a34db9d323f6d57cf3759c10608c"
     },
+    "auction_timeZone_explain.txt": {
+        "global_cache": false,
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "4bd26efeed41e9fa736bf231e5268741"
+    },
     "biddingNotAllowed.txt": {
         "global_cache": false,
         "version_id": 1000100,

@@ -7,7 +7,6 @@
   <phrase title="find_all_article_by_x" version_id="1000700" version_string="1.0.7"><![CDATA[Find all articles by {name}]]></phrase>
   <phrase title="find_all_questions_by_x" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Find all questions by {name}]]></phrase>
   <phrase title="fs_answer_count" version_id="1000700" version_string="1.0.7"><![CDATA[Answer Expert]]></phrase>
-  <phrase title="fs_auction_maxBid" version_id="1000700" version_string="1.0.7"><![CDATA[Top bid]]></phrase>
   <phrase title="fs_new_answers" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Answers]]></phrase>
   <phrase title="fs_new_questions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Questions]]></phrase>
   <phrase title="fs_question_and_answer_count" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[QeA]]></phrase>

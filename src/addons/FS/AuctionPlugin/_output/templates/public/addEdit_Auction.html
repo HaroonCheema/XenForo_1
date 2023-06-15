@@ -51,13 +51,28 @@
         </xf:formrow>
       </div>
       
-		
+		<!--
         <xf:formrow label="{{ phrase('auction_endDate') }}" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
 <xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"
               required="true"
 				
 				label="{{ phrase('auction_endDate') }}" />
 
+        </xf:formrow>
+		-->
+		 <xf:formrow label="{{ phrase('auction_endDate') }}" rowtype="input" hint="{{ phrase('auction_required') }}" explain="{{ phrase('auction_endDate_explain') }}">
+          <div class="inputGroup">
+            	<xf:dateinput name="ends_on" value="{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}"   required="true"
+				 />
+			  
+            <span class="inputGroup-splitter"></span>
+          
+			 <span class="inputGroup" dir="ltr">
+			  <xf:textbox name="ends_on_time" class="input--date time start" required="true" type="time"
+						value="{{$data.ends_on ? $data.getFormatedTime() : ''}}"
+						data-xf-init="time-picker" data-moment="{$timeFormat}" />
+</span>
+          </div>
         </xf:formrow>
 		
 		<xf:selectrow

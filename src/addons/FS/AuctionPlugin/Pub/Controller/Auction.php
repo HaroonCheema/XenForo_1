@@ -21,11 +21,11 @@ class Auction extends AbstractController
     {
         $visitor = \XF::visitor();
 
-        if ($visitor->user_id!=null || $visitor->user_id !=0){
-        $data = $this->em()->create('FS\AuctionPlugin:AuctionListing');
+        if ($visitor->user_id != null || $visitor->user_id != 0) {
+            $data = $this->em()->create('FS\AuctionPlugin:AuctionListing');
 
-        return $this->actionAddEdit($data, $params);
-        }else{
+            return $this->actionAddEdit($data, $params);
+        } else {
             throw $this->exception(
                 $this->notFound(\XF::phrase("fs_auction_permission_denied"))
             );
@@ -142,12 +142,17 @@ class Auction extends AbstractController
 
         $message = $this->plugin('XF:Editor')->fromInput('message');
 
+        $tmpTime = explode(':', $input['ends_on_time']);
+        $h = $tmpTime[0] * 3600;
+        $m = $tmpTime[1] * 60;
+        $tmpDate = strtotime($input['ends_on'] . ' 00:00 America/Los_Angeles');
+
         $data->category_id = $input['category_id'];
         $data->title = $input['title'];
         $data->content = $message;
         $data->user_id = $visitor->user_id;
         $data->prefix_id = $input['prefix_id'];
-        $data->ends_on = strtotime($input['ends_on'] . ' 00:00 America/Los_Angeles');
+        $data->ends_on = ($tmpDate + $h + $m);
         $data->timezone = $input['timezone'];
         $data->starting_bid = $input['starting_bid'];
         $data->bid_increament = $input['bid_increament'];
@@ -234,8 +239,13 @@ class Auction extends AbstractController
 
 
         if ($auction->watch_thread) {
-            /** @var Auction $notifier */
+            // /** @var Auction $notifier */
             $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
+
+            // /** @var \FS\Service\Auction\Notifier $notifier */
+            // $notifier = $this->service('FS\AuctionPlugin:Auction\Notifier', $auction, 'fs_auction');
+            // $notifier->setMentionedUserIds(['1', '2', '3', '678364366', '678364367']);
+            // $notifier->notifyAndEnqueue(3);
             $notifier->sendAlert($auction->User);
 
             if ($auction->receive_email && $auction->User->email) {
@@ -266,6 +276,7 @@ class Auction extends AbstractController
             'title' => 'str',
             'prefix_id' => 'int',
             'ends_on' => 'str',
+            'ends_on_time' => 'str',
             'timezone' => 'str',
             'starting_bid' => 'int',
             'bid_increament' => 'int',
@@ -301,12 +312,11 @@ class Auction extends AbstractController
         $plugin = $this->plugin('XF:Delete');
 
         if ($this->isPost()) {
-
-            $this->deleteAndDecreament($replyExists, true);
-
             $this->deleteAttachments($params->auction_id);
 
             $this->deleteBiddings($params->auction_id);
+
+            $this->deleteAndDecreament($replyExists, true);
 
             return $this->redirect($this->buildLink('auction'));
         }
@@ -331,7 +341,7 @@ class Auction extends AbstractController
 
     protected function deleteAttachments($auction_id)
     {
-        $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $params->auction_id)->fetch();
+        $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $auction_id)->fetch();
 
         if (count($attachments)) {
 

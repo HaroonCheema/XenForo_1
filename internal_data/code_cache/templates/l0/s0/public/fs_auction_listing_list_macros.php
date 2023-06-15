@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 733343f24ad3b10a9da8a7027fec5122
+// FROM HASH: 41eab7bd229c72650eb6290ba994d8cd
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -79,7 +79,7 @@ return array(
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt >' . 'Expire' . '</dt>
 				<dd>
-					' . $__templater->func('date', array($__vars['listing']['ends_on'], 'F j, Y', ), true) . '
+					' . $__templater->escape($__templater->method($__vars['listing'], 'getFormatedTime12', array())) . '
 
 				</dd>
 			</dl>
@@ -259,7 +259,7 @@ return array(
 						';
 	if ((!$__vars['category']) OR $__templater->method($__vars['category'], 'hasChildren', array())) {
 		$__finalCompiled .= '
-							<li>' . 'Expire' . ' . ' . $__templater->func('date', array($__vars['listing']['ends_on'], 'F j, Y', ), true) . '
+							<li>' . 'Expire' . ' . ' . $__templater->escape($__templater->method($__vars['listing'], 'getFormatedTime12', array())) . '
 </li>
 						';
 	}

@@ -35,7 +35,7 @@
   <phrase title="auction_required" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Required]]></phrase>
   <phrase title="auction_shippingTerms_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Chose your shipping terms.]]></phrase>
   <phrase title="auction_shippingVia_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Choose the shipping service you will use.]]></phrase>
-  <phrase title="auction_timeZone_explain" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[All auction closing times will use the Eastern Time Zone.]]></phrase>
+  <phrase title="auction_timeZone_explain" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[All auction closing times will use the Pacfic Time Zone.]]></phrase>
   <phrase title="auction_time_zone" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[AUCTION ENDS AT]]></phrase>
   <phrase title="auctionsOptions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Options]]></phrase>
   <phrase title="bid_increments" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[MINIMUM BID INCREMENT]]></phrase>

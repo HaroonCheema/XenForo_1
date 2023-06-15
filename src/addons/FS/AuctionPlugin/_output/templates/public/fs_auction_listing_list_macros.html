@@ -57,7 +57,7 @@
 			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
 				<dt >{{ phrase('auctionEndsOn') }}</dt>
 				<dd>
-					{{date($listing.ends_on,'F j, Y')}}
+					{{$listing.getFormatedTime12()}}
 
 				</dd>
 			</dl>
@@ -196,7 +196,7 @@
 						<li><xf:username user="$listing.User" defaultname="{$listing.User}" /></li>
 						<li class="structItem-startDate"><xf:date time="{$listing.created_date}" /></li>
 						<xf:if is="!$category OR $category.hasChildren()">
-							<li>{{phrase('auctionEndsOn')}} . {{date($listing.ends_on,'F j, Y')}}
+							<li>{{phrase('auctionEndsOn')}} . {{$listing.getFormatedTime12()}}
 </li>
 						</xf:if>
 				<div class="auction-category">{{ snippet($listing.content, 50, {'stripBbCode': true}) }}</div>

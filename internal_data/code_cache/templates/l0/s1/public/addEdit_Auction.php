@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 213a4633eefb18606574b43c2536028e
+// FROM HASH: 6e1ac4b79e484de3050499ec0435c892
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -143,7 +143,7 @@ return array(
 	)) . '
       </div>
       
-		
+		<!--
         ' . $__templater->formRow('
 ' . $__templater->formDateInput(array(
 		'name' => 'ends_on',
@@ -156,6 +156,35 @@ return array(
 		'hint' => 'Required',
 		'explain' => 'Choose a date.2 to 5 days is the most used range with 3 days being the most common.',
 	)) . '
+		-->
+		 ' . $__templater->formRow('
+          <div class="inputGroup">
+            	' . $__templater->formDateInput(array(
+		'name' => 'ends_on',
+		'value' => ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
+		'required' => 'true',
+	)) . '
+			  
+            <span class="inputGroup-splitter"></span>
+          
+			 <span class="inputGroup" dir="ltr">
+			  ' . $__templater->formTextBox(array(
+		'name' => 'ends_on_time',
+		'class' => 'input--date time start',
+		'required' => 'true',
+		'type' => 'time',
+		'value' => ($__vars['data']['ends_on'] ? $__templater->method($__vars['data'], 'getFormatedTime', array()) : ''),
+		'data-xf-init' => 'time-picker',
+		'data-moment' => $__vars['timeFormat'],
+	)) . '
+</span>
+          </div>
+        ', array(
+		'label' => 'AUCTION ENDS ON',
+		'rowtype' => 'input',
+		'hint' => 'Required',
+		'explain' => 'Choose a date.2 to 5 days is the most used range with 3 days being the most common.',
+	)) . '
 		
 		' . $__templater->formSelectRow(array(
 		'name' => 'timezone',
@@ -163,7 +192,7 @@ return array(
 	), $__compilerTemp1, array(
 		'label' => 'AUCTION ENDS AT',
 		'hint' => 'Required',
-		'explain' => 'All auction closing times will use the Eastern Time Zone.',
+		'explain' => 'All auction closing times will use the Pacfic Time Zone.',
 	)) . '
 		
       ' . $__templater->formNumberBoxRow(array(

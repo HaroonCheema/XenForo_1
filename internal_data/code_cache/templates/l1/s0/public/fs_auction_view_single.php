@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 2c7253bf4a3d8c592961c1f70938b87a
+// FROM HASH: f3de40794b594d05ed3d2357f71a0506
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -23,7 +23,7 @@ return array(
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION ENDS ON' . '</dt>
 					<dd>
-						' . $__templater->func('date', array($__vars['auction']['ends_on'], 'F j, Y', ), true) . '
+						' . $__templater->escape($__templater->method($__vars['auction'], 'getFormatedTime12', array())) . '
 				
 					</dd>
 				</dl>
