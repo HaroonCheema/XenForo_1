@@ -30,21 +30,8 @@ return array(
 			';
 	}
 	$__compilerTemp2 = '';
-	if ($__templater->method($__vars['profilePost'], 'canEditSchedule', array())) {
-		$__compilerTemp2 .= '
-	' . $__templater->formRow('
-		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
-			'value' => $__vars['profilePost']['Schedule']['posting_date'],
-		), $__vars) . '
-	', array(
-			'label' => 'Post date',
-			'rowtype' => ($__vars['quickEdit'] ? 'fullWidth noLabel' : ''),
-		)) . '
-';
-	}
-	$__compilerTemp3 = '';
 	if ($__templater->method($__vars['profilePost'], 'canSendModeratorActionAlert', array())) {
-		$__compilerTemp3 .= '
+		$__compilerTemp2 .= '
 				' . $__templater->formRow('
 					' . $__templater->callMacro('helper_action', 'author_alert', array(
 			'row' => false,
@@ -54,18 +41,18 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp4 = '';
+	$__compilerTemp3 = '';
 	if ($__vars['quickEdit']) {
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 					' . $__templater->button('Cancel', array(
 			'class' => 'js-cancelButton',
 		), '', array(
 		)) . '
 				';
 	}
-	$__compilerTemp5 = '';
+	$__compilerTemp4 = '';
 	if ($__vars['noInlineMod']) {
-		$__compilerTemp5 .= '
+		$__compilerTemp4 .= '
 		' . $__templater->formHiddenVal('_xfNoInlineMod', '1', array(
 		)) . '
 	';
@@ -89,8 +76,6 @@ return array(
 			' . $__compilerTemp1 . '
 
 			' . $__compilerTemp2 . '
-
-' . $__compilerTemp3 . '
 		</div>
 		' . $__templater->formSubmitRow(array(
 		'icon' => 'save',
@@ -98,12 +83,12 @@ return array(
 	), array(
 		'rowtype' => ($__vars['quickEdit'] ? 'simple' : ''),
 		'html' => '
-				' . $__compilerTemp4 . '
+				' . $__compilerTemp3 . '
 			',
 	)) . '
 	</div>
 
-	' . $__compilerTemp5 . '
+	' . $__compilerTemp4 . '
 ', array(
 		'action' => $__templater->func('link', array('profile-posts/edit', $__vars['profilePost'], ), false),
 		'data-xf-init' => 'attachment-manager',

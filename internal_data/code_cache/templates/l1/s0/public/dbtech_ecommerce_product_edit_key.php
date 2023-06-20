@@ -159,53 +159,7 @@ return array(
 		'label' => 'Description',
 	)) . '
 
-						' . $__templater->formRadioRow(array(
-		'name' => 'length_type[' . $__templater->func('mustache', array('product_cost_id', ), false) . ']',
-	), array(array(
-		'value' => 'permanent',
-		'selected' => true,
-		'label' => 'Permanent',
-		'_type' => 'option',
-	),
-	array(
-		'value' => 'timed',
-		'label' => 'For length' . $__vars['xf']['language']['label_separator'],
-		'_dependent' => array('
-						  <div class="inputGroup">
-							  ' . $__templater->formNumberBox(array(
-		'name' => 'length_amount[' . $__templater->func('mustache', array('product_cost_id', ), false) . ']',
-		'value' => '1',
-		'min' => '1',
-		'max' => '365',
-		'class' => 'input--numberNarrow',
-	)) . '
-							  <span class="inputGroup-splitter"></span>
-							  ' . $__templater->formSelect(array(
-		'name' => 'length_unit[' . $__templater->func('mustache', array('product_cost_id', ), false) . ']',
-		'value' => 'month',
-		'class' => 'input--autoSize',
-	), array(array(
-		'value' => 'day',
-		'label' => 'Days',
-		'_type' => 'option',
-	),
-	array(
-		'value' => 'month',
-		'label' => 'Months',
-		'_type' => 'option',
-	),
-	array(
-		'value' => 'year',
-		'label' => 'Years',
-		'_type' => 'option',
-	))) . '
-						  </div>
-  
-					  '),
-		'_type' => 'option',
-	)), array(
-		'label' => 'License duration',
-		'explain' => 'The length determines how long the user will receive updates for this product if they choose to purchase the product at that pricing tier.',
+				' . $__templater->formHiddenVal('length_type[' . $__templater->func('mustache', array('product_cost_id', ), false) . ']', 'permanent', array(
 	)) . '
 			</div>
 		</div>

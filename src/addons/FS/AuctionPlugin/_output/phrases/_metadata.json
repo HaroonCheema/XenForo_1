@@ -461,6 +461,12 @@
         "version_string": "1.0.1 Alpha",
         "hash": "3c13f4968cba95765c541b350e4155c2"
     },
+    "option.fs_auction_applicable_forum.txt": {
+        "global_cache": false,
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "f42e5bc3049f4eebd8797044babbffa1"
+    },
     "option.fs_auction_bumping_allowed.txt": {
         "global_cache": false,
         "version_id": 1000100,
@@ -514,6 +520,12 @@
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
         "hash": "cd05e3a5067801035810416f973d0250"
+    },
+    "option_explain.fs_auction_applicable_forum.txt": {
+        "global_cache": false,
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "option_explain.fs_auction_bumping_allowed.txt": {
         "global_cache": false,

@@ -5,11 +5,6 @@ return function($__templater, $__selectedNav, array $__vars)
 	$__tree = [];
 	$__flat = [];
 
-	\XF\Navigation\NodeType::configureDisplayExtended(11, "fs_questionAnswer_nav", [
-		'title' => null,
-		'with_children' => false,
-		'attributes' => [],
-	]);
 
 	$__navTemp = [
 		'title' => \XF::phrase('nav._default'),
@@ -105,130 +100,6 @@ return function($__templater, $__selectedNav, array $__vars)
 		}
 	}
 
-	if (($__templater->method($__vars['xf']['visitor'], 'hasOption', array('hasDbEcommerce', )) AND $__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array()))) {
-		$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerce'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['dbtechEcommerce'] = $__navTemp;
-			$__flat['dbtechEcommerce'] =& $__tree['dbtechEcommerce'];
-			if (empty($__tree['dbtechEcommerce']['children'])) { $__tree['dbtechEcommerce']['children'] = []; }
-
-			if ($__vars['xf']['options']['dbtechEcommerceEnableRate']) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceLatestReviews'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce/latest-reviews', ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceLatestReviews'] = $__navTemp;
-					$__flat['dbtechEcommerceLatestReviews'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceLatestReviews'];
-				}
-			}
-
-			if ($__vars['xf']['visitor']['user_id']) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceYourAccount'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce/account', $__vars['xf']['visitor'], ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceYourAccount'] = $__navTemp;
-					$__flat['dbtechEcommerceYourAccount'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceYourAccount'];
-				}
-			}
-
-			if ($__vars['xf']['visitor']['user_id']) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceYourPurchasedLicenses'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce/licenses', $__vars['xf']['visitor'], ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceYourPurchasedLicenses'] = $__navTemp;
-					$__flat['dbtechEcommerceYourPurchasedLicenses'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceYourPurchasedLicenses'];
-				}
-			}
-
-			if ($__vars['xf']['visitor']['user_id']) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceYourAddresses'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce/account/address-book', $__vars['xf']['visitor'], ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceYourAddresses'] = $__navTemp;
-					$__flat['dbtechEcommerceYourAddresses'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceYourAddresses'];
-				}
-			}
-
-			if (($__vars['xf']['visitor']['user_id'] AND $__templater->method($__vars['xf']['visitor'], 'canAddDbtechEcommerceProduct', array()))) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceYourCreatedProducts'),
-		'href' => $__templater->func('link', array('dbtech-ecommerce/authors', $__vars['xf']['visitor'], ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceYourCreatedProducts'] = $__navTemp;
-					$__flat['dbtechEcommerceYourCreatedProducts'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceYourCreatedProducts'];
-				}
-			}
-
-			if ($__vars['xf']['visitor']['user_id']) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceWatched'),
-		'href' => '',
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched'] = $__navTemp;
-					$__flat['dbtechEcommerceWatched'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched'];
-					if (empty($__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children'])) { $__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children'] = []; }
-
-					if ($__vars['xf']['visitor']['user_id']) {
-						$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceWatchedProducts'),
-		'href' => $__templater->func('link', array('watched/ecommerce-products', ), false),
-		'attributes' => [],
-	];
-						if ($__navTemp) {
-							$__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children']['dbtechEcommerceWatchedProducts'] = $__navTemp;
-							$__flat['dbtechEcommerceWatchedProducts'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children']['dbtechEcommerceWatchedProducts'];
-						}
-					}
-
-					if ($__vars['xf']['visitor']['user_id']) {
-						$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceWatchedCategories'),
-		'href' => $__templater->func('link', array('watched/ecommerce-categories', ), false),
-		'attributes' => [],
-	];
-						if ($__navTemp) {
-							$__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children']['dbtechEcommerceWatchedCategories'] = $__navTemp;
-							$__flat['dbtechEcommerceWatchedCategories'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceWatched']['children']['dbtechEcommerceWatchedCategories'];
-						}
-					}
-
-				}
-			}
-
-			if ($__templater->method($__vars['xf']['visitor'], 'canSearch', array())) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.dbtechEcommerceSearchProducts'),
-		'href' => $__templater->func('link', array('search', null, array('type' => 'dbtech_ecommerce_product', ), ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['dbtechEcommerce']['children']['dbtechEcommerceSearchProducts'] = $__navTemp;
-					$__flat['dbtechEcommerceSearchProducts'] =& $__tree['dbtechEcommerce']['children']['dbtechEcommerceSearchProducts'];
-				}
-			}
-
-		}
-	}
-
 	$__navTemp = [
 		'title' => \XF::phrase('nav.forums'),
 		'href' => $__templater->func('link', array('forums', ), false),
@@ -238,18 +109,6 @@ return function($__templater, $__selectedNav, array $__vars)
 		$__tree['forums'] = $__navTemp;
 		$__flat['forums'] =& $__tree['forums'];
 		if (empty($__tree['forums']['children'])) { $__tree['forums']['children'] = []; }
-
-		if (($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum']))) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_newPosts'),
-		'href' => $__templater->func('link', array('whats-new/questions', ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['forums']['children']['fs_question_answers_newPosts'] = $__navTemp;
-				$__flat['fs_question_answers_newPosts'] =& $__tree['forums']['children']['fs_question_answers_newPosts'];
-			}
-		}
 
 		if (($__vars['xf']['options']['forumsDefaultPage'] != 'new_posts')) {
 			$__navTemp = [
@@ -272,56 +131,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['forums']['children']['forumList'] = $__navTemp;
 				$__flat['forumList'] =& $__tree['forums']['children']['forumList'];
-			}
-		}
-
-		if (($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])))) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_findThreads'),
-		'href' => $__templater->func('link', array('forums/', ), false) . $__vars['xf']['options']['fs_questionAnswerForum'] . '&your_questions=1',
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['forums']['children']['fs_question_answers_findThreads'] = $__navTemp;
-				$__flat['fs_question_answers_findThreads'] =& $__tree['forums']['children']['fs_question_answers_findThreads'];
-				if (empty($__tree['forums']['children']['fs_question_answers_findThreads']['children'])) { $__tree['forums']['children']['fs_question_answers_findThreads']['children'] = []; }
-
-				if (($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])))) {
-					$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_yourThreads'),
-		'href' => $__templater->func('link', array('forums/', ), false) . $__vars['xf']['options']['fs_questionAnswerForum'] . '&your_questions=1',
-		'attributes' => [],
-	];
-					if ($__navTemp) {
-						$__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_yourThreads'] = $__navTemp;
-						$__flat['fs_question_answers_yourThreads'] =& $__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_yourThreads'];
-					}
-				}
-
-				if (($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])))) {
-					$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_contributedQuestions'),
-		'href' => $__templater->func('link', array('forums/', ), false) . $__vars['xf']['options']['fs_questionAnswerForum'] . '&your_answers=1',
-		'attributes' => [],
-	];
-					if ($__navTemp) {
-						$__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_contributedQuestions'] = $__navTemp;
-						$__flat['fs_question_answers_contributedQuestions'] =& $__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_contributedQuestions'];
-					}
-				}
-
-				if (($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum']))) {
-					$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_unanswered'),
-		'href' => $__templater->func('link', array('forums/', ), false) . $__vars['xf']['options']['fs_questionAnswerForum'] . '&unanswered=1',
-		'attributes' => [],
-	];
-					if ($__navTemp) {
-						$__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_unanswered'] = $__navTemp;
-						$__flat['fs_question_answers_unanswered'] =& $__tree['forums']['children']['fs_question_answers_findThreads']['children']['fs_question_answers_unanswered'];
-					}
-				}
-
 			}
 		}
 
@@ -411,18 +220,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-		if (($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum']))) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_searchForums'),
-		'href' => $__templater->func('link', array('search', null, array('type' => 'questionAnswer', ), ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['forums']['children']['fs_question_answers_searchForums'] = $__navTemp;
-				$__flat['fs_question_answers_searchForums'] =& $__tree['forums']['children']['fs_question_answers_searchForums'];
-			}
-		}
-
 		if ($__templater->method($__vars['xf']['visitor'], 'canSearch', array())) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.searchForums'),
@@ -432,20 +229,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['forums']['children']['searchForums'] = $__navTemp;
 				$__flat['searchForums'] =& $__tree['forums']['children']['searchForums'];
-			}
-		}
-
-		if (($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum']))) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_markForumsRead'),
-		'href' => $__templater->func('link', array('forums/', ), false) . $__vars['xf']['options']['fs_questionAnswerForum'] . '/mark-read&date=$xf.time',
-		'attributes' => [
-			'data-xf-click' => 'overlay',
-		],
-	];
-			if ($__navTemp) {
-				$__tree['forums']['children']['fs_question_answers_markForumsRead'] = $__navTemp;
-				$__flat['fs_question_answers_markForumsRead'] =& $__tree['forums']['children']['fs_question_answers_markForumsRead'];
 			}
 		}
 
@@ -485,40 +268,6 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['whatsNew']['children']['whatsNewPosts'] = $__navTemp;
 			$__flat['whatsNewPosts'] =& $__tree['whatsNew']['children']['whatsNewPosts'];
-		}
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.fs_new_questions'),
-		'href' => $__templater->func('link', array('whats-new/questions', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['whatsNew']['children']['fs_new_questions'] = $__navTemp;
-			$__flat['fs_new_questions'] =& $__tree['whatsNew']['children']['fs_new_questions'];
-		}
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.fs_new_answers'),
-		'href' => $__templater->func('link', array('whats-new/answers', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['whatsNew']['children']['fs_new_answers'] = $__navTemp;
-			$__flat['fs_new_answers'] =& $__tree['whatsNew']['children']['fs_new_answers'];
-		}
-
-		if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.dbtEcomNewProducts'),
-		'href' => $__templater->func('link', array('whats-new/ecommerce-products', ), false),
-		'attributes' => [
-			'rel' => 'nofollow',
-		],
-	];
-			if ($__navTemp) {
-				$__tree['whatsNew']['children']['dbtEcomNewProducts'] = $__navTemp;
-				$__flat['dbtEcomNewProducts'] =& $__tree['whatsNew']['children']['dbtEcomNewProducts'];
-			}
 		}
 
 		if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {
@@ -647,18 +396,6 @@ return function($__templater, $__selectedNav, array $__vars)
 					$__flat['xfrmWatched'] =& $__tree['xfrm']['children']['xfrmWatched'];
 					if (empty($__tree['xfrm']['children']['xfrmWatched']['children'])) { $__tree['xfrm']['children']['xfrmWatched']['children'] = []; }
 
-					if (($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum']))) {
-						$__navTemp = [
-		'title' => \XF::phrase('nav.fs_question_answers_watchedForums'),
-		'href' => $__templater->func('link', array('watched/forums', ), false),
-		'attributes' => [],
-	];
-						if ($__navTemp) {
-							$__tree['xfrm']['children']['xfrmWatched']['children']['fs_question_answers_watchedForums'] = $__navTemp;
-							$__flat['fs_question_answers_watchedForums'] =& $__tree['xfrm']['children']['xfrmWatched']['children']['fs_question_answers_watchedForums'];
-						}
-					}
-
 					if ($__vars['xf']['visitor']['user_id']) {
 						$__navTemp = [
 		'title' => \XF::phrase('nav.xfrmWatchedResources'),
@@ -761,86 +498,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 
 		}
-	}
-
-	$__navTemp = [
-		'title' => \XF::phrase('nav.bh_brand_hub'),
-		'href' => $__templater->func('link', array('bh_brands', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['bh_brand_hub'] = $__navTemp;
-		$__flat['bh_brand_hub'] =& $__tree['bh_brand_hub'];
-	}
-
-	$__navTemp = [
-		'title' => \XF::phrase('nav.tournament_pub'),
-		'href' => $__templater->func('link', array('uptourn', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['tournament_pub'] = $__navTemp;
-		$__flat['tournament_pub'] =& $__tree['tournament_pub'];
-	}
-
-	$__navTemp = [
-		'title' => \XF::phrase('nav.demoPadNotes'),
-		'href' => $__templater->func('link', array('notes', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['demoPadNotes'] = $__navTemp;
-		$__flat['demoPadNotes'] =& $__tree['demoPadNotes'];
-		if (empty($__tree['demoPadNotes']['children'])) { $__tree['demoPadNotes']['children'] = []; }
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.demoPadNote'),
-		'href' => $__templater->func('link', array('notes/test', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['demoPadNotes']['children']['demoPadNote'] = $__navTemp;
-			$__flat['demoPadNote'] =& $__tree['demoPadNotes']['children']['demoPadNote'];
-		}
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.demoPadPassParams'),
-		'href' => $__templater->func('link', array('notes/pass-params', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['demoPadNotes']['children']['demoPadPassParams'] = $__navTemp;
-			$__flat['demoPadPassParams'] =& $__tree['demoPadNotes']['children']['demoPadPassParams'];
-		}
-
-	}
-
-	$__navTemp = [
-		'title' => \XF::phrase('nav.createCrud'),
-		'href' => $__templater->func('link', array('crud', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['createCrud'] = $__navTemp;
-		$__flat['createCrud'] =& $__tree['createCrud'];
-		if (empty($__tree['createCrud']['children'])) { $__tree['createCrud']['children'] = []; }
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.addRecord'),
-		'href' => $__templater->func('link', array('crud/add', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
-			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
-		}
-
-	}
-
-	$__navTemp = \XF\Navigation\NodeType::displayNodeExtended(11, "fs_questionAnswer_nav");
-	if ($__navTemp) {
-		$__tree['fs_questionAnswer_nav'] = $__navTemp;
-		$__flat['fs_questionAnswer_nav'] =& $__tree['fs_questionAnswer_nav'];
 	}
 
 

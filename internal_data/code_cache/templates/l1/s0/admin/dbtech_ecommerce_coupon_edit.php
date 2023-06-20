@@ -38,29 +38,8 @@ return array(
 
 ';
 	$__compilerTemp1 = '';
-	if ($__vars['coupon']['coupon_code']) {
-		$__compilerTemp1 .= '
-	' . $__templater->formTextBoxRow(array(
-			'name' => 'coupon_code',
-			'value' => $__vars['coupon']['coupon_code'],
-			'maxlength' => $__templater->func('max_length', array('DBTech\\eCommerce:Coupon', 'coupon_code', ), false),
-		), array(
-			'label' => 'Coupon code',
-		)) . '
-';
-	} else {
-		$__compilerTemp1 .= '
-	' . $__templater->formTextAreaRow(array(
-			'name' => 'multi_coupons_code',
-			'autosize' => 'true',
-		), array(
-			'label' => 'Coupon Codes',
-		)) . '
-';
-	}
-	$__compilerTemp2 = '';
 	if ($__templater->method($__vars['coupon'], 'isInsert', array())) {
-		$__compilerTemp2 .= '
+		$__compilerTemp1 .= '
 				' . $__templater->formRow('
 
 					<div class="inputGroup">
@@ -97,7 +76,7 @@ return array(
 		)) . '
 			';
 	} else {
-		$__compilerTemp2 .= '
+		$__compilerTemp1 .= '
 				' . $__templater->formRow('
 
 					<div class="inputGroup">
@@ -118,10 +97,10 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp3 = '';
+	$__compilerTemp2 = '';
 	if ($__templater->isTraversable($__vars['coupon']['product_discounts'])) {
 		foreach ($__vars['coupon']['product_discounts'] AS $__vars['counter'] => $__vars['discountInfo']) {
-			$__compilerTemp3 .= '
+			$__compilerTemp2 .= '
 						<li class="inputPair">
 							<div class="inputGroup">
 								' . $__templater->callMacro('public:dbtech_ecommerce_product_macros', 'product_select', array(
@@ -160,7 +139,13 @@ return array(
 
 			<hr class="formRowSep" />
 
-			' . $__compilerTemp1 . '
+			' . $__templater->formTextBoxRow(array(
+		'name' => 'coupon_code',
+		'value' => $__vars['coupon']['coupon_code'],
+		'maxlength' => $__templater->func('max_length', array('DBTech\\eCommerce:Coupon', 'coupon_code', ), false),
+	), array(
+		'label' => 'Coupon code',
+	)) . '
 
 			' . $__templater->formRadioRow(array(
 		'name' => 'coupon_type',
@@ -224,7 +209,7 @@ return array(
 		'rowtype' => 'input',
 	)) . '
 
-			' . $__compilerTemp2 . '
+			' . $__compilerTemp1 . '
 
 			' . $__templater->formNumberBoxRow(array(
 		'name' => 'remaining_uses',
@@ -285,7 +270,7 @@ return array(
 			' . $__templater->formRow('
 
 				<ul class="listPlain inputPair-container">
-					' . $__compilerTemp3 . '
+					' . $__compilerTemp2 . '
 					<li class="inputPair" data-xf-init="field-adder" data-increment-format="product_discounts[{counter}]">
 						<div class="inputGroup">
 							' . $__templater->callMacro('public:dbtech_ecommerce_product_macros', 'product_select', array(

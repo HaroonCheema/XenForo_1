@@ -86,15 +86,6 @@ return array(
 	$__compilerTemp7 .= '
 
 						';
-	if ($__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['forum']['node_id'], ))) {
-		$__compilerTemp7 .= '
-	' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
-			'class' => 'ml',
-		), $__vars) . '
-';
-	}
-	$__compilerTemp7 .= '
-';
 	if ($__vars['xf']['options']['multiQuote']) {
 		$__compilerTemp7 .= '
 							' . $__templater->callMacro('multi_quote_macros', 'button', array(

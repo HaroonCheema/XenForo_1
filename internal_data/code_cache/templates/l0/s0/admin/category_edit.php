@@ -41,18 +41,10 @@ return array(
 			' . $__templater->callMacro('node_edit_macros', 'description', array(
 		'node' => $__vars['node'],
 	), $__vars) . '
-			' . $__templater->formTextBoxRow(array(
-		'name' => 'g_thread_ids',
-		'value' => $__vars['node']['global_threads'],
-	), array(
-		'label' => 'Global thread ids',
-	)) . '
-' . $__templater->callMacro('node_edit_macros', 'position', array(
+			' . $__templater->callMacro('node_edit_macros', 'position', array(
 		'node' => $__vars['node'],
 		'nodeTree' => $__vars['nodeTree'],
 	), $__vars) . '
-
-
 			' . $__templater->callMacro('node_edit_macros', 'navigation', array(
 		'node' => $__vars['node'],
 		'navChoices' => $__vars['navChoices'],

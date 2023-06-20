@@ -1,0 +1,9 @@
+{
+    "template": "forum_post_thread",
+    "description": "add Date and time",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<xf:macro name=\"type_fields\".*?arg-subContext=\"full\" \\/>/is",
+    "replace": "<xf:if is=\"$forum.node_id == $xf.options.fs_auction_applicable_forum\">\n<xf:formrow label=\"{{ phrase('auction_endDate') }}\" rowtype=\"input\" hint=\"{{ phrase('auction_required') }}\" explain=\"{{ phrase('auction_endDate_explain') }}\">\n          <div class=\"inputGroup\">\n            \t<xf:dateinput name=\"ends_on\" value=\"{{ $data.ends_on ? date($data.ends_on, 'Y-m-d') : date($xf.time, 'Y-m-d')}}\"   required=\"true\"\n\t\t\t\t />\n\t\t\t  \n            <span class=\"inputGroup-splitter\"></span>\n          \n\t\t\t <span class=\"inputGroup\" dir=\"ltr\">\n\t\t\t  <xf:textbox name=\"ends_on_time\" class=\"input--date time start\" required=\"true\" type=\"time\"\n\t\t\t\t\t\tvalue=\"{{$data.ends_on ? $data.getFormatedTime() : ''}}\"\n\t\t\t\t\t\tdata-xf-init=\"time-picker\" data-moment=\"{$timeFormat}\" />\n</span>\n          </div>\n        </xf:formrow>\n\t</xf:if>\n\n$0"
+}

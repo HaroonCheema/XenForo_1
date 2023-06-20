@@ -5,9 +5,11 @@ namespace FS\AuctionPlugin\Install\Data;
 use XF\Db\Schema\Create;
 use XF\Db\Schema\Alter;
 
-class MySql {
+class MySql
+{
 
-    public function getTables() {
+    public function getTables()
+    {
         $tables = [];
 
         $tables['fs_auction_category'] = function (Create $table) {
@@ -77,16 +79,39 @@ class MySql {
         return $tables;
     }
 
-    public function getData() {
+    public function getData()
+    {
         $data = [];
 
-        $data['fs_auction_category'] = "
+        // $data['fs_auction_category'] = "
+        //     INSERT INTO 
+        //         `fs_auction_category`
+        //         (`category_id`, `title`, `description`, `parent_category_id`, `display_order`, `layout_type`,`lft`, `rgt`, `depth`, `breadcrumb_data`, `bid_count`)
+        //      VALUES
+        //         (1, 'Example category', 'This is an example Auction category.', 0, 100, 'grid_view',3, 6, 0, '[]', 0);
+        // ";
+
+
+        $data['xf_node'] = "
             INSERT INTO 
-                `fs_auction_category`
-                (`category_id`, `title`, `description`, `parent_category_id`, `display_order`, `layout_type`,`lft`, `rgt`, `depth`, `breadcrumb_data`, `bid_count`)
+                `xf_node`
+                (`title`, `description`, `node_type_id`, `breadcrumb_data`)
              VALUES
-                (1, 'Example category', 'This is an example Auction category.', 0, 100, 'grid_view',3, 6, 0, '[]', 0);
+                ('Node  Example 9', 'This is an example Auction node 2.', 'Forum','[]');
         ";
+
+        $type_config_json = '{"allowed_thread_types":[],"allow_answer_voting":false,"allow_answer_downvote":false}';
+        $type_config = json_encode($type_config_json);
+
+        $data['xf_forum'] = "
+        INSERT INTO 
+        `xf_forum`
+        (`node_id`, `type_config`,`index_criteria`,`field_cache`, `prefix_cache`, `prompt_cache`)
+     VALUES
+        (27, $type_config, '[]','[]', '[]', '[]');
+        ";
+
+
         return $data;
     }
 }

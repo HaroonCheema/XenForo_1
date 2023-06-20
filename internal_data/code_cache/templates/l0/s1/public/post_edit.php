@@ -29,53 +29,38 @@ return array(
 			';
 	}
 	$__compilerTemp2 = '';
-	if ($__templater->method($__vars['post'], 'canEditSchedule', array())) {
-		$__compilerTemp2 .= '
-	' . $__templater->formRow('
-		' . $__templater->callMacro('bssp_macros', 'scheduled_input', array(
-			'class' => 'ml',
-			'value' => $__vars['post']['Schedule']['posting_date'],
-		), $__vars) . '
-	', array(
-			'rowtype' => ($__vars['quickEdit'] ? 'fullWidth noLabel mergePrev' : ''),
-		)) . '
-
-	<hr class="formRowSep" />
-';
-	}
-	$__compilerTemp3 = '';
 	if ($__vars['attachmentData']) {
-		$__compilerTemp3 .= '
+		$__compilerTemp2 .= '
 					' . $__templater->callMacro('helper_attach_upload', 'upload_block', array(
 			'attachmentData' => $__vars['attachmentData'],
 		), $__vars) . '
 				';
 	}
-	$__compilerTemp4 = '';
+	$__compilerTemp3 = '';
 	if ($__templater->method($__vars['post'], 'isFirstPost', array()) AND $__templater->method($__vars['thread'], 'canEdit', array())) {
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 				';
-		$__compilerTemp5 = '';
-		$__compilerTemp5 .= '
+		$__compilerTemp4 = '';
+		$__compilerTemp4 .= '
 						' . $__templater->filter($__templater->method($__vars['thread']['TypeHandler'], 'renderExtraDataEdit', array($__vars['thread'], 'edit', ($__vars['quickEdit'] ? 'first_post_quick' : 'first_post'), )), array(array('raw', array()),), true) . '
 					';
-		if (strlen(trim($__compilerTemp5)) > 0) {
-			$__compilerTemp4 .= '
+		if (strlen(trim($__compilerTemp4)) > 0) {
+			$__compilerTemp3 .= '
 					';
 			if (!$__vars['quickEdit']) {
-				$__compilerTemp4 .= '
+				$__compilerTemp3 .= '
 						<hr class="formRowSep" />
 					';
 			}
-			$__compilerTemp4 .= '
-					' . $__compilerTemp5 . '
+			$__compilerTemp3 .= '
+					' . $__compilerTemp4 . '
 				';
 		}
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 
 				';
-		$__compilerTemp6 = '';
-		$__compilerTemp6 .= '
+		$__compilerTemp5 = '';
+		$__compilerTemp5 .= '
 						' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 			'type' => 'threads',
 			'set' => $__vars['thread']['custom_fields'],
@@ -84,18 +69,18 @@ return array(
 			'rowType' => ($__vars['quickEdit'] ? 'fullWidth' : ''),
 		), $__vars) . '
 					';
-		if (strlen(trim($__compilerTemp6)) > 0) {
-			$__compilerTemp4 .= '
+		if (strlen(trim($__compilerTemp5)) > 0) {
+			$__compilerTemp3 .= '
 					<hr class="formRowSep" />
-					' . $__compilerTemp6 . '
+					' . $__compilerTemp5 . '
 				';
 		}
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 			';
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp6 = '';
 	if ($__templater->method($__vars['post'], 'canEditSilently', array())) {
-		$__compilerTemp7 .= '
+		$__compilerTemp6 .= '
 				' . $__templater->formRow('
 					' . $__templater->callMacro('helper_action', 'edit_type', array(
 			'canEditSilently' => $__templater->method($__vars['post'], 'canEditSilently', array()),
@@ -105,9 +90,9 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp8 = '';
+	$__compilerTemp7 = '';
 	if ($__templater->method($__vars['post'], 'canSendModeratorActionAlert', array())) {
-		$__compilerTemp8 .= '
+		$__compilerTemp7 .= '
 				' . $__templater->formRow('
 					' . $__templater->callMacro('helper_action', 'author_alert', array(
 			'row' => false,
@@ -117,9 +102,9 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp9 = '';
+	$__compilerTemp8 = '';
 	if ($__vars['quickEdit']) {
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 					' . $__templater->button('Cancel', array(
 			'class' => 'js-cancelButton',
 		), '', array(
@@ -143,19 +128,18 @@ return array(
 		'rowtype' => 'fullWidth noLabel',
 		'label' => 'Message',
 	)) . '
-' . $__compilerTemp2 . '
 
 			' . $__templater->formRow('
-				' . $__compilerTemp3 . '
+				' . $__compilerTemp2 . '
 			', array(
 		'rowtype' => ($__vars['quickEdit'] ? 'fullWidth noLabel mergePrev' : ''),
 	)) . '
 
-			' . $__compilerTemp4 . '
+			' . $__compilerTemp3 . '
+
+			' . $__compilerTemp6 . '
 
 			' . $__compilerTemp7 . '
-
-			' . $__compilerTemp8 . '
 		</div>
 		' . $__templater->formSubmitRow(array(
 		'icon' => 'save',
@@ -163,7 +147,7 @@ return array(
 	), array(
 		'rowtype' => ($__vars['quickEdit'] ? 'simple' : ''),
 		'html' => '
-				' . $__compilerTemp9 . '
+				' . $__compilerTemp8 . '
 			',
 	)) . '
 	</div>

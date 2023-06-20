@@ -1409,7 +1409,8 @@ class Thread extends Entity implements LinkableInterface
 			'first_post_reactions' => ['type' => self::JSON_ARRAY, 'default' => [], 'nullable' => true],
 			'prefix_id' => ['type' => self::UINT, 'default' => 0, 'api' => true],
 			'custom_fields' => ['type' => self::JSON_ARRAY, 'default' => []],
-			'tags' => ['type' => self::JSON_ARRAY, 'default' => []]
+			'tags' => ['type' => self::JSON_ARRAY, 'default' => []],
+			'auction_end_date' =>  ['type' => self::UINT, 'default' => 0]
 		];
 		$structure->behaviors = [
 			'XF:ContentVotable' => ['stateField' => 'discussion_state'],

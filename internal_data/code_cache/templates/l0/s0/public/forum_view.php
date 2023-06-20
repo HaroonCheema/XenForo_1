@@ -394,23 +394,12 @@ return array(
 ';
 	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
 	$__finalCompiled .= '
-' . $__templater->includeTemplate('xb_global_threads', $__vars) . '
 
 ';
 	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-		$__compilerTemp1 = '';
-		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-			$__compilerTemp1 .= '
-	' . 'Submit your question' . '
-';
-		} else {
-			$__compilerTemp1 .= '
-	' . 'Post thread' . '
-';
-		}
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('
-		' . $__compilerTemp1 . '
+		' . 'Post thread' . '
 	', array(
 			'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
 			'class' => 'button--cta',
@@ -422,76 +411,14 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	if ((!$__vars['xf']['visitor']['user_id']) AND ($__templater->method($__vars['xf']['request'], 'get', array('pending_approval', )) AND $__vars['pendingApproval'])) {
+	if ($__vars['pendingApproval']) {
 		$__finalCompiled .= '
-	
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
- ';
-		$__templater->inlineJs(' 
-      $(document).ready( function() {
-	
-			 setTimeout(function () {
-			  $(\'.guest-pending_approval\').hide();
-		  }, 20000);
-
-      });
-');
-		$__finalCompiled .= '
-	
-<div class="blockMessage blockMessage--important guest-pending_approval">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>	
-';
-	}
-	$__finalCompiled .= '	
-
-' . $__templater->renderExtension('above_node_list', $__vars, $__extensions) . '
-';
-	if (!$__templater->test($__vars['items'], 'empty', array()) AND (!$__vars['xf']['options']['hide_forum_items'])) {
-		$__finalCompiled .= '
-	';
-		$__templater->includeCss('bh_brandHub_list.less');
-		$__finalCompiled .= '
-<br>
-<div class="block-container">
-	<div class="block-body">
-			
-			<div class="brandHub">	
-				<div>
-					<h4> ' . 'Popular items' . '
-				<a href="' . $__templater->func('link', array('bh_brands/brand', $__vars['brand'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['brand']['brand_title']) . '"> (view all)</a>
-				
-					</h4>
-				</div>
-					<ul class="grid-list">
-						';
-		if ($__templater->isTraversable($__vars['items'])) {
-			foreach ($__vars['items'] AS $__vars['item']) {
-				$__finalCompiled .= '
-							<li class="bh_item">
-								<a href="' . $__templater->func('link', array('bh_brands/item', $__vars['item'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['item']['item_title']) . '">' . $__templater->escape($__vars['item']['item_title']) . ' (' . $__templater->escape($__vars['item']['discussion_count']) . ')</a>
-							</li>
-						';
-			}
-		}
-		$__finalCompiled .= '
-				
-					 ';
-		if ($__vars['itemCount'] > $__templater->func('count', array($__vars['items'], ), false)) {
-			$__finalCompiled .= '
-						<a href="' . $__templater->func('link', array('bh_brands/brand', $__vars['brand'], ), true) . '" class="bh_a" data-name="' . $__templater->escape($__vars['brand']['brand_title']) . '">' . 'bh_item_more' . '</a>
-					';
-		}
-		$__finalCompiled .= '
-						
-					</ul>	
-				</div>
-	
-	</div>
-</div>
-	<br>
+	<div class="blockMessage blockMessage--important">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>
 ';
 	}
 	$__finalCompiled .= '
 
+' . $__templater->renderExtension('above_node_list', $__vars, $__extensions) . '
 
 ';
 	if ($__vars['nodeTree']) {
@@ -539,19 +466,19 @@ return array(
 <div class="block ' . $__templater->escape($__templater->renderExtension('thread_list_block_classes', $__vars, $__extensions)) . '" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="thread" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 
 	<div class="block-outer">';
+	$__compilerTemp1 = '';
 	$__compilerTemp2 = '';
-	$__compilerTemp3 = '';
-	$__compilerTemp3 .= '
+	$__compilerTemp2 .= '
 					';
 	if ($__vars['canInlineMod']) {
-		$__compilerTemp3 .= '
+		$__compilerTemp2 .= '
 						' . $__templater->callMacro('inline_mod_macros', 'button', array(), $__vars) . '
 					';
 	}
-	$__compilerTemp3 .= '
+	$__compilerTemp2 .= '
 					';
 	if ($__vars['xf']['visitor']['user_id']) {
-		$__compilerTemp3 .= '
+		$__compilerTemp2 .= '
 						' . $__templater->button('
 							' . 'Mark read' . '
 						', array(
@@ -562,19 +489,19 @@ return array(
 		)) . '
 					';
 	}
-	$__compilerTemp3 .= '
+	$__compilerTemp2 .= '
 					';
 	if ($__templater->method($__vars['forum'], 'canWatch', array())) {
-		$__compilerTemp3 .= '
+		$__compilerTemp2 .= '
 						';
-		$__compilerTemp4 = '';
+		$__compilerTemp3 = '';
 		if ($__vars['forum']['Watch'][$__vars['xf']['visitor']['user_id']]) {
-			$__compilerTemp4 .= 'Unwatch';
+			$__compilerTemp3 .= 'Unwatch';
 		} else {
-			$__compilerTemp4 .= 'Watch';
+			$__compilerTemp3 .= 'Watch';
 		}
-		$__compilerTemp3 .= $__templater->button('
-							' . $__compilerTemp4 . '
+		$__compilerTemp2 .= $__templater->button('
+							' . $__compilerTemp3 . '
 						', array(
 			'href' => $__templater->func('link', array('forums/watch', $__vars['forum'], ), false),
 			'class' => 'button--link',
@@ -585,13 +512,13 @@ return array(
 		)) . '
 					';
 	}
-	$__compilerTemp3 .= '
+	$__compilerTemp2 .= '
 				';
-	if (strlen(trim($__compilerTemp3)) > 0) {
-		$__compilerTemp2 .= '
+	if (strlen(trim($__compilerTemp2)) > 0) {
+		$__compilerTemp1 .= '
 			<div class="block-outer-opposite">
 				<div class="buttonGroup">
-				' . $__compilerTemp3 . '
+				' . $__compilerTemp2 . '
 				</div>
 			</div>
 		';
@@ -606,7 +533,7 @@ return array(
 		'wrapperclass' => 'block-outer-main',
 		'perPage' => $__vars['perPage'],
 	))) . '
-		' . $__compilerTemp2 . '
+		' . $__compilerTemp1 . '
 	') . '</div>
 
 	<div class="block-container">

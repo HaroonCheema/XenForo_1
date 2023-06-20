@@ -62,20 +62,6 @@ return array(
 	}
 	$__finalCompiled .= '
 						';
-	if ($__templater->method($__vars['thread'], 'canEditSchedule', array())) {
-		$__finalCompiled .= '
-	' . $__templater->button('
-		' . 'Cancel publication' . '
-	', array(
-			'href' => $__templater->func('link', array('threads/schedule-cancel', $__vars['thread'], ), false),
-			'class' => 'button--link',
-			'overlay' => 'true',
-		), '', array(
-		)) . '
-';
-	}
-	$__finalCompiled .= '
-';
 	if ($__templater->method($__vars['thread'], 'canApproveUnapprove', array()) AND ($__vars['thread']['discussion_state'] == 'moderated')) {
 		$__finalCompiled .= '
 							' . $__templater->button('
@@ -582,13 +568,6 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	$__templater->includeJs(array(
-		'src' => 'bs/scheduled_posting/scheduled_post.js',
-		'min' => '1',
-	));
-	$__finalCompiled .= '
-
-';
 	if (!$__templater->method($__vars['thread'], 'isSearchEngineIndexable', array())) {
 		$__finalCompiled .= '
 	';
@@ -600,22 +579,8 @@ return array(
 
 ';
 	$__compilerTemp1 = '';
-	if (($__vars['thread']['discussion_state'] == 'scheduled') AND $__vars['thread']['Schedule']) {
-		$__compilerTemp1 .= '
-	<li>
-		' . $__templater->fontAwesome('fa-clock', array(
-			'title' => $__templater->filter('Scheduled publication', array(array('for_attr', array()),), false),
-		)) . '
-		<span class="u-srOnly">' . 'Scheduled publication' . '</span>
-
-		<a href="' . $__templater->func('link', array('threads', $__vars['thread'], ), true) . '" class="u-concealed">' . $__templater->func('date_dynamic', array($__vars['thread']['Schedule']['posting_date'], array(
-		))) . '</a>
-	</li>
-';
-	}
-	$__compilerTemp2 = '';
 	if ($__vars['xf']['options']['enableTagging'] AND ($__templater->method($__vars['thread'], 'canEditTags', array()) OR $__vars['thread']['tags'])) {
-		$__compilerTemp2 .= '
+		$__compilerTemp1 .= '
 			<li>
 				' . $__templater->callMacro('tag_macros', 'list', array(
 			'tags' => $__vars['thread']['tags'],
@@ -648,7 +613,6 @@ return array(
 	))) . '</a>
 		</li>
 		' . $__compilerTemp1 . '
-' . $__compilerTemp2 . '
 	</ul>
 ');
 	$__templater->pageParams['pageDescriptionMeta'] = false;
@@ -675,37 +639,23 @@ return array(
 ' . '
 
 ';
-	if ((!$__vars['xf']['visitor']['user_id']) AND ($__templater->method($__vars['xf']['request'], 'get', array('pending_approval', )) AND $__vars['pendingApproval'])) {
+	if ($__vars['pendingApproval']) {
 		$__finalCompiled .= '
-	
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
- ';
-		$__templater->inlineJs(' 
-      $(document).ready( function() {
-	
-			 setTimeout(function () {
-			  $(\'.guest-pending_approval\').hide();
-		  }, 20000);
-
-      });
-');
-		$__finalCompiled .= '
-	
-<div class="blockMessage blockMessage--important guest-pending_approval">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>	
+	<div class="blockMessage blockMessage--important">' . 'Your content has been submitted and will be displayed pending approval by a moderator.' . '</div>
 ';
 	}
-	$__finalCompiled .= '	
+	$__finalCompiled .= '
 
 ';
 	if ($__vars['thread']['prefix_id']) {
 		$__finalCompiled .= '
 	';
-		$__compilerTemp3 = '';
-		$__compilerTemp3 .= $__templater->func('prefix_description', array('thread', $__vars['thread']['prefix_id'], ), true);
-		if (strlen(trim($__compilerTemp3)) > 0) {
+		$__compilerTemp2 = '';
+		$__compilerTemp2 .= $__templater->func('prefix_description', array('thread', $__vars['thread']['prefix_id'], ), true);
+		if (strlen(trim($__compilerTemp2)) > 0) {
 			$__finalCompiled .= '
 		<div class="blockMessage blockMessage--alt blockMessage--small blockMessage--close">
-			' . $__compilerTemp3 . '
+			' . $__compilerTemp2 . '
 		</div>
 	';
 		}
@@ -720,26 +670,7 @@ return array(
 	), $__vars) . '
 
 ';
-	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
-	$__finalCompiled .= '
-' . $__templater->includeTemplate('xb_global_threads', $__vars) . '
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('trader', 'view', ))) {
-		$__finalCompiled .= '
-	';
-		if ($__templater->func('in_array', array($__vars['thread']['node_id'], $__vars['xf']['options']['traderForums'], ), false)) {
-			$__finalCompiled .= '
-		' . $__templater->button('Trader history' . ' (' . $__templater->filter($__vars['thread']['User']['andy_trader_seller_count'] + $__vars['thread']['User']['andy_trader_buyer_count'], array(array('number', array()),), true) . ')', array(
-				'href' => $__templater->func('link', array('trader/history', '', array('user_id' => $__vars['thread']['user_id'], ), ), false),
-				'class' => 'button--link',
-			), '', array(
-			)) . '
-		<br /><br />
-	';
-		}
-		$__finalCompiled .= '
-';
-	}
+	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array()));
 	$__finalCompiled .= '
 
 ';
@@ -898,8 +829,8 @@ return array(
 	</div>
 
 	';
-	$__compilerTemp4 = '';
-	$__compilerTemp4 .= '
+	$__compilerTemp3 = '';
+	$__compilerTemp3 .= '
 				' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['totalPosts'],
@@ -916,18 +847,18 @@ return array(
 	))) . '
 				';
 	if ((!$__templater->method($__vars['thread'], 'canReply', array())) AND ((!$__templater->method($__vars['thread'], 'canReplyPreReg', array())) AND (($__vars['thread']['discussion_state'] == 'visible') AND $__vars['thread']['discussion_open']))) {
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 					<div class="block-outer-opposite">
 						';
 		if ($__vars['xf']['visitor']['user_id']) {
-			$__compilerTemp4 .= '
+			$__compilerTemp3 .= '
 							<span class="button button--wrap is-disabled">
 								' . 'You have insufficient privileges to reply here.' . '
 								<!-- this is not interactive so shouldn\'t be a button element -->
 							</span>
 						';
 		} else {
-			$__compilerTemp4 .= '
+			$__compilerTemp3 .= '
 							' . $__templater->button('
 								' . 'You must log in or register to reply here.' . '
 							', array(
@@ -938,16 +869,16 @@ return array(
 			)) . '
 						';
 		}
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 					</div>
 				';
 	}
-	$__compilerTemp4 .= '
+	$__compilerTemp3 .= '
 			';
-	if (strlen(trim($__compilerTemp4)) > 0) {
+	if (strlen(trim($__compilerTemp3)) > 0) {
 		$__finalCompiled .= '
 		<div class="block-outer block-outer--after">
-			' . $__compilerTemp4 . '
+			' . $__compilerTemp3 . '
 		</div>
 	';
 	}
@@ -978,55 +909,25 @@ return array(
 			'src' => 'xf/message.js',
 			'min' => '1',
 		));
-		$__compilerTemp5 = '';
-		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-			$__compilerTemp5 .= '
-	';
-			if ($__vars['xf']['visitor']['is_admin']) {
-				$__compilerTemp5 .= '
-' . $__templater->callMacro('quick_reply_macros', 'body', array(
-					'message' => $__vars['thread']['draft_reply']['message'],
-					'attachmentData' => $__vars['attachmentData'],
-					'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
-					'messageSelector' => '.js-post',
-					'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
-					'multiQuoteStorageKey' => 'multiQuoteThread',
-					'lastDate' => $__vars['lastPost']['post_date'],
-					'lastKnownDate' => $__vars['thread']['last_post_date'],
-					'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
-					'loadExtra' => $__vars['isSimpleDateDisplay'],
-					'showGuestControls' => (!$__vars['isPreRegReply']),
-					'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
-				), $__vars) . '
-';
-			}
-			$__compilerTemp5 .= '
-';
-		} else {
-			$__compilerTemp5 .= '
-	' . $__templater->callMacro('quick_reply_macros', 'body', array(
-				'message' => $__vars['thread']['draft_reply']['message'],
-				'attachmentData' => $__vars['attachmentData'],
-				'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
-				'messageSelector' => '.js-post',
-				'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
-				'multiQuoteStorageKey' => 'multiQuoteThread',
-				'lastDate' => $__vars['lastPost']['post_date'],
-				'lastKnownDate' => $__vars['thread']['last_post_date'],
-				'showSchedule' => $__templater->method($__vars['xf']['visitor'], 'canCreateScheduled', array($__vars['thread']['node_id'], )),
-				'loadExtra' => $__vars['isSimpleDateDisplay'],
-				'showGuestControls' => (!$__vars['isPreRegReply']),
-				'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
-			), $__vars) . '
-';
-		}
 		$__finalCompiled .= $__templater->form('
 
 		' . '' . '
 
 		<div class="block-container">
 			<div class="block-body">
-				' . $__compilerTemp5 . '
+				' . $__templater->callMacro('quick_reply_macros', 'body', array(
+			'message' => $__vars['thread']['draft_reply']['message'],
+			'attachmentData' => $__vars['attachmentData'],
+			'forceHash' => $__vars['thread']['draft_reply']['attachment_hash'],
+			'messageSelector' => '.js-post',
+			'multiQuoteHref' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
+			'multiQuoteStorageKey' => 'multiQuoteThread',
+			'lastDate' => $__vars['lastPost']['post_date'],
+			'lastKnownDate' => $__vars['thread']['last_post_date'],
+			'loadExtra' => $__vars['isSimpleDateDisplay'],
+			'showGuestControls' => (!$__vars['isPreRegReply']),
+			'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
+		), $__vars) . '
 			</div>
 		</div>
 	', array(

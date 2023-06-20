@@ -40,7 +40,7 @@ return array(
 	';
 	}
 	$__finalCompiled .= '
-			';
+	';
 	if ($__templater->method($__vars['user'], 'canBan', array())) {
 		$__finalCompiled .= '
 		<a href="' . $__templater->func('link', array('members/ban', $__vars['user'], ), true) . '" class="menu-linkRow" data-xf-click="overlay">
@@ -57,21 +57,6 @@ return array(
 		$__finalCompiled .= '
 		</a>
 	';
-	}
-	$__finalCompiled .= '
-			';
-	if ((!$__vars['user']['is_banned']) AND ((!$__vars['user']['is_moderator']) AND (!$__vars['user']['is_admin']))) {
-		$__finalCompiled .= '
-';
-		if ($__vars['xf']['visitor']['is_moderator'] OR $__vars['xf']['visitor']['is_admin']) {
-			$__finalCompiled .= '
-		<a href="' . $__templater->func('link', array('scheduleBanUser/add', $__vars['user'], ), true) . '" class="menu-linkRow" data-xf-click="overlay">
-				' . 'Schedule Ban User' . '
-		</a>
-	';
-		}
-		$__finalCompiled .= '
-';
 	}
 	$__finalCompiled .= '
 	';
@@ -133,21 +118,7 @@ return array(
 	}
 	$__finalCompiled .= '
 ' . '
-	';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasOption', array('hasDbEcommerce', )) AND ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array()) AND $__vars['user']['dbtech_ecommerce_product_count'])) {
-		$__finalCompiled .= '
-	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
-		<dt>' . 'Products' . '</dt>
-		<dd>
-			<a href="' . $__templater->func('link', array('dbtech-ecommerce/authors', $__vars['user'], ), true) . '" class="menu-fauxLinkRow-linkRow u-concealed">
-				' . $__templater->filter($__vars['user']['dbtech_ecommerce_product_count'], array(array('number', array()),), true) . '
-			</a>
-		</dd>
-	</dl>
-';
-	}
-	$__finalCompiled .= '
-' . '
+	' . '
 	<dl class="pairs pairs--rows pairs--rows--centered">
 		<dt title="' . $__templater->filter('Reaction score', array(array('for_attr', array()),), true) . '">' . 'Reaction score' . '</dt>
 		<dd>
@@ -170,18 +141,6 @@ return array(
 	}
 	$__finalCompiled .= '
 	' . '
-	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
-		<dt>' . 'Question Expert' . '</dt>
-		<dd>
-			' . $__templater->filter($__vars['user']['question_count'], array(array('number', array()),), true) . '
-		</dd>
-	</dl>
-	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
-		<dt>' . 'Answer Expert' . '</dt>
-		<dd>
-			' . $__templater->filter($__vars['user']['answer_count'], array(array('number', array()),), true) . '
-		</dd>
-	</dl>
 	';
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewWarnings', array()) AND $__vars['user']['warning_points']) {
 		$__finalCompiled .= '
@@ -291,42 +250,10 @@ return array(
 							' . '
 							<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all content by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
 							<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'thread', ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all threads by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
-						';
-		$__vars['questionForumIds'] = $__vars['xf']['options']['fs_questionAnswerForum'];
-		$__compilerTemp2 .= '
-<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'thread', 'thread_type' => 'question', 'qa_nodes' => array($__vars['questionForumIds'], ), ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all questions by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
-<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'fs_answer', ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all answers by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
-<a href="' . $__templater->func('link', array('search/member', null, array('user_id' => $__vars['user']['user_id'], 'content' => 'thread', 'thread_type' => 'article', ), ), true) . '" rel="nofollow" class="menu-linkRow">' . 'Find all articles by ' . $__templater->escape($__vars['user']['username']) . '' . '</a>
-	' . '
+							' . '
 						</div>
 					</div>
 				</div>
-			';
-	}
-	$__compilerTemp2 .= '
-			';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('trader', 'view', ))) {
-		$__compilerTemp2 .= '
-	<div class="buttonGroup">
-		' . $__templater->button('Trader history' . ' (' . $__templater->filter($__vars['user']['andy_trader_seller_count'] + $__vars['user']['andy_trader_buyer_count'], array(array('number', array()),), true) . ')', array(
-			'href' => $__templater->func('link', array('trader/history', '', array('user_id' => $__vars['user']['user_id'], ), ), false),
-			'class' => 'button--link',
-		), '', array(
-		)) . '
-	</div>
-';
-	}
-	$__compilerTemp2 .= '
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceLicenses', array())) {
-		$__compilerTemp2 .= '
-				' . $__templater->button('
-					' . 'View licenses' . '
-				', array(
-			'href' => $__templater->func('link', array('dbtech-ecommerce/licenses', $__vars['user'], ), false),
-			'class' => 'button--link',
-		), '', array(
-		)) . '
 			';
 	}
 	$__compilerTemp2 .= '

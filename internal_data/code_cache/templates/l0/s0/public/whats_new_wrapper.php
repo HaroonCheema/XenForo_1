@@ -15,15 +15,6 @@ return array(
 	' . '
 	<a class="' . $__templater->escape($__vars['baseClass']) . ' ' . (($__vars['pageSelected'] == 'new_thread') ? $__templater->escape($__vars['selectedClass']) : '') . '" href="' . $__templater->func('link', array('whats-new/posts', ), true) . '" rel="nofollow">' . 'New posts' . '</a>
 	' . '
-<a class="' . $__templater->escape($__vars['baseClass']) . ' ' . (($__vars['pageSelected'] == 'fs_questions') ? $__templater->escape($__vars['selectedClass']) : '') . '" href="' . $__templater->func('link', array('whats-new/questions', ), true) . '" rel="nofollow">' . 'New Questions' . '</a>
-<a class="' . $__templater->escape($__vars['baseClass']) . ' ' . (($__vars['pageSelected'] == 'fs_answers') ? $__templater->escape($__vars['selectedClass']) : '') . '" href="' . $__templater->func('link', array('whats-new/answers', ), true) . '" rel="nofollow">' . 'New Answers' . '</a>
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasOption', array('hasDbEcommerce', )) AND $__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array())) {
-		$__finalCompiled .= '
-	<a class="' . $__templater->escape($__vars['baseClass']) . ' ' . (($__vars['pageSelected'] == 'new_dbtech_ecommerce_product') ? $__templater->escape($__vars['selectedClass']) : '') . '" href="' . $__templater->func('link', array('whats-new/ecommerce-products', ), true) . '" rel="nofollow">' . 'New products' . '</a>
-';
-	}
-	$__finalCompiled .= '
 ';
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {
 		$__finalCompiled .= '

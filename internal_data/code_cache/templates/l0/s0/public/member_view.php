@@ -21,13 +21,6 @@ return array(
 	}
 	$__finalCompiled .= '
 
-';
-	$__templater->includeJs(array(
-		'src' => 'bs/scheduled_posting/scheduled_post.js',
-		'min' => '1',
-	));
-	$__finalCompiled .= '
-
 ' . $__templater->callMacro('metadata_macros', 'metadata', array(
 		'shareUrl' => $__templater->func('link', array('canonical:members', $__vars['user'], ), false),
 		'canonicalUrl' => $__templater->func('link', array('canonical:members', $__vars['user'], array('page' => $__vars['page'], ), ), false),
@@ -324,49 +317,6 @@ return array(
 	}
 	$__finalCompiled .= '
 
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasOption', array('hasDbEcommerce', )) AND ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array()) AND $__vars['user']['dbtech_ecommerce_product_count'])) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('dbtech-ecommerce/authors', $__vars['user'], ), true) . '"
-	   class="tabs-tab"
-	   id="dbtech_ecommerce_products"
-	   role="tab">' . 'Products' . '</a>
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceLicenses', array()) AND $__vars['user']['dbtech_ecommerce_license_count']) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('dbtech-ecommerce/licenses', $__vars['user'], ), true) . '"
-	   class="tabs-tab"
-	   id="dbtech_ecommerce_licenses"
-	   role="tab">' . 'Licenses' . '</a>
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__templater->method($__vars['user'], 'canViewOwnerPagesOnProfile', array())) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('members/tabpages', ), true) . '"
-	   class="tabs-tab"
-	   id="bh_owner_page_tab"
-	   role="tab">' . 'Owner Pages' . '</a>
-';
-	}
-	$__finalCompiled .= '
-
-
-';
-	if ($__templater->method($__vars['user'], 'canViewItemsOnProfile', array())) {
-		$__finalCompiled .= '
-<a href="' . $__templater->func('link', array('members/itemlistsub', $__vars['user'], ), true) . '"
-       class="tabs-tab"
-	   id="bh_item_list_sub"
-	   role="tab">' . 'Subscribe Items' . '</a>
-';
-	}
-	$__finalCompiled .= '
-
 				<a href="' . $__templater->func('link', array('members/about', $__vars['user'], ), true) . '"
 					class="tabs-tab"
 					id="about"
@@ -392,24 +342,6 @@ return array(
 		'user' => $__vars['user'],
 	), $__vars) . '
 
-';
-	if ($__vars['user']['is_banned']) {
-		$__finalCompiled .= '
-	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfo', array(
-			'user' => $__vars['user'],
-		), $__vars) . '
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__vars['user']['ScheduleBan']['ban_date'] AND (!$__vars['user']['is_banned'])) {
-		$__finalCompiled .= '
-	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfoBeforeBanProfile', array(
-			'user' => $__vars['user'],
-		), $__vars) . '
-';
-	}
-	$__finalCompiled .= '
 <ul class="tabPanes js-memberTabPanes">
 	' . '
 	';
@@ -527,45 +459,6 @@ return array(
 ';
 	}
 	$__finalCompiled .= '
-
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'hasOption', array('hasDbEcommerce', )) AND ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceProducts', array()) AND $__vars['user']['dbtech_ecommerce_product_count'])) {
-		$__finalCompiled .= '
-	<li data-href="' . $__templater->func('link', array('dbtech-ecommerce/authors', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="dbtech_ecommerce_products">
-		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-	</li>
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__templater->method($__vars['xf']['visitor'], 'canViewDbtechEcommerceLicenses', array()) AND $__vars['user']['dbtech_ecommerce_license_count']) {
-		$__finalCompiled .= '
-	<li data-href="' . $__templater->func('link', array('dbtech-ecommerce/licenses', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="dbtech_ecommerce_licenses">
-		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-	</li>
-';
-	}
-	$__finalCompiled .= '
-';
-	if ($__templater->method($__vars['user'], 'canViewOwnerPagesOnProfile', array())) {
-		$__finalCompiled .= '
-	<li data-href="' . $__templater->func('link', array('members/tabpages', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="bh_owner_page_tab">
-		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-	</li>
-';
-	}
-	$__finalCompiled .= '
-
-';
-	if ($__templater->method($__vars['user'], 'canViewItemsOnProfile', array())) {
-		$__finalCompiled .= '
-<li data-href="' . $__templater->func('link', array('members/itemlistsub', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="bh_item_list_sub">
-		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-	</li>
-';
-	}
-	$__finalCompiled .= '
-
 
 	<li data-href="' . $__templater->func('link', array('members/about', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="about">
 		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
