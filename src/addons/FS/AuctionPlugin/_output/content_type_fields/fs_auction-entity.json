@@ -1,5 +1,0 @@
-{
-    "content_type": "fs_auction",
-    "field_name": "entity",
-    "field_value": "FS\\AuctionPlugin:AuctionListing"
-}

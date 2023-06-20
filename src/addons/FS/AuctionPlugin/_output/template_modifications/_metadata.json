@@ -1,8 +1,11 @@
 {
-    "admin/fsAuctionCategoryRemovePermissions.json": {
-        "hash": "d5a1005169a009c660a5867f6f021201"
-    },
     "public/fs_auction_post_thread_add_date.json": {
-        "hash": "895b28827dc311f116ace0ef37fb34a4"
+        "hash": "f1bf6a3869bd323f2675fbe913b50439"
+    },
+    "public/fs_auction_post_thread_edit_date.json": {
+        "hash": "4374723cd089b1f938a8fdd3bd8e6b95"
+    },
+    "public/fs_auction_post_thread_view_date.json": {
+        "hash": "696fa134334c4ee890e4fe2ab7322be1"
     }
 }

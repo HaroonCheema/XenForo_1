@@ -1,32 +1,5 @@
 {
-    "auction_TimeZone.json": {
-        "hash": "72db412b35240484472114a69175120a"
-    },
-    "auction_thread_prefix_id.json": {
-        "hash": "a835e4ed3f287d4b9ddb8f4edeef1d31"
-    },
-    "fs_auction_ImageExtensions.json": {
-        "hash": "bb2c70f9343c1084302989828aac50a9"
-    },
     "fs_auction_applicable_forum.json": {
         "hash": "ae301304f4f68f4b43d1b63e045df6a1"
-    },
-    "fs_auction_bumping_allowed.json": {
-        "hash": "9623a805a23ff07bce604824af4b938a"
-    },
-    "fs_auction_dropDown_list_limit.json": {
-        "hash": "a52ea1f1e094886df1c7d6b5df509b0d"
-    },
-    "fs_auction_max_attachments.json": {
-        "hash": "81b48ea4550456af40038b03d33df367"
-    },
-    "fs_auction_per_page.json": {
-        "hash": "5159968a988f2ab067cc5d9488b49d27"
-    },
-    "minimumBidIncreament.json": {
-        "hash": "18d53d897c690eb256a74a96ba3cd044"
-    },
-    "paymentOptions.json": {
-        "hash": "69b34cfd7bf1e3b5a843424718c0e0cf"
     }
 }

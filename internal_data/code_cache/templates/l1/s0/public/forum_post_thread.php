@@ -173,18 +173,16 @@ return array(
 	$__compilerTemp3 = '';
 	if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_auction_applicable_forum']) {
 		$__compilerTemp3 .= '
-' . $__templater->formRow('
-          <div class="inputGroup">
-            	' . $__templater->formDateInput(array(
+	' . $__templater->formRow(' 
+	         <div class="inputGroup">         
+			 ' . $__templater->formDateInput(array(
 			'name' => 'ends_on',
 			'value' => ($__vars['data']['ends_on'] ? $__templater->func('date', array($__vars['data']['ends_on'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
 			'required' => 'true',
-		)) . '
-			  
-            <span class="inputGroup-splitter"></span>
-          
-			 <span class="inputGroup" dir="ltr">
-			  ' . $__templater->formTextBox(array(
+		)) . '            
+			 <span class="inputGroup-splitter"></span> 
+			 <span class="inputGroup" dir="ltr">  
+			 ' . $__templater->formTextBox(array(
 			'name' => 'ends_on_time',
 			'class' => 'input--date time start',
 			'required' => 'true',
@@ -192,16 +190,15 @@ return array(
 			'value' => ($__vars['data']['ends_on'] ? $__templater->method($__vars['data'], 'getFormatedTime', array()) : ''),
 			'data-xf-init' => 'time-picker',
 			'data-moment' => $__vars['timeFormat'],
-		)) . '
-</span>
-          </div>
-        ', array(
+		)) . '</span>          
+			 </div>        
+			 ', array(
 			'label' => 'AUCTION ENDS ON',
 			'rowtype' => 'input',
 			'hint' => 'Required',
 			'explain' => 'Choose a date.2 to 5 days is the most used range with 3 days being the most common.',
 		)) . '
-	';
+			 ';
 	}
 	$__compilerTemp4 = '';
 	$__compilerTemp5 = '';
@@ -318,8 +315,8 @@ return array(
 	)) . '
 
 				' . $__compilerTemp3 . '
-
-' . $__templater->callMacro(null, 'type_fields', array(
+			 
+			 ' . $__templater->callMacro(null, 'type_fields', array(
 		'thread' => $__vars['thread'],
 		'forum' => $__vars['forum'],
 		'creatableThreadTypes' => $__vars['creatableThreadTypes'],

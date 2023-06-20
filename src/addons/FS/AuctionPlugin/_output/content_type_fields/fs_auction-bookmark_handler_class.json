@@ -1,5 +1,0 @@
-{
-    "content_type": "fs_auction",
-    "field_name": "bookmark_handler_class",
-    "field_value": "FS\\AuctionPlugin\\Bookmark\\AuctionListing"
-}

@@ -616,8 +616,6 @@ class Forum extends AbstractController
 		$customFields = $this->filter('custom_fields', 'array');
 		$creator->setCustomFields($customFields);
 
-		$creator->setauctionDateTime('1233');
-
 		return $creator;
 	}
 

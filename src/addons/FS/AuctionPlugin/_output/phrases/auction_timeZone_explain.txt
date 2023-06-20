@@ -1,1 +1,0 @@
-All auction closing times will use the Pacfic Time Zone.

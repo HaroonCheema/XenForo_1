@@ -4,6 +4,7 @@ namespace FS\AuctionPlugin\Pub\Controller;
 
 use XF\Mvc\ParameterBag;
 use XF\Pub\Controller\AbstractController;
+use XF\Mvc\RouteMatch;
 
 class Auction extends AbstractController
 {
@@ -19,6 +20,21 @@ class Auction extends AbstractController
 
     public function actionAdd(ParameterBag $params)
     {
+
+
+        $forum = $this->finder('XF:Forum')->where('node_id', 32)->fetchOne();
+
+        return $this->redirect($this->buildLink('forums/post-thread', $forum, ['category_id' => $params->category_id]));
+        $routeMatch = new RouteMatch();
+        $routeMatch->setController('XF:Forum');
+        $routeMatch->setAction('PostThread');
+        $routeMatch->setParam('node_id', 32);
+        $routeMatch->setResponseType('json');
+
+        //   $this->request()->set('order_id', $order->order_id);
+        // $this->request()->set('payment_profile_id', reset(\XF::options()->dbtechEcommercePaymentProfileIds));
+
+        return $this->reroute($routeMatch);
         $visitor = \XF::visitor();
 
         if ($visitor->user_id != null || $visitor->user_id != 0) {

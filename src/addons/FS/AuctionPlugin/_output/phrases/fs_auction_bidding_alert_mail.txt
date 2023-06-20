@@ -1,7 +1,0 @@
-<br>
-Hello {auction_owner}, 
-<br><br>
-Your auction <a href="{auctionLink}"> {auctionTitle}</a> get new bid from user: {user}.
-<br><br>
-Thankyou...!
-<br><br>

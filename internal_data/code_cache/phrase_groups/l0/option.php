@@ -164,7 +164,7 @@ return array (
   'option.forum_items_display' => 'Items display on forum',
   'option.forumsDefaultPage' => 'Forums default page',
   'option.fs_auction_ImageExtensions' => 'Allowed image extensions',
-  'option.fs_auction_applicable_forum' => 'Auction Forum Id',
+  'option.fs_auction_applicable_forum' => 'Forum Id',
   'option.fs_auction_bumping_allowed' => 'Allowed Bumping',
   'option.fs_auction_dropDown_list_limit' => 'Dropdown list limit',
   'option.fs_auction_max_attachments' => 'Maximum attachments per auction',

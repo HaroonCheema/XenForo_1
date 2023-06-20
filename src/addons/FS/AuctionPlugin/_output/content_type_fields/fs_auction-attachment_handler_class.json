@@ -1,5 +1,0 @@
-{
-    "content_type": "fs_auction",
-    "field_name": "attachment_handler_class",
-    "field_value": "FS\\AuctionPlugin\\Attachment\\AuctionListing"
-}

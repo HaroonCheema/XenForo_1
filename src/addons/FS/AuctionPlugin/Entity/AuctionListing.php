@@ -51,32 +51,11 @@ class AuctionListing extends Entity implements LinkableInterface
                 'type' => self::UINT,
                 'required' => 'fs_auctions_please_enter_valid_category'
             ],
-            'title' => [
-                'type' => self::STR, 'maxLength' => 100,
-                'required' => 'please_enter_valid_title'
+            'thread_id' => [
+                'type' => self::UINT,
+                'required' => true,
+                'default' => 0
             ],
-            'content' => [
-                'type' => self::STR,
-                'required' => 'please_enter_valid_message',
-                'censor' => true
-            ],
-            'user_id' => ['type' => self::UINT, 'required' => true],
-            'prefix_id' => ['type' => self::UINT, 'default' => 0],
-            'attach_count' => ['type' => self::UINT, 'default' => 0],
-            'ends_on' => ['type' => self::UINT, 'required' => true],
-            'created_date' => ['type' => self::UINT, 'default' => \XF::$time],
-            'timezone' => ['type' => self::STR, 'required' => true],
-            'starting_bid' => ['type' => self::UINT, 'required' => true],
-            'bid_increament' => ['type' => self::UINT, 'required' => true],
-            'shipping_term' => ['type' => self::STR, 'required' => true],
-            'ships_via' => ['type' => self::STR, 'required' => true],
-            'auction_guidelines' => ['type' => self::BOOL, 'default' => false],
-            'bumping_rules' => ['type' => self::BOOL, 'default' => false],
-            'watch_thread' => ['type' => self::BOOL, 'default' => false],
-            'receive_email' => ['type' => self::BOOL, 'default' => false],
-            'payment_methods' => ['type' => self::JSON_ARRAY, 'default' => []],
-            'last_bumping' => ['type' => self::UINT, 'default' => \XF::$time],
-            'bumping_counts' => ['type' => self::UINT, 'default' => 0],
         ];
 
         $structure->relations = [
@@ -167,11 +146,10 @@ class AuctionListing extends Entity implements LinkableInterface
     public function getMaxBidOfAuction()
     {
         $maxBid = $this->finder('FS\AuctionPlugin:Bidding')->where('auction_id', $this->auction_id)->order('bidding_amount', 'desc')->fetchOne();
-if ($maxBid){
-    return $maxBid->bidding_amount;
-}
-else{
-    return false;
-}
+        if ($maxBid) {
+            return $maxBid->bidding_amount;
+        } else {
+            return false;
+        }
     }
 }

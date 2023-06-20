@@ -41,8 +41,6 @@ class Creator extends \XF\Service\AbstractService
 	 */
 	protected $tagChanger;
 
-	protected $auction_end_date;
-
 	/** @var TypeData\SaverInterface|null */
 	protected $typeDataSaver;
 
@@ -158,13 +156,6 @@ class Creator extends \XF\Service\AbstractService
 		);
 
 		return $this->postPreparer->setMessage($message, $format, $this->performValidations);
-	}
-
-	public function setauctionDateTime($end_date_time)
-	{
-		// var_dump('lksdjf');
-		// exit;
-		$this->thread->auction_end_date = $end_date_time;
 	}
 
 	public function setPrefix($prefixId)

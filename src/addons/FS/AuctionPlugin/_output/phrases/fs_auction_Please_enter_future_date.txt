@@ -1,1 +1,0 @@
-Auction end date should be greater then today...!

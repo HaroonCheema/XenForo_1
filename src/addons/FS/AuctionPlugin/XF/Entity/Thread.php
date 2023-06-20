@@ -14,4 +14,18 @@ class Thread extends XFCP_Thread
 
         return $structure;
     }
+
+    public function getFormatedTime()
+    {
+        $tempDate = new \DateTime('@' . $this->auction_end_date);
+        $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
+        return $date->format("H:i");
+    }
+
+    public function getFormatedTime12()
+    {
+        $tempDate = new \DateTime('@' . $this->auction_end_date);
+        $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
+        return $date->format("F j Y, h:i A");
+    }
 }

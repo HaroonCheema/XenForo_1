@@ -1,7 +1,0 @@
-<xf:set var="$auctionLink">{{ link('auction/'.{$extra.category_id}.'/'.{$alert.content_id}.'/view-auction') }}</xf:set>
-{{ phrase('fs_auction_bidding_alert_message', {
-	'user': username_link($alert.User, false, {'defaultname': $alert.username}),
-	'auctionLink': $auctionLink,
-	'auctionTitle': $extra.title
-
-}) }}

@@ -1,1 +1,0 @@
-Your auction <a href="{auctionLink}"> {auctionTitle}</a> get new bid from user: {user}.
