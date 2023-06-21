@@ -328,11 +328,13 @@ class Auction extends AbstractController
         $plugin = $this->plugin('XF:Delete');
 
         if ($this->isPost()) {
-            $this->deleteAttachments($params->auction_id);
+            // $this->deleteAttachments($params->auction_id);
 
-            $this->deleteBiddings($params->auction_id);
+            // $this->deleteBiddings($params->auction_id);
 
-            $this->deleteAndDecreament($replyExists, true);
+            // $this->deleteAndDecreament($replyExists, true);
+
+            $this->deletePostAndThread($replyExists);
 
             return $this->redirect($this->buildLink('auction'));
         }
@@ -342,7 +344,7 @@ class Auction extends AbstractController
             $this->buildLink('auction/categories/delete', $replyExists),
             null,
             $this->buildLink('auction'),
-            "{$replyExists->title}"
+            "{$replyExists->Thread->title}"
         );
     }
 
@@ -353,6 +355,17 @@ class Auction extends AbstractController
         foreach ($biddingFounds as $bid) {
             $bid->delete();
         }
+    }
+
+    protected function deletePostAndThread($auction)
+    {
+        $threadFound = $this->finder('XF:Thread')->whereId($auction->Thread->thread_id)->fetchOne();
+
+        if ($threadFound) {
+            $threadFound->delete();
+        }
+
+        $auction->delete();
     }
 
     protected function deleteAttachments($auction_id)

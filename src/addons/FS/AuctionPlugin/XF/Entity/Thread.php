@@ -11,6 +11,8 @@ class Thread extends XFCP_Thread
         $structure = parent::getStructure($structure);
 
         $structure->columns['auction_end_date'] =  ['type' => self::UINT, 'default' => 0];
+        $structure->columns['last_bumping'] =  ['type' => self::UINT, 'default' => \XF::$time];
+        $structure->columns['bumping_counts'] =  ['type' => self::UINT, 'default' => 0];
 
         return $structure;
     }
@@ -27,5 +29,15 @@ class Thread extends XFCP_Thread
         $tempDate = new \DateTime('@' . $this->auction_end_date);
         $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
         return $date->format("F j Y, h:i A");
+    }
+
+    public function getMaxBidOfAuction($auction_id)
+    {
+        $maxBid = $this->finder('FS\AuctionPlugin:Bidding')->where('auction_id', $auction_id)->order('bidding_amount', 'desc')->fetchOne();
+        if ($maxBid) {
+            return $maxBid->bidding_amount;
+        } else {
+            return false;
+        }
     }
 }

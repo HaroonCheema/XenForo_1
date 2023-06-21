@@ -1,0 +1,12 @@
+{
+    "public/fs_auction_listing_list_macros.html": {
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "92d4f2fa5a3c1daa5b9698efda2c6278"
+    },
+    "public/fs_auction_view_single.html": {
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "94b49fb2f69f43bc0eb60478fe3dba41"
+    }
+}

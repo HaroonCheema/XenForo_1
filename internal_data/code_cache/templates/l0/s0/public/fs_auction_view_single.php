@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: f3de40794b594d05ed3d2357f71a0506
+// FROM HASH: 94b49fb2f69f43bc0eb60478fe3dba41
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -23,7 +23,7 @@ return array(
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION ENDS ON' . '</dt>
 					<dd>
-						' . $__templater->escape($__templater->method($__vars['auction'], 'getFormatedTime12', array())) . '
+						' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getFormatedTime12', array())) . '
 				
 					</dd>
 				</dl>
@@ -34,7 +34,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION ENDS AT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['timezone']) . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['timezone']) . '</dd>
 				</dl>
 		</div>
 
@@ -42,7 +42,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'STARTING BID' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['starting_bid']) . ' ' . ' $' . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['starting_bid']) . ' ' . ' $' . '</dd>
 				</dl>
 			
 		</div>
@@ -51,7 +51,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'MINIMUM BID INCREMENT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['bid_increament']) . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['bid_increament']) . '</dd>
 				</dl>
 			
 		</div>
@@ -62,8 +62,8 @@ return array(
 					<dt>' . 'PAYMENTS ACCEPTED' . '</dt>
 					<dd>
 					';
-	if ($__templater->isTraversable($__vars['auction']['payment_methods'])) {
-		foreach ($__vars['auction']['payment_methods'] AS $__vars['val']) {
+	if ($__templater->isTraversable($__vars['auction']['Thread']['custom_fields']['payment_methods'])) {
+		foreach ($__vars['auction']['Thread']['custom_fields']['payment_methods'] AS $__vars['val']) {
 			$__finalCompiled .= '
 						<p style="margin:0px;">' . $__templater->escape($__vars['val']) . '</p>
         			';
@@ -79,7 +79,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'SHIPPING TERMS' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['ShipTerm']['shipping_term']) . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['shipping_term']) . '</dd>
 				</dl>
 			
 		</div>
@@ -88,7 +88,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'SHIPS VIA' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['ShipVia']['ship_via']) . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['ship_via']) . '</dd>
 				</dl>
 		</div>
 	  
@@ -173,12 +173,12 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['auction']['title']));
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['auction']['Thread']['title']));
 	$__finalCompiled .= '
 ';
-	if (($__vars['xf']['visitor']['user_id'] == $__vars['auction']['User']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
+	if (($__vars['xf']['visitor']['user_id'] == $__vars['auction']['Thread']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
 		$__compilerTemp1 = '';
-		if ($__vars['auction']['ends_on'] > $__vars['xf']['time']) {
+		if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 			$__compilerTemp1 .= '
 	' . $__templater->button('Bumping', array(
 				'href' => $__templater->func('link', array('auction/categories/bumping', $__vars['auction'], ), false),
@@ -197,7 +197,7 @@ return array(
 		), '', array(
 		)) . '
 	' . $__templater->button('Edit', array(
-			'href' => $__templater->func('link', array('auction/categories/edit', $__vars['auction'], ), false),
+			'href' => $__templater->func('link', array(('posts/' . $__vars['auction']['Thread']['FirstPost']['post_id']) . '/edit', ), false),
 			'class' => 'button button--icon button--icon--edit',
 			'icon' => 'edit',
 		), '', array(
@@ -288,7 +288,7 @@ document.getElementById("auction-counter").style.display = "block";
 		<ul class="message-attribution-main listInline ' . $__templater->escape($__vars['mainClass']) . '">
 			<li class="u-concealed">
 				<a href="' . $__templater->func('link', array('threads/post', $__vars['thread'], array('post_id' => $__vars['post']['post_id'], ), ), true) . '" rel="nofollow">
-					' . $__templater->func('date_dynamic', array($__vars['auction']['created_date'], array(
+					' . $__templater->func('date_dynamic', array($__vars['auction']['Thread']['post_date'], array(
 		'itemprop' => 'datePublished',
 	))) . '
 				</a>
@@ -297,9 +297,13 @@ document.getElementById("auction-counter").style.display = "block";
 		<ul class="message-attribution-opposite message-attribution-opposite--list ' . $__templater->escape($__vars['oppositeClass']) . '">
 
 		';
-	if ($__vars['auctionUnread']) {
+	if ($__templater->method($__vars['auction']['Thread']['FirstPost'], 'isUnread', array())) {
 		$__finalCompiled .= '
 				<li><span class="message-newIndicator">' . 'New' . '</span></li>
+			';
+	} else if ($__templater->method($__vars['auction']['Thread'], 'isUnread', array()) AND $__vars['showThreadUnreadIndicator']) {
+		$__finalCompiled .= '
+				<li><span class="message-newIndicator" title="' . 'New replies' . '">' . 'New' . '</span></li>
 			';
 	}
 	$__finalCompiled .= '
@@ -315,12 +319,11 @@ document.getElementById("auction-counter").style.display = "block";
 	)) . '
 				</a>
 			</li>
-			
-				<li>	
-						' . $__templater->callMacro('fs_auction_bookmark_macros', 'link', array(
-		'content' => $__vars['auction'],
+			<li>
+						' . $__templater->callMacro('bookmark_macros', 'link', array(
+		'content' => $__vars['auction']['Thread']['FirstPost'],
 		'class' => 'message-attribution-gadget bookmarkLink--highlightable',
-		'confirmUrl' => $__templater->func('link', array('auction/bookmark', $__vars['auction'], ), false),
+		'confirmUrl' => $__templater->func('link', array('posts/bookmark', $__vars['auction']['Thread']['FirstPost'], ), false),
 		'showText' => false,
 	), $__vars) . '
 				</li>
@@ -357,10 +360,10 @@ document.getElementById("auction-counter").style.display = "block";
 			
 		</div>	
 ';
-	if ($__vars['auction']['ends_on'] > $__vars['xf']['time']) {
+	if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
 				<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
-					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['ends_on']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
+					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['Thread']['auction_end_date']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 	';
 	} else {
 		$__finalCompiled .= '
@@ -419,14 +422,14 @@ document.getElementById("auction-counter").style.display = "block";
 	}
 	$__finalCompiled .= '
 ';
-	if (($__vars['auction']['ends_on'] > $__vars['xf']['time']) AND ($__vars['xf']['visitor']['user_id'] != 0)) {
+	if (($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) AND ($__vars['xf']['visitor']['user_id'] != 0)) {
 		$__finalCompiled .= '
 		';
-		if ($__vars['xf']['visitor']['user_id'] != $__vars['auction']['User']['user_id']) {
+		if ($__vars['xf']['visitor']['user_id'] != $__vars['auction']['Thread']['User']) {
 			$__finalCompiled .= '
 			';
 			$__vars['bidDropDownRange'] = $__templater->func('range', array(0, $__vars['dropDownListLimit'], ), false);
-			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] + $__vars['auction']['bid_increament']) : ($__vars['auction']['bid_increament'] + $__vars['auction']['starting_bid']));
+			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] + $__vars['auction']['Thread']['custom_fields']['bid_increament']) : ($__vars['auction']['Thread']['custom_fields']['bid_increament'] + $__vars['auction']['Thread']['custom_fields']['starting_bid']));
 			$__vars['sum'] = $__vars['tempSum'];
 			$__compilerTemp2 = array();
 			if ($__templater->isTraversable($__vars['bidDropDownRange'])) {
@@ -436,7 +439,7 @@ document.getElementById("auction-counter").style.display = "block";
 						'label' => ($__vars['sum'] + $__vars['bidIncrementFromDb']),
 						'_type' => 'option',
 					);
-					$__vars['sum'] = ($__vars['sum'] + $__vars['auction']['bid_increament']);
+					$__vars['sum'] = ($__vars['sum'] + $__vars['auction']['Thread']['custom_fields']['bid_increament']);
 				}
 			}
 			$__finalCompiled .= $__templater->form('

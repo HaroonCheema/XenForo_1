@@ -18,6 +18,8 @@ class AuctionListing extends AbstractController
 
         $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
+        // var_dump($finder->fetch());exit;
+
         if ($this->filter('search', 'uint')) {
             $finder = $this->getSearchFinder();
 
@@ -34,7 +36,7 @@ class AuctionListing extends AbstractController
             $page = $params->page;
 
             $finder->limitByPage($page, $perPage);
-            $finder->order('last_bumping', 'DESC');
+            $finder->order('thread_id', 'DESC');
         }
 
 
@@ -43,7 +45,7 @@ class AuctionListing extends AbstractController
             'categoryTree' => $categoryTree,
             'listings' => $finder->fetch(),
 
-            'stats' => $this->auctionStatistics(),
+            // 'stats' => $this->auctionStatistics(),
 
             'page' => $page,
             'perPage' => $perPage,
@@ -111,7 +113,7 @@ class AuctionListing extends AbstractController
         $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
 
         $sharePlugin = $this->plugin('XF:Share');
-        return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->title, \XF::phrase('share_this_post'));
+        return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->Thread->title, \XF::phrase('share_this_post'));
     }
 
     public function actionBookmark(ParameterBag $params)

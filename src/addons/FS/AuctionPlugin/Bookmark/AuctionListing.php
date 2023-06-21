@@ -10,9 +10,9 @@ class AuctionListing extends AbstractHandler
 {
 	public function getContentUser(Entity $content)
 	{
-		if ($content->User) {
+		if ($content->Thread->User) {
 
-			return $content->User;
+			return $content->Thread->User;
 		}
 	}
 

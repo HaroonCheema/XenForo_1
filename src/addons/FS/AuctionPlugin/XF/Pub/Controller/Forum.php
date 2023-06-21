@@ -8,11 +8,6 @@ class Forum extends XFCP_Forum
 {
     protected function setupThreadCreate(\XF\Entity\Forum $forum)
     {
-
-        $input = $this->filter('category_id', 'uint');
-
-        var_dump($input);
-        exit;
         $parent = parent::setupThreadCreate($forum);
 
         $options = $this->app()->options();
@@ -41,27 +36,36 @@ class Forum extends XFCP_Forum
     {
         $parent = parent::finalizeThreadCreate($creator);
 
-
-
         $thread = $creator->getThread();
 
         $options = $this->app()->options();
 
         if ($thread->node_id ==  $options->fs_auction_applicable_forum) {
-            $input = $this->filter('category_id', 'int');
-
-            var_dump($input);
-            exit;
+            $cat_id = $this->filter('category_id', 'int');
 
             $insertInAuction = $this->em()->create('FS\AuctionPlugin:AuctionListing');
 
-            $insertInAuction->category_id = $input['category_id'];
+            $insertInAuction->category_id = $cat_id;
             $insertInAuction->thread_id = $thread['thread_id'];
 
 
             $insertInAuction->save();
         }
 
+        return $parent;
+    }
+
+    public function actionPostThread(ParameterBag $params)
+    {
+        $parent =  parent::actionPostThread($params);
+
+        $options = $this->app()->options();
+
+        if ($params->node_id ==  $options->fs_auction_applicable_forum && !$this->isPost()) {
+            $cat_id = $this->filter("category_id", 'int');
+
+            $parent->setParam('category_id', $cat_id);
+        }
         return $parent;
     }
 }

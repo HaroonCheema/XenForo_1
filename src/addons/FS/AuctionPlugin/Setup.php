@@ -44,10 +44,12 @@ class Setup extends AbstractSetup
 		// 	$table->addColumn('layout_type', 'int')->setDefault(0);
 		// });
 
-		// $this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 
-		// 	$table->addColumn('auction_end_date', 'int')->setDefault(0);
-		// });
+			$table->addColumn('auction_end_date', 'int')->setDefault(0);
+			$table->addColumn('last_bumping', 'int')->setDefault(0);
+			$table->addColumn('bumping_counts', 'int')->setDefault(0);
+		});
 
 		// $this->insertDefaultData();
 	}

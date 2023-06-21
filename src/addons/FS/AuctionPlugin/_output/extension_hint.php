@@ -13,6 +13,7 @@ namespace FS\AuctionPlugin\XF\Pub\Controller
 {
 	class XFCP_Forum extends \XF\Pub\Controller\Forum {}
 	class XFCP_Post extends \XF\Pub\Controller\Post {}
+	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }
 
 namespace FS\AuctionPlugin\XF\Service\Thread

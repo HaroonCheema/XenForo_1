@@ -198,6 +198,8 @@ return array(
 			'hint' => 'Required',
 			'explain' => 'Choose a date.2 to 5 days is the most used range with 3 days being the most common.',
 		)) . '
+			 ' . $__templater->formHiddenVal('category_id', $__vars['category_id'], array(
+		)) . '
 			 ';
 	}
 	$__compilerTemp4 = '';
