@@ -50,6 +50,13 @@ class Forum extends XFCP_Forum
 
 
             $insertInAuction->save();
+
+            $insertInAuction->save();
+
+            if ($insertInAuction) {
+
+                \XF::db()->query('update fs_auction_category set auctions_count = auctions_count + 1 where category_id =' . $cat_id);
+            }
         }
 
         return $parent;

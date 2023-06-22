@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 92d4f2fa5a3c1daa5b9698efda2c6278
+// FROM HASH: 8b84f2e809c2dabe18b7ba3f7ce0a740
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -28,12 +28,12 @@ return array(
 	if ($__vars['listing']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
 						<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">
-							<img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['Thread']['auction_end_date']) . ')" style="min-height: 92px; max-height: 92px;"></a>
+							<img src ="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['listing']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['Thread']['auction_end_date']) . ')" style="min-height: 92px; max-height: 92px;"></a>
 				';
 	} else {
 		$__finalCompiled .= '
 						<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">
-							<img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" style="min-height: 92px; max-height: 92px;"></a>
+							<img src ="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['listing']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" style="min-height: 92px; max-height: 92px;"></a>
 				';
 	}
 	$__finalCompiled .= '
@@ -177,11 +177,11 @@ return array(
 				';
 	if ($__vars['listing']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-					<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on"><img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['Thread']['auction_end_date']) . ')"></a>
+					<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on"><img src ="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['listing']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter(' . $__templater->escape($__vars['listing']['auction_id']) . ',' . $__templater->escape($__vars['listing']['Thread']['auction_end_date']) . ')"></a>
 				';
 	} else {
 		$__finalCompiled .= '
-							<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on"><img src ="' . ($__templater->escape($__vars['listing']['Attachment']['thumbnail_url']) ?: $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" class="auction-itemGrid-img" loading="lazy"></a>
+							<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on"><img src ="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['listing']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" class="auction-itemGrid-img" loading="lazy"></a>
 				';
 	}
 	$__finalCompiled .= '

@@ -56,6 +56,8 @@ class AuctionListing extends Entity implements LinkableInterface
                 'required' => true,
                 'default' => 0
             ],
+            'last_bumping' => ['type' => self::UINT, 'default' => \XF::$time],
+            'bumping_counts' => ['type' => self::UINT, 'default' => 0],
         ];
 
         $structure->relations = [
@@ -159,5 +161,5 @@ class AuctionListing extends Entity implements LinkableInterface
     //     }
     // }
 
-    
+
 }

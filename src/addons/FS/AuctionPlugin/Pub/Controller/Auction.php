@@ -20,9 +20,9 @@ class Auction extends AbstractController
 
     public function actionAdd(ParameterBag $params)
     {
+        $options = $this->app()->options();
 
-
-        $forum = $this->finder('XF:Forum')->where('node_id', 32)->fetchOne();
+        $forum = $this->finder('XF:Forum')->where('node_id', $options->fs_auction_applicable_forum)->fetchOne();
 
         return $this->redirect($this->buildLink('forums/post-thread', $forum, ['category_id' => $params->category_id]));
         $routeMatch = new RouteMatch();
@@ -181,11 +181,11 @@ class Auction extends AbstractController
         $data->payment_methods = $input['payment_methods'];
 
         if ($data->auction_id == null) {
-            $bidCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($input['category_id'])->fetchOne();
+            $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($input['category_id'])->fetchOne();
 
-            $increament = $bidCounter->bid_count + 1;
+            $increament = $auctionsCounter->auctions_count + 1;
 
-            $bidCounter->fastUpdate('bid_count', $increament);
+            $auctionsCounter->fastUpdate('auctions_count', $increament);
         }
 
         $data->save();
@@ -363,6 +363,8 @@ class Auction extends AbstractController
 
         if ($threadFound) {
             $threadFound->delete();
+
+            \XF::db()->query('update fs_auction_category set auctions_count = auctions_count - 1 where category_id =' . $auction['category_id']);
         }
 
         $auction->delete();
@@ -390,11 +392,11 @@ class Auction extends AbstractController
     protected function deleteAndDecreament(\FS\AuctionPlugin\Entity\AuctionListing $data)
     {
 
-        $bidCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($data['category_id'])->fetchOne();
+        $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($data['category_id'])->fetchOne();
 
-        $decreament = $bidCounter->bid_count - 1;
+        $decreament = $auctionsCounter->auctions_count - 1;
 
-        $bidCounter->fastUpdate('bid_count', $decreament);
+        $auctionsCounter->fastUpdate('auctions_count', $decreament);
         $data->delete();
     }
 

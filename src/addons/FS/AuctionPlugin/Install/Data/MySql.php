@@ -23,7 +23,7 @@ class MySql
         //     $table->addColumn('rgt', 'int')->setDefault(0);
         //     $table->addColumn('depth', 'smallint', 5)->setDefault(0);
         //     $table->addColumn('breadcrumb_data', 'blob');
-        //     $table->addColumn('bid_count', 'int')->setDefault(0);
+        //     $table->addColumn('auctions_count', 'int')->setDefault(0);
         //     $table->addColumn('layout_type', 'varchar', 20)->setDefault('list_view');
         //     $table->addKey(['parent_category_id', 'lft']);
         //     $table->addKey(['lft', 'rgt']);
@@ -35,6 +35,8 @@ class MySql
             $table->addColumn('auction_id', 'int')->autoIncrement();
             $table->addColumn('category_id', 'int')->setDefault(0);
             $table->addColumn('thread_id', 'int')->setDefault(0);
+            $table->addColumn('last_bumping', 'int')->setDefault(0);
+            $table->addColumn('bumping_counts', 'int')->setDefault(0);
 
             $table->addPrimaryKey('auction_id');
         };
@@ -68,7 +70,7 @@ class MySql
         $data['fs_auction_category'] = "
             INSERT INTO 
                 `fs_auction_category`
-                (`category_id`, `title`, `description`, `parent_category_id`, `display_order`, `layout_type`,`lft`, `rgt`, `depth`, `breadcrumb_data`, `bid_count`)
+                (`category_id`, `title`, `description`, `parent_category_id`, `display_order`, `layout_type`,`lft`, `rgt`, `depth`, `breadcrumb_data`, `auctions_count`)
              VALUES
                 (1, 'Example category', 'This is an example Auction category.', 0, 100, 'grid_view',3, 6, 0, '[]', 0);
         ";

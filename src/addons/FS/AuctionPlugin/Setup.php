@@ -22,9 +22,9 @@ class Setup extends AbstractSetup
 	{
 		$sm = $this->schemaManager();
 
-		foreach ($this->getTables() as $tableName => $callback) {
-			$sm->createTable($tableName, $callback);
-		}
+		// foreach ($this->getTables() as $tableName => $callback) {
+		// 	$sm->createTable($tableName, $callback);
+		// }
 		// $this->schemaManager()->createTable('fs_auction_ship_terms', function (Create $table) {
 		// 	$table->addColumn('term_id', 'int', '255')->autoIncrement();
 		// 	$table->addColumn('shipping_term', 'mediumtext')->nullable();
@@ -44,12 +44,10 @@ class Setup extends AbstractSetup
 		// 	$table->addColumn('layout_type', 'int')->setDefault(0);
 		// });
 
-		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+		// $this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 
-			$table->addColumn('auction_end_date', 'int')->setDefault(0);
-			$table->addColumn('last_bumping', 'int')->setDefault(0);
-			$table->addColumn('bumping_counts', 'int')->setDefault(0);
-		});
+		// 	$table->addColumn('auction_end_date', 'int')->setDefault(0);
+		// });
 
 		// $this->insertDefaultData();
 	}
@@ -58,9 +56,9 @@ class Setup extends AbstractSetup
 	{
 		$sm = $this->schemaManager();
 
-		foreach (array_keys($this->getTables()) as $tableName) {
-			$sm->dropTable($tableName);
-		}
+		// foreach (array_keys($this->getTables()) as $tableName) {
+		// 	$sm->dropTable($tableName);
+		// }
 
 		// $sm->dropTable('fs_auction_ship_terms');
 		// $sm->dropTable('fs_auction_ship_via');

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1a5c15be6492f0ebf8412b6c1d33ee10
+// FROM HASH: 91a29e30edc44b5e50b250f2b05b2016
 return array(
 'macros' => array('simple_category_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -75,7 +75,7 @@ return array(
 				' . $__templater->escape($__vars['category']['title']) . '
 			</a>
 			<span class="categoryList-label">
-				<span class="label label--subtle label--smallest">' . $__templater->escape($__vars['category']['bid_count']) . '</span>
+				<span class="label label--subtle label--smallest">' . $__templater->escape($__vars['category']['auctions_count']) . '</span>
 			</span>
 		</div>
 		';

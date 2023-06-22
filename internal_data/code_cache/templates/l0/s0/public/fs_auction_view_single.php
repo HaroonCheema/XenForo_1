@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 94b49fb2f69f43bc0eb60478fe3dba41
+// FROM HASH: 151496750bc45246d2b829c26565eb83
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -359,15 +359,16 @@ document.getElementById("auction-counter").style.display = "block";
 				</dl>
 			
 		</div>	
+
 ';
 	if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-				<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+				<img src="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['Thread']['auction_end_date']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 	';
 	} else {
 		$__finalCompiled .= '
-			<img src="' . ($__templater->method($__vars['auction'], 'getImage', array()) ? $__templater->escape($__templater->method($__vars['auction'], 'getImage', array())) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+			<img src="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 ';
 	}

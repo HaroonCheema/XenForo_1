@@ -113,6 +113,7 @@ Thankyou...!
   <phrase title="option.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Thread Prefix Id]]></phrase>
   <phrase title="option.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Allowed image extensions]]></phrase>
+  <phrase title="option.fs_auction_applicable_forum" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[Forum Id]]></phrase>
   <phrase title="option.fs_auction_bumping_allowed" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Allowed Bumping]]></phrase>
   <phrase title="option.fs_auction_dropDown_list_limit" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Dropdown list limit]]></phrase>
   <phrase title="option.fs_auction_max_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Maximum attachments per auction]]></phrase>
@@ -122,6 +123,7 @@ Thankyou...!
   <phrase title="option_explain.auction_TimeZone" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Auction Timezone]]></phrase>
   <phrase title="option_explain.auction_thread_prefix_id" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_explain.fs_auction_ImageExtensions" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[List the file extensions that are allowed to be uploaded for images. Use spaces or line breaks between extensions.]]></phrase>
+  <phrase title="option_explain.fs_auction_applicable_forum" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_explain.fs_auction_bumping_allowed" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[how many times user can bump there auction...!]]></phrase>
   <phrase title="option_explain.fs_auction_dropDown_list_limit" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Bidding amount dropdown list limit example 5 options display in dropdown or more]]></phrase>
   <phrase title="option_explain.fs_auction_max_attachments" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[Use 0 to allow an unlimited number of attachments per message.]]></phrase>

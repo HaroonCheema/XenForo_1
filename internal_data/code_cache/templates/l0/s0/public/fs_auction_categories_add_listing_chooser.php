@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 9b0be4a62dca971fbb37c8630e50fc0b
+// FROM HASH: 78a8f7cf8bb1e0cf6b5ce3e563583063
 return array(
 'macros' => array('category_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -35,7 +35,7 @@ return array(
 			<div class="contentRow-suffix">
 				<dl class="pairs pairs--rows pairs--rows--centered">
 					<dt>' . 'Auctions' . '</dt>
-					<dd>' . $__templater->filter($__vars['category']['bid_count'], array(array('number_short', array()),), true) . '</dd>
+					<dd>' . $__templater->filter($__vars['category']['auctions_count'], array(array('number_short', array()),), true) . '</dd>
 				</dl>
 			</div>
 		</div>

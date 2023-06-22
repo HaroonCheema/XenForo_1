@@ -239,11 +239,12 @@ document.getElementById("auction-counter").style.display = "block";
 				</dl>
 			
 		</div>	
+
 <xf:if is="$auction.Thread.auction_end_date > $xf.time">
-				<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
+				<img src="{{ link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) }}" alt="{$attachment.filename}"
 					width=" " onload="timmerCounter({$auction.Thread.auction_end_date})" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 	<xf:else />
-			<img src="{{$auction.getImage() ? $auction.getImage() : base_url('styles/FS/AuctionPlugin/no_image.png',true)}}" alt="{$attachment.filename}"
+			<img src="{{ link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) }}" alt="{$attachment.filename}"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 </xf:if>
 	

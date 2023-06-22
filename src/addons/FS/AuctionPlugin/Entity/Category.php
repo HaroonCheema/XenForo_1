@@ -36,7 +36,7 @@ class Category extends AbstractCategoryTree
                 'required' => 'please_enter_valid_title'
             ],
             'description' => ['type' => self::STR, 'default' => ''],
-            'bid_count' => ['type' => self::UINT, 'forced' => true, 'default' => 0],
+            'auctions_count' => ['type' => self::UINT, 'forced' => true, 'default' => 0],
         ];
         $structure->relations = [];
         $structure->getters = [];

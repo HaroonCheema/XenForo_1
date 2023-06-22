@@ -9,6 +9,55 @@ use XF\Pub\Controller\AbstractController;
 class AuctionListing extends AbstractController
 {
 
+    // public function actionIndex(ParameterBag $params)
+    // {
+    //     $page = 0;
+    //     $perPage = 0;
+    //     $categories = $this->finder('FS\AuctionPlugin:Category');
+    //     $categoryTree = $this->createCategoryTree($categories->fetch());
+
+    //     $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
+    //     // var_dump($finder->fetch());exit;
+
+    //     if ($this->filter('search', 'uint')) {
+    //         $finder = $this->getSearchFinder();
+
+    //         if (count($finder->getConditions()) == 0) {
+    //             return $this->error(\XF::phrase('please_complete_required_field'));
+    //         }
+    //     } else if ($params->category_id) {
+    //         $finder->where('category_id', $params->category_id);
+    //     } else {
+
+    //         $options = \XF::options();
+    //         $perPage = $options->fs_auction_per_page;
+
+    //         $page = $params->page;
+
+    //         $finder->limitByPage($page, $perPage);
+    //         $finder->order('last_bumping', 'DESC');
+    //     }
+
+
+    //     $viewParams = [
+    //         'categories' => $categories,
+    //         'categoryTree' => $categoryTree,
+    //         'listings' => $finder->fetch(),
+
+    //         'stats' => $this->auctionStatistics(),
+
+    //         'page' => $page,
+    //         'perPage' => $perPage,
+    //         'total' => $finder->total(),
+    //         'totalReturn' => count($finder->fetch()),
+
+    //         'conditions' => $this->filterSearchConditions(),
+    //     ];
+
+    //     return $this->view('FS\AuctionPlugin:AuctionListing', 'fs_auctionArchive', $viewParams);
+    // }
+
     public function actionIndex(ParameterBag $params)
     {
         $page = 0;
@@ -16,17 +65,20 @@ class AuctionListing extends AbstractController
         $categories = $this->finder('FS\AuctionPlugin:Category');
         $categoryTree = $this->createCategoryTree($categories->fetch());
 
-        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+        // $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
         // var_dump($finder->fetch());exit;
 
         if ($this->filter('search', 'uint')) {
             $finder = $this->getSearchFinder();
 
+
             if (count($finder->getConditions()) == 0) {
                 return $this->error(\XF::phrase('please_complete_required_field'));
             }
         } else if ($params->category_id) {
+            $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
             $finder->where('category_id', $params->category_id);
         } else {
 
@@ -35,8 +87,11 @@ class AuctionListing extends AbstractController
 
             $page = $params->page;
 
+            $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
+
             $finder->limitByPage($page, $perPage);
-            $finder->order('thread_id', 'DESC');
+            $finder->order('last_bumping', 'DESC');
         }
 
 
@@ -45,7 +100,7 @@ class AuctionListing extends AbstractController
             'categoryTree' => $categoryTree,
             'listings' => $finder->fetch(),
 
-            // 'stats' => $this->auctionStatistics(),
+            'stats' => $this->auctionStatistics(),
 
             'page' => $page,
             'perPage' => $perPage,
@@ -132,7 +187,12 @@ class AuctionListing extends AbstractController
     {
         $conditions = $this->filterSearchConditions();
 
-        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+        // $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
+        // $finder = $this->finder('XF:Thread');
+
+        $node_id = $this->options()->fs_auction_applicable_forum;
+        $finder = $this->finder('XF:Thread')->where('node_id', $node_id)->where('auction_end_date', '!=', 0);
 
         if ($conditions['fs_auction_username'] != '') {
 
@@ -144,14 +204,21 @@ class AuctionListing extends AbstractController
 
         if ($conditions['fs_auction_status'] != 'all') {
             if ($conditions['fs_auction_status'] == '1') {
-                $finder->where('ends_on', '>=', \XF::$time);
+                $finder->where('auction_end_date', '>=', \XF::$time);
             } else {
-                $finder->where('ends_on', '<=', \XF::$time);
+                $finder->where('auction_end_date', '<=', \XF::$time);
             }
         }
 
-        if ($conditions['fs_auction_cat'] != '0') {
-            $finder->where('category_id', $conditions['fs_auction_cat']);
+        // if ($conditions['fs_auction_cat'] != '0') {
+        //     $finder->where('category_id', $conditions['fs_auction_cat']);
+        // }
+
+            $threadIds = $finder->pluckfrom('thread_id')->fetch()->toArray();
+            
+            $finder = $this->finder('FS\AuctionPlugin:AuctionListing')->where('thread_id', $threadIds);
+            if ($conditions['fs_auction_cat'] != '0') {
+            $finder->where('category_id',$conditions['fs_auction_cat']);
         }
 
         return $finder;
@@ -249,12 +316,18 @@ class AuctionListing extends AbstractController
         ]);
     }
 
+
     protected function auctionStatistics()
     {
         $cat = $this->finder('FS\AuctionPlugin:Category');
-        $getActiveAuctions = $this->finder('FS\AuctionPlugin:AuctionListing');
+        $auctionsFinder = $this->finder('FS\AuctionPlugin:AuctionListing');
         $getExpiredAuctions = $this->finder('FS\AuctionPlugin:AuctionListing');
-        $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
+
+        $node_id = $this->options()->fs_auction_applicable_forum;
+        $ThreadFinder = $this->finder('XF:Thread')->where('node_id', $node_id)->where('auction_end_date', '!=', 0);
+
+        $ThreadFinderExpired = clone $ThreadFinder;
+
 
         return [
             'categories' => [
@@ -264,17 +337,17 @@ class AuctionListing extends AbstractController
 
             'auctions' => [
                 'title' => \XF::phrase('fs_stats_auctions'),
-                'count' => $finder->total(),
+                'count' => $auctionsFinder->total(),
             ],
 
             'activeAuctions' => [
                 'title' => \XF::phrase('fs_stats_auctions_active'),
-                'count' => $getActiveAuctions->where('ends_on', '>', time())->total(),
+                'count' => $ThreadFinder->where('auction_end_date', '>', time())->total(),
             ],
 
             'expiredAuctions' => [
                 'title' => \XF::phrase('fs_stats_auctions_expired'),
-                'count' => $getExpiredAuctions->where('ends_on', '<', time())->total(),
+                'count' => $ThreadFinderExpired->where('auction_end_date', '<', time())->total(),
             ],
         ];
     }

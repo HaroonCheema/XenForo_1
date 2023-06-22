@@ -18,6 +18,10 @@ gif</default_value>
     <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>
+  <option option_id="fs_auction_applicable_forum" edit_format="textbox" data_type="integer">
+    <default_value>1</default_value>
+    <relation group_id="auction" display_order="1"/>
+  </option>
   <option option_id="fs_auction_bumping_allowed" edit_format="textbox" data_type="integer">
     <default_value>2</default_value>
     <relation group_id="auction" display_order="1"/>

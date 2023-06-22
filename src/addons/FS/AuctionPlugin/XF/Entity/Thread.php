@@ -11,8 +11,6 @@ class Thread extends XFCP_Thread
         $structure = parent::getStructure($structure);
 
         $structure->columns['auction_end_date'] =  ['type' => self::UINT, 'default' => 0];
-        $structure->columns['last_bumping'] =  ['type' => self::UINT, 'default' => \XF::$time];
-        $structure->columns['bumping_counts'] =  ['type' => self::UINT, 'default' => 0];
 
         return $structure;
     }

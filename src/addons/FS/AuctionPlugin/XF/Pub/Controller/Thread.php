@@ -20,7 +20,8 @@ class Thread extends XFCP_Thread
             $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->where('thread_id', $thread->thread_id)->fetchOne();
 
             return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('auction/' . $auction->category_id . '/' . $auction->auction_id . '/view-auction'), $auction)
+                $this->buildLink('auction/' . $auction->category_id . '/' . $auction->auction_id . '/view-auction'),
+                $auction
             );
         }
 
