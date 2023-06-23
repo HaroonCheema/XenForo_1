@@ -25,19 +25,6 @@ class Setup extends AbstractSetup
 		foreach ($this->getTables() as $tableName => $callback) {
 			$sm->createTable($tableName, $callback);
 		}
-		$this->schemaManager()->createTable('fs_auction_ship_terms', function (Create $table) {
-			$table->addColumn('term_id', 'int', '255')->autoIncrement();
-			$table->addColumn('shipping_term', 'mediumtext')->nullable();
-
-			$table->addPrimaryKey('term_id');
-		});
-
-		$this->schemaManager()->createTable('fs_auction_ship_via', function (Create $table) {
-			$table->addColumn('via_id', 'int', '255')->autoIncrement();
-			$table->addColumn('ship_via', 'mediumtext')->nullable();
-
-			$table->addPrimaryKey('via_id');
-		});
 
 		$this->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
 
@@ -54,72 +41,22 @@ class Setup extends AbstractSetup
 
 	public function uninstallStep1()
 	{
-
-
-		$forumService = \xf::app()->service('FS\AuctionPlugin:Auction\ForumAndFields');
-		$node = $forumService->createNode();
-
-
-		// $forumService->updateOptionsforum($node->node_id);
-		// $forumService->updateOptionsforum('31');
-
-		// exit;
-
-
-		// $forumService->createForumAndFields();
-
-
-		$userGroup = \xf::app()->finder('XF:UserGroup')->whereId(2)->fetchOne();
-
-
-		$permissions = [
-			'general' => [
-
-				'viewNode' => 'content_allow',
-			],
-			'forum' => [
-
-				'postThread' => 'content_allow',
-				'postReply' => 'content_allow',
-			]
-		];
-
-
-
-		$permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
-		$permissionUpdater->setContent("node", $node->node_id)->setUserGroup($userGroup);
-		$permissionUpdater->updatePermissions($permissions);
-
-
-		$permissionUpdater->setUserGroup($userGroup)->setGlobal();
-		if (\xf::app()->container()->isCached('permission.builder')) {
-			// permissions changing and we've already cached the data, so refresh
-			\xf::app()->permissionBuilder()->refreshData();
-		}
-
-		$permissionUpdater->triggerCacheRebuild();
-
-		exit;
 		$sm = $this->schemaManager();
 
-		// foreach (array_keys($this->getTables()) as $tableName) {
-		// 	$sm->dropTable($tableName);
-		// }
+		foreach (array_keys($this->getTables()) as $tableName) {
+			$sm->dropTable($tableName);
+		}
 
-		// $sm->dropTable('fs_auction_ship_terms');
-		// $sm->dropTable('fs_auction_ship_via');
+		$this->schemaManager()->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
+			$table->dropColumns(['layout_type']);
+		});
 
-		// $this->schemaManager()->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
-		// 	$table->dropColumns(['layout_type']);
-		// });
-
-		// $this->schemaManager()->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
-		// 	$table->dropColumns(['auction_end_date']);
-		// });
-
-		// $db = \XF::db();
-		// $db->delete('xf_attachment', "content_type = 'fs_auction'");
+		$this->schemaManager()->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+			$table->dropColumns(['auction_end_date']);
+		});
 	}
+
+
 
 	public function insertDefaultData()
 	{

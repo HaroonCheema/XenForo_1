@@ -94,7 +94,7 @@ document.getElementById("auction-counter").style.display = "block";
 
 		<xf:if is="$auction.Thread.FirstPost.isUnread()">
 				<li><span class="message-newIndicator">{{ phrase('new') }}</span></li>
-			<xf:elseif is="$auction.Thread.isUnread() && $showThreadUnreadIndicator" />
+			<xf:elseif is="$auction.Thread.isUnread()" />
 				<li><span class="message-newIndicator" title="{{ phrase('new_replies') }}">{{ phrase('new') }}</span></li>
 			</xf:if>
 			

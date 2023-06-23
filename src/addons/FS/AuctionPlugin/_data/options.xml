@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
-  <option option_id="auction_TimeZone" edit_format="textbox" data_type="string">
-    <default_value>Pacific Timezone (PT)</default_value>
-    <edit_format_params>rows=3</edit_format_params>
-    <relation group_id="auction" display_order="1"/>
-  </option>
   <option option_id="auction_thread_prefix_id" edit_format="textbox" data_type="integer">
     <default_value>0</default_value>
-    <relation group_id="auction" display_order="1"/>
-  </option>
-  <option option_id="fs_auction_ImageExtensions" edit_format="textbox" data_type="string">
-    <default_value>png
-jpg
-jpeg
-jpe
-gif</default_value>
-    <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>
   <option option_id="fs_auction_applicable_forum" edit_format="textbox" data_type="integer">
@@ -30,25 +16,8 @@ gif</default_value>
     <default_value>5</default_value>
     <relation group_id="auction" display_order="1"/>
   </option>
-  <option option_id="fs_auction_max_attachments" edit_format="spinbox" data_type="unsigned_integer">
-    <default_value>1</default_value>
-    <edit_format_params>min=0</edit_format_params>
-    <relation group_id="auction" display_order="1"/>
-  </option>
   <option option_id="fs_auction_per_page" edit_format="textbox" data_type="integer">
     <default_value>9</default_value>
-    <relation group_id="auction" display_order="1"/>
-  </option>
-  <option option_id="minimumBidIncreament" edit_format="textbox" data_type="string">
-    <default_value>5
-10
-15</default_value>
-    <edit_format_params>rows=3</edit_format_params>
-    <relation group_id="auction" display_order="1"/>
-  </option>
-  <option option_id="paymentOptions" edit_format="textbox" data_type="string">
-    <default_value></default_value>
-    <edit_format_params>rows=3</edit_format_params>
     <relation group_id="auction" display_order="1"/>
   </option>
 </options>

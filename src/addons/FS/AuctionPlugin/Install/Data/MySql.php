@@ -12,23 +12,23 @@ class MySql
     {
         $tables = [];
 
-        // $tables['fs_auction_category'] = function (Create $table) {
-        //     /** @var Create|Alter $table */
-        //     $table->addColumn('category_id', 'int')->autoIncrement();
-        //     $table->addColumn('title', 'varchar', 100);
-        //     $table->addColumn('description', 'text');
-        //     $table->addColumn('parent_category_id', 'int')->setDefault(0);
-        //     $table->addColumn('display_order', 'int')->setDefault(0);
-        //     $table->addColumn('lft', 'int')->setDefault(0);
-        //     $table->addColumn('rgt', 'int')->setDefault(0);
-        //     $table->addColumn('depth', 'smallint', 5)->setDefault(0);
-        //     $table->addColumn('breadcrumb_data', 'blob');
-        //     $table->addColumn('auctions_count', 'int')->setDefault(0);
-        //     $table->addColumn('layout_type', 'varchar', 20)->setDefault('list_view');
-        //     $table->addKey(['parent_category_id', 'lft']);
-        //     $table->addKey(['lft', 'rgt']);
-        //     $table->addPrimaryKey('category_id');
-        // };
+        $tables['fs_auction_category'] = function (Create $table) {
+            /** @var Create|Alter $table */
+            $table->addColumn('category_id', 'int')->autoIncrement();
+            $table->addColumn('title', 'varchar', 100);
+            $table->addColumn('description', 'text');
+            $table->addColumn('parent_category_id', 'int')->setDefault(0);
+            $table->addColumn('display_order', 'int')->setDefault(0);
+            $table->addColumn('lft', 'int')->setDefault(0);
+            $table->addColumn('rgt', 'int')->setDefault(0);
+            $table->addColumn('depth', 'smallint', 5)->setDefault(0);
+            $table->addColumn('breadcrumb_data', 'blob');
+            $table->addColumn('auctions_count', 'int')->setDefault(0);
+            $table->addColumn('layout_type', 'varchar', 20)->setDefault('list_view');
+            $table->addKey(['parent_category_id', 'lft']);
+            $table->addKey(['lft', 'rgt']);
+            $table->addPrimaryKey('category_id');
+        };
 
         $tables['fs_auction_listing'] = function (Create $table) {
             /** @var Create|Alter $table */
@@ -41,15 +41,15 @@ class MySql
             $table->addPrimaryKey('auction_id');
         };
 
-        // $tables['fs_auction_bidding'] = function (Create $table) {
-        //     /** @var Create|Alter $table */
-        //     $table->addColumn('bidding_id', 'int')->autoIncrement();
-        //     $table->addColumn('user_id', 'int')->setDefault(0);
-        //     $table->addColumn('auction_id', 'int')->setDefault(0);
-        //     $table->addColumn('created_at', 'int')->setDefault(0);
-        //     $table->addColumn('bidding_amount', 'int')->setDefault(0);
-        //     $table->addPrimaryKey('bidding_id');
-        // };
+        $tables['fs_auction_bidding'] = function (Create $table) {
+            /** @var Create|Alter $table */
+            $table->addColumn('bidding_id', 'int')->autoIncrement();
+            $table->addColumn('user_id', 'int')->setDefault(0);
+            $table->addColumn('auction_id', 'int')->setDefault(0);
+            $table->addColumn('created_at', 'int')->setDefault(0);
+            $table->addColumn('bidding_amount', 'int')->setDefault(0);
+            $table->addPrimaryKey('bidding_id');
+        };
 
         // $tables['fs_auction_read'] = function (Create $table) {
         //     /** @var Create|Alter $table */

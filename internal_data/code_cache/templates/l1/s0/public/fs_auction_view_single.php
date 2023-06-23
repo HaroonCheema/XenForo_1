@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: e885e11bc55b75f363c5854a5857e602
+// FROM HASH: df02b3e0110df29c9e6611c0e462d4ef
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -301,7 +301,7 @@ document.getElementById("auction-counter").style.display = "block";
 		$__finalCompiled .= '
 				<li><span class="message-newIndicator">' . 'New' . '</span></li>
 			';
-	} else if ($__templater->method($__vars['auction']['Thread'], 'isUnread', array()) AND $__vars['showThreadUnreadIndicator']) {
+	} else if ($__templater->method($__vars['auction']['Thread'], 'isUnread', array())) {
 		$__finalCompiled .= '
 				<li><span class="message-newIndicator" title="' . 'New replies' . '">' . 'New' . '</span></li>
 			';

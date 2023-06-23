@@ -48,148 +48,148 @@ class Auction extends AbstractController
         }
     }
 
-    public function actionEdit(ParameterBag $params)
-    {
-        /** @var \FS\AuctionPlugin\Entity\AuctionListing $data */
-        $data = $this->assertDataExists($params->auction_id);
+    // public function actionEdit(ParameterBag $params)
+    // {
+    //     /** @var \FS\AuctionPlugin\Entity\AuctionListing $data */
+    //     $data = $this->assertDataExists($params->auction_id);
 
-        return $this->actionAddEdit($data, $params);
-    }
+    //     return $this->actionAddEdit($data, $params);
+    // }
 
-    public function actionAddEdit(\FS\AuctionPlugin\Entity\AuctionListing $data, $params)
-    {
-        $options = \XF::options();
-        $bidIncreaments = $options->minimumBidIncreament;
+    // public function actionAddEdit(\FS\AuctionPlugin\Entity\AuctionListing $data, $params)
+    // {
+    //     $options = \XF::options();
+    //     $bidIncreaments = $options->minimumBidIncreament;
 
-        $bidIncreamentsArray = explode("\n", $bidIncreaments);
+    //     $bidIncreamentsArray = explode("\n", $bidIncreaments);
 
-        $timeZones = $options->auction_TimeZone;
+    //     $timeZones = $options->auction_TimeZone;
 
-        $timeZonesArray = explode("\n", $timeZones);
+    //     $timeZonesArray = explode("\n", $timeZones);
 
-        $paymentMethodOptions = $options->paymentOptions;
+    //     $paymentMethodOptions = $options->paymentOptions;
 
-        $paymentMethodOptionsArray = explode("\n", $paymentMethodOptions);
+    //     $paymentMethodOptionsArray = explode("\n", $paymentMethodOptions);
 
-        $auctionPrefixId = $options->auction_thread_prefix_id;
+    //     $auctionPrefixId = $options->auction_thread_prefix_id;
 
-        $shipsVia = $this->finder('FS\AuctionPlugin:ShipsVia')->fetch();
+    //     $shipsVia = $this->finder('FS\AuctionPlugin:ShipsVia')->fetch();
 
-        $shipTerms = $this->finder('FS\AuctionPlugin:ShipTerms')->fetch();
+    //     $shipTerms = $this->finder('FS\AuctionPlugin:ShipTerms')->fetch();
 
-        $prefixMap[] = $this->finder('XF:ThreadPrefix')
-            ->fetch()->toArray();
+    //     $prefixMap[] = $this->finder('XF:ThreadPrefix')
+    //         ->fetch()->toArray();
 
-        $attachmentRepo = $this->repository('XF:Attachment');
-        $attachmentData = $attachmentRepo->getEditorData('fs_auction', $data);
+    //     $attachmentRepo = $this->repository('XF:Attachment');
+    //     $attachmentData = $attachmentRepo->getEditorData('fs_auction', $data);
 
-        $viewParams = [
-            'category' => $params,
-            'data' => $data,
+    //     $viewParams = [
+    //         'category' => $params,
+    //         'data' => $data,
 
-            'shipsVia' => $shipsVia,
-            'shipTerms' => $shipTerms,
-            'timeZones' => $timeZonesArray,
-            'bidIncreaments' => $bidIncreamentsArray,
-            'paymentMethods' => $paymentMethodOptionsArray,
-            'auctionPrefixId' => $auctionPrefixId,
+    //         'shipsVia' => $shipsVia,
+    //         'shipTerms' => $shipTerms,
+    //         'timeZones' => $timeZonesArray,
+    //         'bidIncreaments' => $bidIncreamentsArray,
+    //         'paymentMethods' => $paymentMethodOptionsArray,
+    //         'auctionPrefixId' => $auctionPrefixId,
 
-            'attachmentData' => $attachmentData,
-            'attachment_time' => $attachmentData['attachments'] ? end($attachmentData['attachments'])->attach_date : '',
+    //         'attachmentData' => $attachmentData,
+    //         'attachment_time' => $attachmentData['attachments'] ? end($attachmentData['attachments'])->attach_date : '',
 
-            'prefixes' => $prefixMap,
-        ];
+    //         'prefixes' => $prefixMap,
+    //     ];
 
-        return $this->view('FS\AuctionPlugin:AuctionListing\Add', 'addEdit_Auction', $viewParams);
-    }
+    //     return $this->view('FS\AuctionPlugin:AuctionListing\Add', 'addEdit_Auction', $viewParams);
+    // }
 
-    public function actionSave(ParameterBag $params)
-    {
-        $hash = $this->filter('attachment_hash', 'str');
+    // public function actionSave(ParameterBag $params)
+    // {
+    //     $hash = $this->filter('attachment_hash', 'str');
 
-        $this->checkAttachments($hash, $params);
+    //     $this->checkAttachments($hash, $params);
 
-        if ($params->auction_id) {
-            $editAdd = $this->assertDataExists($params->auction_id);
-        } else {
-            $editAdd = $this->em()->create('FS\AuctionPlugin:AuctionListing');
-        }
+    //     if ($params->auction_id) {
+    //         $editAdd = $this->assertDataExists($params->auction_id);
+    //     } else {
+    //         $editAdd = $this->em()->create('FS\AuctionPlugin:AuctionListing');
+    //     }
 
-        $this->saveProcess($editAdd);
+    //     $this->saveProcess($editAdd);
 
-        $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
+    //     $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
 
-        foreach ($attachments as $attachment) {
-            $attachment->content_id = $editAdd->auction_id;
-            $attachment->temp_hash = '';
-            $attachment->unassociated = 0;
-            $attachment->save();
-        }
+    //     foreach ($attachments as $attachment) {
+    //         $attachment->content_id = $editAdd->auction_id;
+    //         $attachment->temp_hash = '';
+    //         $attachment->unassociated = 0;
+    //         $attachment->save();
+    //     }
 
-        return $this->redirect($this->buildLink('auction'));
-    }
+    //     return $this->redirect($this->buildLink('auction'));
+    // }
 
-    protected function checkAttachments($hash, $data)
-    {
-        if ($data->auction_id) {
-            $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $data->auction_id)->fetch();
+    // protected function checkAttachments($hash, $data)
+    // {
+    //     if ($data->auction_id) {
+    //         $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $data->auction_id)->fetch();
 
-            if (!count($attachments)) {
-                $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
-            }
-        } else {
-            $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
-        }
+    //         if (!count($attachments)) {
+    //             $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
+    //         }
+    //     } else {
+    //         $attachments = $this->finder('XF:Attachment')->where('temp_hash', $hash)->fetch();
+    //     }
 
-        if (!count($attachments)) {
-            throw $this->exception(
-                $this->notFound(\XF::phrase("fs_auction_attachment_reqired"))
-            );
-        }
+    //     if (!count($attachments)) {
+    //         throw $this->exception(
+    //             $this->notFound(\XF::phrase("fs_auction_attachment_reqired"))
+    //         );
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    protected function saveProcess(\FS\AuctionPlugin\Entity\AuctionListing $data)
-    {
-        $input = $this->filterInputs();
+    // protected function saveProcess(\FS\AuctionPlugin\Entity\AuctionListing $data)
+    // {
+    //     $input = $this->filterInputs();
 
-        $visitor = \XF::visitor();
+    //     $visitor = \XF::visitor();
 
-        $message = $this->plugin('XF:Editor')->fromInput('message');
+    //     $message = $this->plugin('XF:Editor')->fromInput('message');
 
-        $tmpTime = explode(':', $input['ends_on_time']);
-        $h = $tmpTime[0] * 3600;
-        $m = $tmpTime[1] * 60;
-        $tmpDate = strtotime($input['ends_on'] . ' 00:00 America/Los_Angeles');
+    //     $tmpTime = explode(':', $input['ends_on_time']);
+    //     $h = $tmpTime[0] * 3600;
+    //     $m = $tmpTime[1] * 60;
+    //     $tmpDate = strtotime($input['ends_on'] . ' 00:00 America/Los_Angeles');
 
-        $data->category_id = $input['category_id'];
-        $data->title = $input['title'];
-        $data->content = $message;
-        $data->user_id = $visitor->user_id;
-        $data->prefix_id = $input['prefix_id'];
-        $data->ends_on = ($tmpDate + $h + $m);
-        $data->timezone = $input['timezone'];
-        $data->starting_bid = $input['starting_bid'];
-        $data->bid_increament = $input['bid_increament'];
-        $data->shipping_term = $input['shipping_term'];
-        $data->ships_via = $input['ships_via'];
-        $data->auction_guidelines = $input['auction_guidelines'];
-        $data->bumping_rules = $input['bumping_rules'];
-        $data->watch_thread = $input['watch_thread'];
-        $data->receive_email = $input['receive_email'];
-        $data->payment_methods = $input['payment_methods'];
+    //     $data->category_id = $input['category_id'];
+    //     $data->title = $input['title'];
+    //     $data->content = $message;
+    //     $data->user_id = $visitor->user_id;
+    //     $data->prefix_id = $input['prefix_id'];
+    //     $data->ends_on = ($tmpDate + $h + $m);
+    //     $data->timezone = $input['timezone'];
+    //     $data->starting_bid = $input['starting_bid'];
+    //     $data->bid_increament = $input['bid_increament'];
+    //     $data->shipping_term = $input['shipping_term'];
+    //     $data->ships_via = $input['ships_via'];
+    //     $data->auction_guidelines = $input['auction_guidelines'];
+    //     $data->bumping_rules = $input['bumping_rules'];
+    //     $data->watch_thread = $input['watch_thread'];
+    //     $data->receive_email = $input['receive_email'];
+    //     $data->payment_methods = $input['payment_methods'];
 
-        if ($data->auction_id == null) {
-            $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($input['category_id'])->fetchOne();
+    //     if ($data->auction_id == null) {
+    //         $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($input['category_id'])->fetchOne();
 
-            $increament = $auctionsCounter->auctions_count + 1;
+    //         $increament = $auctionsCounter->auctions_count + 1;
 
-            $auctionsCounter->fastUpdate('auctions_count', $increament);
-        }
+    //         $auctionsCounter->fastUpdate('auctions_count', $increament);
+    //     }
 
-        $data->save();
-    }
+    //     $data->save();
+    // }
 
     public function actionBumping(ParameterBag $params)
     {
@@ -227,21 +227,30 @@ class Auction extends AbstractController
                 $this->notFound(\XF::phrase("fs_auction_select_amount"))
             );
         }
-
         $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
+        
+       
+        
 
         $highestBidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetchOne();
-
-        if ($highestBidding && $input['bidding_amount'] <= $highestBidding->bidding_amount) {
-            throw $this->exception(
-                $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
-            );
-        } elseif ($input['bidding_amount'] < ($auction->starting_bid + $auction->bid_increament)) {
-            throw $this->exception(
-                $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
-            );
+        if ($highestBidding){
+            if ($input['bidding_amount'] <= $highestBidding->bidding_amount) {
+                throw $this->exception(
+                    $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+                );
+            } 
         }
+        else{
+            $thread = $this->finder('XF:Thread')->whereId($auction['thread_id'])->fetchOne();
+                
+                if ($input['bidding_amount'] < (intval($thread->custom_fields['starting_bid']) + intval($thread->custom_fields['bid_increament']))) {
+                    throw $this->exception(
+                        $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+                    );
+                }
+            }
 
+        
 
         $visitor = \XF::visitor();
 
@@ -254,71 +263,146 @@ class Auction extends AbstractController
         $addBidding->save();
 
 
-        if ($auction->watch_thread) {
-            // /** @var Auction $notifier */
-            $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
-
-            // /** @var \FS\Service\Auction\Notifier $notifier */
-            // $notifier = $this->service('FS\AuctionPlugin:Auction\Notifier', $auction, 'fs_auction');
-            // $notifier->setMentionedUserIds(['1', '2', '3', '678364366', '678364367']);
-            // $notifier->notifyAndEnqueue(3);
-            $notifier->sendAlert($auction->User);
-
-            if ($auction->receive_email && $auction->User->email) {
-                $this->sendMail($auction);
-            }
+        $replier = \XF::service('FS\AuctionPlugin:AuctionBidPost');
+        
+      
+         $replier->setThread($auction->Thread);
+         $replier->setUser($visitor);
+         $replier->setPostDefaults();
+          
+         $replier->setIsAutomated();
+        
+        $message =  $input['bidding_amount'];
+        if (!$message) {
+            $message = "--";
         }
+        $replier->setMessage($message);
+
+        $replier->save();
+
+
+        // if ($auction->watch_thread) {
+        //     // /* @var Auction $notifier /
+        //     $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
+
+        //     // /* @var \FS\Service\Auction\Notifier $notifier /
+        //     // $notifier = $this->service('FS\AuctionPlugin:Auction\Notifier', $auction, 'fs_auction');
+        //     // $notifier->setMentionedUserIds(['1', '2', '3', '678364366', '678364367']);
+        //     // $notifier->notifyAndEnqueue(3);
+        //     $notifier->sendAlert($auction->User);
+
+        //     if ($auction->receive_email && $auction->User->email) {
+        //         $this->sendMail($auction);
+        //     }
+        // }   
         return $this->redirect(
             $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
         );
     }
+    
+    // public function actionBidding(ParameterBag $params)
+    // {
+    //     $input = $this->filter([
+    //         'bidding_amount' => 'int',
+    //     ]);
 
-    protected function sendMail($auction)
-    {
-        $mail = $this->app->mailer()->newMail()->setTo($auction->User->email);
-        $mail->setTemplate('fs_auction_send_bidding_mail', [
-            'auction' => $auction,
-            'bid_visitor' => \XF::visitor()
+    //     if ($input['bidding_amount'] == '0') {
+    //         throw $this->exception(
+    //             $this->notFound(\XF::phrase("fs_auction_select_amount"))
+    //         );
+    //     }
 
-        ]);
-        $mail->send();
-    }
+    //     $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
 
-    protected function filterInputs()
-    {
+    //     $highestBidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetchOne();
 
-        $input = $this->filter([
-            'category_id' => 'int',
-            'title' => 'str',
-            'prefix_id' => 'int',
-            'ends_on' => 'str',
-            'ends_on_time' => 'str',
-            'timezone' => 'str',
-            'starting_bid' => 'int',
-            'bid_increament' => 'int',
-            'shipping_term' => 'str',
-            'ships_via' => 'str',
-            'auction_guidelines' => 'bool',
-            'bumping_rules' => 'bool',
-            'receive_email' => 'bool',
-            'watch_thread' => 'bool',
-            'payment_methods' => 'array',
-        ]);
+    //     if ($highestBidding && $input['bidding_amount'] <= $highestBidding->bidding_amount) {
+    //         throw $this->exception(
+    //             $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+    //         );
+    //     } elseif ($input['bidding_amount'] < ($auction->starting_bid + $auction->bid_increament)) {
+    //         throw $this->exception(
+    //             $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+    //         );
+    //     }
 
-        if (strtotime($input['ends_on']) <= time()) {
-            throw $this->exception(
-                $this->notFound(\XF::phrase("fs_auction_Please_enter_future_date"))
-            );
-        }
 
-        if ($input['title'] != '' && $input['timezone'] != '0' && $input['prefix_id'] != '0' && $input['starting_bid'] != '0' && $input['bid_increament'] != '0' && $input['shipping_term'] != '0' && $input['ships_via'] != '0' && $input['auction_guidelines'] != false && $input['bumping_rules'] != false && count($input['payment_methods']) != 0) {
-            return $input;
-        }
+    //     $visitor = \XF::visitor();
 
-        throw $this->exception(
-            $this->notFound(\XF::phrase("fs_filled_reqired_fields_auction"))
-        );
-    }
+    //     $addBidding = $this->em()->create('FS\AuctionPlugin:Bidding');
+
+    //     $addBidding->user_id = $visitor->user_id;
+    //     $addBidding->auction_id = $params['auction_id'];
+    //     $addBidding->bidding_amount = $input['bidding_amount'];
+
+    //     $addBidding->save();
+
+
+    //     if ($auction->watch_thread) {
+    //         // /** @var Auction $notifier */
+    //         $notifier = $this->app->notifier('FS\AuctionPlugin:Listing\Auction', $auction);
+
+    //         // /** @var \FS\Service\Auction\Notifier $notifier */
+    //         // $notifier = $this->service('FS\AuctionPlugin:Auction\Notifier', $auction, 'fs_auction');
+    //         // $notifier->setMentionedUserIds(['1', '2', '3', '678364366', '678364367']);
+    //         // $notifier->notifyAndEnqueue(3);
+    //         $notifier->sendAlert($auction->User);
+
+    //         if ($auction->receive_email && $auction->User->email) {
+    //             $this->sendMail($auction);
+    //         }
+    //     }
+    //     return $this->redirect(
+    //         $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
+    //     );
+    // }
+
+    // protected function sendMail($auction)
+    // {
+    //     $mail = $this->app->mailer()->newMail()->setTo($auction->User->email);
+    //     $mail->setTemplate('fs_auction_send_bidding_mail', [
+    //         'auction' => $auction,
+    //         'bid_visitor' => \XF::visitor()
+
+    //     ]);
+    //     $mail->send();
+    // }
+
+    // protected function filterInputs()
+    // {
+
+    //     $input = $this->filter([
+    //         'category_id' => 'int',
+    //         'title' => 'str',
+    //         'prefix_id' => 'int',
+    //         'ends_on' => 'str',
+    //         'ends_on_time' => 'str',
+    //         'timezone' => 'str',
+    //         'starting_bid' => 'int',
+    //         'bid_increament' => 'int',
+    //         'shipping_term' => 'str',
+    //         'ships_via' => 'str',
+    //         'auction_guidelines' => 'bool',
+    //         'bumping_rules' => 'bool',
+    //         'receive_email' => 'bool',
+    //         'watch_thread' => 'bool',
+    //         'payment_methods' => 'array',
+    //     ]);
+
+    //     if (strtotime($input['ends_on']) <= time()) {
+    //         throw $this->exception(
+    //             $this->notFound(\XF::phrase("fs_auction_Please_enter_future_date"))
+    //         );
+    //     }
+
+    //     if ($input['title'] != '' && $input['timezone'] != '0' && $input['prefix_id'] != '0' && $input['starting_bid'] != '0' && $input['bid_increament'] != '0' && $input['shipping_term'] != '0' && $input['ships_via'] != '0' && $input['auction_guidelines'] != false && $input['bumping_rules'] != false && count($input['payment_methods']) != 0) {
+    //         return $input;
+    //     }
+
+    //     throw $this->exception(
+    //         $this->notFound(\XF::phrase("fs_filled_reqired_fields_auction"))
+    //     );
+    // }
 
     public function actionDelete(ParameterBag $params)
     {
@@ -370,48 +454,48 @@ class Auction extends AbstractController
         $auction->delete();
     }
 
-    protected function deleteAttachments($auction_id)
-    {
-        $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $auction_id)->fetch();
+    // protected function deleteAttachments($auction_id)
+    // {
+    //     $attachments = $this->finder('XF:Attachment')->where('content_type', 'fs_auction')->where('content_id', $auction_id)->fetch();
 
-        if (count($attachments)) {
+    //     if (count($attachments)) {
 
-            foreach ($attachments as $attachment) {
+    //         foreach ($attachments as $attachment) {
 
-                $path = \XF::getRootDirectory() . $this->getAbstractDepositAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id);
+    //             $path = \XF::getRootDirectory() . $this->getAbstractDepositAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id);
 
-                if (file_exists($path)) {
+    //             if (file_exists($path)) {
 
-                    $this->App()->fs()->delete($this->getAbstractCustomAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id));
-                }
-                $attachment->delete();
-            }
-        }
-    }
+    //                 $this->App()->fs()->delete($this->getAbstractCustomAttachmentPath($attachment->Data->file_hash, $attachment->attachment_id));
+    //             }
+    //             $attachment->delete();
+    //         }
+    //     }
+    // }
 
-    protected function deleteAndDecreament(\FS\AuctionPlugin\Entity\AuctionListing $data)
-    {
+    // protected function deleteAndDecreament(\FS\AuctionPlugin\Entity\AuctionListing $data)
+    // {
 
-        $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($data['category_id'])->fetchOne();
+    //     $auctionsCounter = $this->finder('FS\AuctionPlugin:Category')->whereId($data['category_id'])->fetchOne();
 
-        $decreament = $auctionsCounter->auctions_count - 1;
+    //     $decreament = $auctionsCounter->auctions_count - 1;
 
-        $auctionsCounter->fastUpdate('auctions_count', $decreament);
-        $data->delete();
-    }
+    //     $auctionsCounter->fastUpdate('auctions_count', $decreament);
+    //     $data->delete();
+    // }
 
-    public function getAbstractDepositAttachmentPath($hash, $id)
-    {
-        $path = sprintf('/data/attachments/0/' . $id . '-' . $hash . '.jpg');
-        return $path;
-    }
+    // public function getAbstractDepositAttachmentPath($hash, $id)
+    // {
+    //     $path = sprintf('/data/attachments/0/' . $id . '-' . $hash . '.jpg');
+    //     return $path;
+    // }
 
-    public function getAbstractCustomAttachmentPath($hash, $id)
-    {
-        $path = sprintf('data://attachments/0/' . $id . '-' . $hash . '.jpg');
+    // public function getAbstractCustomAttachmentPath($hash, $id)
+    // {
+    //     $path = sprintf('data://attachments/0/' . $id . '-' . $hash . '.jpg');
 
-        return $path;
-    }
+    //     return $path;
+    // }
 
     /**
      * @param string $id

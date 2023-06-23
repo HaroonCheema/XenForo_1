@@ -5,11 +5,14 @@ namespace FS\AuctionPlugin\Service\Auction;
 use XF\Mvc\FormAction;
 
 
+
 class ForumAndFields extends \XF\Service\AbstractService
 {
+    public $nodeId;
 
-    public function createForumAndFields()
+    public function createCustomFields($nodeId)
     {
+        $this->nodeId = $nodeId;
         foreach ($this->customFieldAuction() as $customField) {
             $this->fieldSaveProcess(\xf::app()->em()->create('XF:ThreadField'), $customField)->run();
         }
@@ -262,7 +265,7 @@ class ForumAndFields extends \XF\Service\AbstractService
     protected function saveAdditionalData(FormAction $form, \XF\Entity\AbstractField $field)
     {
         $nodeIds = [
-            '0' => \xf::app()->options()->fs_auction_applicable_forum
+            '0' => (int) $this->nodeId
         ];
 
         /** @var \XF\Entity\ThreadField $field */
@@ -291,9 +294,9 @@ class ForumAndFields extends \XF\Service\AbstractService
 
         $input = [
             'node' => [
-                'title' => 'Acutwero123',
+                'title' => 'Acution66',
                 'node_name' => '',
-                'description' => \XF::phrase(''),
+                'description' => '',
                 'parent_node_id' => '',
                 'display_order' => '',
                 'display_in_list' => true,
@@ -422,5 +425,51 @@ class ForumAndFields extends \XF\Service\AbstractService
             $optionIndex->option_value = $nodeId;
             $optionIndex->save();
         }
+    }
+
+    public function permissionRebuild()
+    {
+
+        // $userGroup = \xf::app()->finder('XF:UserGroup')->whereId(2)->fetchOne();
+
+
+        // $permissions = [
+        //     'general' => [
+
+        //         'viewNode' => 'content_allow',
+        //     ],
+        //     'forum' => [
+
+        //         'postThread' => 'content_allow',
+        //         'postReply' => 'content_allow',
+        //     ]
+        // ];
+
+
+
+        // $permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
+        // $permissionUpdater->setContent("node", $node->node_id)->setUserGroup($userGroup);
+        // $permissionUpdater->updatePermissions($permissions);
+
+        $userGroups = $this->getUserGroupRepo()->findUserGroupsForList()->fetch();
+
+        if (count($userGroups)) {
+            //
+            $permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
+            foreach ($userGroups as $group) {
+
+                $permissionUpdater->setUserGroup($group)->setGlobal();
+                if (\xf::app()->container()->isCached('permission.builder')) {
+                    \xf::app()->permissionBuilder()->refreshData();
+                }
+
+                $permissionUpdater->triggerCacheRebuild();
+            }
+        }
+    }
+
+    public function getUserGroupRepo()
+    {
+        return \xf::app()->repository('XF:UserGroup');
     }
 }

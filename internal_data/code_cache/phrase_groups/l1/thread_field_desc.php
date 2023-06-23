@@ -19,6 +19,4 @@ return array (
   'thread_field_desc.payment_methods' => 'Chose which forms of payment you accept.',
   'thread_field_desc.shipping_term' => 'Chose your shipping terms.',
   'thread_field_desc.ships_via' => 'Choose the shipping service you will use.',
-  'thread_field_desc.starting_bid' => 'Must be in whole US dollars only. Do not put $. It will automatically be added when saved.',
-  'thread_field_desc.timezone' => 'All auction closing times will use the Pacfic Time Zone.',
 );

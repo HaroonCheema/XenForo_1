@@ -120,19 +120,16 @@ class AuctionListing extends AbstractController
             return $this->error('data not found');
         }
 
-        $visitor = \XF::visitor();
-
-        $auctionUnread = $this->Finder('FS\AuctionPlugin:AuctionRead')->where('auction_id', $params->auction_id)->where('user_id', $visitor->user_id)->fetchOne();
-
-        if (!$auctionUnread) {
-            $this->auctionReadInsert($params->auction_id, $visitor->user_id);
-        }
-
         $options = \XF::options();
         $dropDownListLimit = $options->fs_auction_dropDown_list_limit;
 
         $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
         $bidding = $tempBiddings->fetch();
+
+        if ($auction->Thread->isUnread()) {
+            $threadRepo = $this->repository('XF:Thread');
+            $threadRepo->markThreadReadByVisitor($auction->Thread);
+        }
 
         $viewParams = [
             'auction' => $auction,
@@ -140,8 +137,6 @@ class AuctionListing extends AbstractController
             'highestBidId' => key(reset($bidding)),
 
             'dropDownListLimit' => $dropDownListLimit,
-
-            'auctionUnread' => $auctionUnread ? false : true,
 
         ];
 
@@ -152,36 +147,36 @@ class AuctionListing extends AbstractController
         );
     }
 
-    protected function auctionReadInsert($auction_id, $user_id)
-    {
-        $auctionRead = $this->em()->create('FS\AuctionPlugin:AuctionRead');
+    // protected function auctionReadInsert($auction_id, $user_id)
+    // {
+    //     $auctionRead = $this->em()->create('FS\AuctionPlugin:AuctionRead');
 
-        $auctionRead->user_id = $user_id;
-        $auctionRead->auction_id = $auction_id;
+    //     $auctionRead->user_id = $user_id;
+    //     $auctionRead->auction_id = $auction_id;
 
-        $auctionRead->save();
-    }
+    //     $auctionRead->save();
+    // }
 
-    public function actionShare(ParameterBag $params)
-    {
+    // public function actionShare(ParameterBag $params)
+    // {
 
-        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
 
-        $sharePlugin = $this->plugin('XF:Share');
-        return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->Thread->title, \XF::phrase('share_this_post'));
-    }
+    //     $sharePlugin = $this->plugin('XF:Share');
+    //     return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->Thread->title, \XF::phrase('share_this_post'));
+    // }
 
-    public function actionBookmark(ParameterBag $params)
-    {
-        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
-        /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
-        $bookmarkPlugin = $this->plugin('XF:Bookmark');
+    // public function actionBookmark(ParameterBag $params)
+    // {
+    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+    //     /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
+    //     $bookmarkPlugin = $this->plugin('XF:Bookmark');
 
-        return $bookmarkPlugin->actionBookmark(
-            $auction,
-            $this->buildLink('auction/bookmark', $auction)
-        );
-    }
+    //     return $bookmarkPlugin->actionBookmark(
+    //         $auction,
+    //         $this->buildLink('auction/bookmark', $auction)
+    //     );
+    // }
 
     protected function getSearchFinder()
     {
@@ -214,11 +209,11 @@ class AuctionListing extends AbstractController
         //     $finder->where('category_id', $conditions['fs_auction_cat']);
         // }
 
-            $threadIds = $finder->pluckfrom('thread_id')->fetch()->toArray();
-            
-            $finder = $this->finder('FS\AuctionPlugin:AuctionListing')->where('thread_id', $threadIds);
-            if ($conditions['fs_auction_cat'] != '0') {
-            $finder->where('category_id',$conditions['fs_auction_cat']);
+        $threadIds = $finder->pluckfrom('thread_id')->fetch()->toArray();
+
+        $finder = $this->finder('FS\AuctionPlugin:AuctionListing')->where('thread_id', $threadIds);
+        if ($conditions['fs_auction_cat'] != '0') {
+            $finder->where('category_id', $conditions['fs_auction_cat']);
         }
 
         return $finder;
@@ -252,17 +247,17 @@ class AuctionListing extends AbstractController
         );
     }
 
-    public function actionViewAuctionBookmark(ParameterBag $params)
-    {
-        $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
-        /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
-        $bookmarkPlugin = $this->plugin('XF:Bookmark');
+    // public function actionViewAuctionBookmark(ParameterBag $params)
+    // {
+    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
+    //     /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
+    //     $bookmarkPlugin = $this->plugin('XF:Bookmark');
 
-        return $bookmarkPlugin->actionBookmark(
-            $auction,
-            $this->buildLink('auction/bookmark', $auction)
-        );
-    }
+    //     return $bookmarkPlugin->actionBookmark(
+    //         $auction,
+    //         $this->buildLink('auction/bookmark', $auction)
+    //     );
+    // }
 
     public function actionAddListingChooser()
     {

@@ -99,8 +99,6 @@ return array (
   'admin_navigation.forums' => 'Forums',
   'admin_navigation.fsAuctionCategory' => 'Auction categories',
   'admin_navigation.fsAuctionPlugin' => 'Auction',
-  'admin_navigation.fsAuctionShippingTerms' => 'Add Shipping Terms',
-  'admin_navigation.fsAuctionShipsVia' => 'Add Ships Via',
   'admin_navigation.fsAutoForumManager' => 'Auto Forum Manage',
   'admin_navigation.fsAutoForumManagerAdd' => 'Add',
   'admin_navigation.fsDownGrade' => 'Downgrade',
