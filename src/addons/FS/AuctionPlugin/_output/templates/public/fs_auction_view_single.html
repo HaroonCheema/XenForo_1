@@ -201,7 +201,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('shippingVia') }}</dt>
-					<dd>{{ $auction.Thread.custom_fields.ship_via }}</dd>
+					<dd>{{ $auction.Thread.custom_fields.ships_via }}</dd>
 				</dl>
 		</div>
 	  
@@ -239,12 +239,11 @@ document.getElementById("auction-counter").style.display = "block";
 				</dl>
 			
 		</div>	
-
 <xf:if is="$auction.Thread.auction_end_date > $xf.time">
-				<img src="{{ link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) }}" alt="{$attachment.filename}"
+				<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
 					width=" " onload="timmerCounter({$auction.Thread.auction_end_date})" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 	<xf:else />
-			<img src="{{ link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) }}" alt="{$attachment.filename}"
+			<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 </xf:if>
 	

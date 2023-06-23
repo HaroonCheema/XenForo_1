@@ -6,6 +6,15 @@ use XF\Mvc\ParameterBag;
 
 class Forum extends XFCP_Forum
 {
+    public function actionIndex(ParameterBag $params)
+    {
+        if ($params->node_id ==  $this->app()->options()->fs_auction_applicable_forum) {
+
+            return $this->redirect($this->buildLink('auction/'), '');
+        }
+
+        return parent::actionIndex($params);
+    }
     protected function setupThreadCreate(\XF\Entity\Forum $forum)
     {
         $parent = parent::setupThreadCreate($forum);

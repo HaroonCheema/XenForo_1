@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 151496750bc45246d2b829c26565eb83
+// FROM HASH: e885e11bc55b75f363c5854a5857e602
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -88,7 +88,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'SHIPS VIA' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['ship_via']) . '</dd>
+					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['ships_via']) . '</dd>
 				</dl>
 		</div>
 	  
@@ -359,16 +359,15 @@ document.getElementById("auction-counter").style.display = "block";
 				</dl>
 			
 		</div>	
-
 ';
 	if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-				<img src="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+				<img src="' . ($__templater->func('count', array($__vars['auction']['Thread']['FirstPost']['Attachments'], ), false) ? $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['Thread']['auction_end_date']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 	';
 	} else {
 		$__finalCompiled .= '
-			<img src="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+			<img src="' . ($__templater->func('count', array($__vars['auction']['Thread']['FirstPost']['Attachments'], ), false) ? $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
 					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
 ';
 	}

@@ -40,7 +40,7 @@ abstract class AbstractPermission extends AbstractPlugin
 	{
 		$this->entityIdentifier = $identifier;
 	}
-	
+
 	public function setPrivatePermissionIds($groupId, $permissionId)
 	{
 		$this->privatePermissionGroupId = $groupId;
@@ -55,15 +55,12 @@ abstract class AbstractPermission extends AbstractPlugin
 		$entryRepo = $this->repository('XF:PermissionEntry');
 		$entries = $entryRepo->getContentPermissionEntriesGrouped($this->contentType, $record->{$this->primaryKey});
 
-		if ($entries['users'])
-		{
+		if ($entries['users']) {
 			$users = $this->finder('XF:User')
 				->whereIds(array_keys($entries['users']))
 				->order('username')
 				->fetch();
-		}
-		else
-		{
+		} else {
 			$users = [];
 		}
 
@@ -71,8 +68,7 @@ abstract class AbstractPermission extends AbstractPlugin
 		$userGroupRepo = $this->repository('XF:UserGroup');
 		$userGroups = $userGroupRepo->findUserGroupsForList()->fetch();
 
-		$isPrivate = (
-			isset($entries['system'][$this->privatePermissionGroupId][$this->privatePermissionId])
+		$isPrivate = (isset($entries['system'][$this->privatePermissionGroupId][$this->privatePermissionId])
 			&& $entries['system'][$this->privatePermissionGroupId][$this->privatePermissionId] == 'reset'
 		);
 
@@ -94,17 +90,12 @@ abstract class AbstractPermission extends AbstractPlugin
 	{
 		$record = $this->assertRecordExists($this->entityIdentifier, $params->{$this->primaryKey});
 
-		if ($type === null)
-		{
+		if ($type === null) {
 			$type = $this->filter('type', 'str');
-			if (!$type)
-			{
-				if ($this->filter('user_group_id', 'uint'))
-				{
+			if (!$type) {
+				if ($this->filter('user_group_id', 'uint')) {
 					$type = 'user_group';
-				}
-				else if ($this->filter('user_id', 'uint'))
-				{
+				} else if ($this->filter('user_id', 'uint')) {
 					$type = 'user';
 				}
 			}
@@ -118,8 +109,7 @@ abstract class AbstractPermission extends AbstractPlugin
 		$entryRepo = $this->repository('XF:PermissionEntry');
 		$entries = $entryRepo->getContentPermissionEntriesGrouped($this->contentType, $record->{$this->primaryKey});
 
-		if ($type == 'user_group')
-		{
+		if ($type == 'user_group') {
 			$userGroup = $this->assertRecordExists('XF:UserGroup', $this->filter('user_group_id', 'uint'));
 			$user = null;
 
@@ -131,15 +121,11 @@ abstract class AbstractPermission extends AbstractPlugin
 				'type' => 'user_group',
 				'user_group_id' => $userGroup->user_group_id
 			];
-		}
-		else if ($type == 'user')
-		{
+		} else if ($type == 'user') {
 			$username = $this->filter('username', 'str');
-			if ($username)
-			{
+			if ($username) {
 				$user = $this->em()->findOne('XF:User', ['username' => $username]);
-				if (!$user)
-				{
+				if (!$user) {
 					return $this->error(\XF::phrase('requested_user_not_found'), 404);
 				}
 
@@ -152,8 +138,7 @@ abstract class AbstractPermission extends AbstractPlugin
 
 			$userId = $this->filter('user_id', 'uint');
 
-			if (!$userId)
-			{
+			if (!$userId) {
 				return $this->error(\XF::phrase('requested_user_not_found'), 404);
 			}
 
@@ -168,9 +153,7 @@ abstract class AbstractPermission extends AbstractPlugin
 				'type' => 'user',
 				'user_id' => $user->user_id
 			];
-		}
-		else
-		{
+		} else {
 			return $this->notFound();
 		}
 
@@ -195,21 +178,15 @@ abstract class AbstractPermission extends AbstractPlugin
 
 		$record = $this->assertRecordExists($this->entityIdentifier, $params->{$this->primaryKey});
 
-		if ($type === null)
-		{
+		if ($type === null) {
 			$type = $this->filter('type', 'str');
 		}
 
-		if ($type == 'private')
-		{
+		if ($type == 'private') {
 			$this->savePrivate($record);
-		}
-		else if ($type == 'user_group')
-		{
+		} else if ($type == 'user_group') {
 			$this->saveUserGroup($record);
-		}
-		else if ($type == 'user')
-		{
+		} else if ($type == 'user') {
 			$this->saveUser($record);
 		}
 
@@ -256,16 +233,11 @@ abstract class AbstractPermission extends AbstractPlugin
 	{
 		$formatter = $this->viewFormatter;
 
-		if (is_string($formatter))
-		{
+		if (is_string($formatter)) {
 			return sprintf($formatter, $type);
-		}
-		else if ($formatter instanceof \Closure)
-		{
+		} else if ($formatter instanceof \Closure) {
 			return $formatter($type);
-		}
-		else
-		{
+		} else {
 			return '';
 		}
 	}
@@ -274,16 +246,11 @@ abstract class AbstractPermission extends AbstractPlugin
 	{
 		$formatter = $this->templateFormatter;
 
-		if (is_string($formatter))
-		{
+		if (is_string($formatter)) {
 			return sprintf($formatter, $type);
-		}
-		else if ($formatter instanceof \Closure)
-		{
+		} else if ($formatter instanceof \Closure) {
 			return $formatter($type);
-		}
-		else
-		{
+		} else {
 			return '';
 		}
 	}

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 45e11ede385f5cb271baa94254849c26
+// FROM HASH: 9cfb8388f1d6ab9c87523bb874f66d9e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -25,7 +25,7 @@ return array(
 	font-size: @xf-fontSizeSmall;
 }
 .label--counter-single{
-	font-size:26px;
+	font-size:25px;
 }
 @media (max-width: @xf-responsiveWide)
 {

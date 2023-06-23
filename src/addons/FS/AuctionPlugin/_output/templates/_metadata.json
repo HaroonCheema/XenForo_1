@@ -9,14 +9,19 @@
         "version_string": "1.0.6 Alpha",
         "hash": "91a29e30edc44b5e50b250f2b05b2016"
     },
+    "public/fs_auction_list_view.less": {
+        "version_id": 1000600,
+        "version_string": "1.0.6 Alpha",
+        "hash": "9cfb8388f1d6ab9c87523bb874f66d9e"
+    },
     "public/fs_auction_listing_list_macros.html": {
         "version_id": 1000600,
         "version_string": "1.0.6 Alpha",
-        "hash": "8b84f2e809c2dabe18b7ba3f7ce0a740"
+        "hash": "a5d7cbb9f87ea4c041ba0c9194f761b1"
     },
     "public/fs_auction_view_single.html": {
         "version_id": 1000600,
         "version_string": "1.0.6 Alpha",
-        "hash": "151496750bc45246d2b829c26565eb83"
+        "hash": "e885e11bc55b75f363c5854a5857e602"
     }
 }

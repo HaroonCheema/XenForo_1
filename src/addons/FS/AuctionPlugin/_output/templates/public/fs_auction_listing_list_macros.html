@@ -13,10 +13,10 @@
 			<div class="structItem-iconContainer">
 				<xf:if is="$listing.Thread.auction_end_date > $xf.time">
 						<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">
-							<img src ="{{ link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) }}" onload="timmerCounter({{$listing.auction_id}},{{$listing.Thread.auction_end_date}})" style="min-height: 92px; max-height: 92px;"></a>
+							<img src ="{{ count($listing.Thread.FirstPost.Attachments) ? link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" onload="timmerCounter({{$listing.auction_id}},{{$listing.Thread.auction_end_date}})" style="min-height: 92px; max-height: 92px;"></a>
 				<xf:else />
 						<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">
-							<img src ="{{ link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) }}" style="min-height: 92px; max-height: 92px;"></a>
+							<img src ="{{ count($listing.Thread.FirstPost.Attachments) ? link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" style="min-height: 92px; max-height: 92px;"></a>
 				</xf:if>
 						
 			</div>
@@ -129,9 +129,9 @@
 		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
 			<div class="structItem-iconContainer" >
 				<xf:if is="$listing.Thread.auction_end_date > $xf.time">
-					<a href="{{ link('auction/view-auction', $listing.Thread) }}" class="" data-tp-primary="on"><img src ="{{ link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) }}" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter({{$listing.auction_id}},{{$listing.Thread.auction_end_date}})"></a>
+					<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on"><img src ="{{ count($listing.Thread.FirstPost.Attachments) ? link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" loading="lazy" class="auction-itemGrid-img" onload="timmerCounter({{$listing.auction_id}},{{$listing.Thread.auction_end_date}})"></a>
 				<xf:else />
-							<a href="{{ link('auction/view-auction', $listing.Thread) }}" class="" data-tp-primary="on"><img src ="{{ link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) }}" class="auction-itemGrid-img" loading="lazy"></a>
+							<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on"><img src ="{{ count($listing.Thread.FirstPost.Attachments) ? link('full:attachments', $listing.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" class="auction-itemGrid-img" loading="lazy"></a>
 				</xf:if>
 				
 			</div>
