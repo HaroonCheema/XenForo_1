@@ -34,7 +34,6 @@ class Post extends XFCP_Post
             $end_date_time = ($tmpDate + $h + $m);
 
             $thread = $post->Thread;
-            // $saleItem = $this->filter('sale_item', 'int');
             $thread->auction_end_date = $end_date_time;
             $thread->save();
         }

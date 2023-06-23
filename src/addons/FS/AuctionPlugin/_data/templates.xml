@@ -1208,7 +1208,7 @@ min-height:275px;
 
   <xf:hiddenval name="search">1</xf:hiddenval>
 </xf:form>]]></template>
-  <template type="public" title="fs_auction_view_single" version_id="1000600" version_string="1.0.6 Alpha"><![CDATA[<xf:title>{{$auction.Thread.title}}</xf:title>
+  <template type="public" title="fs_auction_view_single" version_id="1000900" version_string="1.0.9 Alpha"><![CDATA[<xf:title>{{$auction.Thread.title}}</xf:title>
 <xf:pageaction if="$xf.visitor.user_id == $auction.Thread.user_id OR $xf.visitor.is_admin">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('posts/'.{$auction.Thread.FirstPost.post_id}.'/edit') }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
@@ -1363,7 +1363,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_time_zone') }}</dt>
-					<dd>{{$auction.Thread.custom_fields.timezone}}</dd>
+					<dd>{{$auction.Thread.getStringReplace($auction.Thread.custom_fields.auction_Ends_At)}}</dd>
 				</dl>
 		</div>
 
@@ -1391,7 +1391,7 @@ document.getElementById("auction-counter").style.display = "block";
 					<dt>{{ phrase('payment_methods') }}</dt>
 					<dd>
 					<xf:foreach loop="$auction.Thread.custom_fields.payment_methods" value="$val">
-						<p style="margin:0px;">{$val}</p>
+						<p style="margin:0px;">{$auction.Thread.getStringReplace($val)}</p>
         			</xf:foreach>
 					</dd>
 				</dl>
@@ -1402,7 +1402,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('shippingTerms') }}</dt>
-					<dd>{{ $auction.Thread.custom_fields.shipping_term }}</dd>
+					<dd>{{ $auction.Thread.getStringReplace($auction.Thread.custom_fields.shipping_term)}}</dd>
 				</dl>
 			
 		</div>
@@ -1411,7 +1411,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('shippingVia') }}</dt>
-					<dd>{{ $auction.Thread.custom_fields.ships_via }}</dd>
+					<dd>{{ $auction.Thread.getStringReplace($auction.Thread.custom_fields.ships_via) }}</dd>
 				</dl>
 		</div>
 	  

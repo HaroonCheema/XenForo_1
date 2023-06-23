@@ -38,4 +38,10 @@ class Thread extends XFCP_Thread
             return false;
         }
     }
+
+
+    public function getStringReplace($value)
+    {
+        return str_replace("_", " ", $value);
+    }
 }

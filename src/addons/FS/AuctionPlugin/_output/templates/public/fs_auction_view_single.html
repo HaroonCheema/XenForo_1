@@ -153,7 +153,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('auction_time_zone') }}</dt>
-					<dd>{{$auction.Thread.custom_fields.timezone}}</dd>
+					<dd>{{$auction.Thread.getStringReplace($auction.Thread.custom_fields.auction_Ends_At)}}</dd>
 				</dl>
 		</div>
 
@@ -181,7 +181,7 @@ document.getElementById("auction-counter").style.display = "block";
 					<dt>{{ phrase('payment_methods') }}</dt>
 					<dd>
 					<xf:foreach loop="$auction.Thread.custom_fields.payment_methods" value="$val">
-						<p style="margin:0px;">{$val}</p>
+						<p style="margin:0px;">{$auction.Thread.getStringReplace($val)}</p>
         			</xf:foreach>
 					</dd>
 				</dl>
@@ -192,7 +192,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('shippingTerms') }}</dt>
-					<dd>{{ $auction.Thread.custom_fields.shipping_term }}</dd>
+					<dd>{{ $auction.Thread.getStringReplace($auction.Thread.custom_fields.shipping_term)}}</dd>
 				</dl>
 			
 		</div>
@@ -201,7 +201,7 @@ document.getElementById("auction-counter").style.display = "block";
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>{{ phrase('shippingVia') }}</dt>
-					<dd>{{ $auction.Thread.custom_fields.ships_via }}</dd>
+					<dd>{{ $auction.Thread.getStringReplace($auction.Thread.custom_fields.ships_via) }}</dd>
 				</dl>
 		</div>
 	  

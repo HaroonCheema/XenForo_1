@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: df02b3e0110df29c9e6611c0e462d4ef
+// FROM HASH: dea2293d891c426bdd074257a7293457
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -34,7 +34,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION ENDS AT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['timezone']) . '</dd>
+					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['auction_Ends_At'], ))) . '</dd>
 				</dl>
 		</div>
 
@@ -65,7 +65,7 @@ return array(
 	if ($__templater->isTraversable($__vars['auction']['Thread']['custom_fields']['payment_methods'])) {
 		foreach ($__vars['auction']['Thread']['custom_fields']['payment_methods'] AS $__vars['val']) {
 			$__finalCompiled .= '
-						<p style="margin:0px;">' . $__templater->escape($__vars['val']) . '</p>
+						<p style="margin:0px;">' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['val'], ))) . '</p>
         			';
 		}
 	}
@@ -79,7 +79,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'SHIPPING TERMS' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['shipping_term']) . '</dd>
+					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['shipping_term'], ))) . '</dd>
 				</dl>
 			
 		</div>
@@ -88,7 +88,7 @@ return array(
 	
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'SHIPS VIA' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['ships_via']) . '</dd>
+					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['ships_via'], ))) . '</dd>
 				</dl>
 		</div>
 	  

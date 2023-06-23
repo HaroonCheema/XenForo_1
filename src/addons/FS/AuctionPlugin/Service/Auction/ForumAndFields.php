@@ -31,13 +31,13 @@ class ForumAndFields extends \XF\Service\AbstractService
                 'field_id' => 'timezone',
                 'match_type' => 'none',
                 'fieldChoices' => [
-                    '0' => 'value1',
-                    '1' => 'value2',
+                    '0' => 'Option_1',
+                    '1' => 'Option_2',
                     '2' => '',
                 ],
                 'fieldChoicesText' => [
-                    '0' => 'option1',
-                    '1' => 'option2',
+                    '0' => 'Option 1',
+                    '1' => 'Option 2',
                     '2' => '',
                 ],
                 'match_params' => [],
@@ -69,8 +69,8 @@ class ForumAndFields extends \XF\Service\AbstractService
                 'field_id' => 'bid_increament',
                 'match_type' => 'none',
                 'fieldChoices' => [
-                    '0' => '0',
-                    '1' => '1',
+                    '0' => '5',
+                    '1' => '10',
                     '2' => '',
                 ],
                 'fieldChoicesText' => [
@@ -90,8 +90,8 @@ class ForumAndFields extends \XF\Service\AbstractService
                 'field_id' => 'payment_methods',
                 'match_type' => 'none',
                 'fieldChoices' => [
-                    '0' => '0',
-                    '1' => '1',
+                    '0' => 'First_Method',
+                    '1' => 'Second_Method',
                     '2' => '',
                 ],
                 'fieldChoicesText' => [
@@ -111,8 +111,8 @@ class ForumAndFields extends \XF\Service\AbstractService
                 'field_id' => 'shipping_term',
                 'match_type' => 'none',
                 'fieldChoices' => [
-                    '0' => '0',
-                    '1' => '1',
+                    '0' => 'Term_1',
+                    '1' => 'Term_2',
                     '2' => '',
                 ],
                 'fieldChoicesText' => [
@@ -132,8 +132,8 @@ class ForumAndFields extends \XF\Service\AbstractService
                 'field_id' => 'ships_via',
                 'match_type' => 'none',
                 'fieldChoices' => [
-                    '0' => '0',
-                    '1' => '1',
+                    '0' => 'ships_1',
+                    '1' => 'ships_2',
                     '2' => '',
                 ],
                 'fieldChoicesText' => [
@@ -294,12 +294,12 @@ class ForumAndFields extends \XF\Service\AbstractService
 
         $input = [
             'node' => [
-                'title' => 'Acution66',
+                'title' => 'Acution',
                 'node_name' => '',
                 'description' => '',
                 'parent_node_id' => '',
                 'display_order' => '',
-                'display_in_list' => true,
+                'display_in_list' => false,
                 'style_id' => '',
                 'navigation_id' => ''
             ]

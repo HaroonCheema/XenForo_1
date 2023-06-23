@@ -20,8 +20,8 @@
         "hash": "a5d7cbb9f87ea4c041ba0c9194f761b1"
     },
     "public/fs_auction_view_single.html": {
-        "version_id": 1000600,
-        "version_string": "1.0.6 Alpha",
-        "hash": "df02b3e0110df29c9e6611c0e462d4ef"
+        "version_id": 1000900,
+        "version_string": "1.0.9 Alpha",
+        "hash": "dea2293d891c426bdd074257a7293457"
     }
 }
