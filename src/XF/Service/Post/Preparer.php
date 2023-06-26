@@ -71,9 +71,12 @@ class Preparer extends \XF\Service\AbstractService
 
 	public function getMentionedUsers($limitPermissions = true)
 	{
+
+
 		if ($limitPermissions && $this->post) {
 			/** @var \XF\Entity\User $user */
 			$user = $this->post->User ?: $this->repository('XF:User')->getGuestUser();
+
 			return $user->getAllowedUserMentions($this->mentionedUsers);
 		} else {
 			return $this->mentionedUsers;

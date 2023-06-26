@@ -99,8 +99,7 @@ class Replier extends \XF\Service\AbstractService
 	{
 		$forum = $this->thread->Forum;
 
-		if (!$forum)
-		{
+		if (!$forum) {
 			throw new \LogicException("Thread is not in a valid forum");
 		}
 
@@ -116,14 +115,13 @@ class Replier extends \XF\Service\AbstractService
 
 	public function setAttachmentHash($hash)
 	{
-		
+
 		$this->postPreparer->setAttachmentHash($hash);
 	}
 
 	public function checkForSpam()
 	{
-		if ($this->post->message_state == 'visible' && $this->user->isSpamCheckRequired())
-		{
+		if ($this->post->message_state == 'visible' && $this->user->isSpamCheckRequired()) {
 			$this->postPreparer->checkForSpam();
 		}
 	}
@@ -139,18 +137,14 @@ class Replier extends \XF\Service\AbstractService
 
 		$post = $this->post;
 
-		if (!$post->user_id && !$this->isPreRegAction)
-		{
+		if (!$post->user_id && !$this->isPreRegAction) {
 			/** @var \XF\Validator\Username $validator */
 			$validator = $this->app->validator('Username');
 			$post->username = $validator->coerceValue($post->username);
-			if ($this->performValidations && !$validator->isValid($post->username, $error))
-			{
+			if ($this->performValidations && !$validator->isValid($post->username, $error)) {
 				return [$validator->getPrintableErrorValue($error)];
 			}
-		}
-		else if ($this->isPreRegAction && !$post->username)
-		{
+		} else if ($this->isPreRegAction && !$post->username) {
 			// need to force a value here to avoid a presave error
 			$post->username = 'preRegAction-' . \XF::$time;
 		}
@@ -164,8 +158,7 @@ class Replier extends \XF\Service\AbstractService
 
 	protected function _save()
 	{
-		if ($this->isPreRegAction)
-		{
+		if ($this->isPreRegAction) {
 			throw new \LogicException("Pre-reg action replies cannot be saved");
 		}
 
@@ -190,8 +183,7 @@ class Replier extends \XF\Service\AbstractService
 			'last_post_user_id',
 			'last_post_username'
 		];
-		foreach ($forceUpdateColumns AS $forceUpdateColumn)
-		{
+		foreach ($forceUpdateColumns as $forceUpdateColumn) {
 			$this->thread->setAsSaved($forceUpdateColumn, $threadLatest[$forceUpdateColumn]);
 		}
 
@@ -210,17 +202,13 @@ class Replier extends \XF\Service\AbstractService
 	{
 		$post = $this->post;
 
-		if ($post->post_date < $threadInfo['last_post_date'])
-		{
+		if ($post->post_date < $threadInfo['last_post_date']) {
 			throw new \LogicException("Replier can only add posts at the end of a thread");
 		}
 
-		if ($post->message_state == 'visible')
-		{
+		if ($post->message_state == 'visible') {
 			$position = $threadInfo['reply_count'] + 1;
-		}
-		else
-		{
+		} else {
 			$position = $threadInfo['reply_count'];
 		}
 
@@ -229,13 +217,17 @@ class Replier extends \XF\Service\AbstractService
 
 	public function sendNotifications()
 	{
-		if ($this->post->isVisible())
-		{
-			/** @var \XF\Service\Post\Notifier $notifier */
-			$notifier = $this->service('XF:Post\Notifier', $this->post, 'reply');
-			$notifier->setMentionedUserIds($this->postPreparer->getMentionedUserIds());
-			$notifier->setQuotedUserIds($this->postPreparer->getQuotedUserIds());
-			$notifier->notifyAndEnqueue(3);
-		}
+		//var_dump($this->post->isVisible());
+		//exit;
+		//if ($this->post->isVisible()) {
+		/** @var \XF\Service\Post\Notifier $notifier */
+		$notifier = $this->service('XF:Post\Notifier', $this->post, 'reply');
+
+		// var_dump($this->postPreparer->getMentionedUserIds(), $this->postPreparer->getQuotedUserIds());
+		//exit;
+		$notifier->setMentionedUserIds($this->postPreparer->getMentionedUserIds());
+		$notifier->setQuotedUserIds($this->postPreparer->getQuotedUserIds());
+		$notifier->notifyAndEnqueue(3);
+		//}
 	}
 }

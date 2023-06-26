@@ -275,7 +275,7 @@ return array(
 			' . '' . '
 			' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
 		'type' => 'thread',
-		'prefix-value' => ($__vars['forum']['draft_thread']['prefix_id'] ?: ($__vars['thread']['prefix_id'] ?: $__vars['forum']['default_prefix_id'])),
+		'prefix-value' => (($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_auction_applicable_forum']) ? $__vars['xf']['options']['auction_thread_prefix_id'] : ($__vars['forum']['draft_thread']['prefix_id'] ?: ($__vars['thread']['prefix_id'] ?: $__vars['forum']['default_prefix_id']))),
 		'textbox-value' => (($__vars['title'] ?: $__vars['thread']['title']) ?: $__vars['forum']['draft_thread']['title']),
 		'textbox-class' => 'input--title',
 		'placeholder' => $__vars['forum']['thread_prompt'],

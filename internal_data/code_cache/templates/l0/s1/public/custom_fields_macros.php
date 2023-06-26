@@ -76,10 +76,16 @@ return array(
 			';
 				} else {
 					$__finalCompiled .= '
-				<dl class="' . $__templater->escape($__vars['valueClass']) . '" data-field="' . $__templater->escape($__vars['fieldId']) . '">
+				';
+					if ($__vars['fieldDefinition']['field_id'] != 'bumping_rules') {
+						$__finalCompiled .= '
+<dl class="' . $__templater->escape($__vars['valueClass']) . '" data-field="' . $__templater->escape($__vars['fieldId']) . '">
 					<dt>' . $__templater->escape($__vars['fieldDefinition']['title']) . '</dt>
 					<dd>' . $__templater->escape($__vars['fieldValue']) . '</dd>
 				</dl>
+';
+					}
+					$__finalCompiled .= '
 			';
 				}
 				$__finalCompiled .= '

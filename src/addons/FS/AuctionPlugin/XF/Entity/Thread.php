@@ -39,6 +39,12 @@ class Thread extends XFCP_Thread
         }
     }
 
+    public function getFormatedDate()
+    {
+        $tempDate = new \DateTime('@' . $this->auction_end_date);
+        $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
+        return $date->format("y-m-d");
+    }
 
     public function getStringReplace($value)
     {

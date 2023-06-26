@@ -16,6 +16,11 @@ namespace FS\AuctionPlugin\XF\Pub\Controller
 	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }
 
+namespace FS\AuctionPlugin\XF\Service
+{
+	class XFCP_Replier extends \XF\Service\Thread\Replier {}
+}
+
 namespace FS\AuctionPlugin\XF\Service\Thread
 {
 	class XFCP_Creator extends \XF\Service\Thread\Creator {}

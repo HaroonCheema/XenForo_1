@@ -34,7 +34,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 
 	public $isPreRegAction = false;
 
-	
+
 
 	public function setThread(Thread $thread)
 	{
@@ -61,8 +61,6 @@ class AuctionBidPost extends \XF\Service\AbstractService
 	public function setUser(\XF\Entity\User $user)
 	{
 		$this->user = $user;
-                
-                
 	}
 
 	public function logIp($logIp)
@@ -95,8 +93,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 	{
 		$forum = $this->thread->Forum;
 
-		if (!$forum)
-		{
+		if (!$forum) {
 			throw new \LogicException("Thread is not in a valid forum");
 		}
 
@@ -118,8 +115,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 
 	public function checkForSpam()
 	{
-		if ($this->post->message_state == 'visible' && $this->user->isSpamCheckRequired())
-		{
+		if ($this->post->message_state == 'visible' && $this->user->isSpamCheckRequired()) {
 			$this->postPreparer->checkForSpam();
 		}
 	}
@@ -131,27 +127,23 @@ class AuctionBidPost extends \XF\Service\AbstractService
 
 	public function _validate()
 	{
-            
+
 		$this->finalSetup();
 
 		$post = $this->post;
-                
 
-               
 
-		if (!$post->user_id && !$this->isPreRegAction)
-		{
-                    
+
+
+		if (!$post->user_id && !$this->isPreRegAction) {
+
 			/** @var \XF\Validator\Username $validator */
 			$validator = $this->app->validator('Username');
 			$post->username = $validator->coerceValue($post->username);
-			if ($this->performValidations && !$validator->isValid($post->username, $error))
-			{
+			if ($this->performValidations && !$validator->isValid($post->username, $error)) {
 				return [$validator->getPrintableErrorValue($error)];
 			}
-		}
-		else if ($this->isPreRegAction && !$post->username)
-		{
+		} else if ($this->isPreRegAction && !$post->username) {
 			// need to force a value here to avoid a presave error
 			$post->username = 'preRegAction-' . \XF::$time;
 		}
@@ -165,8 +157,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 
 	public function _save()
 	{
-		if ($this->isPreRegAction)
-		{
+		if ($this->isPreRegAction) {
 			throw new \LogicException("Pre-reg action replies cannot be saved");
 		}
 
@@ -191,8 +182,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 			'last_post_user_id',
 			'last_post_username'
 		];
-		foreach ($forceUpdateColumns AS $forceUpdateColumn)
-		{
+		foreach ($forceUpdateColumns as $forceUpdateColumn) {
 			$this->thread->setAsSaved($forceUpdateColumn, $threadLatest[$forceUpdateColumn]);
 		}
 
@@ -201,8 +191,7 @@ class AuctionBidPost extends \XF\Service\AbstractService
 		// would trigger an error when setting the post position. Attempt to detect this case and adjust
 		// the post date to avoid an error if possible.
 		$time = time();
-		if ($threadLatest['last_post_date'] > $post->post_date && $threadLatest['last_post_date'] <= $time)
-		{
+		if ($threadLatest['last_post_date'] > $post->post_date && $threadLatest['last_post_date'] <= $time) {
 			$post->set('post_date', $time, ['forceSet' => true]);
 		}
 
@@ -221,32 +210,29 @@ class AuctionBidPost extends \XF\Service\AbstractService
 	{
 		$post = $this->post;
 
-		if ($post->post_date < $threadInfo['last_post_date'])
-		{
+		if ($post->post_date < $threadInfo['last_post_date']) {
 			throw new \LogicException("Replier can only add posts at the end of a thread");
 		}
 
-		if ($post->message_state == 'visible')
-		{
+		if ($post->message_state == 'visible') {
 			$position = $threadInfo['reply_count'] + 1;
-		}
-		else
-		{
+		} else {
 			$position = $threadInfo['reply_count'];
 		}
 
 		$post->set('position', $position, ['forceSet' => true]);
 	}
 
+
+
 	public function sendNotifications()
 	{
-		if ($this->post->isVisible())
-		{
-			/** @var \XF\Service\Post\Notifier $notifier */
-			$notifier = $this->service('XF:Post\Notifier', $this->post, 'reply');
-			$notifier->setMentionedUserIds($this->postPreparer->getMentionedUserIds());
-			$notifier->setQuotedUserIds($this->postPreparer->getQuotedUserIds());
-			$notifier->notifyAndEnqueue(3);
-		}
+		// if ($this->post->isVisible()) {
+		/** @var \XF\Service\Post\Notifier $notifier */
+		$notifier = $this->service('XF:Post\Notifier', $this->post, 'reply');
+		$notifier->setMentionedUserIds($this->postPreparer->getMentionedUserIds());
+		$notifier->setQuotedUserIds($this->postPreparer->getQuotedUserIds());
+		$notifier->notifyAndEnqueue(3);
+		// }
 	}
 }

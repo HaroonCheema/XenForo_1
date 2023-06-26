@@ -13,5 +13,8 @@
     },
     "XF-Service-Thread-Creator_FS-AuctionPlugin-XF-Service-Thread-Creator.json": {
         "hash": "4d8f6a665038704c48d4e4b5fa0e516e"
+    },
+    "XF-Service-Thread-Replier_FS-AuctionPlugin-XF-Service-Replier.json": {
+        "hash": "f67748662aa8ca86c864bd7b69cfcac4"
     }
 }

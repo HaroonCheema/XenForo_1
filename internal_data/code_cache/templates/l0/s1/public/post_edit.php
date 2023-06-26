@@ -43,7 +43,7 @@ return array(
 	         <div class="inputGroup">         
 			 ' . $__templater->formDateInput(array(
 			'name' => 'ends_on',
-			'value' => ($__vars['thread']['auction_end_date'] ? $__templater->func('date', array($__vars['thread']['auction_end_date'], 'Y-m-d', ), false) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
+			'value' => ($__vars['thread']['auction_end_date'] ? $__templater->method($__vars['thread'], 'getFormatedDate', array()) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
 			'required' => 'true',
 		)) . '            
 			 <span class="inputGroup-splitter"></span> 

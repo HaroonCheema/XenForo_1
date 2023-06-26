@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: dea2293d891c426bdd074257a7293457
+// FROM HASH: 9e0990e218a94b486e06892b23d98117
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -18,7 +18,6 @@ return array(
 	
 	<div class="structItem structItem--listing js-inlineModContainer">	
 		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">	
-	
 			<div class="message-fields message-fields--after">
 				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
 					<dt>' . 'AUCTION ENDS ON' . '</dt>
@@ -29,77 +28,21 @@ return array(
 				</dl>
 			
 			</div>
+			' . $__templater->callMacro('custom_fields_macros', 'custom_fields_view', array(
+		'type' => 'threads',
+		'group' => 'after',
+		'onlyInclude' => $__vars['thread']['Forum']['field_cache'],
+		'set' => $__vars['auction']['Thread']['custom_fields'],
+		'wrapperClass' => 'message-fields message-fields--after',
+	), $__vars) . '
 
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'AUCTION ENDS AT' . '</dt>
-					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['auction_Ends_At'], ))) . '</dd>
-				</dl>
 		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'STARTING BID' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['starting_bid']) . ' ' . ' $' . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'MINIMUM BID INCREMENT' . '</dt>
-					<dd>' . $__templater->escape($__vars['auction']['Thread']['custom_fields']['bid_increament']) . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'PAYMENTS ACCEPTED' . '</dt>
-					<dd>
-					';
-	if ($__templater->isTraversable($__vars['auction']['Thread']['custom_fields']['payment_methods'])) {
-		foreach ($__vars['auction']['Thread']['custom_fields']['payment_methods'] AS $__vars['val']) {
-			$__finalCompiled .= '
-						<p style="margin:0px;">' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['val'], ))) . '</p>
-        			';
-		}
-	}
-	$__finalCompiled .= '
-					</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'SHIPPING TERMS' . '</dt>
-					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['shipping_term'], ))) . '</dd>
-				</dl>
-			
-		</div>
-
-		<div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'SHIPS VIA' . '</dt>
-					<dd>' . $__templater->escape($__templater->method($__vars['auction']['Thread'], 'getStringReplace', array($__vars['auction']['Thread']['custom_fields']['ships_via'], ))) . '</dd>
-				</dl>
-		</div>
-	  
-	
 		
-		</div>
 		
 		
 		<div class="structItem-cell structItem-cell--listingMeta" style="width:320px">
 
-		<div id="auction-counter" style="display:none;">
+				<div id="auction-counter" style="display:none;">
 								
 						<span class="label  label--blue label--counter-single" id="days-auction">
 							 ' . '00 D' . '
@@ -113,7 +56,7 @@ return array(
 							<span class="label  label--blue label--counter-single" id="seconds-auction">
 							 ' . '00 S' . '
 						</span>
-							</div>
+				</div>
 			
 		</div>
 	</div>
@@ -217,12 +160,12 @@ function DateTimeConverter(unixdatetime) {
 
   var wStart_time = new Date(unixdatetime *1000).toLocaleString("en-US", {
     hour12: false,
-	 //  timeZone: \'America/New_York\',
+	 //  timeZone: \'America/Los_Angeles\',
     // timeZone:\'Europe/London\',
     timeStyle: "long",
   });
   var tempHumanDate = new Date(unixdatetime * 1000).toLocaleDateString("en-US", {
-	 timeZone: \'America/New_York\',
+	 timeZone: \'America/Los_Angeles\',
 	 year: \'numeric\', 
 	 month: \'numeric\', 
 	 day: \'numeric\',
@@ -246,18 +189,19 @@ function DateTimeConverter(unixdatetime) {
     tempCountTimmer[5]
   );
   var CountDownDateTime = new Date(tempDateObject).getTime();
-
+	//console.log(tempDateObject);
   return CountDownDateTime;
 }
 
 function timmerCounter(start_datetime) {
 	
+  let countDownDate = DateTimeConverter(start_datetime);
+    var tempNow = new Date().getTime();
+	
+	if(countDownDate - tempNow > 0){
+		document.getElementById("auction-counter").style.display = "block";
+	}
 
-
-  let humanDateTime = DateTimeConverter(start_datetime);
-document.getElementById("auction-counter").style.display = "block";
-
-  var countDownDate = new Date(humanDateTime).getTime();
   var counter = setInterval(function () {
     // Get today\'s date and time
     var now = new Date().getTime();
@@ -275,9 +219,8 @@ document.getElementById("auction-counter").style.display = "block";
 
     // If the count down is over, write some text
     if (timeDistance < 0) {
-      clearInterval(counter);
 		document.getElementById("auction-counter").style.display = "none";
-		
+      clearInterval(counter);
     }
   }, 1000);
 }
@@ -287,7 +230,7 @@ document.getElementById("auction-counter").style.display = "block";
 <header class="message-attribution message-attribution--split" style="color: #8c8c8c; font-size: 12px; padding-bottom: 3px; border-bottom: 1px solid #c9c9c9;">
 		<ul class="message-attribution-main listInline ' . $__templater->escape($__vars['mainClass']) . '">
 			<li class="u-concealed">
-				<a href="' . $__templater->func('link', array('threads/post', $__vars['thread'], array('post_id' => $__vars['post']['post_id'], ), ), true) . '" rel="nofollow">
+				<a href="' . $__templater->func('link', array('auction', $__vars['auction'], array('auction_id' => $__vars['auction']['auction_id'], ), ), true) . '" rel="nofollow">
 					' . $__templater->func('date_dynamic', array($__vars['auction']['Thread']['post_date'], array(
 		'itemprop' => 'datePublished',
 	))) . '
@@ -312,7 +255,7 @@ document.getElementById("auction-counter").style.display = "block";
 				<a href="' . ($__templater->func('link', array((('auction/' . $__vars['auction']['category_id']) . '/') . $__vars['auction']['auction_id'], ), true) . '/view-auction') . '"
 					class="message-attribution-gadget"
 					data-xf-init="share-tooltip"
-					data-href="' . $__templater->func('link', array('auction/share', $__vars['auction'], ), true) . '"
+					data-href="' . $__templater->func('link', array('posts/share', $__vars['auction']['Thread']['FirstPost'], ), true) . '"
 					aria-label="' . $__templater->filter('Share', array(array('for_attr', array()),), true) . '"
 					rel="nofollow">
 					' . $__templater->fontAwesome('fa-share-alt', array(
@@ -335,30 +278,14 @@ document.getElementById("auction-counter").style.display = "block";
 		</ul>
 	</header>
 
-<!--- here--->
+
 ' . $__templater->callMacro(null, 'singleAuction', array(
 		'auction' => $__vars['auction'],
 	), $__vars) . '
 
 
 ' . '
-  <div class="message-fields message-fields--after">
-	
-				<dl class="pairs pairs--columns pairs--fixedSmall pairs--customField" data-field="threadCustomField">
-					<dt>' . 'AUCTION GUIDLINES' . '</dt>
-					<dd>' . '<ol>
-	<li>The highest bid at the closing time listed above will win. If there is a bid within 5 minutes of the closing time (original or extended closing time), 5 minutes shall be added to the time of the last bid, until there are no bids within the final 5 minutes. Because seconds are not displayed on post timestamps, <a href="#"><b>these examples</b></a> will be used as a reference.</li>
-	<li>No Reserve. The Starting Bid of this auction will be treated as the Reserve Price.</li>
-		<li>Bids must be placed in whole US dollars, using numbers in minimum increments as stated above. (bids using images or spelled out numbers are not valid)</li>
-		<li>All bids are to be placed openly in this thread. No bids via Private Message/Convo. Sellers are not permitted to bid on their own auctions.</li>
-		<li>The seller reserves the right to edit the listing to clarify statements or correct any errors.</li>
-<li>Once a valid bid is made, the auction can not be canceled. Bid edits and/or retractions are not permitted. Violations of this rule will result in discipline at the discretion of PC Admins and/or Moderators.
-</li>
-<li>PCF (its Owner, Admins, and Moderators) are not responsible for any actions or outcomes that take place in this auction.</li>
-</ol>' . '</dd>
-				</dl>
-			
-		</div>	
+
 ';
 	if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
@@ -373,7 +300,7 @@ document.getElementById("auction-counter").style.display = "block";
 	}
 	$__finalCompiled .= '
 	
-</div>
+
 
 	   <div class="block-container">
 		<div class="block-body">
@@ -417,17 +344,16 @@ document.getElementById("auction-counter").style.display = "block";
 			'style' => 'border-bottom:1px solid #dfdfdf;',
 		)) . '
 
-
 			';
 	}
 	$__finalCompiled .= '
-';
+		';
 	if (($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) AND ($__vars['xf']['visitor']['user_id'] != 0)) {
 		$__finalCompiled .= '
-		';
+			';
 		if ($__vars['xf']['visitor']['user_id'] != $__vars['auction']['Thread']['User']) {
 			$__finalCompiled .= '
-			';
+				';
 			$__vars['bidDropDownRange'] = $__templater->func('range', array(0, $__vars['dropDownListLimit'], ), false);
 			$__vars['tempSum'] = ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] ? ($__vars['bidding'][$__vars['highestBidId']]['bidding_amount'] + $__vars['auction']['Thread']['custom_fields']['bid_increament']) : ($__vars['auction']['Thread']['custom_fields']['bid_increament'] + $__vars['auction']['Thread']['custom_fields']['starting_bid']));
 			$__vars['sum'] = $__vars['tempSum'];
@@ -443,11 +369,11 @@ document.getElementById("auction-counter").style.display = "block";
 				}
 			}
 			$__finalCompiled .= $__templater->form('
-				' . $__templater->formRow('
+						' . $__templater->formRow('
 	
-			<!--bidDropDownRange value is  bid dropdown List items count-->
+						<!--bidDropDownRange value is  bid dropdown List items count-->
 	
-					' . '' . '
+							' . '' . '
 					
 					<div class="inputChoices">
 							' . $__templater->formRadio(array(
@@ -506,16 +432,16 @@ document.getElementById("auction-counter").style.display = "block";
 	';
 	} else {
 		$__finalCompiled .= '
-	<div style="display:flex; justify-content: center; padding:0.7rem;">
-				<span >' . 'Bidding Not Allowed.' . '</span>	</div>
+		<div style="display:flex; justify-content: center; padding:0.7rem;">
+					<span >' . 'Bidding Not Allowed.' . '</span>	
+		</div>
 	
 	';
 	}
 	$__finalCompiled .= '
 		   </div>
 	  </div>
-</div>
-</div>
+
 
 
 ';

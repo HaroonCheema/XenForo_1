@@ -228,29 +228,28 @@ class Auction extends AbstractController
             );
         }
         $auction = $this->finder('FS\AuctionPlugin:AuctionListing')->whereId($params['auction_id'])->fetchOne();
-        
-       
-        
+
+
+
 
         $highestBidding = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC')->fetchOne();
-        if ($highestBidding){
+        if ($highestBidding) {
             if ($input['bidding_amount'] <= $highestBidding->bidding_amount) {
                 throw $this->exception(
                     $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
                 );
-            } 
-        }
-        else{
-            $thread = $this->finder('XF:Thread')->whereId($auction['thread_id'])->fetchOne();
-                
-                if ($input['bidding_amount'] < (intval($thread->custom_fields['starting_bid']) + intval($thread->custom_fields['bid_increament']))) {
-                    throw $this->exception(
-                        $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
-                    );
-                }
             }
+        } else {
+            $thread = $this->finder('XF:Thread')->whereId($auction['thread_id'])->fetchOne();
 
-        
+            if ($input['bidding_amount'] < (intval($thread->custom_fields['starting_bid']) + intval($thread->custom_fields['bid_increament']))) {
+                throw $this->exception(
+                    $this->notFound(\XF::phrase("fs_auction_enter_correct_amount"))
+                );
+            }
+        }
+
+
 
         $visitor = \XF::visitor();
 
@@ -262,23 +261,36 @@ class Auction extends AbstractController
 
         $addBidding->save();
 
+        $replier = $this->service('XF:Thread\Replier', $auction->Thread);
 
-        $replier = \XF::service('FS\AuctionPlugin:AuctionBidPost');
-        
-      
-         $replier->setThread($auction->Thread);
-         $replier->setUser($visitor);
-         $replier->setPostDefaults();
-          
-         $replier->setIsAutomated();
-        
-        $message =  $input['bidding_amount'];
-        if (!$message) {
-            $message = "--";
-        }
-        $replier->setMessage($message);
+        $replier->setMessage($input['bidding_amount']);
+        // }
+        //   $replier->setMessage($message);
+        $post = $replier->save();
 
-        $replier->save();
+        $this->finalizeThreadReply($replier);
+        $this->repository('XF:ThreadWatch')->autoWatchThread($auction->Thread, $visitor, false);
+
+        //  $replier = \XF::service('FS\AuctionPlugin:AuctionBidPost');
+
+
+        // $replier->setThread($auction->Thread);
+        // $replier->setUser($visitor);
+        // $replier->setPostDefaults();
+
+        // $replier->setIsAutomated();
+
+        // $message =  $input['bidding_amount'];
+        // if (!$message) {
+        //     $message = "--";
+        // }
+        // $replier->setMessage($message);
+
+        // $replier->save();
+
+        //  $replier->auctionWatch($auction->Thread);
+
+
 
 
         // if ($auction->watch_thread) {
@@ -299,7 +311,80 @@ class Auction extends AbstractController
             $this->getDynamicRedirect($this->buildLink('auction/view-auction'), $params)
         );
     }
-    
+
+    public function auctionWatch($thread)
+    {
+        $visitor = \XF::visitor();
+
+        // $newState = 'watch_email';
+
+        $newState = 'watch_no_email';
+
+        /** @var \XF\Repository\ThreadWatch $watchRepo */
+        $watchRepo = $this->repository('XF:ThreadWatch');
+        $watchRepo->setWatchState($thread, $visitor, $newState);
+    }
+
+    protected function finalizeThreadReply(\XF\Service\Thread\Replier $replier)
+    {
+        // var_dump($replier->sendNotifications());
+        // exit;
+        $replier->sendNotifications();
+
+        $thread = $replier->getThread();
+
+
+        $post = $replier->getPost();
+
+
+        $visitor = \XF::visitor();
+
+        $setOptions = $this->filter('_xfSet', 'array-bool');
+        if ($thread->canWatch()) {
+            if (isset($setOptions['watch_thread'])) {
+                $watch = $this->filter('watch_thread', 'bool');
+                if ($watch) {
+                    /** @var \XF\Repository\ThreadWatch $threadWatchRepo */
+                    $threadWatchRepo = $this->repository('XF:ThreadWatch');
+
+                    $state = $this->filter('watch_thread_email', 'bool') ? 'watch_email' : 'watch_no_email';
+                    $threadWatchRepo->setWatchState($thread, $visitor, $state);
+                }
+            } else {
+                // use user preferences
+                $this->repository('XF:ThreadWatch')->autoWatchThread($thread, $visitor, false);
+            }
+        }
+
+        if ($thread->canLockUnlock() && isset($setOptions['discussion_open'])) {
+            $thread->discussion_open = $this->filter('discussion_open', 'bool');
+        }
+        if ($thread->canStickUnstick() && isset($setOptions['sticky'])) {
+            $thread->sticky = $this->filter('sticky', 'bool');
+        }
+
+        $thread->saveIfChanged($null, false);
+
+        if ($visitor->user_id) {
+            $readDate = $thread->getVisitorReadDate();
+            if ($readDate && $readDate >= $thread->getPreviousValue('last_post_date')) {
+                $post = $replier->getPost();
+                $this->getThreadRepo()->markThreadReadByVisitor($thread, $post->post_date);
+            }
+
+            $thread->draft_reply->delete();
+
+            if ($post->message_state == 'moderated') {
+                $this->session()->setHasContentPendingApproval();
+            }
+        }
+    }
+
+    protected function getThreadRepo()
+    {
+        return $this->repository('XF:Thread');
+    }
+
     // public function actionBidding(ParameterBag $params)
     // {
     //     $input = $this->filter([
@@ -414,7 +499,7 @@ class Auction extends AbstractController
         if ($this->isPost()) {
             // $this->deleteAttachments($params->auction_id);
 
-            // $this->deleteBiddings($params->auction_id);
+            $this->deleteBiddings($params->auction_id);
 
             // $this->deleteAndDecreament($replyExists, true);
 

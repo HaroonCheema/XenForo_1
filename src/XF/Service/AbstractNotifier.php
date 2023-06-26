@@ -32,11 +32,9 @@ abstract class AbstractNotifier extends AbstractService
 
 		$endTime = $timeLimit > 0 ? microtime(true) + $timeLimit : null;
 
-		foreach ($this->getNotifiers() AS $type => $notifier)
-		{
+		foreach ($this->getNotifiers() as $type => $notifier) {
 			$data = $this->notifyData[$type];
-			if (!$data)
-			{
+			if (!$data) {
 				// already processed or nothing to do
 				continue;
 			}
@@ -44,8 +42,7 @@ abstract class AbstractNotifier extends AbstractService
 			$newData = $this->notifyType($notifier, $data, $endTime);
 			$this->notifyData[$type] = $newData;
 
-			if ($endTime && microtime(true) >= $endTime)
-			{
+			if ($endTime && microtime(true) >= $endTime) {
 				break;
 			}
 		}
@@ -59,62 +56,51 @@ abstract class AbstractNotifier extends AbstractService
 
 	protected function notifyType(\XF\Notifier\AbstractNotifier $notifier, array $data, $endTime = null)
 	{
-		do
-		{
+		do {
 			$notifyUsers = array_slice($data, 0, self::USERS_PER_CYCLE, true);
 			$users = $notifier->getUserData(array_keys($notifyUsers));
 
 			$this->loadExtraUserData($users);
 
-			foreach ($notifyUsers AS $userId => $notify)
-			{
+			foreach ($notifyUsers as $userId => $notify) {
 				unset($data[$userId]);
 
-				if (!isset($users[$userId]))
-				{
+				if (!isset($users[$userId])) {
 					continue;
 				}
 
 				$user = $users[$userId];
 
-				if (!$this->canUserViewContent($user) || !$notifier->canNotify($user))
-				{
+				if (!$this->canUserViewContent($user) || !$notifier->canNotify($user)) {
 					continue;
 				}
 
 				$alert = ($notify['alert'] && empty($this->alerted[$userId]));
-				if ($alert && $notifier->sendAlert($user))
-				{
+				if ($alert && $notifier->sendAlert($user)) {
 					$this->alerted[$userId] = true;
 				}
 
 				$email = ($notify['email'] && empty($this->emailed[$userId]));
-				if ($email && $notifier->sendEmail($user))
-				{
+				if ($email && $notifier->sendEmail($user)) {
 					$this->emailed[$userId] = true;
 				}
 
-				if ($endTime && microtime(true) >= $endTime)
-				{
+				if ($endTime && microtime(true) >= $endTime) {
 					return $data;
 				}
 			}
-		}
-		while ($data);
+		} while ($data);
 
 		return $data;
 	}
 
 	public function enqueueJobIfNeeded()
 	{
-		if ($this->hasMore())
-		{
+		if ($this->hasMore()) {
 			$this->app->jobManager()->enqueue('XF:Notifier', $this->getJobData());
 
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
@@ -143,15 +129,12 @@ abstract class AbstractNotifier extends AbstractService
 	{
 		$this->ensureDataLoaded();
 		$notifiers = $this->getNotifiers();
-		if (!$notifiers)
-		{
+		if (!$notifiers) {
 			return false;
 		}
 
-		foreach ($notifiers AS $type => $notifier)
-		{
-			if (!empty($this->notifyData[$type]))
-			{
+		foreach ($notifiers as $type => $notifier) {
+			if (!empty($this->notifyData[$type])) {
 				return true;
 			}
 		}
@@ -163,8 +146,7 @@ abstract class AbstractNotifier extends AbstractService
 	{
 		$notifiers = $this->getNotifiers();
 
-		if (!isset($notifiers[$type]))
-		{
+		if (!isset($notifiers[$type])) {
 			throw new \InvalidArgumentException("Unknown notification type '$type'");
 		}
 
@@ -176,10 +158,10 @@ abstract class AbstractNotifier extends AbstractService
 
 	public function addNotifications($type, array $userIds, $alert = true, $email = false)
 	{
+
 		$notifiers = $this->getNotifiers();
 
-		if (!isset($notifiers[$type]))
-		{
+		if (!isset($notifiers[$type])) {
 			throw new \InvalidArgumentException("Unknown notification type '$type'");
 		}
 
@@ -188,8 +170,7 @@ abstract class AbstractNotifier extends AbstractService
 			'email' => $email
 		];
 
-		foreach ($userIds AS $userId)
-		{
+		foreach ($userIds as $userId) {
 			$this->notifyData[$type][$userId] = $value;
 		}
 	}
@@ -246,8 +227,7 @@ abstract class AbstractNotifier extends AbstractService
 
 	protected function getNotifiers()
 	{
-		if ($this->notifiers === null)
-		{
+		if ($this->notifiers === null) {
 			$this->notifiers = $this->loadNotifiers();
 		}
 
@@ -256,10 +236,8 @@ abstract class AbstractNotifier extends AbstractService
 
 	protected function ensureDataLoaded()
 	{
-		foreach ($this->getNotifiers() AS $type => $notifier)
-		{
-			if (!isset($this->notifyData[$type]))
-			{
+		foreach ($this->getNotifiers() as $type => $notifier) {
+			if (!isset($this->notifyData[$type])) {
 				$this->notifyData[$type] = $notifier->getDefaultNotifyData();
 			}
 		}
