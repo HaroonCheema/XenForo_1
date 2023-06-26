@@ -51,15 +51,6 @@ class MySql
             $table->addPrimaryKey('bidding_id');
         };
 
-        // $tables['fs_auction_read'] = function (Create $table) {
-        //     /** @var Create|Alter $table */
-        //     $table->addColumn('auction_read_id', 'int')->autoIncrement();
-        //     $table->addColumn('user_id', 'int')->setDefault(0);
-        //     $table->addColumn('auction_id', 'int')->setDefault(0);
-        //     $table->addColumn('auction_read_date', 'int');
-        //     $table->addPrimaryKey('auction_read_id');
-        // };
-
         return $tables;
     }
 

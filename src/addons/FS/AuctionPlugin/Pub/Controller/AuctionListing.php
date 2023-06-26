@@ -9,65 +9,12 @@ use XF\Pub\Controller\AbstractController;
 class AuctionListing extends AbstractController
 {
 
-    // public function actionIndex(ParameterBag $params)
-    // {
-    //     $page = 0;
-    //     $perPage = 0;
-    //     $categories = $this->finder('FS\AuctionPlugin:Category');
-    //     $categoryTree = $this->createCategoryTree($categories->fetch());
-
-    //     $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
-
-    //     // var_dump($finder->fetch());exit;
-
-    //     if ($this->filter('search', 'uint')) {
-    //         $finder = $this->getSearchFinder();
-
-    //         if (count($finder->getConditions()) == 0) {
-    //             return $this->error(\XF::phrase('please_complete_required_field'));
-    //         }
-    //     } else if ($params->category_id) {
-    //         $finder->where('category_id', $params->category_id);
-    //     } else {
-
-    //         $options = \XF::options();
-    //         $perPage = $options->fs_auction_per_page;
-
-    //         $page = $params->page;
-
-    //         $finder->limitByPage($page, $perPage);
-    //         $finder->order('last_bumping', 'DESC');
-    //     }
-
-
-    //     $viewParams = [
-    //         'categories' => $categories,
-    //         'categoryTree' => $categoryTree,
-    //         'listings' => $finder->fetch(),
-
-    //         'stats' => $this->auctionStatistics(),
-
-    //         'page' => $page,
-    //         'perPage' => $perPage,
-    //         'total' => $finder->total(),
-    //         'totalReturn' => count($finder->fetch()),
-
-    //         'conditions' => $this->filterSearchConditions(),
-    //     ];
-
-    //     return $this->view('FS\AuctionPlugin:AuctionListing', 'fs_auctionArchive', $viewParams);
-    // }
-
     public function actionIndex(ParameterBag $params)
     {
         $page = 0;
         $perPage = 0;
         $categories = $this->finder('FS\AuctionPlugin:Category');
         $categoryTree = $this->createCategoryTree($categories->fetch());
-
-        // $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
-
-        // var_dump($finder->fetch());exit;
 
         if ($this->filter('search', 'uint')) {
             $finder = $this->getSearchFinder();
@@ -147,44 +94,9 @@ class AuctionListing extends AbstractController
         );
     }
 
-    // protected function auctionReadInsert($auction_id, $user_id)
-    // {
-    //     $auctionRead = $this->em()->create('FS\AuctionPlugin:AuctionRead');
-
-    //     $auctionRead->user_id = $user_id;
-    //     $auctionRead->auction_id = $auction_id;
-
-    //     $auctionRead->save();
-    // }
-
-    // public function actionShare(ParameterBag $params)
-    // {
-
-    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
-
-    //     $sharePlugin = $this->plugin('XF:Share');
-    //     return $sharePlugin->actionTooltip($this->buildLink('canonical:auction/view-auction', $auction), $auction->Thread->title, \XF::phrase('share_this_post'));
-    // }
-
-    // public function actionBookmark(ParameterBag $params)
-    // {
-    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
-    //     /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
-    //     $bookmarkPlugin = $this->plugin('XF:Bookmark');
-
-    //     return $bookmarkPlugin->actionBookmark(
-    //         $auction,
-    //         $this->buildLink('auction/bookmark', $auction)
-    //     );
-    // }
-
     protected function getSearchFinder()
     {
         $conditions = $this->filterSearchConditions();
-
-        // $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
-
-        // $finder = $this->finder('XF:Thread');
 
         $node_id = $this->options()->fs_auction_applicable_forum;
         $finder = $this->finder('XF:Thread')->where('node_id', $node_id)->where('auction_end_date', '!=', 0);
@@ -204,10 +116,6 @@ class AuctionListing extends AbstractController
                 $finder->where('auction_end_date', '<=', \XF::$time);
             }
         }
-
-        // if ($conditions['fs_auction_cat'] != '0') {
-        //     $finder->where('category_id', $conditions['fs_auction_cat']);
-        // }
 
         $threadIds = $finder->pluckfrom('thread_id')->fetch()->toArray();
 
@@ -246,18 +154,6 @@ class AuctionListing extends AbstractController
             $this->getDynamicRedirect($this->buildLink('auction'), false)
         );
     }
-
-    // public function actionViewAuctionBookmark(ParameterBag $params)
-    // {
-    //     $auction = $this->Finder('FS\AuctionPlugin:AuctionListing')->whereId($params->auction_id)->fetchOne();
-    //     /** @var \XF\ControllerPlugin\Bookmark $bookmarkPlugin */
-    //     $bookmarkPlugin = $this->plugin('XF:Bookmark');
-
-    //     return $bookmarkPlugin->actionBookmark(
-    //         $auction,
-    //         $this->buildLink('auction/bookmark', $auction)
-    //     );
-    // }
 
     public function actionAddListingChooser()
     {

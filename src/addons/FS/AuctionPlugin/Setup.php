@@ -56,8 +56,6 @@ class Setup extends AbstractSetup
 		});
 	}
 
-
-
 	public function insertDefaultData()
 	{
 		if (!$this->addOn->isInstalled()) {

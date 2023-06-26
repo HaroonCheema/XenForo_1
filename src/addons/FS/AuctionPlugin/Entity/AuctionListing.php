@@ -117,49 +117,4 @@ class AuctionListing extends Entity implements LinkableInterface
 
         return $structure;
     }
-
-    // public function getAttachmentConstraints()
-    // {
-
-    //     $options = $this->app()->options();
-
-    //     $extensions = [];
-    //     $extensions = array_merge($extensions, Arr::stringToArray($options->fs_auction_ImageExtensions));
-
-    //     return [
-    //         'extensions' => $extensions,
-    //     ];
-    // }
-
-
-    // public function getFormatedTime()
-    // {
-    //     $tempDate = new \DateTime('@' . $this->ends_on);
-    //     $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
-    //     return $date->format("H:i");
-    // }
-    // public function getFormatedTime12()
-    // {
-    //     $tempDate = new \DateTime('@' . $this->ends_on);
-    //     $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
-    //     return $date->format("F j Y, h:i A");
-    // }
-
-    // public function getImage()
-    // {
-    //     $attachmentData = $this->finder('XF:Attachment')->where('content_id', $this->auction_id)->where('content_type', 'fs_auction')->fetchOne();
-
-    //     return $attachmentData->Data ? $attachmentData->Data->getThumbnailUrl() : '';
-    // }
-    // public function getMaxBidOfAuction()
-    // {
-    //     $maxBid = $this->finder('FS\AuctionPlugin:Bidding')->where('auction_id', $this->auction_id)->order('bidding_amount', 'desc')->fetchOne();
-    //     if ($maxBid) {
-    //         return $maxBid->bidding_amount;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-
 }

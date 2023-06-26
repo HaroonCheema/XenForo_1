@@ -7,7 +7,14 @@
   <modification type="public" template="custom_fields_macros" modification_key="fs_auction_post_thread" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<dl class="{\$valueClass}" data-field="{\$fieldId}">.*?<\/dl>/is]]></find>
     <replace><![CDATA[<xf:if is="$fieldDefinition.field_id!='bumping_rules'">
+<xf:if is="$fieldDefinition.field_id =='auction_guidelines'">
+	<dl class="{$valueClass}" data-field="{$fieldId}">
+		<dt>{$fieldDefinition.title}</dt>
+		<dd>{{ phrase('auction_guidlines_explain') }}</dd>
+	</dl>
+<xf:else />
 $0
+</xf:if>
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_auction_post_thread_add_date" description="add Date and time" execution_order="10" enabled="1" action="preg_replace">

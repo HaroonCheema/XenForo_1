@@ -45,9 +45,4 @@ class Thread extends XFCP_Thread
         $date =  date_timezone_set($tempDate, timezone_open('America/Los_Angeles'));
         return $date->format("y-m-d");
     }
-
-    public function getStringReplace($value)
-    {
-        return str_replace("_", " ", $value);
-    }
 }
