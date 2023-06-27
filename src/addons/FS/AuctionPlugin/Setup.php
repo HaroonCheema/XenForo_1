@@ -60,11 +60,18 @@ class Setup extends AbstractSetup
 		$forum->delete();
 	}
 
-	public function upgrade1040100Step1()
+	public function upgrade1040300Step1()
 	{
 		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 			$table->addColumn('auction_end_date', 'int')->setDefault(0);
 		});
+
+		$forumService = \xf::app()->service('FS\AuctionPlugin:Auction\ForumAndFields');
+
+		$node = $forumService->createNode();
+		$forumService->updateOptionsforum($node->node_id);
+		$forumService->createCustomFields($node->node_id);
+		$forumService->permissionRebuild();
 	}
 
 	public function insertDefaultData()

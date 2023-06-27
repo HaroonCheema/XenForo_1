@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 9e0990e218a94b486e06892b23d98117
+// FROM HASH: 90e2a0b527856884778930dcbbf0adae
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -351,7 +351,7 @@ function timmerCounter(start_datetime) {
 	if (($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) AND ($__vars['xf']['visitor']['user_id'] != 0)) {
 		$__finalCompiled .= '
 			';
-		if ($__vars['xf']['visitor']['user_id'] != $__vars['auction']['Thread']['User']) {
+		if ($__vars['xf']['visitor']['user_id'] != $__vars['auction']['Thread']['User']['user_id']) {
 			$__finalCompiled .= '
 				';
 			$__vars['bidDropDownRange'] = $__templater->func('range', array(0, $__vars['dropDownListLimit'], ), false);

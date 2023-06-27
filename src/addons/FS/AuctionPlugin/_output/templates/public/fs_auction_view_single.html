@@ -206,7 +206,7 @@ function timmerCounter(start_datetime) {
 
 			</xf:if>
 		<xf:if is="$auction.Thread.auction_end_date > $xf.time AND $xf.visitor.user_id != 0">
-			<xf:if is="$xf.visitor.user_id != $auction.Thread.User">
+			<xf:if is="$xf.visitor.user_id != $auction.Thread.User.user_id">
 				<xf:form
 					  action="{{ link('auction/categories/bidding', $auction) }}"
 					  ajax="true"

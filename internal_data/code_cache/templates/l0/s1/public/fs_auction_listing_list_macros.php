@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: a5d7cbb9f87ea4c041ba0c9194f761b1
+// FROM HASH: 2e761f8b6ac6be648ccdc24f54d6c74e
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -285,8 +285,8 @@ return array(
 			</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt style="color:black; font-size:17px">' . 'Bid' . '</dt>
-					<dd style="color:black; font-size:17px">
+					<dt >' . 'Bid' . '</dt>
+					<dd >
 							 ' . ' $' . $__templater->escape($__vars['listing']['Thread']['custom_fields']['starting_bid']) . '
 					</dd>
 				</dl>
