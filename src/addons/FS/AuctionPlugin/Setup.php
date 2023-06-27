@@ -54,6 +54,17 @@ class Setup extends AbstractSetup
 		$this->schemaManager()->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 			$table->dropColumns(['auction_end_date']);
 		});
+
+		$forum = \xf::app()->finder('XF:Node')->whereId($this->app()->options()->fs_auction_applicable_forum)->fetchOne();
+
+		$forum->delete();
+	}
+
+	public function upgrade1040100Step1()
+	{
+		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+			$table->addColumn('auction_end_date', 'int')->setDefault(0);
+		});
 	}
 
 	public function insertDefaultData()
