@@ -1,4 +1,8 @@
 <xf:title>{{$auction.Thread.title}}</xf:title>
+<style>
+.attachmentList > li:first-child{display:none}
+
+</style>
 <xf:pageaction if="$xf.visitor.user_id == $auction.Thread.user_id OR $xf.visitor.is_admin">
 	<xf:button href="{{ link('auction/categories/delete', $auction) }}" overlay="true" class="button button--icon button--icon--edit" icon="delete">{{ phrase('delete') }}</xf:button>
 	<xf:button href="{{ link('posts/'.{$auction.Thread.FirstPost.post_id}.'/edit') }}" class="button button--icon button--icon--edit" icon="edit">{{ phrase('edit') }}</xf:button>
@@ -177,14 +181,43 @@ function timmerCounter(start_datetime) {
 </xf:macro>
 
 <xf:if is="$auction.Thread.auction_end_date > $xf.time">
-				<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
-					width=" " onload="timmerCounter({$auction.Thread.auction_end_date})" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-	<xf:else />
-			<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
-					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-</xf:if>
-	
 
+
+	
+	<div style="text-align: center;"><div class="bbImageWrapper  js-lbImage" >
+
+			
+	<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
+					 class="bbImage"
+
+ onload="timmerCounter({$auction.Thread.auction_end_date})"   class="bbImage" />
+		</div>
+	</div>
+		<xf:else />
+	<div style="text-align: center;"><div class="bbImageWrapper  js-lbImage" >
+
+
+			<img src="{{ count($auction.Thread.FirstPost.Attachments) ? link('full:attachments', $auction.Thread.FirstPost.Attachments.first()) : base_url('styles/FS/AuctionPlugin/no_image.png',true) }}" alt="{$attachment.filename}"
+					  class="bbImage"
+
+ loading="lazy" />
+		</div>
+	</div>
+		</xf:if>
+	
+	<xf:css src="attachments.less" />
+		<section class="message-attachments">
+			<h4 class="block-textHeader">{{ phrase('attachments') }}</h4>
+			<ul class="attachmentList">
+			
+					<xf:foreach loop="$auction.Thread.FirstPost.Attachments" value="$attachment" >
+						<xf:macro template="attachment_macros" name="attachment_list_item"
+							arg-attachment="{$attachment}"
+							arg-canView="true" />
+					</xf:foreach>
+			
+			</ul>
+		</section>
 
 	   <div class="block-container">
 		<div class="block-body">

@@ -26,12 +26,14 @@
 		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
 		
 			<div class="structItem-title">
-			<span class="label label--blue label--smallest">
-						{{ phrase_dynamic($listing.Thread.Prefix.getPhraseName()) }}
-					</span>
+				<xf:if is="$listing.Thread.prefix_id">
+			   		 <a class="labelLink" rel="nofollow">{{ prefix('thread', $listing.Thread, 'html', '') }}</a>
+				</xf:if>
 				<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{$listing.Thread.title}</a>
-					<span class="structItem-listingDescription">  {{ phrase('dollorSymbol') }}{{ $listing.Thread.custom_fields.starting_bid}}</span>
-			</div>
+					
+			<xf:comment><span class="structItem-listingDescription">  {{ phrase('AuctionStarting_bid') }}: {{ phrase('dollorSymbol') }}{{ $listing.Thread.custom_fields.starting_bid}}</span>
+			</xf:comment>
+		</div>
 			<div class="structItem-minor">
 
 					<ul class="structItem-parts">
@@ -97,13 +99,21 @@
 				<xf:if is="$listing.Thread.getMaxBidOfAuction($listing.auction_id)">
 					
 							<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >{{phrase('fs_auction_maxBid')}}</dt>
+					<dt ><b>{{phrase('fs_auction_maxBid')}}</b></dt>
 					<dd >
-							{{ phrase('dollorSymbol') }}{{$listing.Thread.getMaxBidOfAuction($listing.auction_id)}}
-					</dd>
+							<b>{{ phrase('dollorSymbol') }}{{$listing.Thread.getMaxBidOfAuction($listing.auction_id)}}
+					</b>
+								</dd>
 				</dl>
 							
 						</xf:if>
+			
+				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt>{{ phrase('AuctionStarting_bid') }}</dt>
+					<dd>
+						{{phrase('dollorSymbol')}}{$listing.Thread.custom_fields.starting_bid}
+					</dd>
+				</dl>
 		</div>
 	</div>
 </xf:macro>
@@ -185,10 +195,9 @@
 				</div>
 
 			<div class="structItem-title">
-					<span class="label label--blue label--smallest">
-						{{ phrase_dynamic($listing.Thread.Prefix.getPhraseName()) }}
-							
-					</span>
+						<xf:if is="$listing.Thread.prefix_id">
+			   		 		<a class="labelLink" rel="nofollow">{{ prefix('thread', $listing.Thread, 'html', '') }}</a>
+						</xf:if>
 			<a href="{{ link('auction/view-auction', $listing) }}" class="" data-tp-primary="on">{{ snippet($listing.Thread.title, 33, {'stripBbCode': true}) }}</a>
 			</div>
 			<div class="structItem-minor">
@@ -203,9 +212,9 @@
 						<xf:if is="$listing.Thread.getMaxBidOfAuction($listing.auction_id)">
 					
 							<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >{{phrase('fs_auction_maxBid')}}</dt>
+								<dt ><b>{{phrase('fs_auction_maxBid')}}</b></dt>
 					<dd >
-							{{ phrase('dollorSymbol') }}{{$listing.Thread.getMaxBidOfAuction($listing.auction_id)}}
+							<b>{{ phrase('dollorSymbol') }}{{$listing.Thread.getMaxBidOfAuction($listing.auction_id)}}</b>
 					</dd>
 				</dl>
 							
@@ -216,9 +225,9 @@
 			</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >{{ phrase('AuctionStarting_bid') }}</dt>
-					<dd >
-							 {{phrase('dollorSymbol')}}{$listing.Thread.custom_fields.starting_bid}
+					<dt>{{ phrase('AuctionStarting_bid') }}</dt>
+					<dd>
+						{{phrase('dollorSymbol')}}{$listing.Thread.custom_fields.starting_bid}
 					</dd>
 				</dl>
 		

@@ -22,26 +22,6 @@ class ForumAndFields extends \XF\Service\AbstractService
     {
 
         return [
-            'auction_Ends_At' => [
-                'title' => \XF::phrase('auction_time_zone'),
-                'description' => \XF::phrase('auction_timeZone_explain'),
-                'display_order' => '10',
-                'field_type' => 'select',
-                'required' => 'true',
-                'field_id' => 'timezone',
-                'match_type' => 'none',
-                'fieldChoices' => [
-                    '0' => 'Option_1',
-                    '1' => 'Option_2',
-                    '2' => '',
-                ],
-                'fieldChoicesText' => [
-                    '0' => 'Option 1',
-                    '1' => 'Option 2',
-                    '2' => '',
-                ],
-                'match_params' => [],
-            ],
 
             'starting_bid' => [
                 'title' => \XF::phrase('starting_bid'),

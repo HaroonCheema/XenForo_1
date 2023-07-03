@@ -73,7 +73,7 @@ class AuctionListing extends AbstractController
         $tempBiddings = $this->Finder('FS\AuctionPlugin:Bidding')->where('auction_id', $params->auction_id)->order('bidding_amount', 'DESC');
         $bidding = $tempBiddings->fetch();
 
-        if ($auction->Thread->isUnread()) {
+        if (isset($auction->Thread) && $auction->Thread->isUnread()) {
             $threadRepo = $this->repository('XF:Thread');
             $threadRepo->markThreadReadByVisitor($auction->Thread);
         }

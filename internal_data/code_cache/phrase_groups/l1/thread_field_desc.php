@@ -1,5 +1,6 @@
 <?php
 return array (
+  'thread_field_desc.asdsadsdasd' => 'asdsadsd',
   'thread_field_desc.auction_Ends_At' => 'auction_timeZone_explain',
   'thread_field_desc.auction_guidelines' => '<ol>
 	<li>The highest bid at the closing time listed above will win. If there is a bid within 5 minutes of the closing time (original or extended closing time), 5 minutes shall be added to the time of the last bid, until there are no bids within the final 5 minutes. Because seconds are not displayed on post timestamps, <a href="#"><b>these examples</b></a> will be used as a reference.</li>

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 2e761f8b6ac6be648ccdc24f54d6c74e
+// FROM HASH: b20d213e6ef1ae95e6dd32a88fc68f55
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -49,8 +49,8 @@ return array(
 						' . $__templater->func('phrase_dynamic', array($__templater->method($__vars['listing']['Thread']['Prefix'], 'getPhraseName', array()), ), true) . '
 					</span>
 				<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">' . $__templater->escape($__vars['listing']['Thread']['title']) . '</a>
-					<span class="structItem-listingDescription">  ' . ' $' . $__templater->escape($__vars['listing']['Thread']['custom_fields']['starting_bid']) . '</span>
-			</div>
+					' . '
+						</div>
 			<div class="structItem-minor">
 
 					<ul class="structItem-parts">
@@ -127,15 +127,23 @@ return array(
 		$__finalCompiled .= '
 					
 							<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >' . 'Current bid' . '</dt>
+					<dt ><b>' . 'Current bid' . '</b></dt>
 					<dd >
-							' . ' $' . $__templater->escape($__templater->method($__vars['listing']['Thread'], 'getMaxBidOfAuction', array($__vars['listing']['auction_id'], ))) . '
-					</dd>
+							<b>' . ' $' . $__templater->escape($__templater->method($__vars['listing']['Thread'], 'getMaxBidOfAuction', array($__vars['listing']['auction_id'], ))) . '
+					</b>
+								</dd>
 				</dl>
 							
 						';
 	}
 	$__finalCompiled .= '
+			
+				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+					<dt>' . 'Bid' . '</dt>
+					<dd>
+						' . ' $' . $__templater->escape($__vars['listing']['Thread']['custom_fields']['starting_bid']) . '
+					</dd>
+				</dl>
 		</div>
 	</div>
 ';
@@ -270,9 +278,9 @@ return array(
 		$__finalCompiled .= '
 					
 							<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >' . 'Current bid' . '</dt>
+								<dt ><b>' . 'Current bid' . '</b></dt>
 					<dd >
-							' . ' $' . $__templater->escape($__templater->method($__vars['listing']['Thread'], 'getMaxBidOfAuction', array($__vars['listing']['auction_id'], ))) . '
+							<b>' . ' $' . $__templater->escape($__templater->method($__vars['listing']['Thread'], 'getMaxBidOfAuction', array($__vars['listing']['auction_id'], ))) . '</b>
 					</dd>
 				</dl>
 							
@@ -285,9 +293,9 @@ return array(
 			</div>
 
 				<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
-					<dt >' . 'Bid' . '</dt>
-					<dd >
-							 ' . ' $' . $__templater->escape($__vars['listing']['Thread']['custom_fields']['starting_bid']) . '
+					<dt>' . 'Bid' . '</dt>
+					<dd>
+						' . ' $' . $__templater->escape($__vars['listing']['Thread']['custom_fields']['starting_bid']) . '
 					</dd>
 				</dl>
 		

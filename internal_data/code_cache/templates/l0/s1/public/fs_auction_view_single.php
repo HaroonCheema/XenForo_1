@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 90e2a0b527856884778930dcbbf0adae
+// FROM HASH: 5f70b625ffd6b05c5d82c2e8c2e1a73a
 return array(
 'macros' => array('singleAuction' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -118,6 +118,10 @@ return array(
 	$__finalCompiled = '';
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['auction']['Thread']['title']));
 	$__finalCompiled .= '
+<style>
+.attachmentList > li:first-child{display:none}
+
+</style>
 ';
 	if (($__vars['xf']['visitor']['user_id'] == $__vars['auction']['Thread']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
 		$__compilerTemp1 = '';
@@ -289,18 +293,56 @@ function timmerCounter(start_datetime) {
 ';
 	if ($__vars['auction']['Thread']['auction_end_date'] > $__vars['xf']['time']) {
 		$__finalCompiled .= '
-				<img src="' . ($__templater->func('count', array($__vars['auction']['Thread']['FirstPost']['Attachments'], ), false) ? $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
-					width=" " onload="timmerCounter(' . $__templater->escape($__vars['auction']['Thread']['auction_end_date']) . ')" style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-	';
+
+
+	
+	<div style="text-align: center;"><div class="bbImageWrapper  js-lbImage" >
+
+			
+	<img src="' . ($__templater->func('count', array($__vars['auction']['Thread']['FirstPost']['Attachments'], ), false) ? $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
+					 class="bbImage"
+
+ onload="timmerCounter(' . $__templater->escape($__vars['auction']['Thread']['auction_end_date']) . ')"   class="bbImage" />
+		</div>
+	</div>
+		';
 	} else {
 		$__finalCompiled .= '
+	<div style="text-align: center;"><div class="bbImageWrapper  js-lbImage" >
+
+
 			<img src="' . ($__templater->func('count', array($__vars['auction']['Thread']['FirstPost']['Attachments'], ), false) ? $__templater->func('link', array('full:attachments', $__templater->method($__vars['auction']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) : $__templater->func('base_url', array('styles/FS/AuctionPlugin/no_image.png', true, ), true)) . '" alt="' . $__templater->escape($__vars['attachment']['filename']) . '"
-					width=" " style="width:-webkit-fill-available; width:-moz-available;" height="" loading="lazy" />
-';
+					  class="bbImage"
+
+ loading="lazy" />
+		</div>
+	</div>
+		';
 	}
 	$__finalCompiled .= '
 	
-
+	';
+	$__templater->includeCss('attachments.less');
+	$__finalCompiled .= '
+		<section class="message-attachments">
+			<h4 class="block-textHeader">' . 'Attachments' . '</h4>
+			<ul class="attachmentList">
+			
+					';
+	if ($__templater->isTraversable($__vars['auction']['Thread']['FirstPost']['Attachments'])) {
+		foreach ($__vars['auction']['Thread']['FirstPost']['Attachments'] AS $__vars['attachment']) {
+			$__finalCompiled .= '
+						' . $__templater->callMacro('attachment_macros', 'attachment_list_item', array(
+				'attachment' => $__vars['attachment'],
+				'canView' => 'true',
+			), $__vars) . '
+					';
+		}
+	}
+	$__finalCompiled .= '
+			
+			</ul>
+		</section>
 
 	   <div class="block-container">
 		<div class="block-body">

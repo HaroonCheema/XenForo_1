@@ -3,7 +3,7 @@
     "execute_order": 10,
     "callback_class": "FS\\AuctionPlugin\\Listener",
     "callback_method": "addonPostInstall",
-    "active": true,
+    "active": false,
     "hint": "",
     "description": ""
 }

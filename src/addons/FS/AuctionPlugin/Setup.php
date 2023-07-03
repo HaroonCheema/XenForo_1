@@ -37,6 +37,13 @@ class Setup extends AbstractSetup
 		});
 
 		$this->insertDefaultData();
+
+		$forumService = \xf::app()->service('FS\AuctionPlugin:Auction\ForumAndFields');
+
+		$node = $forumService->createNode();
+		$forumService->updateOptionsforum($node->node_id);
+		$forumService->createCustomFields($node->node_id);
+		$forumService->permissionRebuild();
 	}
 
 	public function uninstallStep1()
@@ -58,20 +65,17 @@ class Setup extends AbstractSetup
 		$forum = \xf::app()->finder('XF:Node')->whereId($this->app()->options()->fs_auction_applicable_forum)->fetchOne();
 
 		$forum->delete();
-	}
 
-	public function upgrade1040300Step1()
-	{
-		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
-			$table->addColumn('auction_end_date', 'int')->setDefault(0);
-		});
+		$forumFields = \xf::app()->finder('XF:ForumField')->where('node_id', $this->app()->options()->fs_auction_applicable_forum)->fetch();
 
-		$forumService = \xf::app()->service('FS\AuctionPlugin:Auction\ForumAndFields');
+		if (count($forumFields) > 0) {
+			foreach ($forumFields as $forumField) {
+				$threadField = \xf::app()->finder('XF:ThreadField')->where('field_id', $forumField->field_id)->fetchOne();
 
-		$node = $forumService->createNode();
-		$forumService->updateOptionsforum($node->node_id);
-		$forumService->createCustomFields($node->node_id);
-		$forumService->permissionRebuild();
+				$threadField->delete();
+				$forumField->delete();
+			}
+		}
 	}
 
 	public function insertDefaultData()
