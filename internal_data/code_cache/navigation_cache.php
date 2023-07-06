@@ -62,18 +62,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.defaultRegister'),
-		'href' => $__templater->func('link', array('register', ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['_default']['children']['defaultRegister'] = $__navTemp;
-				$__flat['defaultRegister'] =& $__tree['_default']['children']['defaultRegister'];
-			}
-		}
-
 		if ($__vars['xf']['visitor']['user_id']) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.defaultLogOut'),
@@ -83,6 +71,18 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
 				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
+			}
+		}
+
+		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.defaultRegister'),
+		'href' => $__templater->func('link', array('register', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['_default']['children']['defaultRegister'] = $__navTemp;
+				$__flat['defaultRegister'] =& $__tree['_default']['children']['defaultRegister'];
 			}
 		}
 
@@ -329,6 +329,28 @@ return function($__templater, $__selectedNav, array $__vars)
 	}
 
 	$__navTemp = [
+		'title' => \XF::phrase('nav.fs_escrow'),
+		'href' => $__templater->func('link', array('escrow', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fs_escrow'] = $__navTemp;
+		$__flat['fs_escrow'] =& $__tree['fs_escrow'];
+		if (empty($__tree['fs_escrow']['children'])) { $__tree['fs_escrow']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.fs_escrow_add'),
+		'href' => $__templater->func('link', array('escrow/add', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['fs_escrow']['children']['fs_escrow_add'] = $__navTemp;
+			$__flat['fs_escrow_add'] =& $__tree['fs_escrow']['children']['fs_escrow_add'];
+		}
+
+	}
+
+	$__navTemp = [
 		'title' => \XF::phrase('nav.fs_auction_category'),
 		'href' => $__templater->func('link', array('auction', ), false),
 		'attributes' => [],
@@ -498,6 +520,28 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 
 		}
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.createCrud'),
+		'href' => $__templater->func('link', array('crud', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['createCrud'] = $__navTemp;
+		$__flat['createCrud'] =& $__tree['createCrud'];
+		if (empty($__tree['createCrud']['children'])) { $__tree['createCrud']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.addRecord'),
+		'href' => $__templater->func('link', array('crud/add', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
+			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
+		}
+
 	}
 
 

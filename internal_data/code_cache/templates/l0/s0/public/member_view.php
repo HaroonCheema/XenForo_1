@@ -77,6 +77,19 @@ return array(
 	}
 	$__compilerTemp4 .= '
 											';
+	if ($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		$__compilerTemp4 .= '
+	' . $__templater->button('
+		' . 'Deposit' . '
+	', array(
+			'href' => $__templater->func('link', array('escrow/deposit', ), false),
+			'class' => 'button--link',
+		), '', array(
+		)) . '
+';
+	}
+	$__compilerTemp4 .= '
+';
 	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) AND $__templater->method($__vars['xf']['visitor'], 'canUploadProfileBanner', array())) {
 		$__compilerTemp4 .= '
 												' . $__templater->button('
@@ -333,6 +346,37 @@ return array(
 	}
 	$__finalCompiled .= '
 				' . '
+';
+	if ($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		$__finalCompiled .= '
+	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	   class="tabs-tab" id="my-escrow" role="tab">
+		' . 'My Escrows' . '
+	</a>
+';
+	}
+	$__finalCompiled .= '
+
+';
+	if ($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		$__finalCompiled .= '
+	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	   class="tabs-tab" id="mentioned-escrow" role="tab">
+		' . 'Mentioned Escrow' . '
+	</a>
+';
+	}
+	$__finalCompiled .= '
+';
+	if ($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		$__finalCompiled .= '
+	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	   class="tabs-tab" id="escrow-logs" role="tab">
+		' . 'Escrow Logs' . '
+	</a>
+';
+	}
+	$__finalCompiled .= '
 			</span>
 		</h2>
 	</div>
@@ -342,6 +386,24 @@ return array(
 		'user' => $__vars['user'],
 	), $__vars) . '
 
+';
+	if ($__vars['user']['is_banned']) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfo', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
+';
+	}
+	$__finalCompiled .= '
+';
+	if ($__vars['user']['ScheduleBan']['ban_date'] AND (!$__vars['user']['is_banned'])) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('fs_sch_user_ban_macros', 'banInfoBeforeBanProfile', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
+';
+	}
+	$__finalCompiled .= '
 <ul class="tabPanes js-memberTabPanes">
 	' . '
 	';
@@ -474,6 +536,21 @@ return array(
 	}
 	$__finalCompiled .= '
 	' . '
+';
+	if ($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		$__finalCompiled .= '
+<li data-href="' . $__templater->func('link', array('escrow/my-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="my-escrow">
+		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
+</li>
+<li data-href="' . $__templater->func('link', array('escrow/mentioned-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="mentioned-escrow">
+		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
+</li>
+<li data-href="' . $__templater->func('link', array('escrow/logs', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="escrow-logs">
+		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
+</li>
+	';
+	}
+	$__finalCompiled .= '
 </ul>
 
 ';

@@ -31,6 +31,8 @@ return array (
   'nav.forumList' => 'Forum list',
   'nav.forums' => 'Forums',
   'nav.fs_auction_category' => 'Auction',
+  'nav.fs_escrow' => 'Escrow',
+  'nav.fs_escrow_add' => 'Start Escrow',
   'nav.fs_new_answers' => 'New Answers',
   'nav.fs_new_questions' => 'New Questions',
   'nav.fs_questionAnswer_nav' => 'QuestionsAnswers',

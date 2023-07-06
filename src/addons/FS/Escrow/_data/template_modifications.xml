@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template_modifications>
+  <modification type="public" template="account_visitor_menu" modification_key="add_deposit_button" description="add_deposit_button" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<li><a href="{{ link('account/ignored') }}" class="menu-linkRow">{{ phrase('ignoring') }}</a></li>]]></find>
+    <replace><![CDATA[$0
+<li><a href="{{ link('escrow/deposit') }}" class="menu-linkRow">{{ phrase('fs_escrow_amount_deposit') }}</a></li>]]></replace>
+  </modification>
+  <modification type="public" template="account_wrapper" modification_key="add_deposit_button_profile_section" description="add_deposit_button_profile_section" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<a class="blockLink {{ \$pageSelected == 'privacy' \? 'is-selected' : '' }}" href="{{ link\('account\/privacy'\) }}">.*?<\/a>/is]]></find>
+    <replace><![CDATA[$0
+<a class="blockLink {{ \$pageSelected == 'escrow/deposit' ? 'is-selected' : '' }}" href="{{ link('escrow/deposit') }}">
+					{{ phrase('fs_escrow_amount_deposit') }}
+</a>
+]]></replace>
+  </modification>
+  <modification type="public" template="member_view" modification_key="add_deposit_button_profile_index" description="add_deposit_button_profile_index" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:if is="\$user\.user_id == \$xf\.visitor\.user_id && \$xf\.visitor\.canUploadProfileBanner\(\)">
+												<xf:button href="{{ link\('account\/banner'\) }}".*?<\/xf:button>
+											<\/xf:if>/is]]></find>
+    <replace><![CDATA[<xf:if is="$user.user_id == $xf.visitor.user_id ">
+	<xf:button href="{{ link('escrow/deposit') }}"
+			   class="button--link" >
+		{{ phrase('fs_escrow_amount_deposit') }}
+	</xf:button>
+</xf:if>
+$0]]></replace>
+  </modification>
+  <modification type="public" template="member_view" modification_key="adding_escrow_member_view_tab" description="adding_escrow_member_view_tab" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<!--[XF:tabs:end]-->]]></find>
+    <replace><![CDATA[$0
+<xf:if is="$user.user_id == $xf.visitor.user_id ">
+	<a href="{{ link('escrow', $user) }}"
+	   class="tabs-tab" id="my-escrow" role="tab">
+		{{ phrase('fs_my_escrow') }}
+	</a>
+</xf:if>
+
+<xf:if is="$user.user_id == $xf.visitor.user_id ">
+	<a href="{{ link('escrow', $user) }}"
+	   class="tabs-tab" id="mentioned-escrow" role="tab">
+		{{ phrase('fs_mentioned_escrow') }}
+	</a>
+</xf:if>
+<xf:if is="$user.user_id == $xf.visitor.user_id ">
+	<a href="{{ link('escrow', $user) }}"
+	   class="tabs-tab" id="escrow-logs" role="tab">
+		{{ phrase('fs_escrow_logs') }}
+	</a>
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="member_view" modification_key="adding_escrow_member_view_tab_content" description="adding_escrow_member_view_tab_content" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<!--[XF:tab_panes:end]-->]]></find>
+    <replace><![CDATA[$0
+<xf:if is="$user.user_id == $xf.visitor.user_id ">
+<li data-href="{{ link('escrow/my-escrow', $user) }}" role="tabpanel" aria-labelledby="my-escrow">
+		<div class="blockMessage">{{ phrase('loading...') }}</div>
+</li>
+<li data-href="{{ link('escrow/mentioned-escrow', $user) }}" role="tabpanel" aria-labelledby="mentioned-escrow">
+		<div class="blockMessage">{{ phrase('loading...') }}</div>
+</li>
+<li data-href="{{ link('escrow/logs', $user) }}" role="tabpanel" aria-labelledby="escrow-logs">
+		<div class="blockMessage">{{ phrase('loading...') }}</div>
+</li>
+	</xf:if>]]></replace>
+  </modification>
+</template_modifications>

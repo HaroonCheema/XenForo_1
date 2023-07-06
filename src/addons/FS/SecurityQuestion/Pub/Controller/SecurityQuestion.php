@@ -8,7 +8,7 @@ use XF\Mvc\ParameterBag;
 class SecurityQuestion extends AbstractController {
 
     public function actionIndex() {
-
+  
         $finder = $this->finder('FS\SecurityQuestion:SecurityQuestion');
 
         $visitor = \XF::visitor();
