@@ -15,6 +15,7 @@
   <phrase title="fs_escrow_logs" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Logs]]></phrase>
   <phrase title="fs_escrow_not_allowed" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Action not allowed]]></phrase>
   <phrase title="fs_escrow_place_holder" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow title]]></phrase>
+  <phrase title="fs_escrow_post_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Post Escrow]]></phrase>
   <phrase title="fs_escrow_rules" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<ol>
 	<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 	<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>

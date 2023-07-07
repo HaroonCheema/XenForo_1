@@ -267,6 +267,17 @@ return array(
 	
 ';
 	}
+	$__compilerTemp10 = '';
+	if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']) {
+		$__compilerTemp10 .= '
+' . $__templater->formSubmitRow(array(
+			'submit' => 'Post Escrow',
+			'icon' => 'write',
+			'sticky' => 'true',
+		), array(
+		)) . '	
+';
+	}
 	$__finalCompiled .= $__templater->form('
 
 	<div class="block-container">
@@ -326,12 +337,7 @@ return array(
 			</div>
 		</div>
 
-		' . $__templater->formSubmitRow(array(
-		'submit' => 'Post thread',
-		'icon' => 'write',
-		'sticky' => 'true',
-	), array(
-	)) . '
+		' . $__compilerTemp10 . '
 	</div>
 ', array(
 		'action' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
