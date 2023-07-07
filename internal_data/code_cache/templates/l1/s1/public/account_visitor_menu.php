@@ -51,6 +51,20 @@ return array(
 						</dd>
 					</dl>
 					' . '
+';
+	if (true) {
+		$__finalCompiled .= '
+						<dl class="pairs pairs--justified fauxBlockLink">
+							<dt>' . 'Amount' . '</dt>
+							<dd>
+								<a href="' . $__templater->func('link', array('escrow/logs', ), true) . '" data-xf-click="overlay" class="fauxBlockLink-linkRow u-concealed">
+									' . $__templater->filter($__vars['xf']['visitor']['deposit_amount'], array(array('number', array()),), true) . '
+								</a>
+							</dd>
+						</dl>
+					';
+	}
+	$__finalCompiled .= '
 					';
 	if ($__vars['xf']['options']['enableTrophies']) {
 		$__finalCompiled .= '

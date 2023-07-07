@@ -70,6 +70,21 @@
     <xf:submitrow submit="" icon="save" />
   </div>
 </xf:form>]]></template>
+  <template type="public" title="fs_escrow_escrow_list" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
+	<div class="block-body">
+		<xf:if is="count($escrows) > 0 ">
+			  <xf:foreach loop="$escrows" value="$escrow">
+			<xf:macro template="fs_escrow_list_macro" name="escrow"
+			arg-escrow="{$escrow}"
+			arg-containerClass="contentRow-minor" />
+			</xf:foreach>
+		<xf:else />
+          <div class="block-body block-row">
+            {{ phrase('no_any_data_found') }}
+          </div>
+        </xf:if>
+	</div>
+</div>]]></template>
   <template type="public" title="fs_escrow_landing" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_escrow') }}</xf:title>
 <div class="block-container">
     <div class="block-body">
@@ -85,27 +100,25 @@
     </div>
  </div>]]></template>
   <template type="public" title="fs_escrow_list_macro" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="escrow"
-	arg-escrow=""
-		  >
-	<li class="block-row block-row--separated  js-inlineModContainer" data-author="{{ $thread.User.username ?: $thread.username }}">
+	arg-escrow="!"
+	>
+	<li class="block-row block-row--separated  js-inlineModContainer" >
 	<div class="contentRow ">
 		<span class="contentRow-figure">
-			<xf:avatar user="{$xf.visitor.User}" size="s" defaultname="{$xf.visitor.username}" />
+			
+			<xf:avatar user="{$escrow.Thread.User}" size="s" defaultname="{$escrow.Thread.User.username}" />
 		</span>
 		<div class="contentRow-main">
 			<h3 class="contentRow-title">
-				<a href="{{ link('threads', $thread) }}">Title</a>
+				<a href="{{ link('threads', $escrow.Thread) }}">{{$escrow.Thread.title}}</a>
 			</h3>
 
-			<div class="contentRow-snippet">{{ snippet($thread.FirstPost.message, 300, {'term': $options.term, 'stripQuote': true}) }}</div>
 
 			<div class="contentRow-minor contentRow-minor--hideLinks">
 				<ul class="listInline listInline--bullet">
-					<li><xf:username user="{$xf.visitor.User}" defaultname="{$xf.visitor.username}" /></li>
-					<li>{{ phrase('thread') }}</li>
-					<li><xf:date time="{$thread.post_date}" /></li>
-					<li>{{ phrase('replies:') }} {$thread.reply_count|number}</li>
-					<li>{{ phrase('forum:') }} <a href="{{ link('forums', $thread.Forum) }}">{$thread.Forum.title}</a></li>
+					<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
+					<li><xf:date time="{$escrow.Thread.post_date}" /></li>
+					<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
 				</ul>
 			</div>
 		</div>
@@ -118,7 +131,8 @@
 
 <!-- placingProperTableCellTemplate -->
 
-<xf:macro name="logs_table_list" arg-logs="">
+<xf:macro name="logs_table_list" arg-logs="!">
+
   <xf:datarow rowtype="header">
     <xf:cell> {{ phrase('fs_escrow_trans_type') }} </xf:cell>
     <xf:cell> {{ phrase('fs_escrow_trans_date') }} </xf:cell>
@@ -126,27 +140,22 @@
     <xf:cell> {{ phrase('fs_escrow_trans_current') }} </xf:cell>
 
   </xf:datarow>
-  <xf:foreach loop="$attendance" value="$attend">
+  <xf:foreach loop="$logs" value="$log">
     <xf:datarow>
-      <xf:cell> {{date($attend.date)}} </xf:cell>
-
-      <xf:cell> {{time($attend.in_time )}} </xf:cell>
-      <xf:cell> {{time($attend.out_time )}} </xf:cell>
-      <xf:cell>
-
-      {{$attend.comment != '' ? snippet($attend.comment, 30, {'stripBbCode': true}) : phrase('noComments') }}
-       </xf:cell>
-
-
+      <xf:cell> {{$log.transaction_type}} </xf:cell>
+      <xf:cell><xf:date time="$log.created_at" /></xf:cell>
+      <xf:cell> {{$log.transaction_amount }} </xf:cell>
+      <xf:cell>{{$log.current_amount}}</xf:cell>
 
     </xf:datarow>
   </xf:foreach>
 </xf:macro>]]></template>
   <template type="public" title="fs_escrow_logs" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
   <div class="block-body">
+	  
     <xf:form action="{{ link($prefix . '/toggle') }}" class="block" ajax="true">
       <div class="block-container">
-        <xf:if is="true">
+        <xf:if is="count($logs) > 0 ">
           <div class="block-body">
             <xf:datalist data-xf-init="responsive-data-list">
               <xf:macro
@@ -167,16 +176,17 @@
   </div>]]></template>
   <template type="public" title="fs_escrow_mentioned_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
 	<div class="block-body">
+		<xf:if is="count($escrows) > 0 ">
+			  <xf:foreach loop="$escrows" value="$escrow">
 			<xf:macro template="fs_escrow_list_macro" name="escrow"
-		arg-escrow=""
-		arg-containerClass="contentRow-minor" />
-	</div>
-</div>]]></template>
-  <template type="public" title="fs_escrow_my_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
-	<div class="block-body">
-			<xf:macro template="fs_escrow_list_macro" name="escrow"
-		arg-escrow=""
-		arg-containerClass="contentRow-minor" />
+			arg-escrow="{$escrow}"
+			arg-containerClass="contentRow-minor" />
+			</xf:foreach>
+		<xf:else />
+          <div class="block-body block-row">
+            {{ phrase('no_any_data_found') }}
+          </div>
+        </xf:if>
 	</div>
 </div>]]></template>
 </templates>

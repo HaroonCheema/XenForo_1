@@ -31,6 +31,10 @@ class Setup extends AbstractSetup
 
 			$table->addColumn('deposit_amount', 'int')->setDefault(0);
 		});
+		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+
+			$table->addColumn('escrow_id', 'int')->setDefault(0);
+		});
 	}
 
 	public function uninstallStep1()
@@ -43,6 +47,9 @@ class Setup extends AbstractSetup
 
 		$this->schemaManager()->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
 			$table->dropColumns(['deposit_amount']);
+		});
+		$this->schemaManager()->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
+			$table->dropColumns(['escrow_id']);
 		});
 	}
 

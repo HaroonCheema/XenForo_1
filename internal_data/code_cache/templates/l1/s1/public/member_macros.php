@@ -156,6 +156,18 @@ return array(
 	}
 	$__finalCompiled .= '
 	' . '
+';
+	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
+		$__finalCompiled .= '
+	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
+		<dt>' . 'Amount' . '</dt>
+		<dd>
+			' . $__templater->filter($__vars['user']['deposit_amount'], array(array('number', array()),), true) . '
+		</dd>
+	</dl>
+';
+	}
+	$__finalCompiled .= '
 	';
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewWarnings', array()) AND $__vars['user']['warning_points']) {
 		$__finalCompiled .= '

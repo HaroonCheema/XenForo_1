@@ -1,14 +1,15 @@
 <?php
-// FROM HASH: 6e863295c26450c62bb69ead9ee40248
+// FROM HASH: 2bba51554d38dc192cb8565751a295db
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '<div class="block-container">
   <div class="block-body">
+	  
     ';
 	$__compilerTemp1 = '';
-	if (true) {
+	if ($__templater->func('count', array($__vars['logs'], ), false) > 0) {
 		$__compilerTemp1 .= '
           <div class="block-body">
             ' . $__templater->dataList('

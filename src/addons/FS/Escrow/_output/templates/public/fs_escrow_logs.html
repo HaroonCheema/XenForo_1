@@ -1,8 +1,9 @@
 <div class="block-container">
   <div class="block-body">
+	  
     <xf:form action="{{ link($prefix . '/toggle') }}" class="block" ajax="true">
       <div class="block-container">
-        <xf:if is="true">
+        <xf:if is="count($logs) > 0 ">
           <div class="block-body">
             <xf:datalist data-xf-init="responsive-data-list">
               <xf:macro

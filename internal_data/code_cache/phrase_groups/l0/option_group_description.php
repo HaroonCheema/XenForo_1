@@ -21,6 +21,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.discussionOptions' => 'Messages are contained within a discussion container, and options relating to these can be found here.',
   'option_group_description.emailOptions' => '',
   'option_group_description.form_thread_moderation' => '',
+  'option_group_description.fsEscrow' => '[FS] Escrow',
   'option_group_description.fs_MediaTagSetting' => '',
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.fs_question_answers' => '',
