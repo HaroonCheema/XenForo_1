@@ -9,6 +9,11 @@
         "version_string": "1.0.0 Alpha",
         "hash": "7e08d4ba9f164cd5bf6496b0d5000351"
     },
+    "public/fs_escrow_landing.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "11be86ea0530873b16d59a7787a7b017"
+    },
     "public/fs_escrow_list_macro.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

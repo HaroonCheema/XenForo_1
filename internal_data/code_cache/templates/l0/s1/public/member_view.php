@@ -349,28 +349,15 @@ return array(
 ';
 	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
 		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	<a href="' . $__templater->func('link', array('members/my-escrow', $__vars['user'], ), true) . '"
 	   class="tabs-tab" id="my-escrow" role="tab">
 		' . 'My Escrows' . '
 	</a>
-';
-	}
-	$__finalCompiled .= '
-
-';
-	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	<a href="' . $__templater->func('link', array('members/mentioned-escrow', $__vars['user'], ), true) . '"
 	   class="tabs-tab" id="mentioned-escrow" role="tab">
 		' . 'Mentioned Escrow' . '
 	</a>
-';
-	}
-	$__finalCompiled .= '
-';
-	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('escrow', $__vars['user'], ), true) . '"
+	<a href="' . $__templater->func('link', array('members/logs', $__vars['user'], ), true) . '"
 	   class="tabs-tab" id="escrow-logs" role="tab">
 		' . 'Escrow Logs' . '
 	</a>
@@ -539,13 +526,13 @@ return array(
 ';
 	if (($__vars['user']['user_id'] == $__vars['xf']['visitor']['user_id']) OR $__vars['xf']['visitor']['is_admin']) {
 		$__finalCompiled .= '
-<li data-href="' . $__templater->func('link', array('escrow/my-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="my-escrow">
+<li data-href="' . $__templater->func('link', array('members/my-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="my-escrow">
 		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
 </li>
-<li data-href="' . $__templater->func('link', array('escrow/mentioned-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="mentioned-escrow">
+<li data-href="' . $__templater->func('link', array('members/mentioned-escrow', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="mentioned-escrow">
 		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
 </li>
-<li data-href="' . $__templater->func('link', array('escrow/logs', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="escrow-logs">
+<li data-href="' . $__templater->func('link', array('members/logs', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="escrow-logs">
 		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
 </li>
 	';

@@ -39,6 +39,12 @@ class Escrow extends Entity
                 'conditions' => 'thread_id',
                 'primary' => true
             ],
+            'Transaction' => [
+                'entity' => 'FS\Escrow:Transaction',
+                'type' => self::TO_ONE,
+                'conditions' => 'transaction_id',
+                'primary' => true
+            ],
         ];
         $structure->defaultWith = [];
         $structure->getters = [];

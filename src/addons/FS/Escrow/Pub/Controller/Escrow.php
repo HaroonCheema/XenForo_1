@@ -157,4 +157,59 @@ class Escrow extends AbstractController
         ];
         return $this->view('FS\Escrow', 'fs_escrow_logs', $viewpParams);
     }
+
+    public function actionCancel(ParameterBag $params)
+    {
+        $escrow = $this->finder('FS\Escrow:Escrow')->whereId($params->escrow_id)->fetchOne();
+
+        // var_dump($escrow->Transaction);
+        // exit;
+
+        $visitor = \XF::visitor();
+
+        if ($escrow->user_id != $visitor->user_id || $escrow->to_user != $visitor->user_id) {
+            throw $this->exception(
+                $this->error(\XF::phrase("fs_escrow_not_allowed"))
+            );
+        }
+
+
+        if ($escrow->user_id != $visitor->user_id) {
+            $visitor = $this->em()->findOne('XF:User', ['username' => $escrow->user_id]);
+        }
+
+        if ($escrow) {
+            $visitor = \XF::visitor();
+
+            $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount + ($escrow->Transaction->transaction_amount + $escrow->admin_percentage)));
+
+            $transaction = $this->em()->create('FS\Escrow:Transaction');
+
+            $transaction->user_id = $visitor->user_id;
+            $transaction->transaction_amount = ($escrow->Transaction->transaction_amount + $escrow->admin_percentage);
+            $transaction->current_amount = $visitor->deposit_amount;
+
+            // if ($escrow->user_id == $visitor->user_id) {
+            //     $transaction->transaction_type = 'Cancel By Owner';
+            // } else {
+            //     $transaction->transaction_type = 'Cancel By another';
+            // }
+
+            $transaction->transaction_type = 'Cancel';
+
+            $transaction->save();
+
+            if ($escrow->user_id == $visitor->user_id) {
+                $escrow->fastUpdate('escrow_status', '3');
+            } else {
+                $escrow->fastUpdate('escrow_status', '2');
+            }
+
+            // $escrow->fastUpdate('escrow_status', '');
+        }
+
+        return $this->redirect(
+            $this->getDynamicRedirect($this->buildLink('escrow'), false)
+        );
+    }
 }

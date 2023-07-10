@@ -79,7 +79,7 @@ class Forum extends XFCP_Forum
 
                 $transaction->user_id = $visitor->user_id;
                 $transaction->transaction_amount = $this->filter('escrow_amount', 'uint');
-                $transaction->transaction_type = 'Withraw';
+                $transaction->transaction_type = 'Freeze';
                 $transaction->current_amount = $visitor->deposit_amount;
 
                 $transaction->save();

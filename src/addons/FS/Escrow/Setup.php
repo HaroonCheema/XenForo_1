@@ -35,6 +35,12 @@ class Setup extends AbstractSetup
 
 			$table->addColumn('escrow_id', 'int')->setDefault(0);
 		});
+
+		$forumService = \xf::app()->service('FS\Escrow:Escrow\createForum');
+
+		$node = $forumService->createNode();
+		$forumService->updateOptionsforum($node->node_id);
+		$forumService->permissionRebuild();
 	}
 
 	public function uninstallStep1()
@@ -51,6 +57,10 @@ class Setup extends AbstractSetup
 		$this->schemaManager()->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 			$table->dropColumns(['escrow_id']);
 		});
+
+		$forum = \xf::app()->finder('XF:Node')->whereId($this->app()->options()->fs_escrow_applicable_forum)->fetchOne();
+
+		$forum->delete();
 	}
 
 	protected function getTables()

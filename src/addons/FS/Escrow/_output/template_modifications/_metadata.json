@@ -12,10 +12,13 @@
         "hash": "ad6f08ef9d522f2f9b59928db04a18eb"
     },
     "public/adding_escrow_member_view_tab.json": {
-        "hash": "9c0639fefe85d95496195c8c537f991b"
+        "hash": "37337a46a5710b4a86b6dfa08c16aa91"
     },
     "public/adding_escrow_member_view_tab_content.json": {
-        "hash": "5ab6ec745f01c87a14f7cf67573ccb24"
+        "hash": "92ed8b1e1adc4624d5d52701b6c86fc2"
+    },
+    "public/fs_escrow_add_buttons_to_thread_template.json": {
+        "hash": "6939f37393e7966440ab0f9b3f50494a"
     },
     "public/fs_escrow_chage_thread_pl_holder.json": {
         "hash": "142c62546c651a40f6cb902da44ad30b"

@@ -12,6 +12,7 @@ namespace FS\Escrow\XF\Entity
 namespace FS\Escrow\XF\Pub\Controller
 {
 	class XFCP_Forum extends \XF\Pub\Controller\Forum {}
+	class XFCP_Member extends \XF\Pub\Controller\Member {}
 }
 
 namespace FS\Escrow\XF\Service\Thread

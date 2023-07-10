@@ -8,6 +8,9 @@
     "XF-Pub-Controller-Forum_FS-Escrow-XF-Pub-Controller-Forum.json": {
         "hash": "7b3c45a3a630d96d98cf381cc5fcf084"
     },
+    "XF-Pub-Controller-Member_FS-Escrow-XF-Pub-Controller-Member.json": {
+        "hash": "aa6806a53d8d50e23b472ff809f5599a"
+    },
     "XF-Service-Thread-Creator_FS-Escrow-XF-Service-Thread-Creator.json": {
         "hash": "0f503aba133d0c52cee17520ecb638d3"
     }

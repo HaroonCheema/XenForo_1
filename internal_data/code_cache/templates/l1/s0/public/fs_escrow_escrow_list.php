@@ -25,7 +25,7 @@ return array(
 	} else {
 		$__finalCompiled .= '
           <div class="block-body block-row">
-            ' . 'no_any_data_found' . '
+            ' . 'No Data Found...!' . '
           </div>
         ';
 	}
