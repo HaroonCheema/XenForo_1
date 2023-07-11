@@ -53,6 +53,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "7fbc9cb17e2ff3618463a47ccb9858ec"
     },
+    "fs_escrow_rules_heading.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "406d69a8448fdcc81080ca5b3a30c288"
+    },
     "fs_escrow_title.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -113,11 +119,23 @@
         "version_string": "1.0.0 Alpha",
         "hash": "97e99ef776efc70d1e6833040fc93e21"
     },
+    "option.fs_escrow_admin_percentage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "5999ab6ea20fd9c314b9689784089ace"
+    },
     "option.fs_escrow_applicable_forum.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "34ff7f75c5175d74de26ebf3d9e37bfb"
+    },
+    "option_explain.fs_escrow_admin_percentage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "5999ab6ea20fd9c314b9689784089ace"
     },
     "option_explain.fs_escrow_applicable_forum.txt": {
         "global_cache": false,
@@ -136,5 +154,29 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "b8d656781296b85f8ea09a91d1fd0e5e"
+    },
+    "x_mentioned_you_in_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "923578c32b2951a684def42da9a7b47a"
+    },
+    "x_quoted_your_post_in_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b865d4c634c52057dcc79e81f713271a"
+    },
+    "x_replied_to_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "35fbeb47c99449a208b758a47051d587"
+    },
+    "x_started_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c3888124a31110c302693406cc4b3e3e"
     }
 }

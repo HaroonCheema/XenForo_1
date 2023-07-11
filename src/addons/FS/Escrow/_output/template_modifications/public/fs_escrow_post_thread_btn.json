@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "str_replace",
     "find": "<xf:submitrow submit=\"{{ phrase('post_thread') }}\" icon=\"write\" sticky=\"true\" />",
-    "replace": "<xf:if is=\"$forum.node_id == $xf.options.fs_escrow_applicable_forum\">\n<xf:submitrow submit=\"{{ phrase('fs_escrow_post_escrow') }}\" icon=\"write\" sticky=\"true\" />\t\n</xf:if>"
+    "replace": "<xf:if is=\"$forum.node_id == $xf.options.fs_escrow_applicable_forum\">\n<xf:submitrow submit=\"{{ phrase('fs_escrow_post_escrow') }}\" icon=\"write\" sticky=\"true\" />\n\t<xf:else />\n\t$0\n</xf:if>"
 }

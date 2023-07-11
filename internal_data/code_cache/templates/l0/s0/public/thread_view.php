@@ -572,10 +572,10 @@ return array(
 
 	';
 		$__compilerTemp1 = '';
-		if ($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) {
+		if (($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 0)) {
 			$__compilerTemp1 .= '
 			' . $__templater->button('Approve', array(
-				'href' => $__templater->func('link', array('escrow/aprove', ), false),
+				'href' => $__templater->func('link', array('escrow/approve', $__vars['thread']['Escrow'], ), false),
 				'class' => 'button--cta',
 				'icon' => 'approve',
 			), '', array(
@@ -583,7 +583,7 @@ return array(
 		';
 		}
 		$__compilerTemp2 = '';
-		if (($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) OR ($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id'])) {
+		if ((($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) OR ($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id'])) AND ($__vars['thread']['Escrow']['escrow_status'] != 4)) {
 			$__compilerTemp2 .= '
 			' . $__templater->button('Cancel', array(
 				'href' => $__templater->func('link', array('escrow/cancel', $__vars['thread']['Escrow'], ), false),
@@ -594,10 +594,10 @@ return array(
 		';
 		}
 		$__compilerTemp3 = '';
-		if ($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id']) {
+		if (($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 1)) {
 			$__compilerTemp3 .= '
 			' . $__templater->button('Release Payment', array(
-				'href' => $__templater->func('link', array('escrow/payments', ), false),
+				'href' => $__templater->func('link', array('escrow/payments', $__vars['thread']['Escrow'], ), false),
 				'class' => '',
 				'icon' => 'payment',
 			), '', array(
@@ -607,9 +607,9 @@ return array(
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 		' . $__compilerTemp1 . '
 		
-				' . $__compilerTemp2 . '
+		' . $__compilerTemp2 . '
 		
-				' . $__compilerTemp3 . '
+		' . $__compilerTemp3 . '
 
 			
 			

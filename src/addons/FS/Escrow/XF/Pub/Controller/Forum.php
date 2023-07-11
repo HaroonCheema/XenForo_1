@@ -111,6 +111,15 @@ class Forum extends XFCP_Forum
         if ($thread->node_id ==  $options->fs_escrow_applicable_forum) {
 
             $escrow = $this->em()->findOne('FS\Escrow:Escrow', ['escrow_id' => $thread['escrow_id']]);
+            $user = $this->em()->findOne('XF:User', ['user_id' => $escrow['to_user']]);
+
+            // $newState = 'watch_email';
+
+            $newState = 'watch_no_email';
+
+            /** @var \XF\Repository\ThreadWatch $watchRepo */
+            $watchRepo = $this->repository('XF:ThreadWatch');
+            $watchRepo->setWatchState($thread, $user, $newState);
 
             $escrow->fastUpdate('thread_id', $thread->thread_id);
         }

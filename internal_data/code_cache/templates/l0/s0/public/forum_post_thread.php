@@ -143,6 +143,12 @@ return array(
 ';
 		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Escrow Start');
 		$__finalCompiled .= '
+	';
+	} else {
+		$__finalCompiled .= '
+	';
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Post thread');
+		$__finalCompiled .= '
 ';
 	}
 	$__finalCompiled .= '
@@ -166,6 +172,23 @@ return array(
 			'textbox-value' => (($__vars['title'] ?: $__vars['thread']['title']) ?: $__vars['forum']['draft_thread']['title']),
 			'textbox-class' => 'input--title',
 			'placeholder' => 'Escrow title',
+			'autofocus' => 'autofocus',
+			'maxlength' => $__templater->func('max_length', array('XF:Thread', 'title', ), false),
+			'help-href' => $__templater->func('link', array('forums/prefix-help', $__vars['forum'], ), false),
+		), array(
+			'label' => 'Title',
+			'rowtype' => 'fullWidth noLabel',
+			'finalhtml' => $__templater->escape($__vars['titleFinalHtml']),
+		)) . '
+		';
+	} else {
+		$__compilerTemp1 .= '
+	' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
+			'type' => 'thread',
+			'prefix-value' => ($__vars['forum']['draft_thread']['prefix_id'] ?: ($__vars['thread']['prefix_id'] ?: $__vars['forum']['default_prefix_id'])),
+			'textbox-value' => (($__vars['title'] ?: $__vars['thread']['title']) ?: $__vars['forum']['draft_thread']['title']),
+			'textbox-class' => 'input--title',
+			'placeholder' => $__vars['forum']['thread_prompt'],
 			'autofocus' => 'autofocus',
 			'maxlength' => $__templater->func('max_length', array('XF:Thread', 'title', ), false),
 			'help-href' => $__templater->func('link', array('forums/prefix-help', $__vars['forum'], ), false),
@@ -265,6 +288,31 @@ return array(
 	if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']) {
 		$__compilerTemp9 .= '
 	
+	';
+	} else {
+		$__compilerTemp9 .= '
+	';
+		if ((!$__vars['xf']['visitor']['user_id']) AND (!$__templater->method($__vars['forum'], 'canCreateThreadPreReg', array()))) {
+			$__compilerTemp9 .= '
+					' . $__templater->formTextBoxRow(array(
+				'name' => '_xfUsername',
+				'data-xf-init' => 'guest-username',
+				'maxlength' => $__templater->func('max_length', array($__vars['xf']['visitor'], 'username', ), false),
+			), array(
+				'label' => 'Name',
+			)) . '
+				';
+		} else if ($__vars['xf']['visitor']['user_id']) {
+			$__compilerTemp9 .= '
+					' . $__templater->callMacro('helper_thread_options', 'watch_input', array(
+				'thread' => $__vars['thread'],
+			), $__vars) . '
+					' . $__templater->callMacro('helper_thread_options', 'thread_status', array(
+				'thread' => $__vars['thread'],
+			), $__vars) . '
+				';
+		}
+		$__compilerTemp9 .= '	
 ';
 	}
 	$__compilerTemp10 = '';
@@ -275,7 +323,16 @@ return array(
 			'icon' => 'write',
 			'sticky' => 'true',
 		), array(
-		)) . '	
+		)) . '
+	';
+	} else {
+		$__compilerTemp10 .= '
+	' . $__templater->formSubmitRow(array(
+			'submit' => 'Post thread',
+			'icon' => 'write',
+			'sticky' => 'true',
+		), array(
+		)) . '
 ';
 	}
 	$__finalCompiled .= $__templater->form('

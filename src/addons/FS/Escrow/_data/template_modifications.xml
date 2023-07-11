@@ -27,6 +27,51 @@
 </a>
 ]]></replace>
   </modification>
+  <modification type="public" template="alert_post_insert" modification_key="fs_escrow_notification_phrase" description="fs_escrow_notification_phrase" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/{{ phrase\('x_started_thread_y_may_be_more', {.*?}\) }}/is]]></find>
+    <replace><![CDATA[<xf:if is="$content.Thread.node_id == $xf.options.fs_escrow_applicable_forum AND $content.Thread.escrow_id!=0">
+	{{ phrase('x_started_escrow_y', {
+		'name': username_link($user, false, {'defaultname': $alert.username}),
+		'title': '<a href="' . link('threads', $content.Thread) . '" class="fauxBlockLink-blockLink">' . $content.Thread.title . '</a>'
+	}) }}
+	<xf:else />
+	$0
+</xf:if>	
+]]></replace>
+  </modification>
+  <modification type="public" template="alert_post_insert" modification_key="fs_escrow_notification_reply_phrase" description="fs_escrow_notification_reply_phrase" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/{{ phrase\('x_replied_to_thread_y_may_be_more', {.*?}\) }}/is]]></find>
+    <replace><![CDATA[<xf:if is="$content.Thread.node_id == $xf.options.fs_escrow_applicable_forum AND $content.Thread.escrow_id!=0">
+	{{ phrase('x_replied_to_escrow_y', {
+		'name': username_link($user, false, {'defaultname': $alert.username}),
+		'title': '<a href="' . link('threads', $content.Thread) . '" class="fauxBlockLink-blockLink">' . $content.Thread.title . '</a>'
+	}) }}
+	<xf:else />
+	$0
+</xf:if>	]]></replace>
+  </modification>
+  <modification type="public" template="alert_post_mention" modification_key="fs_escrow_notification_mentioned_phrase" description="fs_escrow_notification_mentioned_phrase" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/{{ phrase\('x_mentioned_you_in_post_in_thread_y', {.*?}\) }}/is]]></find>
+    <replace><![CDATA[<xf:if is="$content.Thread.node_id == $xf.options.fs_escrow_applicable_forum AND $content.Thread.escrow_id!=0">
+	{{ phrase('x_mentioned_you_in_escrow_y', {
+		'name': username_link($user, false, {'defaultname': $alert.username}),
+		'title': '<a href="' . link('threads', $content.Thread) . '" class="fauxBlockLink-blockLink">' . $content.Thread.title . '</a>'
+	}) }}
+	<xf:else />
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="alert_post_quote" modification_key="fs_escrow_notification_quated_phrase" description="fs_escrow_notification_quated_phrase" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/{{ phrase\('x_quoted_your_post_in_thread_y', {.*?}\) }}/is]]></find>
+    <replace><![CDATA[<xf:if is="$content.Thread.node_id == $xf.options.fs_escrow_applicable_forum AND $content.Thread.escrow_id!=0">
+	{{ phrase('x_quoted_your_post_in_escrow_y', {
+	'name': username_link($user, false, {'defaultname': $alert.username}),
+	'title': '<a href="' . link('posts', $content) . '" class="fauxBlockLink-blockLink">' . $content.Thread.title . '</a>'
+}) }}
+	<xf:else />
+	$0
+</xf:if>	]]></replace>
+  </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_chage_thread_pl_holder" description="fs_escrow_chage_thread_pl_holder" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:prefixinputrow.*?finalhtml="{\$titleFinalHtml}" \/>/is]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
@@ -43,18 +88,24 @@
 				maxlength="{{ max_length('XF:Thread', 'title') }}"
 				help-href="{{ link('forums/prefix-help', $forum) }}"
 				finalhtml="{$titleFinalHtml}" />
+		<xf:else />
+	$0
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_change_thread_title" description="fs_escrow_change_thread_title" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<xf:title>{{ phrase('post_thread') }}</xf:title>]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
 <xf:title>{{ phrase('fs_escrow_title') }}</xf:title>
+	<xf:else />
+	$0
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_hide_thread_extra" description="fs_escrow_hide_thread_extra" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:if is="!\$xf\.visitor\.user_id AND !\$forum\.canCreateThreadPreReg\(\)">.*?<\/xf:if>/is]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
 	
+	<xf:else />
+	$0	
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_post_thread_add_fields" description="fs_escrow_post_thread_add_fields" execution_order="10" enabled="1" action="preg_replace">
@@ -70,7 +121,9 @@
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_post_thread_btn" description="fs_escrow_post_thread_btn" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<xf:submitrow submit="{{ phrase('post_thread') }}" icon="write" sticky="true" />]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
-<xf:submitrow submit="{{ phrase('fs_escrow_post_escrow') }}" icon="write" sticky="true" />	
+<xf:submitrow submit="{{ phrase('fs_escrow_post_escrow') }}" icon="write" sticky="true" />
+	<xf:else />
+	$0
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="member_macros" modification_key="add_amount_to_pofile" description="add_amount_to_pofile" execution_order="10" enabled="1" action="str_replace">
@@ -101,20 +154,15 @@ $0]]></replace>
     <find><![CDATA[<!--[XF:tabs:end]-->]]></find>
     <replace><![CDATA[$0
 <xf:if is="$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin">
-	<a href="{{ link('escrow', $user) }}"
+	<a href="{{ link('members/my-escrow', $user) }}"
 	   class="tabs-tab" id="my-escrow" role="tab">
 		{{ phrase('fs_my_escrow') }}
 	</a>
-</xf:if>
-
-<xf:if is="$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin">
-	<a href="{{ link('escrow', $user) }}"
+	<a href="{{ link('members/mentioned-escrow', $user) }}"
 	   class="tabs-tab" id="mentioned-escrow" role="tab">
 		{{ phrase('fs_mentioned_escrow') }}
 	</a>
-</xf:if>
-<xf:if is="$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin">
-	<a href="{{ link('escrow', $user) }}"
+	<a href="{{ link('members/logs', $user) }}"
 	   class="tabs-tab" id="escrow-logs" role="tab">
 		{{ phrase('fs_escrow_logs') }}
 	</a>
@@ -124,15 +172,51 @@ $0]]></replace>
     <find><![CDATA[<!--[XF:tab_panes:end]-->]]></find>
     <replace><![CDATA[$0
 <xf:if is="$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin">
-<li data-href="{{ link('escrow/my-escrow', $user) }}" role="tabpanel" aria-labelledby="my-escrow">
+<li data-href="{{ link('members/my-escrow', $user) }}" role="tabpanel" aria-labelledby="my-escrow">
 		<div class="blockMessage">{{ phrase('loading...') }}</div>
 </li>
-<li data-href="{{ link('escrow/mentioned-escrow', $user) }}" role="tabpanel" aria-labelledby="mentioned-escrow">
+<li data-href="{{ link('members/mentioned-escrow', $user) }}" role="tabpanel" aria-labelledby="mentioned-escrow">
 		<div class="blockMessage">{{ phrase('loading...') }}</div>
 </li>
-<li data-href="{{ link('escrow/logs', $user) }}" role="tabpanel" aria-labelledby="escrow-logs">
+<li data-href="{{ link('members/logs', $user) }}" role="tabpanel" aria-labelledby="escrow-logs">
 		<div class="blockMessage">{{ phrase('loading...') }}</div>
 </li>
 	</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="thread_view" modification_key="fs_escrow_add_buttons_to_thread_template" description="fs_escrow_add_buttons_to_thread_template" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:h1>{{ prefix('thread', $thread) }}{$thread.title}</xf:h1>]]></find>
+    <replace><![CDATA[$0
+<xf:if is="$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum">
+
+	<xf:pageaction>
+		<xf:if is="$thread.Escrow.to_user==$xf.visitor.user_id And $thread.Escrow.escrow_status==0">
+			<xf:button
+			href="{{ link('escrow/approve', $thread.Escrow) }}"
+			class="button--cta"
+			icon="approve"
+			>{{ phrase('fs_escrow_approve') }}</xf:button>
+		</xf:if>
+		
+		<xf:if is="($thread.Escrow.to_user==$xf.visitor.user_id OR $thread.Escrow.user_id==$xf.visitor.user_id) AND $thread.Escrow.escrow_status!=4">
+			<xf:button
+			href="{{ link('escrow/cancel',$thread.Escrow) }}"
+			class="button--cta"
+			icon="cancel"
+			>{{ phrase('fs_escrow_cancel') }}</xf:button>
+		</xf:if>
+		
+		<xf:if is="$thread.Escrow.user_id==$xf.visitor.user_id And $thread.Escrow.escrow_status==1">
+			<xf:button
+			href="{{ link('escrow/payments', $thread.Escrow) }}"
+			class=""
+			icon="payment"
+			>{{ phrase('fs_escrow_payment') }}</xf:button>
+		</xf:if>
+
+			
+			
+		</xf:pageaction>
+</xf:if>
+	]]></replace>
   </modification>
 </template_modifications>

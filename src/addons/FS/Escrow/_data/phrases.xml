@@ -11,9 +11,13 @@
   <phrase title="fs_escrow_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Amount]]></phrase>
   <phrase title="fs_escrow_amount_deposit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Deposit]]></phrase>
   <phrase title="fs_escrow_amount_required" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Enter amount...!]]></phrase>
+  <phrase title="fs_escrow_approve" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Approve]]></phrase>
+  <phrase title="fs_escrow_cancel" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Cancel]]></phrase>
   <phrase title="fs_escrow_deposit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Deposit amount]]></phrase>
   <phrase title="fs_escrow_logs" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Logs]]></phrase>
   <phrase title="fs_escrow_not_allowed" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Action not allowed]]></phrase>
+  <phrase title="fs_escrow_not_enough_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Insufficient Balance...!]]></phrase>
+  <phrase title="fs_escrow_payment" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Release Payment]]></phrase>
   <phrase title="fs_escrow_place_holder" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow title]]></phrase>
   <phrase title="fs_escrow_post_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Post Escrow]]></phrase>
   <phrase title="fs_escrow_rules" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<ol>
@@ -24,18 +28,27 @@
 	<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
 	<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
 </ol>]]></phrase>
+  <phrase title="fs_escrow_rules_heading" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Rules and Regulation]]></phrase>
   <phrase title="fs_escrow_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Start]]></phrase>
   <phrase title="fs_escrow_trans_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Amount]]></phrase>
   <phrase title="fs_escrow_trans_current" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Balance]]></phrase>
   <phrase title="fs_escrow_trans_date" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Date Time]]></phrase>
   <phrase title="fs_escrow_trans_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Type]]></phrase>
+  <phrase title="fs_escrow_you_must_login" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Sorry, you need to login First...!]]></phrase>
   <phrase title="fs_mentioned_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned Escrow]]></phrase>
   <phrase title="fs_my_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[My Escrows]]></phrase>
   <phrase title="nav.fs_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow]]></phrase>
   <phrase title="nav.fs_escrow_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Start Escrow]]></phrase>
+  <phrase title="no_any_data_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[No Data Found...!]]></phrase>
   <phrase title="no_any_transaction_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[No any transaction found]]></phrase>
+  <phrase title="option.fs_escrow_admin_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Admin Percentage]]></phrase>
   <phrase title="option.fs_escrow_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Id]]></phrase>
+  <phrase title="option_explain.fs_escrow_admin_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Admin Percentage]]></phrase>
   <phrase title="option_explain.fs_escrow_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_group.fsEscrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Escrow]]></phrase>
   <phrase title="option_group_description.fsEscrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Escrow]]></phrase>
+  <phrase title="x_mentioned_you_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} mentioned you in an escrow {title}.]]></phrase>
+  <phrase title="x_quoted_your_post_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} quoted your post in the escrow {title}.]]></phrase>
+  <phrase title="x_replied_to_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} replied to the escrow {title}.]]></phrase>
+  <phrase title="x_started_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} started a escrow named {title}.]]></phrase>
 </phrases>

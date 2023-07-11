@@ -167,6 +167,7 @@ return array (
   'option.fs_auction_dropDown_list_limit' => 'Bidding Drop Down List Limit',
   'option.fs_auction_per_page' => 'Auctions display on per page',
   'option.fs_enable_image' => 'Display Image',
+  'option.fs_escrow_admin_percentage' => 'Admin Percentage',
   'option.fs_escrow_applicable_forum' => 'Forum Id',
   'option.fs_mts_customMsgColor' => 'Custom message Text Color',
   'option.fs_mts_customMsgbackGroundColor' => 'Custom message Background Color',

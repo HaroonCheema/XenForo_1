@@ -85,17 +85,75 @@
         </xf:if>
 	</div>
 </div>]]></template>
-  <template type="public" title="fs_escrow_landing" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_escrow') }}</xf:title>
+  <template type="public" title="fs_escrow_landing" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_escrow_rules_heading') }}</xf:title>
 <div class="block-container">
     <div class="block-body">
 		<xf:macro template="notice_macros" name="notice_list" arg-type="block" arg-notices="{$rules}" />
 		<xf:pageaction>
-			 <xf:button
-				href="{{ link('escrow/add') }}"
-				class="button--cta"
-				icon="write"
-				>{{ phrase('fs_escrow_add') }}</xf:button>
+			<xf:if is="$xf.visitor.user_id!=0">
+				 <xf:button
+					href="{{ link('escrow/add') }}"
+					class="button--cta"
+					icon="write"
+					>{{ phrase('fs_escrow_add') }}</xf:button>
+			</xf:if>
+			
 		</xf:pageaction>
+		<!--start tabs-->
+		<xf:if is="$xf.visitor.user_id!=0 OR $xf.visitor.is_admin">
+			<div class="block">
+				<h2 class="block-tabHeader block-tabHeader--memberTabs tabs hScroller"
+					data-xf-init="tabs h-scroller"
+					data-panes=".js-memberTabPanes"
+					data-state="replace"
+					role="tablist">
+					<span class="hScroller-scroll">
+						<!--[XF:tabs:start]-->
+							<a href="{{ link('members/my-escrow',$xf.visitor ) }}"
+							   class="tabs-tab" id="my-escrow" role="tab">
+								{{ phrase('fs_my_escrow') }}
+							</a>
+
+							<a href="{{ link('members/mentioned-escrow',$xf.visitor) }}"
+							   class="tabs-tab" id="mentioned-escrow" role="tab">
+								{{ phrase('fs_mentioned_escrow') }}
+							</a>
+
+							<a href="{{ link('members/logs',$xf.visitor) }}"
+							   class="tabs-tab" id="escrow-logs" role="tab">
+								{{ phrase('fs_escrow_logs') }}
+							</a>
+
+						<!--[XF:tabs:end]-->
+					</span>
+				</h2>
+			</div>
+		</xf:if>
+		<!--tabs content-->
+		
+		<ul class="tabPanes js-memberTabPanes">
+			<!--[XF:tab_panes:start]-->
+
+			<xf:if is="$xf.visitor.user_id!=0 OR $xf.visitor.is_admin">
+				<li data-href="{{ link('members/my-escrow',$xf.visitor) }}" role="tabpanel" aria-labelledby="my-escrow">
+						<div class="blockMessage">{{ phrase('loading...') }}</div>
+				</li>
+				<li data-href="{{ link('members/mentioned-escrow',$xf.visitor) }}" role="tabpanel" aria-labelledby="mentioned-escrow">
+						<div class="blockMessage">{{ phrase('loading...') }}</div>
+				</li>
+				<li data-href="{{ link('members/logs',$xf.visitor) }}" role="tabpanel" aria-labelledby="escrow-logs">
+						<div class="blockMessage">{{ phrase('loading...') }}</div>
+				</li>
+			<xf:else />
+				<div class="blockMessage">{{ phrase('fs_escrow_you_must_login') }}</div>
+				
+			</xf:if>
+
+			<!--[XF:tab_panes:end]-->
+		</ul>
+
+		
+		
     
     </div>
  </div>]]></template>
