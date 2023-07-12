@@ -1,4 +1,14 @@
 {
+    "public/fs_escrow_approve.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "8c4d3b6b4c0523bd4fa200b36842d2c3"
+    },
+    "public/fs_escrow_cancel.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "4bd6559a256786907a24d5afd4003560"
+    },
     "public/fs_escrow_deposit.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -7,7 +17,7 @@
     "public/fs_escrow_escrow_list.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "7e08d4ba9f164cd5bf6496b0d5000351"
+        "hash": "561e066dc0c0f11b4c7ca2c23faefb22"
     },
     "public/fs_escrow_landing.html": {
         "version_id": 1000010,
@@ -17,7 +27,7 @@
     "public/fs_escrow_list_macro.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "4cd87df6db5ab4eb78b9eb78b6f5bbf0"
+        "hash": "2c2d8ecf7cc7743a4450c9a800ac38ba"
     },
     "public/fs_escrow_logs.html": {
         "version_id": 1000010,
@@ -28,5 +38,10 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "7e08d4ba9f164cd5bf6496b0d5000351"
+    },
+    "public/fs_escrow_payment.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "3786289d1702b4f06e9528a35c2d885a"
     }
 }

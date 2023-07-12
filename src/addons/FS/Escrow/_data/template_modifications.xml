@@ -189,19 +189,12 @@ $0]]></replace>
 <xf:if is="$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum">
 
 	<xf:pageaction>
-		<xf:if is="$thread.Escrow.to_user==$xf.visitor.user_id And $thread.Escrow.escrow_status==0">
-			<xf:button
-			href="{{ link('escrow/approve', $thread.Escrow) }}"
-			class="button--cta"
-			icon="approve"
-			>{{ phrase('fs_escrow_approve') }}</xf:button>
-		</xf:if>
-		
-		<xf:if is="($thread.Escrow.to_user==$xf.visitor.user_id OR $thread.Escrow.user_id==$xf.visitor.user_id) AND $thread.Escrow.escrow_status!=4">
+		<xf:if is="($thread.Escrow.to_user==$xf.visitor.user_id OR $thread.Escrow.user_id==$xf.visitor.user_id) AND ($thread.Escrow.escrow_status==0)">
 			<xf:button
 			href="{{ link('escrow/cancel',$thread.Escrow) }}"
 			class="button--cta"
 			icon="cancel"
+			overlay="true"
 			>{{ phrase('fs_escrow_cancel') }}</xf:button>
 		</xf:if>
 		
@@ -210,7 +203,17 @@ $0]]></replace>
 			href="{{ link('escrow/payments', $thread.Escrow) }}"
 			class=""
 			icon="payment"
+			overlay="true"
 			>{{ phrase('fs_escrow_payment') }}</xf:button>
+		</xf:if>
+		
+		<xf:if is="$thread.Escrow.to_user==$xf.visitor.user_id And $thread.Escrow.escrow_status==0">
+			<xf:button
+			href="{{ link('escrow/approve', $thread.Escrow) }}"
+			class=""
+			icon="approve"
+			overlay="true"
+			>{{ phrase('fs_escrow_approve') }}</xf:button>
 		</xf:if>
 
 			
@@ -218,5 +221,14 @@ $0]]></replace>
 		</xf:pageaction>
 </xf:if>
 	]]></replace>
+  </modification>
+  <modification type="public" template="thread_view" modification_key="fs_escrow_add_status_to_thread_template" description="fs_escrow_add_status_to_thread_template" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:extension name="thread_action_buttons">.*?<\/xf:extension>/is]]></find>
+    <replace><![CDATA[<xf:if is="$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum">
+	<xf:macro template="fs_escrow_list_macro" name="status"
+			arg-status="{$thread.Escrow.escrow_status}"/>
+	<xf:else />
+	$0
+</xf:if>]]></replace>
   </modification>
 </template_modifications>

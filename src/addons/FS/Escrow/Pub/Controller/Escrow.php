@@ -30,7 +30,7 @@ class Escrow extends AbstractController
 
         $options = $this->app()->options();
 
-        $forum = $this->finder('XF:Forum')->where('node_id', $options->fs_escrow_applicable_forum)->fetchOne();
+        $forum = $this->finder('XF:Forum')->where('node_id', intval($options->fs_escrow_applicable_forum))->fetchOne();
 
         return $this->redirect($this->buildLink('forums/post-thread', $forum));
 
@@ -71,15 +71,9 @@ class Escrow extends AbstractController
 
         $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount + $inputs['deposit_amount']));
 
-        $transaction = $this->em()->create('FS\Escrow:Transaction');
+        $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-        $transaction->user_id = $visitor->user_id;
-        $transaction->transaction_amount = $inputs['deposit_amount'];
-        $transaction->transaction_type = 'Deposit';
-        $transaction->current_amount = $visitor->deposit_amount;
-
-        $transaction->save();
-
+        $escrowService->escrowTransaction($visitor->user_id, $inputs['deposit_amount'], $visitor->deposit_amount, 'Deposit');
 
         return true;
     }
@@ -158,10 +152,99 @@ class Escrow extends AbstractController
         return $this->view('FS\Escrow', 'fs_escrow_logs', $viewpParams);
     }
 
+    // public function actionCancel(ParameterBag $params)
+    // {
+    //     $escrow = $this->assertDataExists($params->escrow_id);
+
+    //     /** @var \XF\ControllerPlugin\Delete $plugin */
+    //     $plugin = $this->plugin('XF:Delete');
+
+    //     if ($this->isPost()) {
+
+    //         $this->cancelEscrow($escrow);
+
+    //         return $this->redirect(
+    //             $this->getDynamicRedirect($this->buildLink('escrow'), false)
+    //         );
+    //     }
+
+    //     return $plugin->actionDelete(
+    //         $escrow,
+    //         $this->buildLink('escrow/cancel', $escrow),
+    //         null,
+    //         $this->buildLink('escrow'),
+    //         "{$escrow->Thread->title}"
+    //     );
+    // }
+
+
     public function actionCancel(ParameterBag $params)
     {
-        $escrow = $this->finder('FS\Escrow:Escrow')->whereId($params->escrow_id)->fetchOne();
 
+        $escrow = $this->assertDataExists($params->escrow_id);
+
+
+        if ($this->isPost()) {
+            $this->cancelEscrow($escrow);
+
+            return $this->redirect(
+                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+            );
+        } else {
+
+            $viewParams = [
+                'escrow' => $escrow,
+            ];
+            return $this->view('FS\Escrow:Escrow\Cancel', 'fs_escrow_cancel', $viewParams);
+        }
+    }
+
+
+    public function actionApprove(ParameterBag $params)
+    {
+        $escrow = $this->assertDataExists($params->escrow_id);
+
+        if ($this->isPost()) {
+
+            $this->approveEscrow($escrow);
+
+            return $this->redirect(
+                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+            );
+        } else {
+
+            $viewParams = [
+                'escrow' => $escrow,
+            ];
+            return $this->view('FS\Escrow:Escrow\Approve', 'fs_escrow_approve', $viewParams);
+        }
+    }
+
+    public function actionPayments(ParameterBag $params)
+    {
+        $escrow = $this->assertDataExists($params->escrow_id);
+
+        /** @var \XF\ControllerPlugin\Delete $plugin */
+        $plugin = $this->plugin('XF:Delete');
+
+        if ($this->isPost()) {
+
+            $this->paymentEscrow($escrow);
+
+            return $this->redirect(
+                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+            );
+        } else {
+
+            $viewParams = [
+                'escrow' => $escrow,
+            ];
+            return $this->view('FS\Escrow:Escrow\Payments', 'fs_escrow_payment', $viewParams);
+        }
+    }
+
+    protected function cancelEscrow($escrow)
+    {
         $visitor = \XF::visitor();
 
         if ($escrow->user_id != $visitor->user_id && $escrow->to_user != $visitor->user_id) {
@@ -189,22 +272,10 @@ class Escrow extends AbstractController
                 $escrow->fastUpdate('escrow_status', '2');
             }
         }
-
-        return $this->redirect(
-            $this->getDynamicRedirect($this->buildLink('escrow'), false)
-        );
     }
 
-
-    public function actionApprove(ParameterBag $params)
+    protected function approveEscrow($escrow)
     {
-        $escrow = $this->finder('FS\Escrow:Escrow')->whereId($params->escrow_id)->fetchOne();
-        if (!$escrow) {
-            return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('escrow'), false)
-            );
-        }
-
         $visitor = \XF::visitor();
 
         if ($escrow->to_user != $visitor->user_id) {
@@ -214,21 +285,10 @@ class Escrow extends AbstractController
         }
 
         $escrow->fastUpdate('escrow_status', '1');
-
-        return $this->redirect(
-            $this->getDynamicRedirect($this->buildLink('escrow'), false)
-        );
     }
 
-    public function actionPayments(ParameterBag $params)
+    protected function paymentEscrow($escrow)
     {
-        $escrow = $this->finder('FS\Escrow:Escrow')->whereId($params->escrow_id)->fetchOne();
-        if (!$escrow) {
-            return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('escrow'), false)
-            );
-        }
-
         $visitor = \XF::visitor();
 
         if ($escrow->user_id != $visitor->user_id) {
@@ -238,16 +298,24 @@ class Escrow extends AbstractController
         }
         $user = $this->em()->findOne('XF:User', ['user_id' => $escrow->to_user]);
 
-        $user->fastUpdate('deposit_amount', ($user->deposit_amount + $escrow->Transaction->transaction_amount));
+        $user->fastUpdate('deposit_amount', ($user->deposit_amount + $escrow->escrow_amount));
 
         $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-        $escrowService->escrowTransaction($user->user_id, $escrow->Transaction->transaction_amount, $user->deposit_amount, 'Payment');
+        $escrowService->escrowTransaction($user->user_id, $escrow->escrow_amount, $user->deposit_amount, 'Payment');
 
         $escrow->fastUpdate('escrow_status', '4');
+    }
 
-        return $this->redirect(
-            $this->getDynamicRedirect($this->buildLink('escrow'), false)
-        );
+    /**
+     * @param string $id
+     * @param array|string|null $with
+     * @param null|string $phraseKey
+     *
+     * @return \FS\Escrow\Entity\Escrow
+     */
+    protected function assertDataExists($id, array $extraWith = [], $phraseKey = null)
+    {
+        return $this->assertRecordExists('FS\Escrow:Escrow', $id, $extraWith, $phraseKey);
     }
 }

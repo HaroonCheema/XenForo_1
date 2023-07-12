@@ -1,28 +1,27 @@
 <xf:macro name="escrow"
 	arg-escrow="!"
 	>
-	<li class="block-row block-row--separated  js-inlineModContainer" >
-	<div class="contentRow ">
-		<span class="contentRow-figure">
-			
-			<xf:avatar user="{$escrow.Thread.User}" size="s" defaultname="{$escrow.Thread.User.username}" />
-		</span>
-		<div class="contentRow-main">
-			<h3 class="contentRow-title">
-				<a href="{{ link('threads', $escrow.Thread) }}">{{$escrow.Thread.title}}</a>
-			</h3>
-
-
-			<div class="contentRow-minor contentRow-minor--hideLinks">
-				<ul class="listInline listInline--bullet">
-					<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
-					<li><xf:date time="{$escrow.Thread.post_date}" /></li>
-					<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
-				</ul>
+	<xf:if is="$escrow And $escrow.Thread.escrow_id!=0">
+		<div class="block-row block-row--separated  js-inlineModContainer" >
+			<div class="contentRow ">
+				<span class="contentRow-figure">
+					<xf:avatar user="{$escrow.Thread.User}" size="s" defaultname="{$escrow.Thread.User.username}" />
+				</span>
+				<div class="contentRow-main">
+					<h3 class="contentRow-title">
+						<a href="{{ link('threads', $escrow.Thread) }}">{{$escrow.Thread.title}}</a>
+					</h3>
+					<div class="contentRow-minor contentRow-minor--hideLinks">
+						<ul class="listInline listInline--bullet">
+							<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
+							<li><xf:date time="{$escrow.Thread.post_date}" /></li>
+							<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</li>
+	</xf:if>		
 	
 </xf:macro>	
 
@@ -49,3 +48,26 @@
     </xf:datarow>
   </xf:foreach>
 </xf:macro>
+
+
+<xf:macro name="status"
+	arg-status="!"
+	>
+	<div class="block-body block-row">
+		<xf:if is="$status==0">
+			{{ phrase('fs_escrow_status_0') }}
+		<xf:elseif is="$status == 1" />
+			{{ phrase('fs_escrow_status_1') }}
+		<xf:elseif is="$status == 2" />
+			{{ phrase('fs_escrow_status_2') }}
+		<xf:elseif is="$status == 3" />
+			{{ phrase('fs_escrow_status_3') }}
+		<xf:elseif is="$status == 4" />
+			{{ phrase('fs_escrow_status_4') }}
+		<xf:else/>
+			{{ phrase('fs_escrow_status_undefined') }}
+		</xf:if>
+     </div> 
+		
+	
+	</xf:macro>

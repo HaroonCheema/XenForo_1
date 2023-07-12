@@ -58,9 +58,11 @@ class Setup extends AbstractSetup
 			$table->dropColumns(['escrow_id']);
 		});
 
-		$forum = \xf::app()->finder('XF:Node')->whereId($this->app()->options()->fs_escrow_applicable_forum)->fetchOne();
+		$forum = \xf::app()->finder('XF:Node')->whereId(intval($this->app()->options()->fs_escrow_applicable_forum))->fetchOne();
 
-		$forum->delete();
+		if ($forum) {
+			$forum->delete();
+		}
 	}
 
 	protected function getTables()

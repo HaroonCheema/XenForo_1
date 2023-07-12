@@ -8,7 +8,7 @@ class Forum extends XFCP_Forum
 {
     public function actionIndex(ParameterBag $params)
     {
-        if ($params->node_id ==  $this->app()->options()->fs_escrow_applicable_forum) {
+        if ($params->node_id == intval($this->app()->options()->fs_escrow_applicable_forum)) {
 
             return $this->redirect($this->buildLink('escrow/'), '');
         }
@@ -18,51 +18,22 @@ class Forum extends XFCP_Forum
 
     protected function setupThreadCreate(\XF\Entity\Forum $forum)
     {
-        // $visitor = \XF::visitor();
-
-        // var_dump($this->filter('escrow_amount', 'uint'));
-        // exit;
         $parent = parent::setupThreadCreate($forum);
-
 
         $visitor = \XF::visitor();
 
+        $totalAmount = $this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage);
 
-        if ($forum->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && $visitor->deposit_amount < $this->filter('escrow_amount', 'uint')) {
+
+        if ($forum->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && $visitor->deposit_amount < $totalAmount) {
             throw $this->exception(
                 $this->error(\XF::phrase("fs_escrow_not_enough_amount"))
             );
         }
 
-        // if (
-        //     $forum->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && $visitor->deposit_amount >=
-
-        //     $this->filter('escrow_amount', 'uint')
-        // ) {
-
-
-
-        //     $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount - $this->filter('escrow_amount', 'uint')));
-
-        //     $transaction = $this->em()->create('FS\Escrow:Transaction');
-
-        //     $transaction->user_id = $visitor->user_id;
-        //     $transaction->transaction_amount = $this->filter('escrow_amount', 'uint');
-        //     $transaction->transaction_type = 'Withraw';
-        //     $transaction->current_amount = $visitor->deposit_amount;
-
-        //     $transaction->save();
-        // } else {
-
-        //     return $parent;
-        // }
-
-
-
-
         $options = $this->app()->options();
 
-        if ($forum->node_id ==  $options->fs_escrow_applicable_forum) {
+        if ($forum->node_id ==  intval($options->fs_escrow_applicable_forum)) {
 
             $inputs = $this->filter([
                 'to_user' => 'str',
@@ -73,16 +44,11 @@ class Forum extends XFCP_Forum
 
             if ($user) {
 
-                $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount - $this->filter('escrow_amount', 'uint')));
+                $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount - $totalAmount));
 
-                $transaction = $this->em()->create('FS\Escrow:Transaction');
+                $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-                $transaction->user_id = $visitor->user_id;
-                $transaction->transaction_amount = $this->filter('escrow_amount', 'uint');
-                $transaction->transaction_type = 'Freeze';
-                $transaction->current_amount = $visitor->deposit_amount;
-
-                $transaction->save();
+                $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze');
 
                 $escrowRecord = $this->em()->create('FS\Escrow:Escrow');
 
@@ -90,6 +56,7 @@ class Forum extends XFCP_Forum
                 $escrowRecord->user_id = $visitor->user_id;
                 $escrowRecord->escrow_amount = $inputs['escrow_amount'];
                 $escrowRecord->transaction_id = $transaction->transaction_id;
+                $escrowRecord->admin_percentage = intval($this->app()->options()->fs_escrow_admin_percentage);
 
                 $escrowRecord->save();
 
@@ -108,7 +75,7 @@ class Forum extends XFCP_Forum
 
         $options = $this->app()->options();
 
-        if ($thread->node_id ==  $options->fs_escrow_applicable_forum) {
+        if ($thread->node_id ==  intval($options->fs_escrow_applicable_forum)) {
 
             $escrow = $this->em()->findOne('FS\Escrow:Escrow', ['escrow_id' => $thread['escrow_id']]);
             $user = $this->em()->findOne('XF:User', ['user_id' => $escrow['to_user']]);

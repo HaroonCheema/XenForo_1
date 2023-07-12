@@ -16,5 +16,7 @@ class EscrowServ extends \XF\Service\AbstractService
         $transaction->transaction_type = $type;
 
         $transaction->save();
+
+        return $transaction;
     }
 }

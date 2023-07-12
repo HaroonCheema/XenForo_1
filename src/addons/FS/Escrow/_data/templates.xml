@@ -53,6 +53,32 @@
 		</xf:formrow>
 	</div>
 </xf:macro>]]></template>
+  <template type="public" title="fs_escrow_approve" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_escrow_confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('escrow/approve',$escrow) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('fs_escrow_please_confirm_that_you_want_to_approve_following:') }}
+					<strong>{$escrow.Thread.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="approve" />
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="fs_escrow_cancel" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_escrow_confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('escrow/cancel',$escrow) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('fs_escrow_please_confirm_that_you_want_to_cancel_following:') }}
+					<strong>{$escrow.Thread.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="cancel" />
+	</div>
+</xf:form>]]></template>
   <template type="public" title="fs_escrow_deposit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title> {{ phrase('fs_escrow_deposit') }} </xf:title>
 
 <xf:wrap template="account_wrapper" />
@@ -73,15 +99,18 @@
   <template type="public" title="fs_escrow_escrow_list" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
 	<div class="block-body">
 		<xf:if is="count($escrows) > 0 ">
-			  <xf:foreach loop="$escrows" value="$escrow">
-			<xf:macro template="fs_escrow_list_macro" name="escrow"
-			arg-escrow="{$escrow}"
-			arg-containerClass="contentRow-minor" />
-			</xf:foreach>
+		
+				  <xf:foreach loop="$escrows" value="$escrow">
+					<xf:macro template="fs_escrow_list_macro" name="escrow"
+					arg-escrow="{$escrow}"
+					arg-containerClass="contentRow-minor" />
+				</xf:foreach>
+			
+				
 		<xf:else />
           <div class="block-body block-row">
             {{ phrase('no_any_data_found') }}
-          </div>
+          </div> 
         </xf:if>
 	</div>
 </div>]]></template>
@@ -160,28 +189,27 @@
   <template type="public" title="fs_escrow_list_macro" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="escrow"
 	arg-escrow="!"
 	>
-	<li class="block-row block-row--separated  js-inlineModContainer" >
-	<div class="contentRow ">
-		<span class="contentRow-figure">
-			
-			<xf:avatar user="{$escrow.Thread.User}" size="s" defaultname="{$escrow.Thread.User.username}" />
-		</span>
-		<div class="contentRow-main">
-			<h3 class="contentRow-title">
-				<a href="{{ link('threads', $escrow.Thread) }}">{{$escrow.Thread.title}}</a>
-			</h3>
-
-
-			<div class="contentRow-minor contentRow-minor--hideLinks">
-				<ul class="listInline listInline--bullet">
-					<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
-					<li><xf:date time="{$escrow.Thread.post_date}" /></li>
-					<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
-				</ul>
+	<xf:if is="$escrow And $escrow.Thread.escrow_id!=0">
+		<div class="block-row block-row--separated  js-inlineModContainer" >
+			<div class="contentRow ">
+				<span class="contentRow-figure">
+					<xf:avatar user="{$escrow.Thread.User}" size="s" defaultname="{$escrow.Thread.User.username}" />
+				</span>
+				<div class="contentRow-main">
+					<h3 class="contentRow-title">
+						<a href="{{ link('threads', $escrow.Thread) }}">{{$escrow.Thread.title}}</a>
+					</h3>
+					<div class="contentRow-minor contentRow-minor--hideLinks">
+						<ul class="listInline listInline--bullet">
+							<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
+							<li><xf:date time="{$escrow.Thread.post_date}" /></li>
+							<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</li>
+	</xf:if>		
 	
 </xf:macro>	
 
@@ -207,7 +235,30 @@
 
     </xf:datarow>
   </xf:foreach>
-</xf:macro>]]></template>
+</xf:macro>
+
+
+<xf:macro name="status"
+	arg-status="!"
+	>
+	<div class="block-body block-row">
+		<xf:if is="$status==0">
+			{{ phrase('fs_escrow_status_0') }}
+		<xf:elseif is="$status == 1" />
+			{{ phrase('fs_escrow_status_1') }}
+		<xf:elseif is="$status == 2" />
+			{{ phrase('fs_escrow_status_2') }}
+		<xf:elseif is="$status == 3" />
+			{{ phrase('fs_escrow_status_3') }}
+		<xf:elseif is="$status == 4" />
+			{{ phrase('fs_escrow_status_4') }}
+		<xf:else/>
+			{{ phrase('fs_escrow_status_undefined') }}
+		</xf:if>
+     </div> 
+		
+	
+	</xf:macro>]]></template>
   <template type="public" title="fs_escrow_logs" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
   <div class="block-body">
 	  
@@ -247,4 +298,17 @@
         </xf:if>
 	</div>
 </div>]]></template>
+  <template type="public" title="fs_escrow_payment" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_escrow_confirm_action') }}</xf:title>
+
+<xf:form action="{{ link('escrow/payments',$escrow) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('fs_escrow_please_confirm_that_you_want_to_payment_following:') }}
+					<strong>{$escrow.Thread.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="payment" />
+	</div>
+</xf:form>]]></template>
 </templates>

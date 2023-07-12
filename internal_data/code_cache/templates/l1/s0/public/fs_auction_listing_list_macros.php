@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: b20d213e6ef1ae95e6dd32a88fc68f55
+// FROM HASH: f664129a4624c70398d178ddec1f94d6
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -45,12 +45,17 @@ return array(
 		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
 		
 			<div class="structItem-title">
-			<span class="label label--blue label--smallest">
-						' . $__templater->func('phrase_dynamic', array($__templater->method($__vars['listing']['Thread']['Prefix'], 'getPhraseName', array()), ), true) . '
-					</span>
+				';
+	if ($__vars['listing']['Thread']['prefix_id']) {
+		$__finalCompiled .= '
+			   		 <a class="labelLink" rel="nofollow">' . $__templater->func('prefix', array('thread', $__vars['listing']['Thread'], 'html', '', ), true) . '</a>
+				';
+	}
+	$__finalCompiled .= '
 				<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">' . $__templater->escape($__vars['listing']['Thread']['title']) . '</a>
-					' . '
-						</div>
+					
+			' . '
+		</div>
 			<div class="structItem-minor">
 
 					<ul class="structItem-parts">
@@ -251,10 +256,13 @@ return array(
 				</div>
 
 			<div class="structItem-title">
-					<span class="label label--blue label--smallest">
-						' . $__templater->func('phrase_dynamic', array($__templater->method($__vars['listing']['Thread']['Prefix'], 'getPhraseName', array()), ), true) . '
-							
-					</span>
+						';
+	if ($__vars['listing']['Thread']['prefix_id']) {
+		$__finalCompiled .= '
+			   		 		<a class="labelLink" rel="nofollow">' . $__templater->func('prefix', array('thread', $__vars['listing']['Thread'], 'html', '', ), true) . '</a>
+						';
+	}
+	$__finalCompiled .= '
 			<a href="' . $__templater->func('link', array('auction/view-auction', $__vars['listing'], ), true) . '" class="" data-tp-primary="on">' . $__templater->func('snippet', array($__vars['listing']['Thread']['title'], 33, array('stripBbCode' => true, ), ), true) . '</a>
 			</div>
 			<div class="structItem-minor">

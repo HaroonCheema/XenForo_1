@@ -270,7 +270,19 @@ return array(
 		';
 	$__compilerTemp1 = '';
 	$__compilerTemp1 .= '
-					' . $__templater->renderExtension('thread_action_buttons', $__vars, $__extensions) . '
+					';
+	if (($__vars['xf']['visitor']['user_id'] != 0) AND (($__vars['thread']['escrow_id'] != 0) AND ($__vars['thread']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']))) {
+		$__compilerTemp1 .= '
+	' . $__templater->callMacro('fs_escrow_list_macro', 'status', array(
+			'status' => $__vars['thread']['Escrow']['escrow_status'],
+		), $__vars) . '
+	';
+	} else {
+		$__compilerTemp1 .= '
+	' . $__templater->renderExtension('thread_action_buttons', $__vars, $__extensions) . '
+';
+	}
+	$__compilerTemp1 .= '
 				';
 	if (strlen(trim($__compilerTemp1)) > 0) {
 		$__finalCompiled .= '
@@ -572,34 +584,37 @@ return array(
 
 	';
 		$__compilerTemp1 = '';
-		if (($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 0)) {
+		if ((($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) OR ($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id'])) AND ($__vars['thread']['Escrow']['escrow_status'] == 0)) {
 			$__compilerTemp1 .= '
-			' . $__templater->button('Approve', array(
-				'href' => $__templater->func('link', array('escrow/approve', $__vars['thread']['Escrow'], ), false),
+			' . $__templater->button('Cancel', array(
+				'href' => $__templater->func('link', array('escrow/cancel', $__vars['thread']['Escrow'], ), false),
 				'class' => 'button--cta',
-				'icon' => 'approve',
+				'icon' => 'cancel',
+				'overlay' => 'true',
 			), '', array(
 			)) . '
 		';
 		}
 		$__compilerTemp2 = '';
-		if ((($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) OR ($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id'])) AND ($__vars['thread']['Escrow']['escrow_status'] != 4)) {
+		if (($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 1)) {
 			$__compilerTemp2 .= '
-			' . $__templater->button('Cancel', array(
-				'href' => $__templater->func('link', array('escrow/cancel', $__vars['thread']['Escrow'], ), false),
-				'class' => 'button--cta',
-				'icon' => 'cancel',
+			' . $__templater->button('Release Payment', array(
+				'href' => $__templater->func('link', array('escrow/payments', $__vars['thread']['Escrow'], ), false),
+				'class' => '',
+				'icon' => 'payment',
+				'overlay' => 'true',
 			), '', array(
 			)) . '
 		';
 		}
 		$__compilerTemp3 = '';
-		if (($__vars['thread']['Escrow']['user_id'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 1)) {
+		if (($__vars['thread']['Escrow']['to_user'] == $__vars['xf']['visitor']['user_id']) AND ($__vars['thread']['Escrow']['escrow_status'] == 0)) {
 			$__compilerTemp3 .= '
-			' . $__templater->button('Release Payment', array(
-				'href' => $__templater->func('link', array('escrow/payments', $__vars['thread']['Escrow'], ), false),
+			' . $__templater->button('Approve', array(
+				'href' => $__templater->func('link', array('escrow/approve', $__vars['thread']['Escrow'], ), false),
 				'class' => '',
-				'icon' => 'payment',
+				'icon' => 'approve',
+				'overlay' => 'true',
 			), '', array(
 			)) . '
 		';

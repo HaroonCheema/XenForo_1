@@ -14,7 +14,7 @@ class Thread extends XFCP_Thread
 
         $userId = \XF::visitor()->user_id;
 
-        if ($thread->node_id ==  $this->app()->options()->fs_escrow_applicable_forum && ($thread->Escrow->user_id == $userId || $thread->Escrow->to_user == $userId || \XF::visitor()->is_admin)) {
+        if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && ($thread->Escrow->user_id == $userId || $thread->Escrow->to_user == $userId || \XF::visitor()->is_admin)) {
 
             return parent::actionIndex($params);
         }
