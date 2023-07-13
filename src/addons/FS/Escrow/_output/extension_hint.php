@@ -13,6 +13,7 @@ namespace FS\Escrow\XF\Pub\Controller
 {
 	class XFCP_Forum extends \XF\Pub\Controller\Forum {}
 	class XFCP_Member extends \XF\Pub\Controller\Member {}
+	class XFCP_Post extends \XF\Pub\Controller\Post {}
 	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }
 

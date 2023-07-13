@@ -14,10 +14,15 @@ class Thread extends XFCP_Thread
 
         $userId = \XF::visitor()->user_id;
 
-        if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && ($thread->Escrow->user_id == $userId || $thread->Escrow->to_user == $userId || \XF::visitor()->is_admin)) {
+        if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum)) {
 
-            return parent::actionIndex($params);
+            if (!($thread->Escrow->user_id == $userId || $thread->Escrow->to_user == $userId || \XF::visitor()->is_admin)) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_not_allowed"))
+                );
+            }
         }
-        return $this->redirect($this->buildLink('escrow/'), '');
+
+        return parent::actionIndex($params);
     }
 }

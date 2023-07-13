@@ -102,6 +102,8 @@ return array (
   'admin_navigation.fsAutoForumManager' => 'Auto Forum Manage',
   'admin_navigation.fsAutoForumManagerAdd' => 'Add',
   'admin_navigation.fsDownGrade' => 'Downgrade',
+  'admin_navigation.fsEscrowList' => 'Escrows',
+  'admin_navigation.fsEscrowListNav' => 'Escrows',
   'admin_navigation.fsForumAutoReply' => 'Forum Auto Reply',
   'admin_navigation.fsLoginSecurityQuestion' => 'Security Question',
   'admin_navigation.fsNodeUrl' => 'Node Url',

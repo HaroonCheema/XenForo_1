@@ -1,4 +1,14 @@
 {
+    "admin/fs_escrow_admin_list.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e27bf6501fa0b62bec206410051cd014"
+    },
+    "admin/fs_escrow_search_filter.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "dfc7df537ba5c15c6d9efab8aa06329e"
+    },
     "public/fs_escrow_approve.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

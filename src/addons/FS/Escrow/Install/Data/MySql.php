@@ -34,6 +34,7 @@ class MySql
             $table->addColumn('transaction_id', 'int')->setDefault(0);
             $table->addColumn('escrow_status', 'int')->setDefault(0);
             $table->addColumn('admin_percentage', 'int')->setDefault(0);
+            $table->addColumn('last_update', 'int')->setDefault(0);
             $table->addPrimaryKey('escrow_id');
         };
 

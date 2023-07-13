@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template_modifications>
+  <modification type="public" template="PAGE_CONTAINER" modification_key="fs_escrow_PAGE_CONTAINER" description="fs_escrow_PAGE_CONTAINER" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<ul class="p-nav-list js-offCanvasNavSource">]]></find>
+    <replace><![CDATA[$0
+<xf:if is="{{$xf.reply.containerKey == 'node-'.$xf.options.fs_escrow_applicable_forum}}">
+	<xf:set var="$pageSection" value="fs_escrow" />
+</xf:if>]]></replace>
+  </modification>
   <modification type="public" template="account_visitor_menu" modification_key="add_deposit_amount" description="add_deposit_amount" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<!--[XF:stats_pairs:above_points]-->]]></find>
     <replace><![CDATA[$0
@@ -182,6 +189,15 @@ $0]]></replace>
 		<div class="blockMessage">{{ phrase('loading...') }}</div>
 </li>
 	</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="post_edit" modification_key="fs_escrow_post_edit_add_fields" description="fs_escrow_post_edit_add_fields" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:formrow rowtype="{{ \$quickEdit \? 'fullWidth noLabel mergePrev' : '' }}">.*?<\/xf:formrow>/is]]></find>
+    <replace><![CDATA[$0
+<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum && $post.isFirstPost()">
+    			<xf:textboxrow name="to_user" value="{{ $thread.Escrow.User.username ?: '' }}" label="{{ phrase('escrow_user') }}" ac="single"
+                maxlength="{{ max_length($xf.visitor, 'username') }}" id="ctrl_started_by" />
+                <xf:numberboxrow name="escrow_amount" value="{{ $thread.Escrow.escrow_amount ?: '' }}" explain="{{ phrase('escrow_total_amount') }} {{$xf.visitor.deposit_amount}}" min="0" label="{{ phrase('escrow_amount') }}" />
+			 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="thread_view" modification_key="fs_escrow_add_buttons_to_thread_template" description="fs_escrow_add_buttons_to_thread_template" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<xf:h1>{{ prefix('thread', $thread) }}{$thread.title}</xf:h1>]]></find>

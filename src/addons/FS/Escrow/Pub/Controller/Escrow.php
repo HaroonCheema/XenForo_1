@@ -152,32 +152,6 @@ class Escrow extends AbstractController
         return $this->view('FS\Escrow', 'fs_escrow_logs', $viewpParams);
     }
 
-    // public function actionCancel(ParameterBag $params)
-    // {
-    //     $escrow = $this->assertDataExists($params->escrow_id);
-
-    //     /** @var \XF\ControllerPlugin\Delete $plugin */
-    //     $plugin = $this->plugin('XF:Delete');
-
-    //     if ($this->isPost()) {
-
-    //         $this->cancelEscrow($escrow);
-
-    //         return $this->redirect(
-    //             $this->getDynamicRedirect($this->buildLink('escrow'), false)
-    //         );
-    //     }
-
-    //     return $plugin->actionDelete(
-    //         $escrow,
-    //         $this->buildLink('escrow/cancel', $escrow),
-    //         null,
-    //         $this->buildLink('escrow'),
-    //         "{$escrow->Thread->title}"
-    //     );
-    // }
-
-
     public function actionCancel(ParameterBag $params)
     {
 
@@ -188,7 +162,7 @@ class Escrow extends AbstractController
             $this->cancelEscrow($escrow);
 
             return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+                $this->getDynamicRedirect($this->buildLink('escrow'), $escrow->Thread)
             );
         } else {
 
@@ -209,7 +183,7 @@ class Escrow extends AbstractController
             $this->approveEscrow($escrow);
 
             return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+                $this->getDynamicRedirect($this->buildLink('escrow'), $escrow->Thread)
             );
         } else {
 
@@ -232,7 +206,7 @@ class Escrow extends AbstractController
             $this->paymentEscrow($escrow);
 
             return $this->redirect(
-                $this->getDynamicRedirect($this->buildLink('escrow'), false)
+                $this->getDynamicRedirect($this->buildLink('escrow'), $escrow->Thread)
             );
         } else {
 
@@ -267,10 +241,21 @@ class Escrow extends AbstractController
             $visitor = \XF::visitor();
 
             if ($escrow->user_id == $visitor->user_id) {
-                $escrow->fastUpdate('escrow_status', '3');
+                // $escrow->fastUpdate('escrow_status', '3');
+                $escrow->bulkSet([
+                    'escrow_status' => '3',
+                    'last_update' => \XF::$time,
+                ]);
             } else {
-                $escrow->fastUpdate('escrow_status', '2');
+                // $escrow->fastUpdate('escrow_status', '2');
+                $escrow->bulkSet([
+                    'escrow_status' => '2',
+                    'last_update' => \XF::$time,
+                ]);
             }
+
+            $escrow->save();
+            // $escrow->fastUpdate('last_update', \XF::$time);
         }
     }
 
@@ -284,7 +269,15 @@ class Escrow extends AbstractController
             );
         }
 
-        $escrow->fastUpdate('escrow_status', '1');
+        $escrow->bulkSet([
+            'escrow_status' => '1',
+            'last_update' => \XF::$time,
+        ]);
+        $escrow->save();
+
+        // $escrow->fastUpdate('escrow_status', '1');
+
+        // $escrow->fastUpdate('last_update', \XF::$time);
     }
 
     protected function paymentEscrow($escrow)
@@ -304,7 +297,14 @@ class Escrow extends AbstractController
 
         $escrowService->escrowTransaction($user->user_id, $escrow->escrow_amount, $user->deposit_amount, 'Payment');
 
-        $escrow->fastUpdate('escrow_status', '4');
+        // $escrow->fastUpdate('escrow_status', '4');
+        // $escrow->fastUpdate('last_update', \XF::$time);
+
+        $escrow->bulkSet([
+            'escrow_status' => '4',
+            'last_update' => \XF::$time,
+        ]);
+        $escrow->save();
     }
 
     /**

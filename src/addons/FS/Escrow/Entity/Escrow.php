@@ -23,6 +23,7 @@ class Escrow extends Entity
             'transaction_id' => ['type' => self::UINT, 'default' => 0],
             'escrow_status' => ['type' => self::UINT, 'default' => 0],
             'admin_percentage' => ['type' => self::UINT, 'default' => 0],
+            'last_update' => ['type' => self::UINT, 'default' => \XF::$time]
         ];
 
         $structure->relations = [
