@@ -17,6 +17,7 @@ class MySql
             $table->addColumn('transaction_id', 'int')->autoIncrement();
             $table->addColumn('user_id', 'int')->setDefault(0);
             $table->addColumn('to_user', 'int')->setDefault(0);
+            $table->addColumn('escrow_id', 'int')->setDefault(0);
             $table->addColumn('transaction_amount', 'int')->setDefault(0);
             $table->addColumn('transaction_type', 'varchar', 100);
             $table->addColumn('current_amount', 'int')->setDefault(0);

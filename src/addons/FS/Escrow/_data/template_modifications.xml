@@ -107,6 +107,10 @@
 	$0
 </xf:if>]]></replace>
   </modification>
+  <modification type="public" template="forum_post_thread" modification_key="fs_escrow_forum_post_thread_handle_draft" description="fs_escrow_forum_post_thread_handle_draft" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ link('forums/draft', $forum) }}]]></find>
+    <replace><![CDATA[{{ $forum.node_id==$xf.options.fs_escrow_applicable_forum ? '' : link('forums/draft', $forum) }}]]></replace>
+  </modification>
   <modification type="public" template="forum_post_thread" modification_key="fs_escrow_hide_thread_extra" description="fs_escrow_hide_thread_extra" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:if is="!\$xf\.visitor\.user_id AND !\$forum\.canCreateThreadPreReg\(\)">.*?<\/xf:if>/is]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
@@ -198,6 +202,16 @@ $0]]></replace>
                 maxlength="{{ max_length($xf.visitor, 'username') }}" id="ctrl_started_by" />
                 <xf:numberboxrow name="escrow_amount" value="{{ $thread.Escrow.escrow_amount ?: '' }}" explain="{{ phrase('escrow_total_amount') }} {{$xf.visitor.deposit_amount}}" min="0" label="{{ phrase('escrow_amount') }}" />
 			 </xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="post_macros" modification_key="fs_escrow_hide_edit_on_reply" description="fs_escrow_hide_edit_on_reply" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:set var="\$hasActionBarMenu" value="{{ false }}" \/>.*?<\/xf:if>/is]]></find>
+    <replace><![CDATA[<xf:if is="$thread.node_id==$xf.options.fs_escrow_applicable_forum">
+	<xf:if is="$post.isFirstPost() && ($thread.user_id == $xf.visitor.user_id)">
+		$0
+	</xf:if>
+	<xf:else />
+	$0
+</xf:if>]]></replace>
   </modification>
   <modification type="public" template="thread_view" modification_key="fs_escrow_add_buttons_to_thread_template" description="fs_escrow_add_buttons_to_thread_template" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<xf:h1>{{ prefix('thread', $thread) }}{$thread.title}</xf:h1>]]></find>

@@ -669,17 +669,23 @@ return array(
 	$__compilerTemp2 .= '
 
 			';
-	$__vars['hasActionBarMenu'] = false;
-	$__compilerTemp2 .= '
+	if ($__vars['thread']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']) {
+		$__compilerTemp2 .= '
+	';
+		if ($__templater->method($__vars['post'], 'isFirstPost', array()) AND ($__vars['thread']['user_id'] == $__vars['xf']['visitor']['user_id'])) {
+			$__compilerTemp2 .= '
+		';
+			$__vars['hasActionBarMenu'] = false;
+			$__compilerTemp2 .= '
 			';
-	if ($__templater->method($__vars['post'], 'canEdit', array())) {
-		$__compilerTemp2 .= '
+			if ($__templater->method($__vars['post'], 'canEdit', array())) {
+				$__compilerTemp2 .= '
 				';
-		$__templater->includeJs(array(
-			'src' => 'xf/message.js',
-			'min' => '1',
-		));
-		$__compilerTemp2 .= '
+				$__templater->includeJs(array(
+					'src' => 'xf/message.js',
+					'min' => '1',
+				));
+				$__compilerTemp2 .= '
 				<a href="' . $__templater->func('link', array('posts/edit', $__vars['post'], ), true) . '"
 					class="actionBar-action actionBar-action--edit actionBar-action--menuItem"
 					data-xf-click="quick-edit"
@@ -687,9 +693,42 @@ return array(
 					data-menu-closer="true">' . 'Edit' . '</a>
 
 				';
-		$__vars['hasActionBarMenu'] = true;
+				$__vars['hasActionBarMenu'] = true;
+				$__compilerTemp2 .= '
+			';
+			}
+			$__compilerTemp2 .= '
+	';
+		}
+		$__compilerTemp2 .= '
+	';
+	} else {
+		$__compilerTemp2 .= '
+	';
+		$__vars['hasActionBarMenu'] = false;
 		$__compilerTemp2 .= '
 			';
+		if ($__templater->method($__vars['post'], 'canEdit', array())) {
+			$__compilerTemp2 .= '
+				';
+			$__templater->includeJs(array(
+				'src' => 'xf/message.js',
+				'min' => '1',
+			));
+			$__compilerTemp2 .= '
+				<a href="' . $__templater->func('link', array('posts/edit', $__vars['post'], ), true) . '"
+					class="actionBar-action actionBar-action--edit actionBar-action--menuItem"
+					data-xf-click="quick-edit"
+					data-editor-target="#js-post-' . $__templater->escape($__vars['post']['post_id']) . ' .js-quickEditTarget"
+					data-menu-closer="true">' . 'Edit' . '</a>
+
+				';
+			$__vars['hasActionBarMenu'] = true;
+			$__compilerTemp2 .= '
+			';
+		}
+		$__compilerTemp2 .= '
+';
 	}
 	$__compilerTemp2 .= '
 			';

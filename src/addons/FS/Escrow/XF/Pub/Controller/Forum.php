@@ -63,7 +63,7 @@ class Forum extends XFCP_Forum
 
             $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-            $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze');
+            $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze', 0);
 
             $escrowRecord = $this->em()->create('FS\Escrow:Escrow');
 
@@ -74,6 +74,8 @@ class Forum extends XFCP_Forum
             $escrowRecord->admin_percentage = intval($this->app()->options()->fs_escrow_admin_percentage);
 
             $escrowRecord->save();
+
+            $transaction->fastUpdate('escrow_id', $escrowRecord->escrow_id);
 
             $parent->setEscrowId($escrowRecord->escrow_id);
         }
@@ -107,4 +109,7 @@ class Forum extends XFCP_Forum
 
         return $parent;
     }
+
+
+    
 }

@@ -18,6 +18,7 @@ class Transaction extends Entity
             'transaction_id' => ['type' => self::UINT, 'autoIncrement' => true],
             'user_id' => ['type' => self::UINT, 'required' => true],
             'to_user' => ['type' => self::UINT, 'default' => 0],
+            'escrow_id' => ['type' => self::UINT, 'default' => 0],
             'transaction_amount' => ['type' => self::UINT, 'required' => true],
             'current_amount' => ['type' => self::UINT, 'required' => true],
             'transaction_type' => ['type' => self::STR, 'default' => ''],

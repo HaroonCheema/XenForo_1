@@ -19,6 +19,14 @@ class Post extends XFCP_Post
 
         if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum)) {
 
+            $visitor = \XF::visitor();
+
+            if ($thread->user_id != $visitor->user_id) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_not_allowed"))
+                );
+            }
+
             $inputs = $this->filter([
                 'to_user' => 'str',
                 'escrow_amount' => 'int',
@@ -58,7 +66,7 @@ class Post extends XFCP_Post
 
                 $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-                $transaction = $escrowService->escrowTransaction($visitor->user_id, $depAmount, $visitor->deposit_amount, 'Deposit');
+                $transaction = $escrowService->escrowTransaction($visitor->user_id, $depAmount, $visitor->deposit_amount, 'Deposit', $thread->escrow_id);
 
                 // $this->updateEscrow($thread, $transaction);
             } elseif ($this->filter('escrow_amount', 'uint') && $this->filter('escrow_amount', 'uint') > $thread->Escrow->escrow_amount) {
@@ -75,14 +83,33 @@ class Post extends XFCP_Post
 
                 $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-                $transaction = $escrowService->escrowTransaction($visitor->user_id, $withdrawAmount, $visitor->deposit_amount, 'Freeez');
-
-                // $this->updateEscrow($thread, $transaction);
+                $transaction = $escrowService->escrowTransaction($visitor->user_id, $withdrawAmount, $visitor->deposit_amount, 'Freeez', $thread->escrow_id);
             }
             $this->updateEscrow($thread, $transaction);
         }
         return $parent;
     }
+
+    public function actionEdit(ParameterBag $params)
+    {
+        $post = $this->assertViewablePost($params->post_id, ['Thread.Prefix']);
+        if (!$post->canEdit($error)) {
+            return $this->noPermission($error);
+        }
+
+        $thread = $post->Thread;
+
+        if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum)) {
+            if (!$post->isFirstPost()) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_not_allowed"))
+                );
+            }
+        }
+
+        return parent::actionEdit($params);
+    }
+
 
 
     protected function updateEscrow($thread, $transaction)

@@ -46,7 +46,6 @@ class Escrow extends AbstractController
             );
         }
 
-
         $viewpParams = [
             'pageSelected' => 'escrow/deposit',
         ];
@@ -72,7 +71,7 @@ class Escrow extends AbstractController
 
         $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-        $escrowService->escrowTransaction($visitor->user_id, $inputs['deposit_amount'], $visitor->deposit_amount, 'Deposit');
+        $escrowService->escrowTransaction($visitor->user_id, $inputs['deposit_amount'], $visitor->deposit_amount, 'Deposit', 0);
 
         return true;
     }
@@ -235,7 +234,7 @@ class Escrow extends AbstractController
 
             $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-            $escrowService->escrowTransaction($visitor->user_id, ($escrow->Transaction->transaction_amount + intval($this->app()->options()->fs_escrow_applicable_forum)), $visitor->deposit_amount, 'Cancel');
+            $escrowService->escrowTransaction($visitor->user_id, ($escrow->Transaction->transaction_amount + intval($this->app()->options()->fs_escrow_applicable_forum)), $visitor->deposit_amount, 'Cancel', $escrow->escrow_id);
 
             $visitor = \XF::visitor();
 
@@ -273,10 +272,6 @@ class Escrow extends AbstractController
             'last_update' => \XF::$time,
         ]);
         $escrow->save();
-
-        // $escrow->fastUpdate('escrow_status', '1');
-
-        // $escrow->fastUpdate('last_update', \XF::$time);
     }
 
     protected function paymentEscrow($escrow)
@@ -294,10 +289,7 @@ class Escrow extends AbstractController
 
         $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-        $escrowService->escrowTransaction($user->user_id, $escrow->escrow_amount, $user->deposit_amount, 'Payment');
-
-        // $escrow->fastUpdate('escrow_status', '4');
-        // $escrow->fastUpdate('last_update', \XF::$time);
+        $escrowService->escrowTransaction($user->user_id, $escrow->escrow_amount, $user->deposit_amount, 'Payment', $escrow->escrow_id);
 
         $escrow->bulkSet([
             'escrow_status' => '4',

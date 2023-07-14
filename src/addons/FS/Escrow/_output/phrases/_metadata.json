@@ -65,6 +65,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "1e4b0120e3ac39881f0a2fca5b56934b"
     },
+    "fs_escrow_amount_symbol.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c3e97dd6e97fb5125688c97f36720cbe"
+    },
     "fs_escrow_approve.txt": {
         "global_cache": false,
         "version_id": 1000010,

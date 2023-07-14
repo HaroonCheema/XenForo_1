@@ -5,6 +5,9 @@
     "public/add_deposit_amount.json": {
         "hash": "d73d7ac4bda605d5ae255dd60413fd19"
     },
+    "public/add_deposit_button.json": {
+        "hash": "312bf3c6505b0df86e7571902fc8d1b2"
+    },
     "public/add_deposit_button_profile_index.json": {
         "hash": "6ddb65ea176e001c9859a76eaeb79c14"
     },
@@ -31,6 +34,12 @@
     },
     "public/fs_escrow_change_thread_title.json": {
         "hash": "1c6363c9ca011c6c22d09daf2db5aec0"
+    },
+    "public/fs_escrow_forum_post_thread_handle_draft.json": {
+        "hash": "513ba941bbc8d383249980db6cda6ad7"
+    },
+    "public/fs_escrow_hide_edit_on_reply.json": {
+        "hash": "ef2107746c27cdf1a491dc2bf4b68d90"
     },
     "public/fs_escrow_hide_thread_extra.json": {
         "hash": "9185d6bb9e92d287a805b196680089c3"

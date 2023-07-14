@@ -435,7 +435,7 @@ return array(
 		'ajax' => 'true',
 		'class' => 'block',
 		'data-xf-init' => 'attachment-manager',
-		'draft' => $__templater->func('link', array('forums/draft', $__vars['forum'], ), false),
+		'draft' => (($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']) ? '' : $__templater->func('link', array('forums/draft', $__vars['forum'], ), false)),
 	)) . '
 
 ' . '
