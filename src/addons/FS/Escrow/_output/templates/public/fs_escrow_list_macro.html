@@ -1,6 +1,8 @@
 <xf:macro name="escrow"
 	arg-escrow="!"
+	arg-type="!"
 	>
+	
 	<xf:if is="$escrow And $escrow.Thread.escrow_id!=0">
 		<div class="block-row block-row--separated  js-inlineModContainer" >
 			<div class="contentRow ">
@@ -13,7 +15,14 @@
 					</h3>
 					<div class="contentRow-minor contentRow-minor--hideLinks">
 						<ul class="listInline listInline--bullet">
-							<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
+							<li>
+								<xf:if is="$type=='my'">
+									<xf:username user="{$escrow.User}" defaultname="{$escrow.User.username}" />
+									<xf:elseif is="$type == 'mentioned'" />
+									<xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" />
+									
+								</xf:if>
+							</li>
 							<li><xf:date time="{$escrow.Thread.post_date}" /></li>
 							<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
 						</ul>

@@ -19,6 +19,8 @@ class Member extends XFCP_Member
         $escrows = $this->finder('FS\Escrow:Escrow')->where('user_id', $user->user_id);
         $viewpParams = [
             'escrows' => $escrows->fetch(),
+            'type' => 'my',
+
         ];
         return $this->view('FS\Escrow', 'fs_escrow_escrow_list', $viewpParams);
     }
@@ -35,6 +37,8 @@ class Member extends XFCP_Member
         $escrows = $this->finder('FS\Escrow:Escrow')->where('to_user', $user->user_id);
         $viewpParams = [
             'escrows' => $escrows->fetch(),
+            'type' => 'mentioned',
+
         ];
         return $this->view('FS\Escrow', 'fs_escrow_escrow_list', $viewpParams);
     }

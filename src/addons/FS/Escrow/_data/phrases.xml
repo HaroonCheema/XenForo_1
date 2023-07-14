@@ -56,6 +56,7 @@
   <phrase title="fs_escrow_trans_current" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Balance]]></phrase>
   <phrase title="fs_escrow_trans_date" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Date Time]]></phrase>
   <phrase title="fs_escrow_trans_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Type]]></phrase>
+  <phrase title="fs_escrow_user_not_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[User not found...!]]></phrase>
   <phrase title="fs_escrow_you_must_login" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Sorry, you need to login First...!]]></phrase>
   <phrase title="fs_mentioned_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned Escrow]]></phrase>
   <phrase title="fs_my_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[My Escrows]]></phrase>

@@ -260,14 +260,12 @@
   <template type="public" title="fs_escrow_escrow_list" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-container">
 	<div class="block-body">
 		<xf:if is="count($escrows) > 0 ">
-		
 				  <xf:foreach loop="$escrows" value="$escrow">
 					<xf:macro template="fs_escrow_list_macro" name="escrow"
 					arg-escrow="{$escrow}"
+					arg-type="{$type}"
 					arg-containerClass="contentRow-minor" />
-				</xf:foreach>
-			
-				
+				</xf:foreach>				
 		<xf:else />
           <div class="block-body block-row">
             {{ phrase('no_any_data_found') }}
@@ -349,7 +347,9 @@
  </div>]]></template>
   <template type="public" title="fs_escrow_list_macro" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="escrow"
 	arg-escrow="!"
+	arg-type="!"
 	>
+	
 	<xf:if is="$escrow And $escrow.Thread.escrow_id!=0">
 		<div class="block-row block-row--separated  js-inlineModContainer" >
 			<div class="contentRow ">
@@ -362,7 +362,14 @@
 					</h3>
 					<div class="contentRow-minor contentRow-minor--hideLinks">
 						<ul class="listInline listInline--bullet">
-							<li><xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" /></li>
+							<li>
+								<xf:if is="$type=='my'">
+									<xf:username user="{$escrow.User}" defaultname="{$escrow.User.username}" />
+									<xf:elseif is="$type == 'mentioned'" />
+									<xf:username user="{$escrow.Thread.User}" defaultname="{$escrow.Thread.User.username}" />
+									
+								</xf:if>
+							</li>
 							<li><xf:date time="{$escrow.Thread.post_date}" /></li>
 							<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
 						</ul>

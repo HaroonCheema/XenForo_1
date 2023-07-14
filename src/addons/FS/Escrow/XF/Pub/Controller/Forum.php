@@ -42,26 +42,29 @@ class Forum extends XFCP_Forum
 
             $user = $this->em()->findOne('XF:User', ['username' => $inputs['to_user']]);
 
-            if ($user) {
-
-                $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount - $totalAmount));
-
-                $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
-
-                $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze');
-
-                $escrowRecord = $this->em()->create('FS\Escrow:Escrow');
-
-                $escrowRecord->to_user = $user->user_id;
-                $escrowRecord->user_id = $visitor->user_id;
-                $escrowRecord->escrow_amount = $inputs['escrow_amount'];
-                $escrowRecord->transaction_id = $transaction->transaction_id;
-                $escrowRecord->admin_percentage = intval($this->app()->options()->fs_escrow_admin_percentage);
-
-                $escrowRecord->save();
-
-                $parent->setEscrowId($escrowRecord->escrow_id);
+            if (!$user) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_user_not_found"))
+                );
             }
+
+            $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount - $totalAmount));
+
+            $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
+
+            $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze');
+
+            $escrowRecord = $this->em()->create('FS\Escrow:Escrow');
+
+            $escrowRecord->to_user = $user->user_id;
+            $escrowRecord->user_id = $visitor->user_id;
+            $escrowRecord->escrow_amount = $inputs['escrow_amount'];
+            $escrowRecord->transaction_id = $transaction->transaction_id;
+            $escrowRecord->admin_percentage = intval($this->app()->options()->fs_escrow_admin_percentage);
+
+            $escrowRecord->save();
+
+            $parent->setEscrowId($escrowRecord->escrow_id);
         }
 
         return $parent;

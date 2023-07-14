@@ -1,14 +1,16 @@
 <?php
-// FROM HASH: 2c2d8ecf7cc7743a4450c9a800ac38ba
+// FROM HASH: ea42b682aeae822016456790551a54ec
 return array(
 'macros' => array('escrow' => array(
 'arguments' => function($__templater, array $__vars) { return array(
 		'escrow' => '!',
+		'type' => '!',
 	); },
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '
+	
 	';
 	if ($__vars['escrow'] AND ($__vars['escrow']['Thread']['escrow_id'] != 0)) {
 		$__finalCompiled .= '
@@ -25,9 +27,24 @@ return array(
 					</h3>
 					<div class="contentRow-minor contentRow-minor--hideLinks">
 						<ul class="listInline listInline--bullet">
-							<li>' . $__templater->func('username_link', array($__vars['escrow']['Thread']['User'], false, array(
-			'defaultname' => $__vars['escrow']['Thread']['User']['username'],
-		))) . '</li>
+							<li>
+								';
+		if ($__vars['type'] == 'my') {
+			$__finalCompiled .= '
+									' . $__templater->func('username_link', array($__vars['escrow']['User'], false, array(
+				'defaultname' => $__vars['escrow']['User']['username'],
+			))) . '
+									';
+		} else if ($__vars['type'] == 'mentioned') {
+			$__finalCompiled .= '
+									' . $__templater->func('username_link', array($__vars['escrow']['Thread']['User'], false, array(
+				'defaultname' => $__vars['escrow']['Thread']['User']['username'],
+			))) . '
+									
+								';
+		}
+		$__finalCompiled .= '
+							</li>
 							<li>' . $__templater->func('date_dynamic', array($__vars['escrow']['Thread']['post_date'], array(
 		))) . '</li>
 							<li>' . 'Amount' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->filter($__vars['escrow']['escrow_amount'], array(array('number', array()),), true) . '</li>

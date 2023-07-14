@@ -107,7 +107,6 @@ class Escrow extends AbstractController
 
         $viewpParams = [
             'escrows' => $escrows->fetch(),
-
         ];
         return $this->view('FS\Escrow', 'fs_escrow_escrow_list', $viewpParams);
     }
@@ -125,6 +124,7 @@ class Escrow extends AbstractController
 
         $viewpParams = [
             'escrows' => $escrows->fetch(),
+
 
         ];
         return $this->view('FS\Escrow', 'fs_escrow_escrow_list', $viewpParams);
