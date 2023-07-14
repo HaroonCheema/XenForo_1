@@ -77,11 +77,23 @@
         "version_string": "1.0.0 Alpha",
         "hash": "ea4788705e6873b424c65e91c2846b19"
     },
+    "fs_escrow_cant_mention_own_name.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "51ef16a1a4a797d21fb901d2e9b3cfcc"
+    },
     "fs_escrow_confirm_action.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "8ce3fc1738224d2a8f4f00fa2a0e41dd"
+    },
+    "fs_escrow_enter_valid_data.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e542c204102ae1eed9cbe03cf69187ea"
     },
     "fs_escrow_form_status.txt": {
         "global_cache": false,

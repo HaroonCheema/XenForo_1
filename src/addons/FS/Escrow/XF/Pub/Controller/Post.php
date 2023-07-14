@@ -19,6 +19,23 @@ class Post extends XFCP_Post
 
         if ($thread->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum)) {
 
+            $inputs = $this->filter([
+                'to_user' => 'str',
+                'escrow_amount' => 'int',
+            ]);
+
+            if (!$inputs['to_user'] || $inputs['escrow_amount'] < 1) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_enter_valid_data"))
+                );
+            }
+
+            if ($this->filter('to_user', 'str') == $thread->User->username) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_cant_mention_own_name"))
+                );
+            }
+
             $user = $this->em()->findOne('XF:User', ['username' => $this->filter('to_user', 'str')]);
 
             if (!$user) {
@@ -28,6 +45,8 @@ class Post extends XFCP_Post
             }
 
             $visitor = \XF::visitor();
+
+            $transaction = null;
 
             if ($this->filter('escrow_amount', 'uint') == $thread->Escrow->escrow_amount && $thread->Escrow->to_user == $user->user_id) {
                 # code...
@@ -41,8 +60,9 @@ class Post extends XFCP_Post
 
                 $transaction = $escrowService->escrowTransaction($visitor->user_id, $depAmount, $visitor->deposit_amount, 'Deposit');
 
-                $this->updateEscrow($thread, $transaction);
+                // $this->updateEscrow($thread, $transaction);
             } elseif ($this->filter('escrow_amount', 'uint') && $this->filter('escrow_amount', 'uint') > $thread->Escrow->escrow_amount) {
+
                 $withdrawAmount = $this->filter('escrow_amount', 'uint') - $thread->Escrow->escrow_amount;
 
                 if ($visitor->deposit_amount < $withdrawAmount) {
@@ -57,8 +77,9 @@ class Post extends XFCP_Post
 
                 $transaction = $escrowService->escrowTransaction($visitor->user_id, $withdrawAmount, $visitor->deposit_amount, 'Freeez');
 
-                $this->updateEscrow($thread, $transaction);
+                // $this->updateEscrow($thread, $transaction);
             }
+            $this->updateEscrow($thread, $transaction);
         }
         return $parent;
     }
@@ -79,11 +100,18 @@ class Post extends XFCP_Post
                 $this->error(\XF::phrase("fs_escrow_user_not_found"))
             );
         } elseif ($thread->Escrow->to_user != $user->user_id) {
+
             $thread->Escrow->to_user = $user->user_id;
         }
 
-        $thread->Escrow->escrow_amount = $inputs['escrow_amount'];
-        $thread->Escrow->transaction_id = $transaction->transaction_id;
+        if ($transaction) {
+            $thread->Escrow->transaction_id = $transaction->transaction_id;
+        }
+
+        if ($thread->Escrow->escrow_amount != $inputs['escrow_amount']) {
+
+            $thread->Escrow->escrow_amount = $inputs['escrow_amount'];
+        }
 
         $thread->Escrow->save();
 

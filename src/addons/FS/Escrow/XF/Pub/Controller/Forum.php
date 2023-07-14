@@ -24,7 +24,6 @@ class Forum extends XFCP_Forum
 
         $totalAmount = $this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage);
 
-
         if ($forum->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && $visitor->deposit_amount < $totalAmount) {
             throw $this->exception(
                 $this->error(\XF::phrase("fs_escrow_not_enough_amount"))
@@ -39,6 +38,18 @@ class Forum extends XFCP_Forum
                 'to_user' => 'str',
                 'escrow_amount' => 'int',
             ]);
+
+            if (!$inputs['to_user'] || $inputs['escrow_amount'] < 1) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_enter_valid_data"))
+                );
+            }
+
+            if ($this->filter('to_user', 'str') == $visitor->username) {
+                throw $this->exception(
+                    $this->error(\XF::phrase("fs_escrow_cant_mention_own_name"))
+                );
+            }
 
             $user = $this->em()->findOne('XF:User', ['username' => $inputs['to_user']]);
 

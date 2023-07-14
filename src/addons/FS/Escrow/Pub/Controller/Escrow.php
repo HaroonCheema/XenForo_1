@@ -15,7 +15,6 @@ class Escrow extends AbstractController
             'message' => \XF::phrase('fs_escrow_rules'),
             "display_image" => "avatar",
             "display_style" => "primary",
-
         ];
         $viewpParams = [
             'rules' => $rules

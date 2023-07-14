@@ -16,7 +16,8 @@ class Member extends XFCP_Member
         }
 
         $user = $this->assertViewableUser($params->user_id);
-        $escrows = $this->finder('FS\Escrow:Escrow')->where('user_id', $user->user_id);
+        $escrows = $this->finder('FS\Escrow:Escrow')->where('user_id', $user->user_id)->order('last_update', 'DESC');
+
         $viewpParams = [
             'escrows' => $escrows->fetch(),
             'type' => 'my',
@@ -34,7 +35,7 @@ class Member extends XFCP_Member
             );
         }
         $user = $this->assertViewableUser($params->user_id);
-        $escrows = $this->finder('FS\Escrow:Escrow')->where('to_user', $user->user_id);
+        $escrows = $this->finder('FS\Escrow:Escrow')->where('to_user', $user->user_id)->order('last_update', 'DESC');
         $viewpParams = [
             'escrows' => $escrows->fetch(),
             'type' => 'mentioned',
@@ -54,7 +55,7 @@ class Member extends XFCP_Member
         }
         $page = $this->filterPage();
         $perPage = 2;
-        $logs = $this->finder('FS\Escrow:Transaction')->where('user_id', $user->user_id);
+        $logs = $this->finder('FS\Escrow:Transaction')->where('user_id', $user->user_id)->order('transaction_id', 'DESC');
         // $logs->limitByPage($page, $perPage);
         $viewpParams = [
 
