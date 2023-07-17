@@ -311,11 +311,29 @@
         "version_string": "1.0.0 Alpha",
         "hash": "b8d656781296b85f8ea09a91d1fd0e5e"
     },
+    "x_approve_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "8767d8c94bc23b9c919ced73fda1fc12"
+    },
+    "x_cancel_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "1a5eaf130090d4d586773b85565c6520"
+    },
     "x_mentioned_you_in_escrow_y.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "923578c32b2951a684def42da9a7b47a"
+    },
+    "x_payment_escrow_y.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "4a7cd0550e6ee679eac74e7b94d4fef0"
     },
     "x_quoted_your_post_in_escrow_y.txt": {
         "global_cache": false,

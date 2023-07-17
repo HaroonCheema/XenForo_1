@@ -9,6 +9,21 @@
         "version_string": "1.0.0 Alpha",
         "hash": "dfc7df537ba5c15c6d9efab8aa06329e"
     },
+    "public/alert_fs_escrow_escrow_approve.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "079843c73f2002800173c926cf3c9d90"
+    },
+    "public/alert_fs_escrow_escrow_cancel.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "0ee82761619f9e2d9dd69b77fd2aed3b"
+    },
+    "public/alert_fs_escrow_escrow_payment.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "81d7478595a0ce3608899dbbdbddcb71"
+    },
     "public/fs_escrow_approve.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

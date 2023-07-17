@@ -73,7 +73,10 @@
   <phrase title="option_explain.fs_escrow_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_group.fsEscrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Escrow]]></phrase>
   <phrase title="option_group_description.fsEscrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Escrow]]></phrase>
+  <phrase title="x_approve_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} approve a escrow named {title}.]]></phrase>
+  <phrase title="x_cancel_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} cancel a escrow named {title}.]]></phrase>
   <phrase title="x_mentioned_you_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} mentioned you in an escrow {title}.]]></phrase>
+  <phrase title="x_payment_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} payment a escrow named {title}.]]></phrase>
   <phrase title="x_quoted_your_post_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} quoted your post in the escrow {title}.]]></phrase>
   <phrase title="x_replied_to_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} replied to the escrow {title}.]]></phrase>
   <phrase title="x_started_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} started a escrow named {title}.]]></phrase>

@@ -155,8 +155,8 @@ class Escrow extends AbstractController
 
         $escrow = $this->assertDataExists($params->escrow_id);
 
-
         if ($this->isPost()) {
+
             $this->cancelEscrow($escrow);
 
             return $this->redirect(
@@ -180,6 +180,10 @@ class Escrow extends AbstractController
 
             $this->approveEscrow($escrow);
 
+            /** @var Escrow $notifier */
+            $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
+            $notifier->escrowApproveAlert();
+
             return $this->redirect(
                 $this->getDynamicRedirect($this->buildLink('escrow'), $escrow->Thread)
             );
@@ -196,12 +200,16 @@ class Escrow extends AbstractController
     {
         $escrow = $this->assertDataExists($params->escrow_id);
 
-        /** @var \XF\ControllerPlugin\Delete $plugin */
-        $plugin = $this->plugin('XF:Delete');
+        // /** @var \XF\ControllerPlugin\Delete $plugin */
+        // $plugin = $this->plugin('XF:Delete');
 
         if ($this->isPost()) {
 
             $this->paymentEscrow($escrow);
+
+            /** @var Escrow $notifier */
+            $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
+            $notifier->escrowPaymentAlert();
 
             return $this->redirect(
                 $this->getDynamicRedirect($this->buildLink('escrow'), $escrow->Thread)
@@ -244,12 +252,19 @@ class Escrow extends AbstractController
                     'escrow_status' => '3',
                     'last_update' => \XF::$time,
                 ]);
+
+                /** @var Escrow $notifier */
+                $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
+                $notifier->escrowCancelByOwnerAlert();
             } else {
                 // $escrow->fastUpdate('escrow_status', '2');
                 $escrow->bulkSet([
                     'escrow_status' => '2',
                     'last_update' => \XF::$time,
                 ]);
+                /** @var Escrow $notifier */
+                $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
+                $notifier->escrowCancelAlert();
             }
 
             $escrow->save();
