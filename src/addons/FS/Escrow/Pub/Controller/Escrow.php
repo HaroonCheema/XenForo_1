@@ -218,7 +218,8 @@ class Escrow extends AbstractController
         $this->insertTransaction();
 
         return $this->redirect(
-            $this->getDynamicRedirect($this->buildLink('escrow/deposit'), false)
+            // $this->getDynamicRedirect($this->buildLink('escrow/deposit'), false)
+            $this->getDynamicRedirect()
         );
     }
 
@@ -251,7 +252,6 @@ class Escrow extends AbstractController
             $this->notFound(\XF::phrase("fs_escrow_amount_required"))
         );
     }
-
 
     public function actionMyEscrow(ParameterBag $params)
     {
@@ -288,6 +288,7 @@ class Escrow extends AbstractController
         ];
         return $this->view('FS\Escrow', 'fs_escrow_escrow_list', $viewpParams);
     }
+
     public function actionLogs(ParameterBag $params)
     {
         $visitor = \XF::visitor();
@@ -399,11 +400,11 @@ class Escrow extends AbstractController
         }
 
         if ($escrow) {
-            $visitor->fastUpdate('deposit_amount', ($visitor->deposit_amount + ($escrow->Transaction->transaction_amount + intval($this->app()->options()->fs_escrow_applicable_forum))));
+            $visitor->fastUpdate('deposit_amount', number_format(($visitor->deposit_amount + ($escrow->Transaction->transaction_amount + (($escrow->admin_percentage / 100) * $escrow->Transaction->transaction_amount))), 2));
 
             $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-            $escrowService->escrowTransaction($visitor->user_id, ($escrow->Transaction->transaction_amount + intval($this->app()->options()->fs_escrow_applicable_forum)), $visitor->deposit_amount, 'Cancel', $escrow->escrow_id);
+            $escrowService->escrowTransaction($visitor->user_id, number_format(($escrow->Transaction->transaction_amount + (($escrow->admin_percentage / 100) * $escrow->Transaction->transaction_amount)), 2), $visitor->deposit_amount, 'Cancel', $escrow->escrow_id);
 
             $visitor = \XF::visitor();
 

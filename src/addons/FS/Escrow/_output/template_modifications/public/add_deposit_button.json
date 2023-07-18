@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "str_replace",
     "find": "<li><a href=\"{{ link('account/ignored') }}\" class=\"menu-linkRow\">{{ phrase('ignoring') }}</a></li>",
-    "replace": "$0\n<li><a href=\"{{ link('escrow/deposit') }}\" class=\"menu-linkRow\">{{ phrase('fs_escrow_amount_deposit') }}</a></li>"
+    "replace": "$0\n<li><a href=\"{{ link('escrow/deposit') }}\" class=\"menu-linkRow\" data-xf-click=\"overlay\">{{ phrase('fs_escrow_amount_deposit') }}</a></li>"
 }

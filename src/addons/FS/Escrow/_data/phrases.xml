@@ -31,6 +31,7 @@
   <phrase title="fs_escrow_enter_valid_data" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Enter valid values...!]]></phrase>
   <phrase title="fs_escrow_form_status" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Status]]></phrase>
   <phrase title="fs_escrow_logs" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Logs]]></phrase>
+  <phrase title="fs_escrow_mentioned_by" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned By]]></phrase>
   <phrase title="fs_escrow_mentioned_username" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned User]]></phrase>
   <phrase title="fs_escrow_not_allowed" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Action not allowed]]></phrase>
   <phrase title="fs_escrow_not_enough_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Insufficient Balance...!]]></phrase>

@@ -84,6 +84,7 @@ return array(
 	', array(
 			'href' => $__templater->func('link', array('escrow/deposit', ), false),
 			'class' => 'button--link',
+			'data-xf-click' => 'overlay',
 		), '', array(
 		)) . '
 ';

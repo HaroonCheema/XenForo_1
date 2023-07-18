@@ -22,7 +22,7 @@ class Forum extends XFCP_Forum
 
         $visitor = \XF::visitor();
 
-        $totalAmount = $this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage);
+        $totalAmount = $this->filter('escrow_amount', 'uint') + number_format(((intval($this->app()->options()->fs_escrow_admin_percentage) / 100) * $this->filter('escrow_amount', 'uint')), 2);
 
         if ($forum->node_id ==  intval($this->app()->options()->fs_escrow_applicable_forum) && $visitor->deposit_amount < $totalAmount) {
             throw $this->exception(
@@ -63,7 +63,7 @@ class Forum extends XFCP_Forum
 
             $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-            $transaction = $escrowService->escrowTransaction($visitor->user_id, ($this->filter('escrow_amount', 'uint') + intval($this->app()->options()->fs_escrow_admin_percentage)), $visitor->deposit_amount, 'Freeze', 0);
+            $transaction = $escrowService->escrowTransaction($visitor->user_id, number_format(($this->filter('escrow_amount', 'uint') + ((intval($this->app()->options()->fs_escrow_admin_percentage) / 100) * $this->filter('escrow_amount', 'uint'))), 2), $visitor->deposit_amount, 'Freeze', 0);
 
             $escrowRecord = $this->em()->create('FS\Escrow:Escrow');
 
@@ -109,7 +109,4 @@ class Forum extends XFCP_Forum
 
         return $parent;
     }
-
-
-    
 }

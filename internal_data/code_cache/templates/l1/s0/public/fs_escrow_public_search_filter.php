@@ -7,7 +7,7 @@ return array(
 	$__finalCompiled .= $__templater->form('
 	
 	<div class="menu-row">
-    	' . 'fs_escrow_mentioned_by:' . '
+    	' . 'Mentioned By' . $__vars['xf']['language']['label_separator'] . '
 		<div class="u-inputSpacer">
 			' . $__templater->formTextBox(array(
 		'name' => 'fs_escrow_mentioned_username',
