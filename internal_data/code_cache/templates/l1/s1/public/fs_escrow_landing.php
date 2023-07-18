@@ -1,10 +1,49 @@
 <?php
-// FROM HASH: 11be86ea0530873b16d59a7787a7b017
+// FROM HASH: 708ca4a8581bc109b0d4c96cfac1e56b
 return array(
+'macros' => array('search_menu' => array(
+'arguments' => function($__templater, array $__vars) { return array(
+		'conditions' => '!',
+	); },
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Escrow Rules');
+	$__finalCompiled .= '
+  <div class="block-filterBar">
+    <div class="filterBar">
+      <a
+        class="filterBar-menuTrigger"
+        data-xf-click="menu"
+        role="button"
+        tabindex="0"
+        aria-expanded="false"
+        aria-haspopup="true"
+        >' . 'Filters' . '</a
+      >
+      <div
+        class="menu menu--wide"
+        data-menu="menu"
+        aria-hidden="true"
+        data-href="' . $__templater->func('link', array('escrow/refine-search', null, $__vars['conditions'], ), true) . '"
+        data-load-target=".js-filterMenuBody"
+      >
+        <div class="menu-content">
+          <h4 class="menu-header">' . 'Show only' . $__vars['xf']['language']['label_separator'] . '</h4>
+          <div class="js-filterMenuBody">
+            <div class="menu-row">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+';
+	return $__finalCompiled;
+}
+)),
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Escrow');
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
 <div class="block-container">
@@ -27,60 +66,68 @@ return array(
 	}
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 			' . $__compilerTemp1 . '
-			
 		');
 	$__finalCompiled .= '
-		<!--start tabs-->
-		';
-	if (($__vars['xf']['visitor']['user_id'] != 0) OR $__vars['xf']['visitor']['is_admin']) {
-		$__finalCompiled .= '
-			<div class="block">
-				<h2 class="block-tabHeader block-tabHeader--memberTabs tabs hScroller"
-					data-xf-init="tabs h-scroller"
-					data-panes=".js-memberTabPanes"
-					data-state="replace"
-					role="tablist">
-					<span class="hScroller-scroll">
-						' . '
-							<a href="' . $__templater->func('link', array('members/my-escrow', $__vars['xf']['visitor'], ), true) . '"
-							   class="tabs-tab" id="my-escrow" role="tab">
-								' . 'My Escrows' . '
-							</a>
-
-							<a href="' . $__templater->func('link', array('members/mentioned-escrow', $__vars['xf']['visitor'], ), true) . '"
-							   class="tabs-tab" id="mentioned-escrow" role="tab">
-								' . 'Mentioned Escrow' . '
-							</a>
-
-							<a href="' . $__templater->func('link', array('members/logs', $__vars['xf']['visitor'], ), true) . '"
-							   class="tabs-tab" id="escrow-logs" role="tab">
-								' . 'Escrow Logs' . '
-							</a>
-
-						' . '
-					</span>
-				</h2>
-			</div>
-		';
-	}
-	$__finalCompiled .= '
-		<!--tabs content-->
 		
-		<ul class="tabPanes js-memberTabPanes">
-			' . '
-
-			';
-	if (($__vars['xf']['visitor']['user_id'] != 0) OR $__vars['xf']['visitor']['is_admin']) {
+		<!--start --->
+	
+		';
+	if ($__vars['xf']['visitor']['user_id'] != 0) {
 		$__finalCompiled .= '
-				<li data-href="' . $__templater->func('link', array('members/my-escrow', $__vars['xf']['visitor'], ), true) . '" role="tabpanel" aria-labelledby="my-escrow">
-						<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-				</li>
-				<li data-href="' . $__templater->func('link', array('members/mentioned-escrow', $__vars['xf']['visitor'], ), true) . '" role="tabpanel" aria-labelledby="mentioned-escrow">
-						<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-				</li>
-				<li data-href="' . $__templater->func('link', array('members/logs', $__vars['xf']['visitor'], ), true) . '" role="tabpanel" aria-labelledby="escrow-logs">
-						<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
-				</li>
+    	' . $__templater->callMacro(null, 'search_menu', array(
+			'conditions' => $__vars['conditions'],
+		), $__vars) . '
+				<div class="structItemContainer">
+					';
+		if (!$__templater->test($__vars['escrows'], 'empty', array())) {
+			$__finalCompiled .= '
+						';
+			if ($__templater->isTraversable($__vars['escrows'])) {
+				foreach ($__vars['escrows'] AS $__vars['escrow']) {
+					$__finalCompiled .= '
+							';
+					if ($__vars['escrow']['Thread']) {
+						$__finalCompiled .= '
+								  ' . $__templater->callMacro('fs_escrow_list_macro', 'listing', array(
+							'listing' => $__vars['escrow'],
+							'type' => '',
+						), $__vars) . '
+							';
+					}
+					$__finalCompiled .= '
+						';
+				}
+			}
+			$__finalCompiled .= '
+					';
+		} else {
+			$__finalCompiled .= '
+					  <div class="block-row">
+						' . 'No Data Found...!' . '
+					  </div>
+					';
+		}
+		$__finalCompiled .= '
+			  </div>
+				<div class="block-footer">
+					<div class="block-body block-row">
+					  <dl class="pairs pairs--justified">
+						<dt><span class="block-footer-counter">' . $__templater->func('display_totals', array($__vars['escrows'], $__vars['total'], ), true) . '</span></dt>
+							<dd>
+								' . $__templater->func('page_nav', array(array(
+			'page' => $__vars['page'],
+			'total' => $__vars['total'],
+			'link' => 'escrow',
+			'data' => $__vars['escrows'],
+			'params' => $__vars['conditions'],
+			'wrapperclass' => 'block-outer-main',
+			'perPage' => $__vars['perPage'],
+		))) . '
+						  </dd>
+					  </dl>
+					</div>
+			  </div>
+		
 			';
 	} else {
 		$__finalCompiled .= '
@@ -89,12 +136,36 @@ return array(
 			';
 	}
 	$__finalCompiled .= '
+		';
+	$__templater->modifySideNavHtml(null, '
+			' . $__templater->callMacro('fs_escrow_list_macro', 'fs_escrow_Count', array(
+		'escrowsCount' => $__vars['escrowsCount'],
+		'isSelected' => $__vars['isSelected']['type'],
+	), $__vars) . '
 
-			' . '
-		</ul>
+			' . $__templater->callMacro('fs_escrow_list_macro', 'fs_escrow_stats', array(
+		'stats' => $__vars['stats'],
+	), $__vars) . '
+		', 'replace');
+	$__finalCompiled .= '
+	
+				
 
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- Filter Bar Macro Start -->
+' . '
+		
+
+		<!---end --->
     
     </div>
  </div>';

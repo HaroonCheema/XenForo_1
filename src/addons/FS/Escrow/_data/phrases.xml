@@ -18,6 +18,7 @@
   <phrase title="fs_escrow_admin_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Title]]></phrase>
   <phrase title="fs_escrow_admin_to" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned]]></phrase>
   <phrase title="fs_escrow_admins_lastUpdate" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[last opdate]]></phrase>
+  <phrase title="fs_escrow_all" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[All Escrows]]></phrase>
   <phrase title="fs_escrow_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Amount]]></phrase>
   <phrase title="fs_escrow_amount_deposit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Deposit]]></phrase>
   <phrase title="fs_escrow_amount_required" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Enter amount...!]]></phrase>
@@ -33,6 +34,7 @@
   <phrase title="fs_escrow_mentioned_username" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned User]]></phrase>
   <phrase title="fs_escrow_not_allowed" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Action not allowed]]></phrase>
   <phrase title="fs_escrow_not_enough_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Insufficient Balance...!]]></phrase>
+  <phrase title="fs_escrow_page_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow]]></phrase>
   <phrase title="fs_escrow_payment" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Release Payment]]></phrase>
   <phrase title="fs_escrow_place_holder" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow title]]></phrase>
   <phrase title="fs_escrow_please_confirm_that_you_want_to_approve_following" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Please confirm that you want to approve the following]]></phrase>
@@ -49,6 +51,7 @@
 </ol>]]></phrase>
   <phrase title="fs_escrow_rules_heading" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Rules]]></phrase>
   <phrase title="fs_escrow_start_username" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Starter Username]]></phrase>
+  <phrase title="fs_escrow_statistics" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Stats]]></phrase>
   <phrase title="fs_escrow_status_0" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Waiting for approvel]]></phrase>
   <phrase title="fs_escrow_status_1" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Aproved. Processing]]></phrase>
   <phrase title="fs_escrow_status_2" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Cancelled by mentioned User]]></phrase>
@@ -61,6 +64,7 @@
   <phrase title="fs_escrow_trans_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Type]]></phrase>
   <phrase title="fs_escrow_user_not_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[User not found...!]]></phrase>
   <phrase title="fs_escrow_you_must_login" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Sorry, you need to login First...!]]></phrase>
+  <phrase title="fs_escrows_details" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Overview]]></phrase>
   <phrase title="fs_mentioned_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Mentioned Escrow]]></phrase>
   <phrase title="fs_my_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[My Escrows]]></phrase>
   <phrase title="nav.fs_escrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow]]></phrase>

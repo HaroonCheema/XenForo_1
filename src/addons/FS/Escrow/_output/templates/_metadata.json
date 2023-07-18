@@ -42,22 +42,27 @@
     "public/fs_escrow_escrow_list.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "83ddf6f8911b3e2a6b9d4a53db505632"
+        "hash": "63cc9b24522a4a667f15de9a76f54a32"
     },
     "public/fs_escrow_landing.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "11be86ea0530873b16d59a7787a7b017"
+        "hash": "708ca4a8581bc109b0d4c96cfac1e56b"
     },
     "public/fs_escrow_list_macro.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "ea42b682aeae822016456790551a54ec"
+        "hash": "3a6854baae8230be899e56cd7b462ef4"
+    },
+    "public/fs_escrow_list_view.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "a4dd1e2bc982b2001d92549755a8c614"
     },
     "public/fs_escrow_logs.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "2bba51554d38dc192cb8565751a295db"
+        "hash": "34da248171d62d9cea4f26a4c8008842"
     },
     "public/fs_escrow_mentioned_escrow.html": {
         "version_id": 1000010,
@@ -68,5 +73,10 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "3786289d1702b4f06e9528a35c2d885a"
+    },
+    "public/fs_escrow_public_search_filter.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "882caa4f8d8c529262cb9653068f4198"
     }
 }

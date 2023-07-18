@@ -1,4 +1,4 @@
-<xf:title page="{$page}">{{ phrase('fs_escrow_rules_heading') }}</xf:title>
+<xf:title page="{$page}">{{ phrase('fs_escrow_page_title') }}</xf:title>
 <div class="block-container">
     <div class="block-body">
 		<xf:macro template="notice_macros" name="notice_list" arg-type="block" arg-notices="{$rules}" />
@@ -10,63 +10,113 @@
 					icon="write"
 					>{{ phrase('fs_escrow_add') }}</xf:button>
 			</xf:if>
-			
 		</xf:pageaction>
-		<!--start tabs-->
-		<xf:if is="$xf.visitor.user_id!=0 OR $xf.visitor.is_admin">
-			<div class="block">
-				<h2 class="block-tabHeader block-tabHeader--memberTabs tabs hScroller"
-					data-xf-init="tabs h-scroller"
-					data-panes=".js-memberTabPanes"
-					data-state="replace"
-					role="tablist">
-					<span class="hScroller-scroll">
-						<!--[XF:tabs:start]-->
-							<a href="{{ link('members/my-escrow',$xf.visitor ) }}"
-							   class="tabs-tab" id="my-escrow" role="tab">
-								{{ phrase('fs_my_escrow') }}
-							</a>
-
-							<a href="{{ link('members/mentioned-escrow',$xf.visitor) }}"
-							   class="tabs-tab" id="mentioned-escrow" role="tab">
-								{{ phrase('fs_mentioned_escrow') }}
-							</a>
-
-							<a href="{{ link('members/logs',$xf.visitor) }}"
-							   class="tabs-tab" id="escrow-logs" role="tab">
-								{{ phrase('fs_escrow_logs') }}
-							</a>
-
-						<!--[XF:tabs:end]-->
-					</span>
-				</h2>
-			</div>
-		</xf:if>
-		<!--tabs content-->
 		
-		<ul class="tabPanes js-memberTabPanes">
-			<!--[XF:tab_panes:start]-->
-
-			<xf:if is="$xf.visitor.user_id!=0 OR $xf.visitor.is_admin">
-				<li data-href="{{ link('members/my-escrow',$xf.visitor) }}" role="tabpanel" aria-labelledby="my-escrow">
-						<div class="blockMessage">{{ phrase('loading...') }}</div>
-				</li>
-				<li data-href="{{ link('members/mentioned-escrow',$xf.visitor) }}" role="tabpanel" aria-labelledby="mentioned-escrow">
-						<div class="blockMessage">{{ phrase('loading...') }}</div>
-				</li>
-				<li data-href="{{ link('members/logs',$xf.visitor) }}" role="tabpanel" aria-labelledby="escrow-logs">
-						<div class="blockMessage">{{ phrase('loading...') }}</div>
-				</li>
+		<!--start --->
+	
+		<xf:if is="$xf.visitor.user_id!=0">
+    	<xf:macro name="search_menu" arg-conditions="{$conditions}" />
+				<div class="structItemContainer">
+					<xf:if is="$escrows is not empty">
+						<xf:foreach loop="$escrows" value="$escrow">
+							<xf:if is="$escrow.Thread">
+								  <xf:macro
+									template="fs_escrow_list_macro"
+									name="listing"
+									arg-listing="{$escrow}"
+									arg-type=""
+								  />
+							</xf:if>
+						</xf:foreach>
+					<xf:else />
+					  <div class="block-row">
+						{{ phrase('no_any_data_found') }}
+					  </div>
+					</xf:if>
+			  </div>
+				<div class="block-footer">
+					<div class="block-body block-row">
+					  <dl class="pairs pairs--justified">
+						<dt><span class="block-footer-counter">{{ display_totals($escrows, $total) }}</span></dt>
+							<dd>
+								<xf:pagenav
+											page="{$page}"
+											perpage="{$perPage}"
+											total="{$total}"
+											link="escrow"
+											data="{$escrows}"
+											params="{$conditions}"
+											wrapperclass="block-outer-main"
+											/>
+						  </dd>
+					  </dl>
+					</div>
+			  </div>
+		
 			<xf:else />
 				<div class="blockMessage">{{ phrase('fs_escrow_you_must_login') }}</div>
 				
 			</xf:if>
+		<xf:sidenav>
+			<xf:macro
+					  template="fs_escrow_list_macro"
+					  name="fs_escrow_Count"
+					  arg-escrowsCount="{$escrowsCount}"
+					  arg-isSelected="{$isSelected.type}"
+					  />
 
-			<!--[XF:tab_panes:end]-->
-		</ul>
+			<xf:macro
+					  template="fs_escrow_list_macro"
+					  name="fs_escrow_stats"
+					  arg-stats="{$stats}"
+					  />
+		</xf:sidenav>
+	
+				
 
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- Filter Bar Macro Start -->
+<xf:macro name="search_menu" arg-conditions="!">
+  <div class="block-filterBar">
+    <div class="filterBar">
+      <a
+        class="filterBar-menuTrigger"
+        data-xf-click="menu"
+        role="button"
+        tabindex="0"
+        aria-expanded="false"
+        aria-haspopup="true"
+        >{{ phrase('filters') }}</a
+      >
+      <div
+        class="menu menu--wide"
+        data-menu="menu"
+        aria-hidden="true"
+        data-href="{{ link('escrow/refine-search', null, $conditions)}}"
+        data-load-target=".js-filterMenuBody"
+      >
+        <div class="menu-content">
+          <h4 class="menu-header">{{ phrase('show_only:') }}</h4>
+          <div class="js-filterMenuBody">
+            <div class="menu-row">{{ phrase('loading...') }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</xf:macro>
+		
+
+		<!---end --->
     
     </div>
  </div>

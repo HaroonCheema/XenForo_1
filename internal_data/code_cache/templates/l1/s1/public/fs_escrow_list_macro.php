@@ -1,7 +1,106 @@
 <?php
-// FROM HASH: ea42b682aeae822016456790551a54ec
+// FROM HASH: 3a6854baae8230be899e56cd7b462ef4
 return array(
-'macros' => array('escrow' => array(
+'macros' => array('listing' => array(
+'arguments' => function($__templater, array $__vars) { return array(
+		'listing' => '!',
+		'type' => null,
+	); },
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__finalCompiled .= '
+	';
+	$__templater->includeCss('structured_list.less');
+	$__finalCompiled .= '
+	';
+	$__templater->includeCss('fs_escrow_list_view.less');
+	$__finalCompiled .= '
+	<div class="structItem structItem--listing js-inlineModContainer " id="escrow-' . $__templater->escape($__vars['listing']['escrow_id']) . '" data-author="' . ($__templater->escape($__vars['listing']['Thread']['username']) ?: '') . '">
+		<div class="structItem-cell structItem-cell--icon structItem-cell--iconExpanded structItem-cell--iconListingCoverImage">
+			<div class="structItem-iconContainer">
+				';
+	if ($__templater->func('count', array($__vars['listing']['Thread']['FirstPost']['Attachments'], ), false)) {
+		$__finalCompiled .= '
+						<a href="' . $__templater->func('link', array('threads', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on">
+							<img src ="' . $__templater->func('link', array('full:attachments', $__templater->method($__vars['listing']['Thread']['FirstPost']['Attachments'], 'first', array()), ), true) . '" style="min-height: 92px; max-height: 92px;"></a>
+				';
+	} else {
+		$__finalCompiled .= '
+						<a href="' . $__templater->func('link', array('threads', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on">
+							' . $__templater->func('avatar', array($__vars['listing']['Thread']['User'], 'o', false, array(
+			'style' => 'width: 92px; height: 92px;',
+			'defaultname' => $__vars['listing']['Thread']['User']['username'],
+		))) . '</a>
+				';
+	}
+	$__finalCompiled .= '		
+			</div>
+		</div>
+		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
+			<div class="structItem-title">
+				<a href="' . $__templater->func('link', array('threads/', $__vars['listing']['Thread'], ), true) . '" class="" data-tp-primary="on">' . $__templater->escape($__vars['listing']['Thread']['title']) . '</a>
+					' . '
+						</div>
+			<div class="structItem-minor">
+
+					<ul class="structItem-parts">
+						<li>' . $__templater->func('username_link', array($__vars['listing']['Thread']['User'], false, array(
+		'defaultname' => $__vars['listing']['Thread']['User'],
+	))) . '</li>
+						<li class="structItem-startDate">
+							' . $__templater->func('date_dynamic', array($__vars['listing']['Thread']['post_date'], array(
+	))) . ' 
+						</li>
+				</ul>
+			</div>
+			
+		<div class="auction-category">' . $__templater->func('snippet', array($__vars['listing']['Thread']['FirstPost']['message'], 100, array('stripBbCode' => true, ), ), true) . '</div>
+		
+		</div>
+		<div class="structItem-cell structItem-cell--listingMeta">
+
+			<dl class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--type">
+				<dt ><b>' . 'Status' . '</b></dt>
+				<dd>
+					' . $__templater->callMacro(null, 'status', array(
+		'status' => $__vars['listing']['escrow_status'],
+	), $__vars) . '
+				</dd>
+			</dl>
+					
+			<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+				<dt>
+					<b>' . 'Amount' . '</b>
+					</dt>
+				<dd>
+					' . $__templater->escape($__vars['listing']['escrow_amount']) . '
+				</dd>
+			</dl>
+			<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+				<dt>
+					<b>' . 'Starter' . '</b>
+					</dt>
+				<dd>
+					' . $__templater->escape($__vars['listing']['Thread']['User']['username']) . '
+				</dd>
+			</dl>
+			
+			<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
+				<dt>
+					<b>' . 'Mentioned' . '</b>
+					</dt>
+				<dd>
+					' . $__templater->escape($__vars['listing']['User']['username']) . '
+				</dd>
+			</dl>
+		</div>
+	</div>
+';
+	return $__finalCompiled;
+}
+),
+'escrow' => array(
 'arguments' => function($__templater, array $__vars) { return array(
 		'escrow' => '!',
 		'type' => '!',
@@ -64,13 +163,14 @@ return array(
 'logs_table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
 		'logs' => '!',
+		'beforeId' => '',
 	); },
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '
-
-  ' . $__templater->dataRow(array(
+	
+		' . $__templater->dataRow(array(
 		'rowtype' => 'header',
 	), array(array(
 		'_type' => 'cell',
@@ -88,11 +188,13 @@ return array(
 		'_type' => 'cell',
 		'html' => ' ' . 'Balance' . ' ',
 	))) . '
-  ';
+	
+
+	';
 	if ($__templater->isTraversable($__vars['logs'])) {
 		foreach ($__vars['logs'] AS $__vars['log']) {
 			$__finalCompiled .= '
-    ' . $__templater->dataRow(array(
+		' . $__templater->dataRow(array(
 			), array(array(
 				'_type' => 'cell',
 				'html' => ' ' . $__templater->escape($__vars['log']['transaction_type']) . ' ',
@@ -110,10 +212,124 @@ return array(
 				'_type' => 'cell',
 				'html' => $__templater->escape($__vars['log']['current_amount']),
 			))) . '
-  ';
+	';
 		}
 	}
 	$__finalCompiled .= '
+';
+	return $__finalCompiled;
+}
+),
+'fs_escrow_Count' => array(
+'arguments' => function($__templater, array $__vars) { return array(
+		'escrowsCount' => '!',
+		'isSelected' => 'all',
+	); },
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__finalCompiled .= '
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">' . 'Overview' . '</h3>
+			<div class="block-body">
+				';
+	if ($__vars['escrowsCount']) {
+		$__finalCompiled .= '
+							
+					<ol class="categoryList toggleTarget is-active">
+		';
+		$__vars['isSelected'] = $__vars['isSelected'];
+		$__finalCompiled .= '
+		';
+		if ($__templater->isTraversable($__vars['escrowsCount'])) {
+			foreach ($__vars['escrowsCount'] AS $__vars['id'] => $__vars['escrow']) {
+				$__finalCompiled .= '
+
+			<li class="categoryList-item">
+		<div class="categoryList-itemRow">
+			<div class="categoryList-link" style="color:#2577b1;">
+				<a href="' . $__templater->func('link', array('escrow&type=' . $__vars['escrow']['type'], ), true) . '" class="categoryList-link' . (($__vars['isSelected'] == $__vars['escrow']['type']) ? ' is-selected' : '') . '">
+				' . $__templater->escape($__vars['escrow']['title']) . '
+			</a>
+				
+			</div>
+			<span class="categoryList-label">
+				<span class="label label--subtle label--smallest">' . $__templater->escape($__vars['escrow']['count']) . '</span>
+			</span>
+		</div>
+	</li>
+		
+		';
+			}
+		}
+		$__finalCompiled .= '
+	</ol>
+				';
+	} else {
+		$__finalCompiled .= '
+					<div class="block-row">' . 'N/A' . '</div>
+				';
+	}
+	$__finalCompiled .= '
+				
+			</div>
+		</div>
+	</div>
+';
+	return $__finalCompiled;
+}
+),
+'fs_escrow_stats' => array(
+'arguments' => function($__templater, array $__vars) { return array(
+		'stats' => '!',
+	); },
+'code' => function($__templater, array $__vars, $__extensions = null)
+{
+	$__finalCompiled = '';
+	$__finalCompiled .= '
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">' . 'Escrow Stats' . '</h3>
+			<div class="block-body">
+				';
+	if ($__vars['stats']) {
+		$__finalCompiled .= '
+							
+					<ol class="categoryList toggleTarget is-active">
+
+		';
+		if ($__templater->isTraversable($__vars['stats'])) {
+			foreach ($__vars['stats'] AS $__vars['id'] => $__vars['category']) {
+				$__finalCompiled .= '
+			
+			<li class="categoryList-item">
+		<div class="categoryList-itemRow">
+			<div class="categoryList-link" style="color:#2577b1;">
+				' . $__templater->escape($__vars['category']['title']) . '
+			</div>
+			<span class="categoryList-label">
+				<span class="label label--subtle label--smallest">' . $__templater->escape($__vars['category']['count']) . '</span>
+			</span>
+		</div>
+	</li>
+		
+		';
+			}
+		}
+		$__finalCompiled .= '
+	</ol>
+				';
+	} else {
+		$__finalCompiled .= '
+					<div class="block-row">' . 'N/A' . '</div>
+				';
+	}
+	$__finalCompiled .= '
+				
+			</div>
+		</div>
+	</div>
 ';
 	return $__finalCompiled;
 }
@@ -126,7 +342,6 @@ return array(
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '
-	<div class="block-body block-row">
 		';
 	if ($__vars['status'] == 0) {
 		$__finalCompiled .= '
@@ -154,7 +369,7 @@ return array(
 		';
 	}
 	$__finalCompiled .= '
-     </div> 
+
 		
 	
 	';
@@ -164,13 +379,19 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__finalCompiled .= '	
+	$__finalCompiled .= '
+
+' . '	
 
 
 
 <!-- placingProperTableCellTemplate -->
 
 ' . '
+
+' . '
+' . '
+
 
 
 ';

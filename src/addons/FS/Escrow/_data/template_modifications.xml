@@ -255,8 +255,10 @@ $0]]></replace>
   <modification type="public" template="thread_view" modification_key="fs_escrow_add_status_to_thread_template" description="fs_escrow_add_status_to_thread_template" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:extension name="thread_action_buttons">.*?<\/xf:extension>/is]]></find>
     <replace><![CDATA[<xf:if is="$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum">
+	<div class="block-body block-row">
 	<xf:macro template="fs_escrow_list_macro" name="status"
 			arg-status="{$thread.Escrow.escrow_status}"/>
+	</div>
 	<xf:else />
 	$0
 </xf:if>]]></replace>
