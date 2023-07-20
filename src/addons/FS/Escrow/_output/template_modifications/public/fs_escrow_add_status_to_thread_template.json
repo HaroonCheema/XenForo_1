@@ -1,9 +1,0 @@
-{
-    "template": "thread_view",
-    "description": "fs_escrow_add_status_to_thread_template",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "preg_replace",
-    "find": "/<xf:extension name=\"thread_action_buttons\">.*?<\\/xf:extension>/is",
-    "replace": "<xf:if is=\"$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum\">\n\t<div class=\"block-body block-row\">\n\t<xf:macro template=\"fs_escrow_list_macro\" name=\"status\"\n\t\t\targ-status=\"{$thread.Escrow.escrow_status}\"/>\n\t</div>\n\t<xf:else />\n\t$0\n</xf:if>"
-}

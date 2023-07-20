@@ -18,9 +18,11 @@ class MySql
             $table->addColumn('user_id', 'int')->setDefault(0);
             $table->addColumn('to_user', 'int')->setDefault(0);
             $table->addColumn('escrow_id', 'int')->setDefault(0);
-            $table->addColumn('transaction_amount', 'int')->setDefault(0);
+            // $table->addColumn('transaction_amount', 'int')->setDefault(0);
+            $table->addColumn('transaction_amount', 'decimal', '10,2');
             $table->addColumn('transaction_type', 'varchar', 100);
-            $table->addColumn('current_amount', 'int')->setDefault(0);
+            // $table->addColumn('current_amount', 'int')->setDefault(0);
+            $table->addColumn('current_amount', 'decimal', '10,2');
             $table->addColumn('created_at', 'int')->setDefault(0);
             $table->addPrimaryKey('transaction_id');
         };

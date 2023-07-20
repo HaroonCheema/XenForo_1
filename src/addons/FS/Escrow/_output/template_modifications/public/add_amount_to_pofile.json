@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "str_replace",
     "find": "<!--[XF:stat_pairs:below_trophies]-->",
-    "replace": "$0\n<xf:if is=\"$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin\">\n\t<dl class=\"pairs pairs--rows pairs--rows--centered menu-fauxLinkRow\">\n\t\t<dt>{{ phrase('fs_escrow_amount') }}</dt>\n\t\t<dd>\n\t\t\t{{$user.deposit_amount|number }}\n\t\t</dd>\n\t</dl>\n</xf:if>"
+    "replace": "$0\n<xf:if is=\"$user.user_id == $xf.visitor.user_id OR $xf.visitor.is_admin\">\n\t<dl class=\"pairs pairs--rows pairs--rows--centered menu-fauxLinkRow\">\n\t\t<dt>{{ phrase('fs_escrow_amount') }}</dt>\n\t\t<dd>\n\t\t\t{{phrase('fs_escrow_amount_symbol')}} {{$user.deposit_amount|number }}\n\t\t</dd>\n\t</dl>\n</xf:if>"
 }

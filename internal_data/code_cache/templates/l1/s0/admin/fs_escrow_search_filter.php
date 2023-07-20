@@ -61,7 +61,7 @@ return array(
 	),
 	array(
 		'value' => '4',
-		'label' => 'Completed. ',
+		'label' => 'Completed',
 		'_type' => 'option',
 	))) . '
 			</div>

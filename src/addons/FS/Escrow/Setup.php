@@ -29,7 +29,7 @@ class Setup extends AbstractSetup
 
 		$this->alterTable('xf_user', function (\XF\Db\Schema\Alter $table) {
 
-			$table->addColumn('deposit_amount', 'int')->setDefault(0);
+			$table->addColumn('deposit_amount', 'decimal', '10,2');
 		});
 		$this->alterTable('xf_thread', function (\XF\Db\Schema\Alter $table) {
 

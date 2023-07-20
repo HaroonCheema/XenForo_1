@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 3a6854baae8230be899e56cd7b462ef4
+// FROM HASH: e2e8a7fa8a7b9a0f9075b1704f86bc5f
 return array(
 'macros' => array('listing' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -74,7 +74,7 @@ return array(
 					<b>' . 'Amount' . '</b>
 					</dt>
 				<dd>
-					' . $__templater->escape($__vars['listing']['escrow_amount']) . '
+					' . '$' . $__templater->escape($__vars['listing']['escrow_amount']) . '
 				</dd>
 			</dl>
 			<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
@@ -146,7 +146,7 @@ return array(
 							</li>
 							<li>' . $__templater->func('date_dynamic', array($__vars['escrow']['Thread']['post_date'], array(
 		))) . '</li>
-							<li>' . 'Amount' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->filter($__vars['escrow']['escrow_amount'], array(array('number', array()),), true) . '</li>
+							<li>' . 'Amount' . $__vars['xf']['language']['label_separator'] . ' ' . '$' . $__templater->filter($__vars['escrow']['escrow_amount'], array(array('number', array()),), true) . '</li>
 						</ul>
 					</div>
 				</div>
@@ -187,6 +187,10 @@ return array(
 	array(
 		'_type' => 'cell',
 		'html' => ' ' . 'Balance' . ' ',
+	),
+	array(
+		'_type' => 'cell',
+		'html' => ' ' . 'fs_escrow_trans_escrow' . ' ',
 	))) . '
 	
 
@@ -194,24 +198,39 @@ return array(
 	if ($__templater->isTraversable($__vars['logs'])) {
 		foreach ($__vars['logs'] AS $__vars['log']) {
 			$__finalCompiled .= '
-		' . $__templater->dataRow(array(
-			), array(array(
+		';
+			$__compilerTemp1 = array(array(
 				'_type' => 'cell',
 				'html' => ' ' . $__templater->escape($__vars['log']['transaction_type']) . ' ',
-			),
-			array(
+			)
+,array(
 				'_type' => 'cell',
 				'html' => $__templater->func('date_dynamic', array($__vars['log']['created_at'], array(
 			))),
-			),
-			array(
+			)
+,array(
 				'_type' => 'cell',
-				'html' => ' ' . $__templater->escape($__vars['log']['transaction_amount']) . ' ',
-			),
-			array(
+				'html' => ' ' . '$' . $__templater->escape($__vars['log']['transaction_amount']) . ' ',
+			)
+,array(
 				'_type' => 'cell',
-				'html' => $__templater->escape($__vars['log']['current_amount']),
-			))) . '
+				'html' => '$' . $__templater->escape($__vars['log']['current_amount']),
+			));
+			if ($__vars['log']['escrow_id'] != 0) {
+				$__compilerTemp1[] = array(
+					'_type' => 'cell',
+					'html' => ' 
+					<a href="' . $__templater->func('link', array('threads', $__vars['log']['Escrow']['Thread'], ), true) . '"  >' . $__templater->escape($__vars['log']['Escrow']['Thread']['title']) . ' </a>
+				',
+				);
+			} else {
+				$__compilerTemp1[] = array(
+					'_type' => 'cell',
+					'html' => ' ' . 'Amount Deposit Only!' . ' ',
+				);
+			}
+			$__finalCompiled .= $__templater->dataRow(array(
+			), $__compilerTemp1) . '
 	';
 		}
 	}
@@ -361,7 +380,7 @@ return array(
 		';
 	} else if ($__vars['status'] == 4) {
 		$__finalCompiled .= '
-			' . 'Completed. ' . '
+			' . 'Completed' . '
 		';
 	} else {
 		$__finalCompiled .= '
@@ -369,8 +388,6 @@ return array(
 		';
 	}
 	$__finalCompiled .= '
-
-		
 	
 	';
 	return $__finalCompiled;

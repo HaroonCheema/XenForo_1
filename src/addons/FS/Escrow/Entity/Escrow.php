@@ -8,6 +8,16 @@ use XF\Mvc\Entity\Structure;
 class Escrow extends Entity
 {
 
+/*
+    Status Variable Abbreviation
+
+    0 = Createed / Waiting for aproval
+    1 = Approved / Processing
+    2 = Cancelled by mentioned User (to_user)
+    3 = Cancelled by Creater/Starter/Owner
+    4 = Complete /Amount paid
+*/
+
     public static function getStructure(Structure $structure)
     {
         $structure->table = 'fs_escrow';

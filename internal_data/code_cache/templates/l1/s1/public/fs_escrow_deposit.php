@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 13fc7d5c41fb7e3e56310ff5a59713ec
+// FROM HASH: 7c56dbfd6753dabfb51ab51f051926e3
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -18,7 +18,7 @@ return array(
 		'name' => 'deposit_amount',
 		'min' => '0',
 	), array(
-		'explain' => 'Current Balance' . ' ' . $__templater->escape($__vars['xf']['visitor']['deposit_amount']),
+		'explain' => 'Current Balance:' . ' ' . '$' . $__templater->escape($__vars['xf']['visitor']['deposit_amount']),
 		'label' => 'Amount',
 	)) . '
     </div>

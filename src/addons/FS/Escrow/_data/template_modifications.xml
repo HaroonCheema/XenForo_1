@@ -15,7 +15,7 @@
 							<dt>{{ phrase('fs_escrow_amount') }}</dt>
 							<dd>
 								<a href="{{ link('escrow/logs') }}" data-xf-click="overlay" class="fauxBlockLink-linkRow u-concealed">
-									{$xf.visitor.deposit_amount|number}
+									{{phrase('fs_escrow_amount_symbol')}}{$xf.visitor.deposit_amount|float}
 								</a>
 							</dd>
 						</dl>
@@ -124,7 +124,7 @@
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_escrow_applicable_forum">
 	<xf:textboxrow name="to_user" value="{{ $starterFilter ? $starterFilter.username : '' }}" label="{{ phrase('escrow_user') }}" ac="single"
 				maxlength="{{ max_length($xf.visitor, 'username') }}" id="ctrl_started_by" />
-				<xf:numberboxrow name="escrow_amount" value="" explain="{{ phrase('escrow_total_amount') }} {{$xf.visitor.deposit_amount}}" min="0" label="{{ phrase('escrow_amount') }}" />
+				<xf:numberboxrow name="escrow_amount" value="" explain="{{ phrase('escrow_total_amount') }} {{ phrase('fs_escrow_amount_symbol') }}{{$xf.visitor.deposit_amount}}" min="0" label="{{ phrase('escrow_amount') }}" />
 			 </xf:if>
 			 
 			 $0]]></replace>
@@ -144,7 +144,7 @@
 	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
 		<dt>{{ phrase('fs_escrow_amount') }}</dt>
 		<dd>
-			{{$user.deposit_amount|number }}
+			{{phrase('fs_escrow_amount_symbol')}} {{$user.deposit_amount|number }}
 		</dd>
 	</dl>
 </xf:if>]]></replace>
@@ -252,14 +252,11 @@ $0]]></replace>
 </xf:if>
 	]]></replace>
   </modification>
-  <modification type="public" template="thread_view" modification_key="fs_escrow_add_status_to_thread_template" description="fs_escrow_add_status_to_thread_template" execution_order="10" enabled="1" action="preg_replace">
+  <modification type="public" template="thread_view" modification_key="fs_escrow_add_status_overview_to_thread_template" description="fs_escrow_add_status_overview_to_thread_template" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:extension name="thread_action_buttons">.*?<\/xf:extension>/is]]></find>
     <replace><![CDATA[<xf:if is="$xf.visitor.user_id!=0 AND $thread.escrow_id!=0 AND $thread.node_id==$xf.options.fs_escrow_applicable_forum">
-	<div class="block-body block-row">
-	<xf:macro template="fs_escrow_list_macro" name="status"
-			arg-status="{$thread.Escrow.escrow_status}"/>
-	</div>
-	<xf:else />
+	<xf:include template="fs_escrow_thread_overview_box" />
+<xf:else />
 	$0
 </xf:if>]]></replace>
   </modification>

@@ -19,8 +19,8 @@ class Transaction extends Entity
             'user_id' => ['type' => self::UINT, 'required' => true],
             'to_user' => ['type' => self::UINT, 'default' => 0],
             'escrow_id' => ['type' => self::UINT, 'default' => 0],
-            'transaction_amount' => ['type' => self::UINT, 'required' => true],
-            'current_amount' => ['type' => self::UINT, 'required' => true],
+            'transaction_amount' => ['type' => self::FLOAT, 'required' => true],
+            'current_amount' => ['type' => self::FLOAT, 'required' => true],
             'transaction_type' => ['type' => self::STR, 'default' => ''],
             'created_at' => ['type' => self::UINT, 'default' => \XF::$time],
         ];
@@ -30,6 +30,12 @@ class Transaction extends Entity
                 'entity' => 'XF:User',
                 'type' => self::TO_ONE,
                 'conditions' => 'user_id',
+            ],
+            'Escrow' => [
+                'entity' => 'FS\Escrow:Escrow',
+                'type' => self::TO_ONE,
+                'conditions' => 'escrow_id',
+                'primary' => true
             ],
         ];
         $structure->defaultWith = [];

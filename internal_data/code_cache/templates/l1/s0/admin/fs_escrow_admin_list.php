@@ -119,7 +119,7 @@ return array(
 		';
 	} else if ($__vars['status'] == 4) {
 		$__finalCompiled .= '
-			' . 'Completed. ' . '
+			' . 'Completed' . '
 		';
 	} else {
 		$__finalCompiled .= '

@@ -264,7 +264,7 @@
 >
   <div class="block-container">
     <div class="block-body">
-      <xf:numberboxrow name="deposit_amount" explain="{{ phrase('escrow_current_amount') }} {$xf.visitor.deposit_amount}" min="0" label="{{ phrase('fs_escrow_amount') }}" />
+      <xf:numberboxrow name="deposit_amount" explain="{{ phrase('escrow_current_amount') }} {{phrase('fs_escrow_amount_symbol')}}{$xf.visitor.deposit_amount}" min="0" label="{{ phrase('fs_escrow_amount') }}" />
     </div>
     <xf:submitrow submit="" icon="save" />
   </div>
@@ -495,7 +495,7 @@
 					<b>{{phrase('fs_escrow_amount')}}</b>
 					</dt>
 				<dd>
-					{{$listing.escrow_amount}}
+					{{phrase('fs_escrow_amount_symbol')}}{{$listing.escrow_amount}}
 				</dd>
 			</dl>
 			<dl style="margin-top:5px;" class="pairs pairs--justified structItem-minor structItem-metaItem structItem-metaItem--expiration">
@@ -545,7 +545,7 @@
 								</xf:if>
 							</li>
 							<li><xf:date time="{$escrow.Thread.post_date}" /></li>
-							<li>{{ phrase('fs_escrow_amount:') }} {$escrow.escrow_amount|number}</li>
+							<li>{{ phrase('fs_escrow_amount:') }} {{phrase('fs_escrow_amount_symbol')}}{$escrow.escrow_amount|number}</li>
 						</ul>
 					</div>
 				</div>
@@ -566,15 +566,28 @@
 			<xf:cell> {{ phrase('fs_escrow_trans_date') }} </xf:cell>
 			<xf:cell> {{ phrase('fs_escrow_trans_amount') }} </xf:cell>
 			<xf:cell> {{ phrase('fs_escrow_trans_current') }} </xf:cell>
+			<xf:cell> {{ phrase('fs_escrow_trans_escrow') }} </xf:cell>
+			
 		</xf:datarow>
 	
 
 	<xf:foreach loop="$logs" value="$log">
 		<xf:datarow>
+			
 			<xf:cell> {{$log.transaction_type}} </xf:cell>
 			<xf:cell><xf:date time="$log.created_at" /></xf:cell>
-			<xf:cell> {{$log.transaction_amount }} </xf:cell>
-			<xf:cell>{{$log.current_amount}}</xf:cell>
+			<xf:cell> {{phrase('fs_escrow_amount_symbol')}}{{$log.transaction_amount }} </xf:cell>
+			<xf:cell>{{phrase('fs_escrow_amount_symbol')}}{{$log.current_amount}}</xf:cell>
+			<xf:if is="$log.escrow_id!=0">
+				
+				<xf:cell> 
+					<a href="{{ link('threads', $log.Escrow.Thread) }}"  >{{$log.Escrow.Thread.title}} </a>
+				</xf:cell>
+				
+				<xf:else />
+				
+				<xf:cell> {{phrase('fs_escrow_trans_amount_deposit')}} </xf:cell>
+			</xf:if>
 
 		</xf:datarow>
 	</xf:foreach>
@@ -666,8 +679,6 @@
 		<xf:else/>
 			{{ phrase('fs_escrow_status_undefined') }}
 		</xf:if>
-
-		
 	
 	</xf:macro>]]></template>
   <template type="public" title="fs_escrow_list_view.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[// ############################ Escrow List View ######################
@@ -1024,4 +1035,44 @@
 
   <xf:hiddenval name="search">1</xf:hiddenval>
 </xf:form>]]></template>
+  <template type="public" title="fs_escrow_thread_overview_box" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<div class="block-body block-row">
+		
+		<dl  class="pairs pairs--justified ">
+				<dt>
+				{{ phrase('fs_escrow_form_status') }}
+					</dt>
+				<dd>
+					<xf:macro template="fs_escrow_list_macro" name="status"
+			arg-status="{$thread.Escrow.escrow_status}"/>
+				</dd>
+			</dl>
+		
+		<dl  class="pairs pairs--justified ">
+				<dt>
+				{{phrase('fs_escrow_amount')}}
+					</dt>
+				<dd>
+					{{phrase('fs_escrow_amount_symbol')}}{$thread.Escrow.escrow_amount}
+				</dd>
+			</dl>
+		
+		<dl  class="pairs pairs--justified ">
+				<dt>
+				{{phrase('fs_escrow_admin_from')}}
+					</dt>
+				<dd>
+					{$thread.User.username}
+				</dd>
+			</dl>
+		
+		<dl  class="pairs pairs--justified ">
+				<dt>
+				{{phrase('fs_escrow_admin_to')}}
+					</dt>
+				<dd>
+					{$thread.Escrow.User.username}
+				</dd>
+			</dl>
+		
+	</div>]]></template>
 </templates>

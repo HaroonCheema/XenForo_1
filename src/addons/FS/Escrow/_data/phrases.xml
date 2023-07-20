@@ -4,7 +4,7 @@
   <phrase title="admin_navigation.fsEscrowListNav" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrows]]></phrase>
   <phrase title="escrow_admin_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrows]]></phrase>
   <phrase title="escrow_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Amount]]></phrase>
-  <phrase title="escrow_current_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Current Balance]]></phrase>
+  <phrase title="escrow_current_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Current Balance:]]></phrase>
   <phrase title="escrow_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Title]]></phrase>
   <phrase title="escrow_total_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Total Amount:]]></phrase>
   <phrase title="escrow_user" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[User]]></phrase>
@@ -57,9 +57,10 @@
   <phrase title="fs_escrow_status_1" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Aproved. Processing]]></phrase>
   <phrase title="fs_escrow_status_2" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Cancelled by mentioned User]]></phrase>
   <phrase title="fs_escrow_status_3" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Cancelled by Creator]]></phrase>
-  <phrase title="fs_escrow_status_4" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Completed. ]]></phrase>
+  <phrase title="fs_escrow_status_4" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Completed]]></phrase>
   <phrase title="fs_escrow_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Start]]></phrase>
   <phrase title="fs_escrow_trans_amount" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Amount]]></phrase>
+  <phrase title="fs_escrow_trans_amount_deposit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Amount Deposit Only!]]></phrase>
   <phrase title="fs_escrow_trans_current" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Balance]]></phrase>
   <phrase title="fs_escrow_trans_date" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Date Time]]></phrase>
   <phrase title="fs_escrow_trans_type" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Type]]></phrase>

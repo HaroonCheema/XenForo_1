@@ -17,6 +17,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "863e844ec98df614137d93b5dc1441c7"
     },
+    "escrow_current_amount.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "473e7f9e05eff2aa94bc36661aa12fa0"
+    },
     "fs_escrow_admin_amount.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -231,7 +237,7 @@
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "4031660d95430fa9a434e5e8305d00f1"
+        "hash": "07ca5050e697392c9ed47e6453f1453f"
     },
     "fs_escrow_title.txt": {
         "global_cache": false,
@@ -244,6 +250,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "b2f40690858b404ed10e62bdf422c704"
+    },
+    "fs_escrow_trans_amount_deposit.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "9256d9d8d30e88ce2026969678595415"
     },
     "fs_escrow_trans_current.txt": {
         "global_cache": false,

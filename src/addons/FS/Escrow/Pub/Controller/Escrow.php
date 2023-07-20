@@ -44,36 +44,42 @@ class Escrow extends AbstractController
 
         return $this->view('FS\Escrow', 'fs_escrow_landing', $viewpParams);
     }
+
     protected function getSearchFinder()
     {
         $visitor = \XF::visitor();
         $conditions = $this->filterSearchConditions();
         $finder = $this->finder('FS\Escrow:Escrow')->where('thread_id', '!=', 0);
-
+        $search = 0;
         if ($conditions['fs_escrow_mentioned_username'] != '') {
 
             $User = $this->finder('XF:User')->where('username', $conditions['fs_escrow_mentioned_username'])->fetchOne();
             if ($User) {
                 $finder->where('user_id', $User['user_id']);
                 $finder->where('to_user', $visitor->user_id);
+                $search = 1;
             }
         }
         if ($conditions['fs_escrow_status'] != 'all') {
             if (intval($conditions['fs_escrow_status']) > 0 && intval($conditions['fs_escrow_status']) <= 5) {
                 $finder->whereOr([['to_user', $visitor->user_id], ['user_id' => $visitor->user_id]]);
                 $finder->where('escrow_status', (intval($conditions['fs_escrow_status']) - 1));
+                $search = 1;
             }
         }
 
         if (isset($conditions['type']) && $conditions['type'] != '') {
             if ($conditions['type'] == 'my') {
                 $finder->where('user_id', $visitor->user_id);
+                $search = 1;
             } else if ($conditions['type'] == 'mentioned') {
                 $finder->where('to_user', $visitor->user_id);
+                $search = 1;
             }
         }
-
-        // var_dump($finder->getQuery());exit;
+        if (!$search) {
+            $finder->whereOr([['to_user', $visitor->user_id], ['user_id' => $visitor->user_id]]);
+        }
 
         return $finder;
     }
@@ -400,16 +406,16 @@ class Escrow extends AbstractController
         }
 
         if ($escrow) {
-            $visitor->fastUpdate('deposit_amount', number_format(($visitor->deposit_amount + ($escrow->Transaction->transaction_amount + (($escrow->admin_percentage / 100) * $escrow->Transaction->transaction_amount))), 2));
+
+            $escrow->Thread->User->fastUpdate('deposit_amount', ($escrow->Thread->User->deposit_amount + $escrow->Transaction->transaction_amount));
 
             $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-            $escrowService->escrowTransaction($visitor->user_id, number_format(($escrow->Transaction->transaction_amount + (($escrow->admin_percentage / 100) * $escrow->Transaction->transaction_amount)), 2), $visitor->deposit_amount, 'Cancel', $escrow->escrow_id);
+            $escrowService->escrowTransaction($escrow->Thread->User->user_id, $escrow->Transaction->transaction_amount, $escrow->Thread->User->deposit_amount, 'Cancel', $escrow->escrow_id);
 
             $visitor = \XF::visitor();
 
             if ($escrow->user_id == $visitor->user_id) {
-                // $escrow->fastUpdate('escrow_status', '3');
                 $escrow->bulkSet([
                     'escrow_status' => '3',
                     'last_update' => \XF::$time,
@@ -419,7 +425,6 @@ class Escrow extends AbstractController
                 $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
                 $notifier->escrowCancelByOwnerAlert();
             } else {
-                // $escrow->fastUpdate('escrow_status', '2');
                 $escrow->bulkSet([
                     'escrow_status' => '2',
                     'last_update' => \XF::$time,

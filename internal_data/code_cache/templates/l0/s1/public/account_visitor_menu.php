@@ -58,7 +58,7 @@ return array(
 							<dt>' . 'Amount' . '</dt>
 							<dd>
 								<a href="' . $__templater->func('link', array('escrow/logs', ), true) . '" data-xf-click="overlay" class="fauxBlockLink-linkRow u-concealed">
-									' . $__templater->filter($__vars['xf']['visitor']['deposit_amount'], array(array('number', array()),), true) . '
+									' . '$' . $__templater->filter($__vars['xf']['visitor']['deposit_amount'], array(array('float', array()),), true) . '
 								</a>
 							</dd>
 						</dl>

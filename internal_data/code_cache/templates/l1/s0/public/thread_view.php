@@ -273,12 +273,8 @@ return array(
 					';
 	if (($__vars['xf']['visitor']['user_id'] != 0) AND (($__vars['thread']['escrow_id'] != 0) AND ($__vars['thread']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']))) {
 		$__compilerTemp1 .= '
-	<div class="block-body block-row">
-	' . $__templater->callMacro('fs_escrow_list_macro', 'status', array(
-			'status' => $__vars['thread']['Escrow']['escrow_status'],
-		), $__vars) . '
-	</div>
-	';
+	' . $__templater->includeTemplate('fs_escrow_thread_overview_box', $__vars) . '
+';
 	} else {
 		$__compilerTemp1 .= '
 	' . $__templater->renderExtension('thread_action_buttons', $__vars, $__extensions) . '

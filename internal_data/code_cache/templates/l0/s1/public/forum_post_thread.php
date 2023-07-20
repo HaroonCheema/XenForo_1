@@ -267,7 +267,7 @@ return array(
 			'value' => '',
 			'min' => '0',
 		), array(
-			'explain' => 'Total Amount:' . ' ' . $__templater->escape($__vars['xf']['visitor']['deposit_amount']),
+			'explain' => 'Total Amount:' . ' ' . '$' . $__templater->escape($__vars['xf']['visitor']['deposit_amount']),
 			'label' => 'Escrow Amount',
 		)) . '
 			 ';
