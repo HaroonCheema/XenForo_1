@@ -465,13 +465,28 @@ class Escrow extends AbstractController
                 $this->error(\XF::phrase("fs_escrow_not_allowed"))
             );
         }
-        $user = $this->em()->findOne('XF:User', ['user_id' => $escrow->to_user]);
+        // $user = $this->em()->findOne('XF:User', ['user_id' => $escrow->to_user]);
 
-        $user->fastUpdate('deposit_amount', ($user->deposit_amount + $escrow->escrow_amount));
+        $escrow->User->fastUpdate('deposit_amount', ($escrow->User->deposit_amount + $escrow->escrow_amount));
 
         $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
 
-        $escrowService->escrowTransaction($user->user_id, $escrow->escrow_amount, $user->deposit_amount, 'Payment', $escrow->escrow_id);
+        $escrowService->escrowTransaction($escrow->User->user_id, $escrow->escrow_amount, $escrow->User->deposit_amount, 'Payment', $escrow->escrow_id);
+
+        $percentageUser = $this->em()->findOne('XF:User', ['user_id' => intval($this->app()->options()->fs_escrow_admin_Id)]);
+
+        if ($percentageUser) {
+
+            $escrowPercentage = $percentageUser->deposit_amount + (($escrow->admin_percentage / 100) * $escrow->escrow_amount);
+
+            $percentageUser->fastUpdate('deposit_amount', $escrowPercentage);
+
+            $escrowService->escrowTransaction($percentageUser->user_id, (($escrow->admin_percentage / 100) * $escrow->escrow_amount), $percentageUser->deposit_amount, 'Percentage', $escrow->escrow_id);
+
+            /** @var Escrow $notifier */
+            $notifier = $this->app->notifier('FS\Escrow:Listing\EscrowAlert', $escrow);
+            $notifier->escrowPercentageHolderUserAlert();
+        }
 
         $escrow->bulkSet([
             'escrow_status' => '4',

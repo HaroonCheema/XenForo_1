@@ -24,6 +24,11 @@
         "version_string": "1.0.0 Alpha",
         "hash": "81d7478595a0ce3608899dbbdbddcb71"
     },
+    "public/alert_fs_escrow_escrow_percentage.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b13e8e33feae6c463e769190a151f17c"
+    },
     "public/fs_escrow_approve.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

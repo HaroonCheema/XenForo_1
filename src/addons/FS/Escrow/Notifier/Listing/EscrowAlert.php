@@ -102,4 +102,25 @@ class EscrowAlert extends AbstractNotifier
             ]
         );
     }
+
+    public function escrowPercentageHolderUserAlert()
+    {
+
+        $percentageUser = \XF::em()->findOne('XF:User', ['user_id' => intval($this->app()->options()->fs_escrow_admin_Id)]);
+
+        $esc = $this->esc;
+
+        return $this->basicAlert(
+            $percentageUser,
+            $esc->Thread->User->user_id,
+            $esc->Thread->User->username,
+            'fs_escrow',
+            $esc->escrow_id,
+            'escrow_percentage',
+            [
+                'thread_id' => $esc->Thread->thread_id,
+                'thread_title' => $esc->Thread->title,
+            ]
+        );
+    }
 }

@@ -173,6 +173,10 @@
 		'name': username_link($user, false, {'defaultname': $username}),
 		'title': '<a href="' . link('threads/'. {$extra.thread_id}) . '" class="fauxBlockLink-blockLink">' . $extra.thread_title . '</a>'
 }) }}]]></template>
+  <template type="public" title="alert_fs_escrow_escrow_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ phrase('x_percentge_escrow_y', {
+		'name': username_link($user, false, {'defaultname': $username}),
+		'title': '<a href="' . link('threads/'. {$extra.thread_id}) . '" class="fauxBlockLink-blockLink">' . $extra.thread_title . '</a>'
+}) }}]]></template>
   <template type="public" title="fs_escrow_addEdit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_add_escrow') }}</xf:title>
 <xf:form action="{{ link('auction/categories/bidding', $auction) }}" ajax="true" class="block" data-xf-init="attachment-manager">
 	

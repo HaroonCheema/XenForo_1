@@ -213,6 +213,7 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.fs_auction_dropDown_list_limit' => '',
   'option_explain.fs_auction_per_page' => 'how many auctions display on per page you can set from here..!',
   'option_explain.fs_enable_image' => '',
+  'option_explain.fs_escrow_admin_Id' => 'transfer percentage',
   'option_explain.fs_escrow_admin_percentage' => 'Admin Percentage',
   'option_explain.fs_escrow_applicable_forum' => '',
   'option_explain.fs_mts_customMsgColor' => 'Enter the colour name or colour code for Custom message',

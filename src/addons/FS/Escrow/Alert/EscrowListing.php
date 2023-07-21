@@ -13,6 +13,7 @@ class EscrowListing extends AbstractHandler
             'escrow_cancel',
             'escrow_approve',
             'escrow_payment',
+            'escrow_percentage',
         ];
     }
 

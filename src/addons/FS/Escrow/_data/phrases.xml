@@ -73,8 +73,10 @@
   <phrase title="nav.fs_escrow_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Start Escrow]]></phrase>
   <phrase title="no_any_data_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[No Data Found...!]]></phrase>
   <phrase title="no_any_transaction_found" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[No any transaction found]]></phrase>
+  <phrase title="option.fs_escrow_admin_Id" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Escrow Percentage Holder Id]]></phrase>
   <phrase title="option.fs_escrow_admin_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Admin Percentage]]></phrase>
   <phrase title="option.fs_escrow_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Id]]></phrase>
+  <phrase title="option_explain.fs_escrow_admin_Id" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[transfer percentage]]></phrase>
   <phrase title="option_explain.fs_escrow_admin_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Admin Percentage]]></phrase>
   <phrase title="option_explain.fs_escrow_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="option_group.fsEscrow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Escrow]]></phrase>
@@ -83,6 +85,7 @@
   <phrase title="x_cancel_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} cancel a escrow named {title}.]]></phrase>
   <phrase title="x_mentioned_you_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} mentioned you in an escrow {title}.]]></phrase>
   <phrase title="x_payment_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} payment a escrow named {title}.]]></phrase>
+  <phrase title="x_percentge_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} received percentge a escrow named {title}.]]></phrase>
   <phrase title="x_quoted_your_post_in_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} quoted your post in the escrow {title}.]]></phrase>
   <phrase title="x_replied_to_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} replied to the escrow {title}.]]></phrase>
   <phrase title="x_started_escrow_y" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{name} started a escrow named {title}.]]></phrase>

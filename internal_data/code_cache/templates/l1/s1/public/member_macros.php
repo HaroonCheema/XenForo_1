@@ -162,7 +162,7 @@ return array(
 	<dl class="pairs pairs--rows pairs--rows--centered menu-fauxLinkRow">
 		<dt>' . 'Amount' . '</dt>
 		<dd>
-			' . '$' . ' ' . $__templater->filter($__vars['user']['deposit_amount'], array(array('number', array()),), true) . '
+			' . '$' . $__templater->escape($__vars['user']['deposit_amount']) . '
 		</dd>
 	</dl>
 ';
