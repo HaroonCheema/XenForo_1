@@ -1,0 +1,59 @@
+<xf:title page="{$page}">{{ phrase('fs_molly') }}</xf:title>
+
+<xf:page
+  option="searchConstraints"
+  value="{{ {
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
+} }}"
+/>
+
+<xf:pageaction if="$xf.visitor">
+    <xf:button
+    href="{{ link('molly/add') }}"
+    class="button--cta"
+    icon="write"
+    >{{ phrase('fs_molly_add_sub_forum') }}</xf:button
+  >
+</xf:pageaction>
+  
+
+<div
+  class="block"
+  data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}"
+  data-type="fs_molly"
+  data-href="{{ link('inline-mod') }}"
+>
+  <div class="block-outer">
+
+  </div>
+  <div class="block-container">
+
+    <!--Listing View--->
+    <div class="block-body">
+
+      <div class="block-footer">
+        <span class="block-footer-counter"
+          >{{ display_totals($totalReturn, $total) }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="block-outer block-outer--after">
+
+    <xf:showignored wrapperclass="block-outer-opposite" />
+  </div>
+</div>
+
+<xf:page option="sideNavTitle">{{ phrase('categories') }}</xf:page>
+
+<xf:sidenav>
+  <xf:macro
+    template="fs_auction_category_list_macros"
+    name="simple_list_block"
+    arg-categoryTree="null"
+  />
+
+</xf:sidenav>
+
+<!-- Filter Bar Macro Start -->

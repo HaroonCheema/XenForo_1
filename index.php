@@ -1,8 +1,9 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $phpVersion = phpversion();
-if (version_compare($phpVersion, '7.0.0', '<'))
-{
+if (version_compare($phpVersion, '7.0.0', '<')) {
 	die("PHP 7.0.0 or newer is required. $phpVersion does not meet this requirement. Please ask your host to upgrade PHP.");
 }
 
@@ -11,11 +12,8 @@ require($dir . '/src/XF.php');
 
 XF::start($dir);
 
-if (\XF::requestUrlMatchesApi())
-{
+if (\XF::requestUrlMatchesApi()) {
 	\XF::runApp('XF\Api\App');
-}
-else
-{
+} else {
 	\XF::runApp('XF\Pub\App');
 }

@@ -26,6 +26,8 @@ return array (
   'permission_interface.scheduledPostingsModeratorInterface' => 'Scheduled posting moderator permissions',
   'permission_interface.shsUserPermsions' => 'Stop Human Spam - User Permissions',
   'permission_interface.signaturePermissions' => 'Signature permissions',
-  'permission_interface.snogForms' => 'Advanced Forms Permissions',
+  'permission_interface.snogGroups' => 'Social group',
+  'permission_interface.tl_groups_general' => '[tl] Social Groups: General Permissions',
+  'permission_interface.tl_groups_moderator' => '[tl] Social Groups: Moderator Permissions',
   'permission_interface.trader' => 'Trader',
 );

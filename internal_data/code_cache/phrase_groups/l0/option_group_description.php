@@ -23,6 +23,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.form_thread_moderation' => '',
   'option_group_description.fsEscrow' => '[FS] Escrow',
   'option_group_description.fs_MediaTagSetting' => '',
+  'option_group_description.fs_molly' => '[FS] Molly',
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.fs_question_answers' => '',
   'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',
@@ -34,7 +35,6 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
 <br />
 It is possible to filter the news feed down to just users you follow, or a single user.',
   'option_group_description.nodeList' => 'The node and forum list is the primary navigational structure for XenForo\'s forums and pages.',
-  'option_group_description.ozzmodz_forms' => '',
   'option_group_description.performance' => 'Options here allow you to turn off or tweak systems in order to fine-tune the performance of your site.',
   'option_group_description.postCounter' => 'For Display limited Forums.',
   'option_group_description.pwa' => 'This group controls the options that will be shown on the PWA setup helper.',
@@ -47,6 +47,7 @@ It is possible to filter the news feed down to just users you follow, or a singl
   'option_group_description.spam' => 'Default options for the spam cleaner and prevention systems are located here.',
   'option_group_description.stats' => '',
   'option_group_description.tagging' => 'Options that control how tags can be applied to content.',
+  'option_group_description.tl_groups' => '',
   'option_group_description.tournament' => 'Tournament options',
   'option_group_description.trader' => 'Options here control the Trader add-on.',
   'option_group_description.users' => '',

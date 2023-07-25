@@ -616,6 +616,10 @@ return array(
 			<hr class="formRowSep" />
 
 			' . '
+' . $__templater->callMacro('tlg_helper_criteria_macros', 'user_criteria', array(
+		'criteria' => $__vars['criteria'],
+		'data' => $__vars['data'],
+	), $__vars) . '
 
 			' . $__templater->formCheckBoxRow(array(
 	), $__compilerTemp6, array(

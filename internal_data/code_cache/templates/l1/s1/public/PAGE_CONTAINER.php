@@ -1007,62 +1007,74 @@ return array(
 
 		' . $__templater->callMacro('browser_warning_macros', 'javascript', array(), $__vars) . '
 		' . $__templater->callMacro('browser_warning_macros', 'browser', array(), $__vars) . '
+';
+	if (((($__vars['mgcategory']['Group']['media_id'] OR $__vars['forum']['Node']['Group']['node_id']) OR $__vars['forum']['Node']['Subforum']['node_id']) OR $__vars['group']['groupid']) OR $__templater->func('is_array', array($__vars['group'], ), false)) {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('snog_groups_main', $__vars) . '
+';
+	} else {
+		$__finalCompiled .= '
+	<!-- HEADER START -->
 
 		';
-	$__compilerTemp10 = '';
-	$__compilerTemp10 .= '
+		$__compilerTemp10 = '';
+		$__compilerTemp10 .= '
 				';
-	$__compilerTemp11 = '';
-	$__compilerTemp11 .= '
-						';
-	if (!$__vars['noH1']) {
+		$__compilerTemp11 = '';
 		$__compilerTemp11 .= '
+						';
+		if (!$__vars['noH1']) {
+			$__compilerTemp11 .= '
 							<h1 class="p-title-value">' . $__templater->escape($__vars['h1']) . '</h1>
 						';
-	}
-	$__compilerTemp11 .= '
-						';
-	$__compilerTemp12 = '';
-	$__compilerTemp12 .= (isset($__templater->pageParams['pageAction']) ? $__templater->pageParams['pageAction'] : '');
-	if (strlen(trim($__compilerTemp12)) > 0) {
+		}
 		$__compilerTemp11 .= '
+						';
+		$__compilerTemp12 = '';
+		$__compilerTemp12 .= (isset($__templater->pageParams['pageAction']) ? $__templater->pageParams['pageAction'] : '');
+		if (strlen(trim($__compilerTemp12)) > 0) {
+			$__compilerTemp11 .= '
 							<div class="p-title-pageAction">' . $__compilerTemp12 . '</div>
 						';
-	}
-	$__compilerTemp11 .= '
+		}
+		$__compilerTemp11 .= '
 					';
-	if (strlen(trim($__compilerTemp11)) > 0) {
-		$__compilerTemp10 .= '
+		if (strlen(trim($__compilerTemp11)) > 0) {
+			$__compilerTemp10 .= '
 					<div class="p-title ' . ($__vars['noH1'] ? 'p-title--noH1' : '') . '">
 					' . $__compilerTemp11 . '
 					</div>
 				';
-	}
-	$__compilerTemp10 .= '
+		}
+		$__compilerTemp10 .= '
 
 				';
-	if (!$__templater->test($__vars['description'], 'empty', array())) {
-		$__compilerTemp10 .= '
+		if (!$__templater->test($__vars['description'], 'empty', array())) {
+			$__compilerTemp10 .= '
 					<div class="p-description">' . $__templater->escape($__vars['description']) . '</div>
 				';
-	}
-	$__compilerTemp10 .= '
+		}
+		$__compilerTemp10 .= '
 			';
-	if (!$__templater->test($__vars['headerHtml'], 'empty', array())) {
-		$__finalCompiled .= '
+		if (!$__templater->test($__vars['headerHtml'], 'empty', array())) {
+			$__finalCompiled .= '
 			<div class="p-body-header">
 				' . $__templater->filter($__vars['headerHtml'], array(array('raw', array()),), true) . '
 			</div>
 		';
-	} else if (strlen(trim($__compilerTemp10)) > 0) {
-		$__finalCompiled .= '
+		} else if (strlen(trim($__compilerTemp10)) > 0) {
+			$__finalCompiled .= '
 			<div class="p-body-header">
 			' . $__compilerTemp10 . '
 			</div>
 		';
+		}
+		$__finalCompiled .= '
+
+		<!-- HEADER END -->
+';
 	}
 	$__finalCompiled .= '
-
 		<div class="p-body-main ' . ($__vars['sidebar'] ? 'p-body-main--withSidebar' : '') . ' ' . ($__vars['sideNav'] ? 'p-body-main--withSideNav' : '') . '">
 			';
 	if ($__vars['sideNav']) {
@@ -1073,7 +1085,7 @@ return array(
 	$__finalCompiled .= '
 			<div class="p-body-contentCol"></div>
 			';
-	if ($__vars['sidebar']) {
+	if ($__vars['sidebar'] AND (!(($__vars['mgcategory']['Group']['media_id'] OR $__vars['forum']['Node']['Group']['node_id']) OR $__vars['forum']['Node']['Subforum']['node_id']) OR $__vars['group']['groupid'])) {
 		$__finalCompiled .= '
 				<div class="p-body-sidebarCol"></div>
 			';
@@ -1117,14 +1129,24 @@ return array(
 	}
 	$__finalCompiled .= '
 
-			<div class="p-body-content">
+			';
+	if (((($__vars['mgcategory']['Group']['media_id'] OR $__vars['forum']['Node']['Group']['node_id']) OR $__vars['forum']['Node']['Subforum']['node_id']) OR $__vars['group']['groupid']) OR $__templater->func('is_array', array($__vars['group'], ), false)) {
+		$__finalCompiled .= '
+	' . '
+';
+	} else {
+		$__finalCompiled .= '
+	<div class="p-body-content">
 				' . $__templater->callAdsMacro('container_content_above', array(), $__vars) . '
 				<div class="p-body-pageContent">' . $__templater->filter($__vars['content'], array(array('raw', array()),), true) . '</div>
 				' . $__templater->callAdsMacro('container_content_below', array(), $__vars) . '
 			</div>
+';
+	}
+	$__finalCompiled .= '
 
 			';
-	if ($__vars['sidebar']) {
+	if ($__vars['sidebar'] AND (!(($__vars['mgcategory']['Group']['media_id'] OR $__vars['forum']['Node']['Group']['node_id']) OR $__vars['forum']['Node']['Subforum']['node_id']) OR $__vars['group']['groupid'])) {
 		$__finalCompiled .= '
 				<div class="p-body-sidebar">
 					' . $__templater->callAdsMacro('container_sidebar_above', array(), $__vars) . '
@@ -1337,6 +1359,27 @@ return array(
 	}
 	$__finalCompiled .= '
 
+';
+	if ($__vars['group'] OR ($__vars['template'] == 'snog_groups_public_events')) {
+		$__finalCompiled .= '
+	';
+		$__templater->includeJs(array(
+			'src' => 'Snog/Groups/moment.min.js',
+		));
+		$__finalCompiled .= '
+	';
+		$__templater->includeJs(array(
+			'src' => 'Snog/Groups/snogform.min.js',
+		));
+		$__finalCompiled .= '
+	';
+		$__templater->includeJs(array(
+			'src' => 'Snog/Groups/fullcalendar.min.js',
+		));
+		$__finalCompiled .= '
+';
+	}
+	$__finalCompiled .= '
 ' . $__templater->callMacro('helper_js_global', 'body', array(
 		'app' => 'public',
 		'jsState' => $__vars['jsState'],
@@ -1367,6 +1410,13 @@ return array(
 	}
 	$__finalCompiled .= '
 
+';
+	if ($__vars['group'] OR ($__vars['template'] == 'snog_groups_public_events')) {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('snog_groups_event.js', $__vars) . '
+';
+	}
+	$__finalCompiled .= '
 ' . $__templater->filter($__vars['ldJsonHtml'], array(array('raw', array()),), true) . '
 
 </body>

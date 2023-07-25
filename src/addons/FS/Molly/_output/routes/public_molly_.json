@@ -1,0 +1,11 @@
+{
+    "route_type": "public",
+    "route_prefix": "molly",
+    "sub_name": "",
+    "format": "",
+    "build_class": "",
+    "build_method": "",
+    "controller": "FS\\Molly:Molly",
+    "context": "fs_molly_index",
+    "action_prefix": ""
+}

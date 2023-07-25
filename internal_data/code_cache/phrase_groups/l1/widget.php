@@ -19,6 +19,8 @@ return array (
   'widget.member_wrapper_find_member' => '',
   'widget.member_wrapper_newest_members' => '',
   'widget.online_list_online_statistics' => '',
+  'widget.tlg_groups_mostViewed' => 'Most viewed groups',
+  'widget.tlg_groups_recent' => 'Recent groups',
   'widget.unread_posts' => 'Unread posts',
   'widget.whats_new_new_posts' => '',
   'widget.whats_new_new_profile_posts' => '',

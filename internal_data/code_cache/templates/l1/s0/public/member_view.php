@@ -330,6 +330,15 @@ return array(
 ';
 	}
 	$__finalCompiled .= '
+';
+	if ($__templater->method($__vars['user'], 'canTLGViewGroups', array())) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('tlg_group_macros', 'member_view_tabs_heading', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
+';
+	}
+	$__finalCompiled .= '
 
 				<a href="' . $__templater->func('link', array('members/about', $__vars['user'], ), true) . '"
 					class="tabs-tab"
@@ -506,6 +515,15 @@ return array(
 	<li data-href="' . $__templater->func('link', array('resources/authors', $__vars['user'], ), true) . '" role="tabpanel" aria-labelledby="resources">
 		<div class="blockMessage">' . 'Loading' . $__vars['xf']['language']['ellipsis'] . '</div>
 	</li>
+';
+	}
+	$__finalCompiled .= '
+';
+	if ($__templater->method($__vars['user'], 'canTLGViewGroups', array())) {
+		$__finalCompiled .= '
+	' . $__templater->callMacro('tlg_group_macros', 'member_view_tabs_content', array(
+			'user' => $__vars['user'],
+		), $__vars) . '
 ';
 	}
 	$__finalCompiled .= '
