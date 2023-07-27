@@ -6,10 +6,47 @@ use XF\Mvc\ParameterBag;
 use XF\Pub\Controller\AbstractController;
 use XF\Mvc\RouteMatch;
 
+// use FS\Escrow\BarCode\phpqrcode;
+
+include __DIR__ . '/../../BarCode/phpqrcode/qrlib.php';
+
 class Escrow extends AbstractController
 {
+
     public function actionIndex(ParameterBag $params)
     {
+
+        if (!file_exists(\XF::getRootDirectory() . '/data/Barcode')) {
+            // Create the folder if it doesn't exist
+            mkdir(\XF::getRootDirectory() . '/data/Barcode', 0777, true);
+        }
+
+        $text = "GEEKS FOR GEEKS";
+
+        // $path variable store the location where to
+        // store image and $file creates directory name
+        // of the QR code file by using 'uniqid'
+        // uniqid creates unique id based on microtime
+        // $path = __FILE__ . 'Barcode/' . uniqid() . '.png';
+
+        $fileName =  uniqid() . '.png';
+        $path = \XF::getRootDirectory() . '/data/Barcode/' . $fileName;
+
+        // $file = $path . uniqid() . ".png";
+
+        // var_dump($path);
+        // $ecc stores error correction capability('L')
+        $ecc = 'L';
+        $pixel_Size = 10;
+        $frame_Size = 10;
+
+        // Generates QR Code and Stores it in directory given
+        \QRcode::png($text, $path, $ecc, $pixel_Size, $frame_Size);
+
+        $file = \XF::app()->applyExternalDataUrl('Barcode/' . $fileName, true);
+        // Displaying the stored QR code from directory
+        echo "<center><img src='" . $file . "'></center>";
+        exit;
         $visitor = \XF::visitor();
         $rules[] = [
             'message' => \XF::phrase('fs_escrow_rules'),
@@ -320,7 +357,6 @@ class Escrow extends AbstractController
 
     public function actionCancel(ParameterBag $params)
     {
-
         $escrow = $this->assertDataExists($params->escrow_id);
 
         if ($this->isPost()) {
