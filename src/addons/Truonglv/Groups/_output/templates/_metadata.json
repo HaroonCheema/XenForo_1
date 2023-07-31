@@ -1,0 +1,22 @@
+{
+    "public/tlg_grid_card_macros.html": {
+        "version_id": 3030300,
+        "version_string": "3.3.3",
+        "hash": "e00d75087941c5fd6d9a614542269665"
+    },
+    "public/tlg_group_index.html": {
+        "version_id": 3030300,
+        "version_string": "3.3.3",
+        "hash": "1bd708de2eed6d51d402a948acc7039d"
+    },
+    "public/tlg_group_list_macros.html": {
+        "version_id": 3030300,
+        "version_string": "3.3.3",
+        "hash": "88ff76a9ec65b5111d58a73b5299a1d0"
+    },
+    "public/tlg_group_macros.html": {
+        "version_id": 3030300,
+        "version_string": "3.3.3",
+        "hash": "1ebd5e153d69e0789f8f3c875fff381c"
+    }
+}

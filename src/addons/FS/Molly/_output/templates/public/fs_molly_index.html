@@ -30,6 +30,40 @@
 
     <!--Listing View--->
     <div class="block-body">
+		
+    <!--Sub Forums List View--->
+		<xf:if is="count($subForums) != 0">
+            
+			    <xf:set var="$dummyArray" value="{{range(0,3)}}" />
+		
+		
+			 	<div class="block groupListBlock" data-xf-init="inline-mod"
+         data-type="tl_group"
+         data-href="{{ link('inline-mod') }}">
+		
+		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+		
+		 <xf:foreach loop="{$subForums}" value="$value">
+
+    
+			 <xf:macro
+					name="molly_sub_forum_list"
+					arg-subForum="{$value}"
+				  />
+			 
+  </xf:foreach>
+					</div>
+		</div>
+			</xf:if>
+		
+	<xf:css src="tlg_group_list.less" />
+    <xf:css src="tlg_style.less" />
+	<xf:css src="tlg_grid_card.less" />
+
+    <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
+	 
+		
+    <!--Sub Forums List View--->
 
       <div class="block-footer">
         <span class="block-footer-counter"
@@ -57,3 +91,147 @@
 </xf:sidenav>
 
 <!-- Filter Bar Macro Start -->
+
+    <!--Sub Forums List View--->
+
+<xf:macro
+  name="molly_sub_forum_list"
+  arg-subForum="!"
+>	  			
+	  <div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		  
+        <div class="gridCard--container">
+			
+			<!-- Cover -->
+			
+			<div class="gridCard--cover">
+			
+				<div class="groupCover--wrapper">
+                
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="/xenforo/index.php?groups/test.2/" style="background-color:#1f7a5c;color:#70dbb8">
+                
+                    <span class="groupCover--text">{$subForum.node_name}</span>
+                
+            </a>
+        </div>
+                    <span class="groupCover--inlineMod">
+                        <label class="iconic iconic--noLabel" title="Select for moderation" data-xf-init="tooltip"><input type="checkbox"  name="ids[]" value="2" hiddenLabel="true" class="js-inlineModToggle" /><i aria-hidden="true"></i></label>
+                    </span>
+                
+
+            </div>
+			
+			</div>
+			
+			<!-- Cover -->
+			
+			
+			<!-- Header -->
+			
+	  
+	   <div class="gridCard--header">
+		   
+			<!-- Avatar -->
+		   
+		   <div class="gridCard--header--avatar">
+			
+			   <a href="/xenforo/index.php?groups/test.2/"\n
+           class="groupAvatar groupAvatar--link" >
+                <img src="/xenforo/data/attachments/0/259-02803ebab687b3c66b507cd3d34bfb4c.jpg"
+                     class="groupAvatar--img" width="100" height="100"
+                     data-width="250"
+                     data-height="250"
+                     alt="test"/>
+        </a>
+		   
+		   </div>
+		   
+			<!-- Avatar -->
+		   
+			<!-- Header Main -->
+              
+                <div class="gridCard--header--main">
+                    
+		<xf:trim>
+        <a href="{{ link('groups') }}" class="gridCard--header--title"
+           data-tp-primary="on">
+            <span>{$subForum.title}</span>
+        </a>
+    </xf:trim>					
+					
+					
+		<xf:trim>
+        <ul class="listInline group--counterList u-muted">
+            <li class="groupItem-stat groupItem-stat--viewCount">
+                <xf:fa icon="fa-eye" />
+                1
+            </li>
+            <li class="groupItem-stat groupItem-stat--memberCount">
+                <xf:fa icon="fa-users" />
+                2
+            </li>
+            <xf:if is="$xf.options.tl_groups_enableForums">
+                <li class="groupItem-stat groupItem-stat--discussionCount">
+                    <xf:fa icon="fa-comment" />
+                    3
+                </li>
+            </xf:if>
+            <li class="groupItem-stat groupItem-stat--eventCount">
+                <xf:fa icon="fa-calendar" />
+                4
+            </li>
+        </ul>
+    </xf:trim>
+						
+                </div>
+		   
+			<!-- Header Main -->
+		   
+			<!-- Action -->
+		   
+		   <div class="gridCard--header--actions">
+		   
+			<div class="buttonGroup-buttonWrapper">
+                <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+					<div class="menu" data-menu="menu" aria-hidden="true">
+                    <div class="menu-content">
+                                <a href="{{ link('molly/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_moderator')  }}
+                            </a>
+                           
+                            <hr class="menu-separator" />
+                    </div>
+                </div>
+            </div>   
+			   
+		   </div>
+		   
+			<!-- Action -->
+		   
+            </div>
+			
+			<!-- Header -->
+			
+	  <xf:if contentcheck="true">
+                <div class="gridCard--body">
+                    <xf:contentcheck>
+					
+						<div class="groupList--description u-muted">{$subForum.description}</div>
+						
+					</xf:contentcheck>
+                </div>
+            </xf:if>
+			
+		  </div>
+		  
+	  </div>
+
+</xf:macro>
+
+    <!--Sub Forums List View--->

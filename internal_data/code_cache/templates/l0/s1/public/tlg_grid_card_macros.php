@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 65d50fc05cc4bee704d37c2d967860e5
+// FROM HASH: e00d75087941c5fd6d9a614542269665
 return array(
 'macros' => array('card' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -29,7 +29,8 @@ return array(
 	$__finalCompiled .= '
 
             <div class="gridCard--header">
-                <div class="gridCard--header--avatar">' . $__templater->filter($__vars['avatarHtml'], array(array('raw', array()),), true) . '</div>
+                <div class="gridCard--header--avatar">
+					' . $__templater->filter($__vars['avatarHtml'], array(array('raw', array()),), true) . '</div>
 
                 <div class="gridCard--header--main">
                     ' . $__templater->filter($__vars['cardTitle'], array(array('raw', array()),), true) . '

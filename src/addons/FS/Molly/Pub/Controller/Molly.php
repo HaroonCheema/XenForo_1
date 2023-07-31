@@ -14,7 +14,12 @@ class Molly extends AbstractController
     {
         // $finder = $this->finder('FS\AuctionPlugin:AuctionListing');
 
-        $viewParams = [];
+        $finder = $this->finder('XF:Node')->where("parent_node_id", $this->app()->options()->fs_molly_applicable_forum)->fetch();
+
+
+        $viewParams = [
+            "subForums" => $finder ?: ''
+        ];
 
         return $this->view('FS\Molly:Molly\Index', 'fs_molly_index', $viewParams);
     }
@@ -257,6 +262,12 @@ class Molly extends AbstractController
         $form->basicEntitySave($routeFilter, $input);
 
         return $form;
+    }
+
+    public function actionAddModerator(ParameterBag $params)
+    {
+
+        exit;
     }
 
     /**

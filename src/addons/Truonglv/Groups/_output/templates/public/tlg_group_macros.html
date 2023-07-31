@@ -1,0 +1,421 @@
+<xf:macro name="privacy_html" arg-group="!">
+    <span class="groupPrivacy groupPrivacy--{$group.privacy}">
+        <xf:if is="$group.privacy == 'public'">
+            <xf:fa icon="fa-globe" /> {{ phrase('tlg_privacy_public') }}
+        <xf:elseif is="$group.privacy == 'closed'" />
+            <xf:fa icon="fa-lock" /> {{ phrase('tlg_privacy_closed') }}
+        <xf:elseif is="$group.privacy == 'secret'" />
+            <xf:fa icon="fa-user-secret" /> {{ phrase('tlg_privacy_secret') }}
+        </xf:if>
+    </span>
+
+    <xf:comment>tl_groups:extra_privacy_html</xf:comment>
+</xf:macro>
+
+<xf:macro name="avatar_block" arg-group="!" arg-blockClasses="{{ null }}">
+    <div class="block{{ $blockClasses ? (' ' . $blockClasses) : '' }}">
+        <xf:callback class="Truonglv\Groups\Callback"
+                     method="renderAvatar"
+                     params="{'group': $group}" />
+    </div>
+</xf:macro>
+
+<xf:macro name="avatar_html" arg-group="!"
+          arg-avatarText="{{ null }}"
+          arg-attrs="{{ null }}"
+          arg-full="{{ false }}">
+    <a href="{{ link('groups', $group) }}"
+       class="groupAvatar groupAvatar--link{{ $group.AvatarAttachment ? '' : ' groupAvatar--default' }}"{{ ($attrs) ? (' ' . $attrs) : '' }}>
+        <xf:if is="$group.AvatarAttachment">
+            <img src="{{ $full ? $group.getAvatarUrl(true) : $group.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img" width="{{ $full ? 250 : 100 }}" height="{{ $full ? 250 : 100 }}"
+                 data-width="{$group.AvatarAttachment.width}"
+                 data-height="{$group.AvatarAttachment.height}"
+                 alt="{$group.name}"/>
+        <xf:else />
+            <span class="groupAvatar--text groupAvatar--dynamic">{$avatarText}</span>
+        </xf:if>
+    </a>
+</xf:macro>
+
+<xf:macro name="cover" arg-group="!" arg-forceHeight="{{ 0 }}" arg-isRepositioning="{{ false }}">
+    <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
+
+    <xf:callback class="Truonglv\Groups\Callback"
+                 method="renderCover"
+                 params="{'group': $group, 'forceHeight': $forceHeight, 'isRepositioning': $isRepositioning}" />
+</xf:macro>
+
+<xf:macro name="cover_html"
+          arg-group="!"
+          arg-attrs="{{ null }}"
+          arg-imgAttrs="{{ null }}"
+          arg-forceHeight="{{ null }}"
+          arg-lazy="{{ true }}"
+          arg-repositioning="{{ false }}">
+    <div class="groupCover groupCoverFrame{{ $repositioning ? ' groupCoverFrame--setup' : '' }}{{ $group.CoverAttachment ? '' : ' groupCover--default' }}"{{ ($attrs) ? (' ' . $attrs) : '' }}>
+        <a href="{{ link('groups', $group) }}"{{ ($attrs) ? (' ' . $attrs) : '' }}>
+            <xf:if is="$group.CoverAttachment">
+                <img data-crop="{$group->getCoverCropData()|json}"
+                     class="groupCover--img{{ $lazy ? ' groupCover--lazy' : '' }}" data-xf-init="tlg-cover-setup"
+                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}
+                     {{ $forceHeight ? (' data-force-height="' . $forceHeight .'"') : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($group.name, 25) }}</span>
+            </xf:if>
+        </a>
+    </div>
+</xf:macro>
+
+<xf:macro name="privacy_row" arg-group="{{ null }}" arg-selected="{{ null }}" arg-allowSecret="{{ false }}" arg-allowClosed="{{ false }}">
+    <xf:radiorow name="privacy" label="{{ phrase('tlg_privacy') }}" value="{$selected}">
+        <xf:option value="public" label="{{ phrase('tlg_privacy_public') }}"
+                   hint="{{ phrase('tlg_privacy_public_explain') }}">
+            <xf:checkbox>
+                <xf:option name="allow_guest_posting"
+                           selected="{$group.allow_guest_posting}" value="1">{{ phrase('tlg_also_allow_guest_posting_into_news_feed...') }}</xf:option>
+            </xf:checkbox>
+        </xf:option>
+
+        <xf:if is="$allowClosed">
+            <xf:option value="closed" label="{{ phrase('tlg_privacy_closed') }}"
+                       hint="{{ phrase('tlg_privacy_closed_explain') }}" />
+        </xf:if>
+
+        <xf:if is="$allowSecret">
+            <xf:option value="secret" label="{{ phrase('tlg_privacy_secret') }}"
+                       hint="{{ phrase('tlg_privacy_secret_explain') }}" />
+        </xf:if>
+
+        <xf:comment>tl_groups:extra_privacy_row</xf:comment>
+    </xf:radiorow>
+</xf:macro>
+
+<xf:macro name="extra_privacy_rows" arg-group="{{ null }}">
+    <xf:checkboxrow label="">
+        <xf:option name="always_moderate_join" selected="{$group.always_moderate_join}"
+                   label="{{ phrase('tlg_all_requests_must_be_approved_by_a_moderator') }}"
+                   hint="{{ phrase('tlg_all_requests_must_be_approved_by_a_moderator_explain') }}" />
+    </xf:checkboxrow>
+</xf:macro>
+
+<xf:macro name="quick_overview" arg-group="!">
+    <div class="block">
+        <div class="block-container">
+            <h3 class="block-minorHeader">{{ phrase('tlg_quick_overview') }}</h3>
+            <div class="block-body block-row">
+                <dl class="pairs pairs--justified">
+                    <dt>{{ phrase('tlg_category') }}</dt>
+                    <dd><a href="{{ link('group-categories', $group.Category) }}">{$group.Category.category_title}</a></dd>
+                </dl>
+
+                <xf:if is="$xf.options.tl_groups_enableLanguage > 0">
+                    <dl class="pairs pairs--justified">
+                        <dt>{{ phrase('language') }}</dt>
+                        <dd>{$group.language_title}</dd>
+                    </dl>
+                </xf:if>
+
+                <dl class="pairs pairs--justified">
+                    <dt>{{ phrase('tlg_total_members') }}</dt>
+                    <dd>{$group.member_count|number_short}</dd>
+                </dl>
+
+                <dl class="pairs pairs--justified">
+                    <dt>{{ phrase('tlg_total_events') }}</dt>
+                    <dd>{$group.event_count|number_short}</dd>
+                </dl>
+
+                <xf:if is="$xf.options.tl_groups_enableForums">
+                    <dl class="pairs pairs--justified">
+                        <dt>{{ phrase('tlg_total_discussions') }}</dt>
+                        <dd>{$group.discussion_count|number_short}</dd>
+                    </dl>
+                </xf:if>
+
+                <dl class="pairs pairs--justified">
+                    <dt>{{ phrase('tlg_total_views') }}</dt>
+                    <dd>{$group.view_count|number_short}</dd>
+                </dl>
+
+                <xf:set var="$isXFMGEnabled"><xf:callback class="Truonglv\Groups\App" method="isEnabledXenMediaAddOn" /></xf:set>
+                <xf:if is="$isXFMGEnabled is not empty">
+                    <dl class="pairs pairs--justified">
+                        <dt>{{ phrase('tlg_total_albums') }}</dt>
+                        <dd>{$group.album_count|number_short}</dd>
+                    </dl>
+                </xf:if>
+
+                <xf:comment>tl_groups_quick_overview_extra</xf:comment>
+            </div>
+        </div>
+    </div>
+</xf:macro>
+
+<xf:macro name="share_block" arg-group="!">
+    <div class="block">
+        <div class="block-container">
+            <h3 class="block-minorHeader">{{ phrase('tlg_share_this_group') }}</h3>
+            <div class="block-body block-row">
+                <xf:macro template="share_page_macros" name="buttons"
+                          arg-iconic="{{ true }}" />
+
+                <xf:set var="$groupUrl">{{ link('canonical:groups', $group) }}</xf:set>
+
+                <xf:macro template="share_page_macros"
+                          name="share_clipboard_input"
+                          arg-label="{{ phrase('tlg_group_url') }}"
+                          arg-text="{$groupUrl}" />
+
+                <xf:set var="$groupUrlBbCode">[GROUP={$group.group_id}][/GROUP]</xf:set>
+                <xf:macro template="share_page_macros"
+                          name="share_clipboard_input"
+                          arg-label="{{ phrase('tlg_copy_group_bbcode') }}"
+                          arg-text="{$groupUrlBbCode}" />
+            </div>
+        </div>
+    </div>
+</xf:macro>
+
+<xf:macro name="invite_member_form" arg-group="!">
+    <div class="block">
+        <div class="block-container">
+            <h3 class="block-minorHeader">{{ phrase('tlg_invite_member') }}</h3>
+            <div class="block-footer"><xf:fa icon="fa-exclamation-circle" /> {{ phrase('tlg_invite_other_people_to_join_this_group') }}</div>
+            <xf:form action="{{ link('groups/invite', $group) }}" method="post" ajax="true">
+                <div class="block-body block-row">
+                    <xf:textbox name="username" ac="single" autocomplete="off" autofocus="off"
+                                tabindex="-1"
+                                maxlength="{{ max_length($xf.visitor, 'username') }}"
+                                placeholder="{{ phrase('name...') }}" />
+
+                    <div class="formSubmitRow--simple formSubmitRow">
+                        <div class="formSubmitRow-controls">
+                            <xf:button type="submit" class="button--icon button--cta">
+                                <xf:fa icon="fa-paper-plane" /> {{ phrase('tlg_send_invite') }}
+                            </xf:button>
+                        </div>
+                    </div>
+                </div>
+            </xf:form>
+        </div>
+    </div>
+</xf:macro>
+
+<xf:macro name="settings" arg-group="!" arg-advanced="{{ false }}">
+    <xf:if contentcheck="true">
+        <div class="buttonGroup-buttonWrapper">
+            <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+            <div class="menu" data-menu="menu" aria-hidden="true">
+                <div class="menu-content">
+                    <xf:contentcheck>
+                        <xf:comment>tl_groups.group_settings_top</xf:comment>
+                        <xf:if is="$group.Member AND !$group.Member.isInvited()">
+                            <a href="{{ link('group-members/leave', $group.Member) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{ $group.Member.isValidMember() ? phrase('tlg_leave_group') : phrase('tlg_cancel_requesting') }}
+                            </a>
+                        </xf:if>
+
+                        <xf:if is="$group.canReport()">
+                            <a href="{{ link('groups/report', $group) }}"
+                               class="menu-linkRow" data-xf-click="overlay">{{ phrase('tlg_report_group') }}</a>
+                        </xf:if>
+
+                        <xf:if is="$group.canUseAsBadge()">
+                            <a href="{{ link('groups/badge', $group) }}" class="menu-linkRow">
+                                {{ phrase('tlg_toggle_display_group_badge') }}
+                                <span>{{ $group.isEnabledGroupBadge() ? phrase('(enabled)') : phrase('(disabled)') }}</span>
+                            </a>
+                        </xf:if>
+
+                        <xf:if is="$group.Member OR $group.canReport()"><hr class="menu-separator" /></xf:if>
+
+                        <xf:comment>tl_groups.group_settings_middle</xf:comment>
+
+                        <xf:if is="$advanced is not empty">
+                            <xf:macro name="settings_advanced" arg-group="{$group}"/>
+                        </xf:if>
+
+                        <xf:comment>tl_groups.group_settings_bottom</xf:comment>
+                    </xf:contentcheck>
+                </div>
+            </div>
+        </div>
+    </xf:if>
+</xf:macro>
+
+<xf:macro name="settings_advanced" arg-group="!">
+    <xf:if is="$group.canUpdatePrivacy()">
+        <a href="{{ link('groups/privacy', $group) }}" class="menu-linkRow">{{ phrase('tlg_update_privacy') }}</a>
+    </xf:if>
+
+    <xf:if is="$group.canManageAvatar()">
+        <a href="{{ link('groups/avatar', $group) }}" class="menu-linkRow">{{ phrase('tlg_upload_avatar') }}</a>
+    </xf:if>
+
+    <xf:if is="$group.canManageCover()">
+        <a href="{{ link('groups/cover', $group) }}" class="menu-linkRow">{{ phrase('tlg_upload_cover') }}</a>
+        <xf:if is="$group.cover_attachment_id > 0">
+            <a href="{{ link('groups/cover', $group, {'reposition': 1}) }}" class="menu-linkRow">{{ phrase('tlg_reposition_cover') }}</a>
+        </xf:if>
+    </xf:if>
+
+    <xf:if is="$group.canAddForum()">
+        <a href="{{ link('groups/add-forum', $group) }}"
+           data-xf-click="overlay"
+           class="menu-linkRow">{{ phrase('tlg_add_forum') }}</a>
+    </xf:if>
+
+    <xf:if contentcheck="true">
+        <hr class="menu-separator" />
+        <xf:contentcheck>
+            <xf:if is="$group.canApproveUnapprove()">
+                <xf:if is="$group.group_state == 'moderated'">
+                    <a href="{{ link('groups/toggle-approve', $group) }}"
+                       class="menu-linkRow">{{ phrase('tlg_approve_group') }}</a>
+                    <xf:elseif is="$group.isVisible()" />
+                    <a href="{{ link('groups/toggle-approve', $group) }}"
+                       class="menu-linkRow">{{ phrase('tlg_unapprove_group') }}</a>
+                </xf:if>
+            </xf:if>
+
+            <xf:if is="$group.canEdit()">
+                <a href="{{ link('groups/edit', $group) }}"
+                   class="menu-linkRow">{{ phrase('tlg_edit_group') }}</a>
+            </xf:if>
+
+            <xf:if is="$group.canMove()">
+                <a href="{{ link('groups/move', $group) }}" data-xf-click="overlay"
+                   class="menu-linkRow">{{ phrase('tlg_move_group') }}</a>
+            </xf:if>
+
+            <xf:if is="$group.canDelete('soft')">
+                <a href="{{ link('groups/delete', $group) }}"
+                   class="menu-linkRow" data-xf-click="overlay">{{ phrase('tlg_delete_group') }}</a>
+            </xf:if>
+
+            <xf:if is="$group.canUndelete()">
+                <a href="{{ link('groups/undelete', $group) }}"
+                   data-xf-click="overlay"
+                   class="menu-linkRow">{{ phrase('tlg_undelete_group') }}</a>
+            </xf:if>
+
+            <xf:if is="$group.canFeatureUnfeature()">
+                <a href="{{ link('groups/feature', $group) }}"
+                   class="menu-linkRow" data-xf-click="overlay">{{ phrase('tlg_feature_group') }}</a>
+                <xf:if is="$group.isFeatured()">
+                    <a href="{{ link('groups/unfeature', $group) }}"
+                       class="menu-linkRow">{{ phrase('tlg_unfeature_group') }}</a>
+                </xf:if>
+            </xf:if>
+
+            <xf:if is="$group.canReassign()">
+                <a href="{{ link('groups/reassign', $group) }}"
+                   class="menu-linkRow" data-xf-click="overlay">{{ phrase('tlg_reassign_group') }}</a>
+            </xf:if>
+
+            <xf:if is="$group.canMerge()">
+                <a href="{{ link('groups/merge', $group) }}"
+                   class="menu-linkRow" data-xf-click="overlay">{{ phrase('tlg_merge_group') }}</a>
+            </xf:if>
+
+            <xf:comment>tl_groups.group_settings_extra_mod</xf:comment>
+        </xf:contentcheck>
+    </xf:if>
+</xf:macro>
+
+<xf:macro name="join_button" arg-group="!" arg-hiddenLeave="{{ false }}">
+    <xf:if is="$group.Member">
+        <xf:if is="!$hiddenLeave AND !$group.Member.isInvited()">
+            <xf:button href="{{ link('group-members/leave', $group.Member) }}"
+                       class="button--{{ $group.Member.isValidMember() ? 'link' : 'cta' }} button--groupJoin"
+                       overlay="true">
+                <xf:fa icon="fa-sign-out" />
+                {{ $group.Member.isValidMember() ? phrase('tlg_leave_group') : phrase('tlg_cancel_requesting') }}
+            </xf:button>
+        </xf:if>
+    <xf:elseif is="$group.canJoin()" />
+        <xf:button href="{{ link('groups/join', $group) }}" overlay="true" class="button--cta button--groupJoin">
+            <xf:fa icon="fa-sign-in" />
+            {{ phrase('tlg_join_group') }}
+        </xf:button>
+    </xf:if>
+</xf:macro>
+
+<xf:macro name="member_view_tabs_heading" arg-user="!">
+    <xf:if is="$xf.visitor.hasPermission('tl_groups', 'view')">
+        <a href="{{ link('groups/browse/user', null, {'user_id': $user.user_id}) }}"
+           rel="nofollow" class="tabs-tab" id="tlg-groups"
+           role="tab">{{ phrase('tlg_groups') }}</a>
+    </xf:if>
+</xf:macro>
+
+<xf:macro name="member_view_tabs_content" arg-user="!">
+    <xf:if is="$xf.visitor.hasPermission('tl_groups', 'view')">
+    <li data-href="{{ link('groups/browse/user', null, {'user_id': $user.user_id, 'ref': 'profile'}) }}" role="tabpanel"
+        aria-labelledby="tlg-groups">
+        <div class="blockMessage">{{ phrase('loading...') }}</div>
+    </li>
+    </xf:if>
+</xf:macro>
+
+<xf:macro name="structured_data" arg-group="!">
+    <xf:set var="$fpSnippet" value="{{ snippet($group.description, 0, {'stripBbCode': true}) }}" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "@id": "{{ link('canonical:groups', $group)|escape('json') }}",
+            "url": "{{ link('canonical:groups', $group)|escape('json') }}",
+            "name": "{$group.name|escape('json')}",
+            "about": "{$group.short_description|escape('json')}",
+            "headline": "{$group.short_description|escape('json')}",
+            "description": "{$fpSnippet|escape('json')}",
+            "creator": {
+                "@type": "Person",
+                "name": "{{ ($group.User ? $group.User.username : $group.owner_username)|escape('json') }}"
+            },
+            <xf:if is="$group.AvatarAttachment">"thumbnailUrl": "{$group.getAvatarUrl(true)|escape('json')}",</xf:if>
+            <xf:if is="$group.tags">"keywords": "{$group.tags|pluck('tag')|join(',')|escape('json')}",</xf:if>
+            "datePublished": "{{ date($group.created_date, 'c')|escape('json') }}",
+            "dateModified": "{{ date($group.last_activity, 'c')|escape('json') }}"
+        }
+    </script>
+</xf:macro>
+
+<xf:macro name="user_info_badge" arg-group="!">
+    <xf:css src="tlg_style.less" />
+    <div class="groupBadge{{ $group.CoverAttachment ? ' has-cover' : '' }}" data-group-id="{$group.group_id}"
+         style="{{ $group.CoverAttachment ? ('background-image:url(' . $group.CoverAttachment.thumbnail_url . ')') : '' }}">
+        <xf:if is="$group.CoverAttachment">
+            <div class="groupBadge-overlay"></div>
+        </xf:if>
+        <xf:macro name="avatar_html" arg-group="{$group}" />
+        <a href="{{ link('groups', $group) }}" class="groupBadge-name"
+           data-xf-init="preview-tooltip"
+           data-preview-url="{{ link('groups/preview', $group) }}">{$group.name}</a>
+    </div>
+</xf:macro>
+
+<xf:macro name="share_qr_code" arg-group="!">
+    <xf:js src="vendor/qrcode/jquery-qrcode.min.js" />
+    <xf:css src="tlg_style.less" />
+    <div class="block group-qrcode--block">
+        <div class="block-container">
+            <div class="block-row">
+                <div class="tlg-group--qrcode"></div>
+            </div>
+        </div>
+    </div>
+    <xf:js>
+        $('.tlg-group--qrcode').qrcode({
+            text: '{{ link('canonical:groups', $group)|escape }}'
+        })
+    </xf:js>
+</xf:macro>
