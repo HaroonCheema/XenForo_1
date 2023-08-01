@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: f665c140d1ca2cae4cf6bb6f1ffd5a4d
+// FROM HASH: f8ed0138608dd7f7347d25932832c3fb
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -169,9 +169,7 @@ return array(
 		'wrapperclass' => 'block-outer-opposite',
 	))) . '
     </div>
-</div>
-
-';
+</div>';
 	return $__finalCompiled;
 }
 );

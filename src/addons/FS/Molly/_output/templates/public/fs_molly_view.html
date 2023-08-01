@@ -1,0 +1,24 @@
+<xf:title>{$group.name}</xf:title>
+
+{{dump($subForums)}}
+
+<xf:css src="tlg_style.less" />
+
+
+<xf:sidenav>
+	
+	<div class="block groupAvatar-block">
+        <a href="{{ link('groups', $group) }}"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+           <xf:comment>
+			<img src="{{ $full ? $group.getAvatarUrl(true) : $group.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img" width="{{ $full ? 250 : 100 }}" height="{{ $full ? 250 : 100 }}"
+                 data-width="{$group.AvatarAttachment.width}"
+                 data-height="{$group.AvatarAttachment.height}"
+                 alt="{$group.name}"/>
+			</xf:comment>
+            <span class="groupAvatar--text groupAvatar--dynamic">H</span>
+    </a>
+    </div>
+
+</xf:sidenav>

@@ -1,0 +1,114 @@
+<xf:title>{{ phrase('edit_moderator:') }} {$user.username}</xf:title>
+
+<xf:pageaction if="$contentModerator ? $contentModerator.isUpdate() : $generalModerator.isUpdate()">
+	<xf:if is="$contentModerator">
+		<xf:button href="{{ link('moderators/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
+	<xf:else />
+		<xf:button href="{{ link('moderators/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
+	</xf:if>
+</xf:pageaction>
+
+<xf:form action="{{ link('molly/moderator-save') }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:formrow label="{{ phrase('type_of_moderator') }}">
+				<xf:if is="$contentTitle">
+					{$contentTitle}
+					<xf:else />
+					{{ phrase('super_moderator') }}
+				</xf:if>
+			</xf:formrow>
+
+			<hr class="formRowSep" />
+
+			<xf:checkboxrow>
+				<xf:option name="is_staff" selected="$isStaff"
+					label="{{ phrase('display_user_as_staff') }}"
+					hint="{{ phrase('if_selected_this_user_will_be_listed_publicly_as_staff_member') }}" />
+			</xf:checkboxrow>
+
+			<xf:checkboxrow name="extra_user_group_ids[]" value="{{ $generalModerator.extra_user_group_ids }}"
+				listclass="listColumns"
+				rowid="addUserGroups"
+				label="{{ phrase('add_moderator_to_user_groups') }}">
+
+				<xf:hint>
+					<xf:checkbox standalone="true">
+						<xf:option check-all="#addUserGroups" label="{{ phrase('select_all') }}" />
+					</xf:checkbox>
+				</xf:hint>
+				<xf:options source="$userGroups" />
+			</xf:checkboxrow>
+
+			<hr class="formRowSep" />
+
+			<div id="piGroups">
+
+				<xf:checkboxrow>
+					<xf:option check-all="#piGroups" label="{{ phrase('select_all') }}" />
+				</xf:checkboxrow>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
+						<xf:hiddenval
+							name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+							value="unset" />
+					</xf:foreach>
+					<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
+						<xf:hiddenval
+							name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+							value="unset" />
+					</xf:foreach>
+				</xf:foreach>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:if is="{$globalPermissions.{$interfaceGroupId}}">
+						<hr class="formRowSep" />
+
+						<xf:checkboxrow listclass="listColumns"
+							label="{$interfaceGroup.title}">
+							<xf:hint>
+								<xf:checkbox standalone="true">
+									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
+								</xf:checkbox>
+							</xf:hint>
+							<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
+								<xf:option name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+									value="allow"
+									selected="{{ {$existingValues.{$permission.permission_group_id}.{$permission.permission_id}} == 'allow' }}"
+									label="{$permission.title}" />
+							</xf:foreach>
+						</xf:checkboxrow>
+					</xf:if>
+				</xf:foreach>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:if is="{$contentPermissions.{$interfaceGroupId}}">
+						<hr class="formRowSep" />
+
+						<xf:checkboxrow listclass="listColumns"
+							label="{$interfaceGroup.title}">
+							<xf:hint>
+								<xf:checkbox standalone="true">
+									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
+								</xf:checkbox>
+							</xf:hint>
+							<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
+								<xf:option name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+									value="content_allow"
+									selected="{{ {$existingValues.{$permission.permission_group_id}.{$permission.permission_id}} == 'content_allow' }}"
+									label="{$permission.title}" />
+							</xf:foreach>
+						</xf:checkboxrow>
+					</xf:if>
+				</xf:foreach>
+
+			</div>
+		</div>
+		<xf:submitrow icon="save" />
+	</div>
+
+	<xf:hiddenval name="user_id">{$generalModerator.user_id}</xf:hiddenval>
+	<xf:hiddenval name="content_type">{$contentModerator.content_type}</xf:hiddenval>
+	<xf:hiddenval name="content_id">{$contentModerator.content_id}</xf:hiddenval>
+</xf:form>

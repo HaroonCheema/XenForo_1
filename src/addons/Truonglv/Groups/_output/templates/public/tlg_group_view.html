@@ -1,0 +1,99 @@
+<xf:title>{$group.name}</xf:title>
+
+<xf:wrap template="tlg_group_wrapper">
+    <xf:set var="$pageSelected">newsFeed</xf:set>
+</xf:wrap>
+
+<xf:if is="$group.AvatarAttachment">
+    <xf:set var="$imageUrl">{$group.AvatarAttachment.Data.getThumbnailUrl(true)}</xf:set>
+<xf:elseif is="property('publicMetadataLogoUrl')" />
+    <xf:set var="$imageUrl">{{ base_url(property('publicMetadataLogoUrl'), true) }}</xf:set>
+</xf:if>
+
+<xf:macro template="metadata_macros" name="metadata"
+          arg-description="{$group.short_description}"
+          arg-shareUrl="{{ link('canonical:groups', $group) }}"
+          arg-imageUrl="{$imageUrl}"
+          arg-canonicalUrl="{{ link('canonical:groups', $group, {'page': $page}) }}" />
+
+<xf:page option="ldJsonHtml">
+    <xf:macro template="tlg_group_macros" name="structured_data" arg-group="{$group}"/>
+</xf:page>
+
+<xf:if is="$group.canAddPost()">
+<xf:form action="{{ link('groups/add-post', $group) }}"
+         ajax="true"
+         class="block js-quickReply"
+         data-xf-init="attachment-manager quick-reply"
+         data-ascending="false"
+         data-message-container=".js-newPostsContainer">
+
+    <xf:js src="xf/message.js" min="1" />
+    <xf:set var="$lastPost" value="{$posts|last}" />
+
+    <div class="block-container">
+        <div class="block-body">
+            <xf:macro template="quick_reply_macros" name="body"
+                      arg-message=""
+                      arg-attachmentData="{$attachmentData}"
+                      arg-forceHash="{$attachmentHash}"
+                      arg-messageSelector=".js-post"
+                      arg-multiQuoteStorageKey=""
+                      arg-lastDate="{$lastPost.post_date}"
+                      arg-showPreviewButton="{{ false }}"
+                      arg-simple="{{ true }}"
+                      arg-submitText="{{ phrase('post_verb') }}" />
+        </div>
+    </div>
+</xf:form>
+</xf:if>
+
+<xf:if is="$stickyPosts is not empty">
+    <div class="block block--messages" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="tl_group_wall_post"
+         data-href="{{ link('inline-mod') }}">
+        <div class="block-container lbContainer"
+             data-xf-init="lightbox"
+             data-message-selector=".js-post"
+             data-lb-id="group-{$group.group_id}"
+             data-lb-universal="{$xf.options.lightBoxUniversal}">
+            <h3 class="block-minorHeader"><xf:fa icon="fa-thumbtack" /> {{ phrase('tlg_sticky_posts') }}</h3>
+            <div class="block-body">
+                <xf:foreach loop="$stickyPosts" value="$post">
+                    <xf:macro template="tlg_post_macros" name="post"
+                              arg-post="{$post}" arg-showLoader="{{ true }}" />
+                </xf:foreach>
+            </div>
+        </div>
+    </div>
+</xf:if>
+
+<div class="block block--messages" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}"
+     data-type="tl_group_wall_post"
+     data-href="{{ link('inline-mod') }}">
+    <div class="block-container lbContainer"
+         data-xf-init="lightbox"
+         data-message-selector=".js-post"
+         data-lb-id="group-{$group.group_id}"
+         data-lb-universal="{$xf.options.lightBoxUniversal}">
+
+        <div class="block-body js-newPostsContainer">
+            <xf:foreach loop="$posts" value="$post">
+                <xf:macro template="tlg_post_macros"
+                          name="post"
+                          arg-post="{$post}"
+                          arg-showLoader="{{ true }}" />
+            <xf:else />
+                <div class="js-newMessagesIndicator">
+                    <xf:if is="$stickyPosts is empty">
+                        <div class="block-row">{{ phrase('tlg_there_are_no_posts_to_display') }}</div>
+                    </xf:if>
+                </div>
+            </xf:foreach>
+        </div>
+    </div>
+
+    <div class="block-outer block-outer--after">
+        <xf:pagenav link="{$pageNavLink}" data="{$group}" page="{$page}" perpage="{$perPage}" total="{$total}" />
+        <xf:showignored wrapperclass="block-outer-opposite" />
+    </div>
+</div>

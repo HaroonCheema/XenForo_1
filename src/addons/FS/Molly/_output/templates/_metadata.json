@@ -7,12 +7,27 @@
     "public/fs_molly_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "318cca65f27433b80d60dfec1aa07468"
+        "hash": "cf3b7699400c5fb70a956bd234165579"
     },
     "public/fs_molly_sub_forum_add_edit.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "85f03c61178e7a6359d0345134919f97"
+    },
+    "public/fs_molly_view.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b0440f570cecefba1f3db7ac104a17ad"
+    },
+    "public/moderator_add_choice.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "76947a065f7bb986f5c4f04fa2802f44"
+    },
+    "public/moderator_edit.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "f7a525bc16832315cc4ae09580c3d7f3"
     },
     "public/node_edit_macros.html": {
         "version_id": 1000010,

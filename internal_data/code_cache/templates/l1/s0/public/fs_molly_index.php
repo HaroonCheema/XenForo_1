@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 318cca65f27433b80d60dfec1aa07468
+// FROM HASH: cf3b7699400c5fb70a956bd234165579
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -20,7 +20,7 @@ return array(
 				<div class="groupCover--wrapper">
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="/xenforo/index.php?groups/test.2/" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
                 
                     <span class="groupCover--text">' . $__templater->escape($__vars['subForum']['node_name']) . '</span>
                 
@@ -65,7 +65,7 @@ return array(
                 <div class="gridCard--header--main">
                     
 		' . trim('
-        <a href="' . $__templater->func('link', array('groups', ), true) . '" class="gridCard--header--title"
+        <a href="' . $__templater->func('link', array('molly', $__vars['subForum'], ), true) . '" class="gridCard--header--title"
            data-tp-primary="on">
             <span>' . $__templater->escape($__vars['subForum']['title']) . '</span>
         </a>

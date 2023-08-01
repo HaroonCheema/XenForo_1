@@ -147,6 +147,10 @@ class Moderator extends AbstractController
 				'type' => $input['type'],
 				'typeId' => $input['type_id']
 			];
+
+			// echo "<pre>";
+			// var_dump($this->app->getContentTypeField('moderator_handler_class'));exit;
+
 			return $this->view('XF:Moderator\AddChoice', 'moderator_add_choice', $viewParams);
 		}
 
