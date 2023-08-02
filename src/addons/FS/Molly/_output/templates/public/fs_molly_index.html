@@ -79,14 +79,27 @@
   </div>
 </div>
 
-<xf:page option="sideNavTitle">{{ phrase('categories') }}</xf:page>
+<xf:page option="sideNavTitle">{{ phrase('fs_molly_side_community') }}</xf:page>
 
 <xf:sidenav>
+	<xf:comment>
   <xf:macro
     template="fs_auction_category_list_macros"
     name="simple_list_block"
     arg-categoryTree="null"
   />
+	</xf:comment>
+	
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">{{ phrase('fs_molly_side_community') }}</h3>
+			<div class="block-body">
+				
+					<div class="block-row">{{ phrase('n_a') }}</div>
+				
+			</div>
+		</div>
+	</div>
 
 </xf:sidenav>
 
@@ -111,7 +124,7 @@
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
             <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
                 
-                    <span class="groupCover--text">{$subForum.node_name}</span>
+                    <span class="groupCover--text">{$subForum.title}</span>
                 
             </a>
         </div>
@@ -203,6 +216,12 @@
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 {{  phrase('fs_molly_moderator')  }}
+                            </a>
+						
+						<a href="{{ link('molly/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_add_chatroom')  }}
                             </a>
                            
                             <hr class="menu-separator" />

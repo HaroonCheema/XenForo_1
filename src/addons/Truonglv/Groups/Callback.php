@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @license
  * Copyright 2018 TruongLuu. All Rights Reserved.
@@ -98,7 +99,7 @@ class Callback
                 $cropHeight = (int) $group->getCoverCropData('h');
                 $cropHeight = max(200, $cropHeight);
 
-                $ratio = $forceHeight/$cropHeight;
+                $ratio = $forceHeight / $cropHeight;
                 $top = ($top * $ratio) . 'px';
             }
 

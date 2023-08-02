@@ -1,18 +1,18 @@
 <xf:title>{$group.name}</xf:title>
 
-{{dump($subForums)}}
-
 <xf:css src="tlg_style.less" />
 
 
 <xf:sidenav>
+	
+	<!-- Avatar -->
 	
 	<div class="block groupAvatar-block">
         <a href="{{ link('groups', $group) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
            <xf:comment>
 			<img src="{{ $full ? $group.getAvatarUrl(true) : $group.AvatarAttachment.thumbnail_url }}"
-                 class="groupAvatar--img" width="{{ $full ? 250 : 100 }}" height="{{ $full ? 250 : 100 }}"
+                 class="groupAvatar--img" width="250" height="250"
                  data-width="{$group.AvatarAttachment.width}"
                  data-height="{$group.AvatarAttachment.height}"
                  alt="{$group.name}"/>
@@ -20,5 +20,112 @@
             <span class="groupAvatar--text groupAvatar--dynamic">H</span>
     </a>
     </div>
+	
+	<!-- Avatar -->
 
 </xf:sidenav>
+
+<div class="groupWrapper groupWrapper-{$subForums.node_id}">
+
+	<!-- Header -->
+
+	<xf:page option="headerHtml">
+        <div class="contentRow contentRow--hideFigureNarrow">
+            <div class="contentRow-main">
+                <div class="p-title">
+                    <h1 class="p-title-value">
+                        {$subForums.title}
+                    </h1>
+                </div>
+                    <div class="p-description">
+                        {$subForums.description}
+                    </div>
+            </div>
+        </div>
+    </xf:page>
+
+	<!-- Header -->
+
+	<!-- Cover Header -->
+
+	<div class="block">
+        <div class="block-container groupCover-header">
+            <div class="block-body">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
+        <a href="{{ link('groups', $group) }}" style="background-color:#e08585;color:#8f2424">
+                <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
+        </a>
+    </div>
+            </div>
+
+            <xf:if is="$isEditing is not empty">
+                <xf:macro name="cover_editor_setup" arg-group="{$group}"
+                          arg-width="{$baseWidth}"
+                          arg-height="{$baseHeight}" />
+            <xf:else />
+               
+				 <div class="gridCard--header--actions">
+		   
+			<div class="buttonGroup-buttonWrapper">
+                <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+					<div class="menu" data-menu="menu" aria-hidden="true">
+                    <div class="menu-content">
+                                <a href="{{ link('molly/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_moderator')  }}
+                            </a>
+						
+						<a href="{{ link('molly/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_add_chatroom')  }}
+                            </a>
+                           
+                            <hr class="menu-separator" />
+                    </div>
+                </div>
+            </div>   
+			   
+		   </div>
+				
+            </xf:if>
+
+        </div>
+    </div>
+
+	<!-- Cover Header -->
+	
+	<!-- Thread Lists -->
+	
+		<div class="block-container">
+		<div class="block-body">
+				<div class="structItemContainer">
+					<xf:if is="$threads is not empty">
+						<div class="structItemContainer-group js-threadList">
+							<xf:if is="$threads is not empty">
+								<xf:foreach loop="$threads" value="$thread">
+									<xf:macro name="fs_molly_thread_list_macros::item"
+										arg-thread="{$thread}"
+										arg-forum="{$forum}"
+										args="null"  />
+								</xf:foreach>
+							</xf:if>
+						</div>				
+					<xf:else />
+						<div class="structItemContainer-group js-threadList">
+								<div class="structItem js-emptyThreadList">
+									<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
+								</div>
+						</div>
+					</xf:if>
+				</div>
+		</div>
+	</div>
+	
+	<!-- Thread Lists -->
+	
+</div>

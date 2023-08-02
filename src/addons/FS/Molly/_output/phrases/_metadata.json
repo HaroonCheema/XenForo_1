@@ -1,4 +1,34 @@
 {
+    "fs_molly.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "9dd5d0d80c6edf7f55faaa698ceff84a"
+    },
+    "fs_molly_add_chatroom.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "06dbc213a49370c9e7f5f405bd5bbbdb"
+    },
+    "fs_molly_add_sub_forum.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c9d956ceb5c1fb1fee595c13b07ec07a"
+    },
+    "fs_molly_moderator.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "575311a705a163a867cf067e48daa652"
+    },
+    "fs_molly_side_community.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "9cfc797203acf28a3b3e1efe41eb51b8"
+    },
     "nav.fs_molly_index.txt": {
         "global_cache": false,
         "version_id": 1000010,

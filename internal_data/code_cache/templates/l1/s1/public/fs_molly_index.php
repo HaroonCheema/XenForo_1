@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: cf3b7699400c5fb70a956bd234165579
+// FROM HASH: 59fd5571cb6d14c50f327ce403305675
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -22,7 +22,7 @@ return array(
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
             <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
                 
-                    <span class="groupCover--text">' . $__templater->escape($__vars['subForum']['node_name']) . '</span>
+                    <span class="groupCover--text">' . $__templater->escape($__vars['subForum']['title']) . '</span>
                 
             </a>
         </div>
@@ -127,7 +127,13 @@ return array(
                                 <a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), true) . '"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
-                                ' . 'fs_molly_moderator' . '
+                                ' . 'Add Moderator' . '
+                            </a>
+						
+						<a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), true) . '"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                ' . 'Add Chatroom' . '
                             </a>
                            
                             <hr class="menu-separator" />
@@ -170,7 +176,7 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('fs_molly');
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Molly');
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
 
@@ -181,7 +187,7 @@ return array(
 ';
 	if ($__vars['xf']['visitor']) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-    ' . $__templater->button('fs_molly_add_sub_forum', array(
+    ' . $__templater->button('Add Sub Community', array(
 			'href' => $__templater->func('link', array('molly/add', ), false),
 			'class' => 'button--cta',
 			'icon' => 'write',
@@ -280,14 +286,23 @@ return array(
 </div>
 
 ';
-	$__templater->setPageParam('sideNavTitle', 'Categories');
+	$__templater->setPageParam('sideNavTitle', 'Sub Communties');
 	$__finalCompiled .= '
 
 ';
 	$__templater->modifySideNavHtml(null, '
-  ' . $__templater->callMacro('fs_auction_category_list_macros', 'simple_list_block', array(
-		'categoryTree' => 'null',
-	), $__vars) . '
+	' . '
+	
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">' . 'Sub Communties' . '</h3>
+			<div class="block-body">
+				
+					<div class="block-row">' . 'N/A' . '</div>
+				
+			</div>
+		</div>
+	</div>
 
 ', 'replace');
 	$__finalCompiled .= '

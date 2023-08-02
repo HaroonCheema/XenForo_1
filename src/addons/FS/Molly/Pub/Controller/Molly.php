@@ -33,7 +33,25 @@ class Molly extends AbstractController
 
         // \XF::em()->find('XF:Node', $params->node_id);
 
+        $forum = $this->assertViewableForum($params->node_id ?: $params->node_name, $this->getForumViewExtraWith());
+
+        $threadRepo = $this->getThreadRepo();
+
+        $threadList = $threadRepo->findThreadsForForumView(
+            $forum,
+            [
+                'allowOwnPending' => $this->hasContentPendingApproval()
+            ]
+        );
+
+        $threadList->where('sticky', 0);
+
+        /** @var \XF\Entity\Thread[]|\XF\Mvc\Entity\AbstractCollection $threads */
+        $threads = $threadList->fetch();
+
         $viewParams = [
+            'forum' => $forum,
+            'threads' => $threads,
             "subForums" => \XF::em()->find('XF:Node', $params->node_id) ?: ''
         ];
 
@@ -41,6 +59,67 @@ class Molly extends AbstractController
 
         // var_dump($params);
         // exit;
+    }
+
+    protected function getForumViewExtraWith()
+    {
+        $extraWith = [];
+        $userId = \XF::visitor()->user_id;
+        if ($userId) {
+            $extraWith[] = 'Watch|' . $userId;
+        }
+
+        return $extraWith;
+    }
+
+    /**
+     * @return \XF\Repository\Thread
+     */
+    protected function getThreadRepo()
+    {
+        return $this->repository('XF:Thread');
+    }
+
+    /**
+     * @param string|int $nodeIdOrName
+     * @param array $extraWith
+     *
+     * @return \XF\Entity\Forum
+     *
+     * @throws \XF\Mvc\Reply\Exception
+     */
+    protected function assertViewableForum($nodeIdOrName, array $extraWith = [])
+    {
+        if ($nodeIdOrName === null) {
+            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
+        }
+
+        $visitor = \XF::visitor();
+        $extraWith[] = 'Node.Permissions|' . $visitor->permission_combination_id;
+        if ($visitor->user_id) {
+            $extraWith[] = 'Read|' . $visitor->user_id;
+        }
+
+        $finder = $this->em()->getFinder('XF:Forum');
+        $finder->with('Node', true)->with($extraWith);
+        if (is_int($nodeIdOrName) || $nodeIdOrName === strval(intval($nodeIdOrName))) {
+            $finder->where('node_id', $nodeIdOrName);
+        } else {
+            $finder->where(['Node.node_name' => $nodeIdOrName, 'Node.node_type_id' => 'Forum']);
+        }
+
+        /** @var \XF\Entity\Forum $forum */
+        $forum = $finder->fetchOne();
+        if (!$forum) {
+            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
+        }
+        if (!$forum->canView($error)) {
+            throw $this->exception($this->noPermission($error));
+        }
+
+        $this->plugin('XF:Node')->applyNodeContext($forum->Node);
+
+        return $forum;
     }
 
     protected function nodeAddEdit(\XF\Entity\Node $node)

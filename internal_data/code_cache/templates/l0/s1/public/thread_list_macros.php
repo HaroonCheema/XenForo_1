@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 01c338a723f193833fcfb62ef3a13d8a
+// FROM HASH: e9f36ffca1e786068708b494899570ec
 return array(
 'macros' => array('item' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -145,8 +145,23 @@ return array(
 	if ($__vars['thread']['discussion_state'] == 'moderated') {
 		$__finalCompiled .= '
 						<li>
-							<i class="structItem-status structItem-status--moderated" aria-hidden="true" title="' . $__templater->filter('Awaiting approval', array(array('for_attr', array()),), true) . '"></i>
-							<span class="u-srOnly">' . 'Awaiting approval' . '</span>
+							';
+		$__vars['moderatedStatus'] = $__templater->preEscaped('
+								<i class="structItem-status structItem-status--moderated" aria-hidden="true" title="' . $__templater->filter('Awaiting approval', array(array('for_attr', array()),), true) . '"></i>
+								<span class="u-srOnly">' . 'Awaiting approval' . '</span>
+							');
+		$__finalCompiled .= '
+							';
+		if ($__templater->method($__vars['thread'], 'canCleanSpam', array())) {
+			$__finalCompiled .= '
+								<a href="' . $__templater->func('link', array('spam-cleaner', $__vars['thread'], ), true) . '" data-xf-click="overlay">' . $__templater->escape($__vars['moderatedStatus']) . '</a>
+							';
+		} else {
+			$__finalCompiled .= '
+								' . $__templater->escape($__vars['moderatedStatus']) . '
+							';
+		}
+		$__finalCompiled .= '
 						</li>
 					';
 	}
