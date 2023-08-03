@@ -8,16 +8,17 @@
 	<!-- Avatar -->
 	
 	<div class="block groupAvatar-block">
-        <a href="{{ link('groups', $group) }}"
+        <a href="{{ link('molly', $subForums) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
-           <xf:comment>
-			<img src="{{ $full ? $group.getAvatarUrl(true) : $group.AvatarAttachment.thumbnail_url }}"
-                 class="groupAvatar--img" width="250" height="250"
-                 data-width="{$group.AvatarAttachment.width}"
-                 data-height="{$group.AvatarAttachment.height}"
-                 alt="{$group.name}"/>
-			</xf:comment>
-            <span class="groupAvatar--text groupAvatar--dynamic">H</span>
+           <xf:if is="$subForums.AvatarAttachment">
+			<img src="{{ $subForums.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img bbImage" width="250" height="250"
+                 data-width="{$subForums.AvatarAttachment.width}"
+                 data-height="{$subForums.AvatarAttachment.height}"
+                 alt="{$subForums.title}"/>
+			<xf:else />
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+			</xf:if>
     </a>
     </div>
 	
@@ -73,16 +74,28 @@
                        aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
 					<div class="menu" data-menu="menu" aria-hidden="true">
                     <div class="menu-content">
-                                <a href="{{ link('molly/add-moderator', $subForum) }}"
+                                <a href="{{ link('molly/add-moderator', $subForums) }}"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 {{  phrase('fs_molly_moderator')  }}
                             </a>
 						
-						<a href="{{ link('molly/add-moderator', $subForum) }}"
+						<a href="{{ link('molly/chatroom', $subForums) }}"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 {{  phrase('fs_molly_add_chatroom')  }}
+                            </a>
+						
+						<a href="{{ link('molly/avatar', $subForums) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_upload_avatar')  }}
+                            </a>
+						
+						<a href="{{ link('molly/cover', $subForums) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_upload_cover')  }}
                             </a>
                            
                             <hr class="menu-separator" />

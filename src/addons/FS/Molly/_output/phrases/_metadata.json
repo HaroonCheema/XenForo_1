@@ -29,6 +29,18 @@
         "version_string": "1.0.0 Alpha",
         "hash": "9cfc797203acf28a3b3e1efe41eb51b8"
     },
+    "fs_molly_upload_avatar.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e525bf4b7a6ca5c6e0b1506e2e04f84c"
+    },
+    "fs_molly_upload_cover.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "502e827457c577f0c38c8c3827150155"
+    },
     "nav.fs_molly_index.txt": {
         "global_cache": false,
         "version_id": 1000010,

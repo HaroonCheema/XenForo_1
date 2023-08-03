@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: c2fba394d63554734f1cff099588e2fa
+// FROM HASH: 7467b0111053c3350e50923e6db96767
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -51,8 +51,7 @@ return array(
 		'ajax' => 'true',
 		'upload' => 'true',
 		'class' => 'block',
-	)) . '
-';
+	));
 	return $__finalCompiled;
 }
 );

@@ -4,6 +4,11 @@
         "version_string": "3.3.3",
         "hash": "e00d75087941c5fd6d9a614542269665"
     },
+    "public/tlg_group_form_upload.html": {
+        "version_id": 3030300,
+        "version_string": "3.3.3",
+        "hash": "7467b0111053c3350e50923e6db96767"
+    },
     "public/tlg_group_index.html": {
         "version_id": 3030300,
         "version_string": "3.3.3",

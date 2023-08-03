@@ -6,6 +6,8 @@ use XF\Mvc\FormAction;
 use XF\Mvc\ParameterBag;
 
 use XF\Pub\Controller\AbstractController;
+use FS\Molly\Service\Molly\AbstractFormUpload;
+
 
 class Molly extends AbstractController
 {
@@ -56,9 +58,6 @@ class Molly extends AbstractController
         ];
 
         return $this->view('FS\Molly:Molly\Index', 'fs_molly_view', $viewParams);
-
-        // var_dump($params);
-        // exit;
     }
 
     protected function getForumViewExtraWith()
@@ -562,6 +561,100 @@ class Molly extends AbstractController
         // TODO: the permissions are actually rebuilt twice with this method
 
         return $form;
+    }
+
+    public function actionAvatar(ParameterBag $params)
+    {
+        $subCommunity = $this->assertNodeExists($params['node_id']);
+
+        // var_dump($subCommunity);exit;
+        // if (!$subCommunity->canManageAvatar($errors)) {
+        //     return $this->noPermission($errors);
+        // }
+
+        /** @var \FS\Molly\Service\Molly\Avatar $avatar */
+        $avatar = $this->service('FS\Molly:Molly\Avatar', $subCommunity);
+
+        return $this->handleAvatarOrCoverProcess($subCommunity, $avatar);
+    }
+
+    public function actionCover(ParameterBag $params)
+    {
+        $subCommunity = $this->assertNodeExists($params['node_id']);
+        // if (!$group->canManageCover($errors)) {
+        //     return $this->noPermission($errors);
+        // }
+
+        /** @var \FS\Molly\Service\Molly\Cover $cover */
+        $cover = $this->service('FS\Molly:Molly\Cover', $subCommunity);
+        if ($this->filter('reposition', 'bool') === true) {
+            if ($this->isPost()) {
+                $crop = $this->filter([
+                    'crop' => [
+                        'w' => 'uint',
+                        'h' => 'uint',
+                        'x' => 'str',
+                        'y' => 'str'
+                    ]
+                ]);
+
+                $cover->setCropData($crop['crop']);
+                $cover->saveCropData();
+
+                return $this->redirect($this->buildLink('molly', $subCommunity));
+            }
+
+            return $this->view('FS\Molly:Molly\CoverReposition', 'fs_molly_cover_reposition', [
+                'group' => $subCommunity
+            ]);
+        }
+
+        return $this->handleAvatarOrCoverProcess($subCommunity, $cover);
+    }
+
+    /**
+     * @param \XF\Entity\Node $subCommunity
+     * @param AbstractFormUpload $service
+     * @param array $params
+     * @return \XF\Mvc\Reply\AbstractReply
+     */
+    protected function handleAvatarOrCoverProcess(
+        \XF\Entity\Node $subCommunity,
+        AbstractFormUpload $service,
+        array $params = []
+    ) {
+        if ($this->isPost()) {
+            if (
+                $this->filter('delete', 'bool') === true
+                && $service->canDeleteExisting()
+            ) {
+                $service->delete();
+            }
+
+            $uploadedFile = $this->request->getFile('file');
+            if ($uploadedFile) {
+                $service->setUpload($uploadedFile);
+                if (!$service->validate($errors)) {
+                    return $this->error($errors);
+                }
+
+                $service->upload();
+            }
+
+            return $this->redirect($this->buildLink('molly', $subCommunity));
+        }
+
+        list($baseWidth, $baseHeight) = $service->getBaseDimensions();
+        $params += [
+            'subCommunity' => $subCommunity,
+            'formAction' => $service->getFormAction(),
+            'fieldLabel' => $service->getFormFieldLabel(),
+            'canDelete' => $service->canDeleteExisting(),
+            'baseWidth' => $baseWidth,
+            'baseHeight' => $baseHeight
+        ];
+
+        return $this->view('FS\Molly:Molly\FormUpload', 'fs_molly_form_upload', $params);
     }
 
     /**

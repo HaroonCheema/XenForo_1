@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 59fd5571cb6d14c50f327ce403305675
+// FROM HASH: b77cae5def8d2b52e34b6868cb49f7f9
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -46,15 +46,27 @@ return array(
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
+			   
+			   <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+           ';
+	if ($__vars['subForum']['AvatarAttachment']) {
+		$__finalCompiled .= '
+			<img src="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['thumbnail_url']) . '"
+                 class="groupAvatar--img bbImage" width="100" height="100"
+                 data-width="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['width']) . '"
+                 data-height="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['height']) . '"
+                 alt="' . $__templater->escape($__vars['subForum']['title']) . '"/>
+			';
+	} else {
+		$__finalCompiled .= '
+            <span class="groupAvatar--text groupAvatar--dynamic">' . $__templater->escape($__vars['xf']['visitor']['username']) . '</span>
+			';
+	}
+	$__finalCompiled .= '
+    </a>
 			
-			   <a href="/xenforo/index.php?groups/test.2/"\\n
-           class="groupAvatar groupAvatar--link" >
-                <img src="/xenforo/data/attachments/0/259-02803ebab687b3c66b507cd3d34bfb4c.jpg"
-                     class="groupAvatar--img" width="100" height="100"
-                     data-width="250"
-                     data-height="250"
-                     alt="test"/>
-        </a>
+			   ' . '
 		   
 		   </div>
 		   
@@ -130,7 +142,7 @@ return array(
                                 ' . 'Add Moderator' . '
                             </a>
 						
-						<a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), true) . '"
+						<a href="' . $__templater->func('link', array('molly/chatroom', $__vars['subForum'], ), true) . '"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 ' . 'Add Chatroom' . '

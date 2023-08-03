@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: b68f7b7d67272e29d7f18c9005a39871
+// FROM HASH: 5073bd9c9d761f9e394514a9ccba7291
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -13,15 +13,28 @@ return array(
 
 
 ';
+	$__compilerTemp1 = '';
+	if ($__vars['subForums']['AvatarAttachment']) {
+		$__compilerTemp1 .= '
+			<img src="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['thumbnail_url']) . '"
+                 class="groupAvatar--img bbImage" width="250" height="250"
+                 data-width="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['width']) . '"
+                 data-height="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['height']) . '"
+                 alt="' . $__templater->escape($__vars['subForums']['title']) . '"/>
+			';
+	} else {
+		$__compilerTemp1 .= '
+            <span class="groupAvatar--text groupAvatar--dynamic">' . $__templater->escape($__vars['xf']['visitor']['username']) . '</span>
+			';
+	}
 	$__templater->modifySideNavHtml(null, '
 	
 	<!-- Avatar -->
 	
 	<div class="block groupAvatar-block">
-        <a href="' . $__templater->func('link', array('groups', $__vars['group'], ), true) . '"
+        <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
-           ' . '
-            <span class="groupAvatar--text groupAvatar--dynamic">H</span>
+           ' . $__compilerTemp1 . '
     </a>
     </div>
 	
@@ -91,16 +104,28 @@ return array(
 		)) . '
 					<div class="menu" data-menu="menu" aria-hidden="true">
                     <div class="menu-content">
-                                <a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), true) . '"
+                                <a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForums'], ), true) . '"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 ' . 'Add Moderator' . '
                             </a>
 						
-						<a href="' . $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), true) . '"
+						<a href="' . $__templater->func('link', array('molly/chatroom', $__vars['subForums'], ), true) . '"
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 ' . 'Add Chatroom' . '
+                            </a>
+						
+						<a href="' . $__templater->func('link', array('molly/avatar', $__vars['subForums'], ), true) . '"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                ' . 'Upload avatar' . '
+                            </a>
+						
+						<a href="' . $__templater->func('link', array('molly/cover', $__vars['subForums'], ), true) . '"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                ' . 'Upload cover' . '
                             </a>
                            
                             <hr class="menu-separator" />
