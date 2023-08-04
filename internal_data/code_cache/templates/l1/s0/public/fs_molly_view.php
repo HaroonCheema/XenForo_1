@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 5073bd9c9d761f9e394514a9ccba7291
+// FROM HASH: 7e2bde1a3dee0fa1112c37af4f4571f3
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -72,8 +72,20 @@ return array(
         <div class="block-container groupCover-header">
             <div class="block-body">
                <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="' . $__templater->func('link', array('groups', $__vars['group'], ), true) . '" style="background-color:#e08585;color:#8f2424">
+        <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '" style="background-color:#e08585;color:#8f2424">
+                ';
+	if ($__vars['subForums']['CoverAttachment']) {
+		$__finalCompiled .= '
+                <img data-crop="' . $__templater->filter($__templater->method($__vars['subForums'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     ' . ($__vars['imgAttrs'] ? (' ' . $__templater->escape($__vars['imgAttrs'])) : '') . '/>
+            ';
+	} else {
+		$__finalCompiled .= '
                 <span class="groupCover--text">' . $__templater->func('snippet', array($__vars['subForums']['title'], 25, ), true) . '</span>
+            ';
+	}
+	$__finalCompiled .= '
         </a>
     </div>
             </div>
@@ -108,12 +120,6 @@ return array(
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 ' . 'Add Moderator' . '
-                            </a>
-						
-						<a href="' . $__templater->func('link', array('molly/chatroom', $__vars['subForums'], ), true) . '"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                ' . 'Add Chatroom' . '
                             </a>
 						
 						<a href="' . $__templater->func('link', array('molly/avatar', $__vars['subForums'], ), true) . '"

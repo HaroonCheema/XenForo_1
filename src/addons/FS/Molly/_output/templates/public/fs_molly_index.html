@@ -123,9 +123,13 @@
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
             <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
-                
-                    <span class="groupCover--text">{$subForum.title}</span>
-                
+                <xf:if is="$subForum.CoverAttachment">
+                <img data-crop="{$subForum->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
+            </xf:if>
             </a>
         </div>
                     <span class="groupCover--inlineMod">
@@ -149,7 +153,7 @@
 		   
 		   <div class="gridCard--header--avatar">
 			   
-			   <a href="{{ link('molly', $subForums) }}"
+			   <a href="{{ link('molly', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
            <xf:if is="$subForum.AvatarAttachment">
 			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
@@ -160,19 +164,7 @@
 			<xf:else />
             <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
 			</xf:if>
-    </a>
-			
-			   <xf:comment>
-			   <a href="/xenforo/index.php?groups/test.2/"\n
-           class="groupAvatar groupAvatar--link" >
-                <img src="/xenforo/data/attachments/0/259-02803ebab687b3c66b507cd3d34bfb4c.jpg"
-                     class="groupAvatar--img" width="100" height="100"
-                     data-width="250"
-                     data-height="250"
-                     alt="test"/>
-        </a>
-			   </xf:comment>
-		   
+    </a>		   
 		   </div>
 		   
 			<!-- Avatar -->
@@ -231,12 +223,6 @@
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 {{  phrase('fs_molly_moderator')  }}
-                            </a>
-						
-						<a href="{{ link('molly/chatroom', $subForum) }}"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                {{  phrase('fs_molly_add_chatroom')  }}
                             </a>
                            
                             <hr class="menu-separator" />

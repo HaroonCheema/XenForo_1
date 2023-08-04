@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: cb1c903ec86849a651179de33255310b
+// FROM HASH: 03c17956b920cc43d9608425b9d61fc5
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -120,7 +120,8 @@ return array(
 	), $__vars) . '
 
     ' . $__templater->filter($__vars['innerContent'], array(array('raw', array()),), true) . '
-</div>';
+</div>
+';
 	return $__finalCompiled;
 }
 );

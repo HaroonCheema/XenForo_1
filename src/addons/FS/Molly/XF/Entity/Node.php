@@ -3,6 +3,7 @@
 namespace FS\Molly\XF\Entity;
 
 use XF\Mvc\Entity\Structure;
+use FS\Molly\Service\Molly\Cover;
 
 class Node extends XFCP_Node
 {
@@ -51,6 +52,38 @@ class Node extends XFCP_Node
     {
         /** @var Attachment|null $attachment */
         $attachment = $this->AvatarAttachment;
+        if ($attachment === null) {
+            return null;
+        }
+
+        return $this
+            ->app()
+            ->router('public')
+            ->buildLink(($canonical ? 'canonical:' : '') . 'attachments', $attachment);
+    }
+
+    /**
+     * @param null|string $key
+     * @param mixed $default
+     * @return array|mixed|null
+     */
+    public function getCoverCropData($key = null, $default = null)
+    {
+        if ($key !== null && strlen($key) > 0) {
+            return \array_key_exists($key, $this->cover_crop_data) ? $this->cover_crop_data[$key] : $default;
+        }
+
+        return array_replace(Cover::getDefaultCropData(), $this->cover_crop_data);
+    }
+
+    /**
+     * @param bool $canonical
+     * @return string|null
+     */
+    public function getCoverUrl($canonical = false)
+    {
+        /** @var Attachment|null $attachment */
+        $attachment = $this->CoverAttachment;
         if ($attachment === null) {
             return null;
         }

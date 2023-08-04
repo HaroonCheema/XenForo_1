@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="public" title="display_order_macros" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="row"
+	arg-name="display_order"
+	arg-value=""
+	arg-step="1"
+	arg-label="{{ phrase('display_order') }}"
+	arg-hint=""
+	arg-readOnly=""
+	arg-explain="">
+
+	<xf:numberboxrow name="{$name}" value="{$value}" min="0" step="{$step}"
+		label="{$label}"
+		hint="{$hint}"
+		explain="{$explain}"
+		readonly="{{ $readOnly ? 'readonly' : '' }}" />
+</xf:macro>
+
+<xf:macro name="input"
+	arg-name="display_order"
+	arg-value=""
+	arg-step="1"
+	arg-readOnly="">
+
+	<xf:numberbox name="{$name}" value="{$value}" min="0" step="{$step}" readonly="{{ $readOnly ? 'readonly' : '' }}" />
+</xf:macro>]]></template>
+  <template type="public" title="fs_molly_form_upload" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{$fieldLabel}</xf:title>
+
+<xf:form action="{$formAction}" ajax="true" upload="true" class="block">
+    <div class="block-container">
+        <div class="block-body">
+            <xf:uploadrow name="file"
+                          label="{$fieldLabel}"
+                          explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
+                                'width': $baseWidth,
+                                'height': $baseHeight
+                          }) }}" />
+
+            <xf:if is="$canDelete">
+                <xf:checkboxrow>
+                    <xf:option name="delete">{{ phrase('tlg_delete_existing_image') }}</xf:option>
+                </xf:checkboxrow>
+            </xf:if>
+        </div>
+
+        <xf:submitrow submit="{{ phrase('upload') }}" rowtype="simple" icon="upload" />
+    </div>
+</xf:form>]]></template>
+  <template type="public" title="fs_molly_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_molly') }}</xf:title>
+
+<xf:page
+  option="searchConstraints"
+  value="{{ {
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
+} }}"
+/>
+
+<xf:pageaction if="$xf.visitor">
+    <xf:button
+    href="{{ link('molly/add') }}"
+    class="button--cta"
+    icon="write"
+    >{{ phrase('fs_molly_add_sub_forum') }}</xf:button
+  >
+</xf:pageaction>
+  
+
+<div
+  class="block"
+  data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}"
+  data-type="fs_molly"
+  data-href="{{ link('inline-mod') }}"
+>
+  <div class="block-outer">
+
+  </div>
+  <div class="block-container">
+
+    <!--Listing View--->
+    <div class="block-body">
+		
+    <!--Sub Forums List View--->
+		<xf:if is="count($subForums) != 0">
+            
+			    <xf:set var="$dummyArray" value="{{range(0,3)}}" />
+		
+		
+			 	<div class="block groupListBlock" data-xf-init="inline-mod"
+         data-type="tl_group"
+         data-href="{{ link('inline-mod') }}">
+		
+		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+		
+		 <xf:foreach loop="{$subForums}" value="$value">
+
+    
+			 <xf:macro
+					name="molly_sub_forum_list"
+					arg-subForum="{$value}"
+				  />
+			 
+  </xf:foreach>
+					</div>
+		</div>
+			</xf:if>
+		
+	<xf:css src="tlg_group_list.less" />
+    <xf:css src="tlg_style.less" />
+	<xf:css src="tlg_grid_card.less" />
+
+    <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
+	 
+		
+    <!--Sub Forums List View--->
+
+      <div class="block-footer">
+        <span class="block-footer-counter"
+          >{{ display_totals($totalReturn, $total) }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="block-outer block-outer--after">
+
+    <xf:showignored wrapperclass="block-outer-opposite" />
+  </div>
+</div>
+
+<xf:page option="sideNavTitle">{{ phrase('fs_molly_side_community') }}</xf:page>
+
+<xf:sidenav>
+	<xf:comment>
+  <xf:macro
+    template="fs_auction_category_list_macros"
+    name="simple_list_block"
+    arg-categoryTree="null"
+  />
+	</xf:comment>
+	
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">{{ phrase('fs_molly_side_community') }}</h3>
+			<div class="block-body">
+				
+					<div class="block-row">{{ phrase('n_a') }}</div>
+				
+			</div>
+		</div>
+	</div>
+
+</xf:sidenav>
+
+<!-- Filter Bar Macro Start -->
+
+    <!--Sub Forums List View--->
+
+<xf:macro
+  name="molly_sub_forum_list"
+  arg-subForum="!"
+>	  			
+	  <div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		  
+        <div class="gridCard--container">
+			
+			<!-- Cover -->
+			
+			<div class="gridCard--cover">
+			
+				<div class="groupCover--wrapper">
+                
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
+                <xf:if is="$subForum.CoverAttachment">
+                <img data-crop="{$subForum->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
+            </xf:if>
+            </a>
+        </div>
+                    <span class="groupCover--inlineMod">
+                        <label class="iconic iconic--noLabel" title="Select for moderation" data-xf-init="tooltip"><input type="checkbox"  name="ids[]" value="2" hiddenLabel="true" class="js-inlineModToggle" /><i aria-hidden="true"></i></label>
+                    </span>
+                
+
+            </div>
+			
+			</div>
+			
+			<!-- Cover -->
+			
+			
+			<!-- Header -->
+			
+	  
+	   <div class="gridCard--header">
+		   
+			<!-- Avatar -->
+		   
+		   <div class="gridCard--header--avatar">
+			   
+			   <a href="{{ link('molly', $subForum) }}"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+           <xf:if is="$subForum.AvatarAttachment">
+			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img bbImage" width="100" height="100"
+                 data-width="{$subForum.AvatarAttachment.width}"
+                 data-height="{$subForum.AvatarAttachment.height}"
+                 alt="{$subForum.title}"/>
+			<xf:else />
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+			</xf:if>
+    </a>		   
+		   </div>
+		   
+			<!-- Avatar -->
+		   
+			<!-- Header Main -->
+              
+                <div class="gridCard--header--main">
+                    
+		<xf:trim>
+        <a href="{{ link('molly', $subForum) }}" class="gridCard--header--title"
+           data-tp-primary="on">
+            <span>{$subForum.title}</span>
+        </a>
+    </xf:trim>					
+					
+					
+		<xf:trim>
+        <ul class="listInline group--counterList u-muted">
+            <li class="groupItem-stat groupItem-stat--viewCount">
+                <xf:fa icon="fa-eye" />
+                1
+            </li>
+            <li class="groupItem-stat groupItem-stat--memberCount">
+                <xf:fa icon="fa-users" />
+                2
+            </li>
+            <xf:if is="$xf.options.tl_groups_enableForums">
+                <li class="groupItem-stat groupItem-stat--discussionCount">
+                    <xf:fa icon="fa-comment" />
+                    3
+                </li>
+            </xf:if>
+            <li class="groupItem-stat groupItem-stat--eventCount">
+                <xf:fa icon="fa-calendar" />
+                4
+            </li>
+        </ul>
+    </xf:trim>
+						
+                </div>
+		   
+			<!-- Header Main -->
+		   
+			<!-- Action -->
+		   
+		   <div class="gridCard--header--actions">
+		   
+			<div class="buttonGroup-buttonWrapper">
+                <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+					<div class="menu" data-menu="menu" aria-hidden="true">
+                    <div class="menu-content">
+                                <a href="{{ link('molly/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_moderator')  }}
+                            </a>
+                           
+                            <hr class="menu-separator" />
+                    </div>
+                </div>
+            </div>   
+			   
+		   </div>
+		   
+			<!-- Action -->
+		   
+            </div>
+			
+			<!-- Header -->
+			
+	  <xf:if contentcheck="true">
+                <div class="gridCard--body">
+                    <xf:contentcheck>
+					
+						<div class="groupList--description u-muted">{$subForum.description}</div>
+						
+					</xf:contentcheck>
+                </div>
+            </xf:if>
+			
+		  </div>
+		  
+	  </div>
+
+</xf:macro>
+
+    <!--Sub Forums List View--->]]></template>
+  <template type="public" title="fs_molly_sub_forum_add_edit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:if is="$forum.isInsert()">
+	<xf:title>{{ phrase('add_forum') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('edit_forum:') }} {$node.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$forum.isUpdate()">
+	<div class="buttonGroup">
+		<xf:if is="$canChangeForumType">
+			<xf:button href="{{ link('molly/change-type', $node) }}" overlay="true">{{ phrase('change_type') }}</xf:button>
+		</xf:if>
+		<xf:button href="{{ link('molly/delete', $node) }}" icon="delete" overlay="true" />
+	</div>
+</xf:pageaction>
+
+<xf:form action="{{ link('molly/save', $node) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:macro template="node_edit_macros" name="title" arg-node="{$node}" />
+			<xf:macro template="node_edit_macros" name="description" arg-node="{$node}" />
+			
+			<xf:textboxrow name="replace_route" value="{$routeFilter.replace_route_readable}"
+				maxlength="{{ max_length($routeFilter, 'replace_route') }}"
+				label="{{ phrase('replace_with') }}"
+				explain="{{ phrase('route_filter_find_replace_fields_support_wildcards') }}"
+				dir="ltr" 
+				required="required" hint="{{ phrase('required') }}"/>
+
+			<hr class="formRowSep" />
+			<xf:macro template="node_edit_macros" name="node_name" arg-node="{$node}" />
+			<xf:macro template="node_edit_macros" name="position" arg-node="{$node}" arg-nodeTree="{$nodeTree}" />
+			<xf:macro template="node_edit_macros" name="navigation" arg-node="{$node}" arg-navChoices="{$navChoices}" />
+			<hr class="formRowSep" />
+
+			<xf:formrow label="{{ phrase('forum_type') }}" explain="{$forumTypeDesc}"><span>{$forumTypeTitle}</span></xf:formrow>
+			<xf:if is="$typeConfigTemplate">
+				<xf:include template="{$typeConfigTemplate}" />
+			</xf:if>
+			<xf:hiddenval name="forum_type_id">{$forumTypeId}</xf:hiddenval>
+
+			<hr class="formRowSep" />
+			<xf:if is="$availableFields is not empty">
+				<xf:checkboxrow name="available_fields" value="{$forum.field_cache}" listclass="field listColumns"
+					label="{{ phrase('available_fields') }}"
+					explain="{{ phrase('asterisk_fields_required_explain') }}">
+
+					<xf:foreach loop="$availableFields" key="$fieldId" value="$field">
+						<xf:option value="{$fieldId}" label="{$field.title}" labelclass="{{ $field.required ? 'u-appendAsterisk' : '' }}" />
+					</xf:foreach>
+
+					<xf:hint>
+						<xf:checkbox standalone="true">
+							<xf:option check-all=".field.listColumns">{{ phrase('select_all') }}</xf:option>
+						</xf:checkbox>
+					</xf:hint>
+				</xf:checkboxrow>
+			<xf:else />
+				<xf:formrow label="{{ phrase('available_fields') }}">
+					{{ phrase('none')|parens }}
+					<a href="{{ link('custom-thread-fields/add') }}" target="_blank">{{ phrase('add_field') }}</a>
+				</xf:formrow>
+			</xf:if>
+
+			<hr class="formRowSep" />
+			<xf:if is="$prefixesGrouped is not empty">
+
+				<xf:checkboxrow name="available_prefixes" rowtype="explainOffset" listclass="prefix"
+					data-xf-init="checkbox-select-disabler"
+					data-select=".js-availablePrefixSelect"
+					label="{{ phrase('available_prefixes') }}"
+					explain="{{ phrase('available_prefixes_forum_explain') }}">
+
+					<xf:foreach loop="$prefixGroups" key="$prefixGroupId" value="$prefixGroup" if="{$prefixesGrouped.{$prefixGroupId}}">
+
+						<xf:optgroup check-all="true" listclass="listColumns"
+							label="{{ $prefixGroupId ? $prefixGroup.title : phrase('ungrouped') }}">
+
+							<xf:foreach loop="{$prefixesGrouped.{$prefixGroupId}}" key="$prefixId" value="$prefix">
+								<xf:option value="{$prefixId}" selected="{$forum.prefix_cache.{$prefixId}}">
+									<xf:label><span class="label {$prefix.css_class}">{$prefix.title}</span></xf:label>
+								</xf:option>
+							</xf:foreach>
+						</xf:optgroup>
+					</xf:foreach>
+
+					<xf:hint>
+						<xf:checkbox standalone="true">
+							<xf:option check-all=".prefix">{{ phrase('select_all') }}</xf:option>
+						</xf:checkbox>
+					</xf:hint>
+				</xf:checkboxrow>
+
+				<xf:selectrow name="default_prefix_id" value="{$forum.default_prefix_id}"
+					label="{{ phrase('default_thread_prefix') }}"
+					explain="{{ phrase('default_thread_prefix_explain') }}"
+					class="js-availablePrefixSelect">
+
+					<xf:option value="-1">{{ phrase('none') }}</xf:option>
+					<xf:foreach loop="$prefixGroups" key="$prefixGroupId" value="$prefixGroup"
+						if="{{ count($prefixesGrouped.{$prefixGroupId}) > 0 }}">
+						<xf:optgroup label="{{ $prefixGroupId > 0 ? $prefixGroup.title : phrase('ungrouped') }}">
+							<xf:foreach loop="{$prefixesGrouped.{$prefixGroupId}}" key="$prefixId" value="$prefix">
+								<xf:option value="{$prefixId}" disabled="{{ !in_array($prefixId, $forum.prefix_cache) }}">{$prefix.title}</xf:option>
+							</xf:foreach>
+						</xf:optgroup>
+					</xf:foreach>
+				</xf:selectrow>
+
+				<xf:checkboxrow name="require_prefix" value="{$forum.require_prefix}">
+					<xf:option value="1"
+						label="{{ phrase('require_users_to_select_prefix') }}"
+						hint="{{ phrase('if_selected_users_required_select_prefix_for_thread') }}" />
+				</xf:checkboxrow>
+
+			<xf:else />
+				<xf:formrow label="{{ phrase('available_prefixes') }}">
+					{{ phrase('none')|parens }} <a href="{{ link('thread-prefixes/add') }}" target="_blank">{{ phrase('add_prefix') }}</a>
+				</xf:formrow>
+
+				<xf:hiddenval name="default_thread_prefix" value="0" />
+				<xf:hiddenval name="require_prefix" value="0" />
+			</xf:if>
+
+		</div>
+
+		<h3 class="block-formSectionHeader">
+			<span class="collapseTrigger collapseTrigger--block" data-xf-click="toggle" data-target="< :up:next">
+				<span class="block-formSectionHeader-aligner">{{ phrase('advanced_options') }}</span>
+			</span>
+		</h3>
+		<div class="block-body block-body--collapsible">
+			<xf:checkboxrow rowid="advancedToggles">
+				<xf:option name="allow_posting" selected="$forum.allow_posting"
+					label="{{ phrase('allow_new_messages_to_be_posted_in_this_forum') }}"
+					hint="{{ phrase('if_disabled_users_not_able_post_messages_in_forum') }}" />
+
+				<xf:option name="moderate_threads" selected="$forum.moderate_threads"
+					label="{{ phrase('moderate_new_threads_posted_in_this_forum') }}"
+					hint="{{ phrase('if_enabled_moderator_manually_approve_threads_posted_in_forum') }}" />
+
+				<xf:option name="moderate_replies" selected="$forum.moderate_replies"
+					label="{{ phrase('moderate_replies_posted_in_this_forum') }}"
+					hint="{{ phrase('if_enabled_moderator_manually_approve_replies_posted_in_forum') }}" />
+
+				<xf:option name="count_messages" selected="$forum.count_messages"
+					label="{{ phrase('count_messages_in_forum_toward_user_total') }}"
+					hint="{{ phrase('if_disabled_messages_posted_will_not_contribute_to_user_message_total') }}" />
+
+				<xf:option name="find_new" selected="$forum.find_new"
+					label="{{ phrase('include_forum_in_find_new_threads') }}"
+					hint="{{ phrase('if_disabled_messages_will_never_appear_in_find_new_threads') }}" />
+			</xf:checkboxrow>
+
+			<xf:radiorow name="allow_index" value="{$forum.allow_index}"
+				label="{{ phrase('allow_search_engine_indexing') }}"
+				explain="{{ phrase('you_can_choose_whether_or_not_to_allow_external_search_engines_to_index') }}">
+
+				<xf:option value="allow">{{ phrase('index_all_threads') }}</xf:option>
+				<xf:option value="deny">{{ phrase('do_not_index_any_threads') }}</xf:option>
+				<xf:option value="criteria"
+					data-xf-init="disabler" data-container=".js-indexCriteria" data-hide="true">
+
+					{{ phrase('index_threads_based_on_criteria') }}
+				</xf:option>
+			</xf:radiorow>
+
+			<div class="js-indexCriteria">
+				<xf:checkboxrow label="{{ phrase('search_engine_index_criteria') }}">
+					<xf:option name="index_criteria[max_days_post][enabled]" selected="{$forum.index_criteria.max_days_post}"
+						label="{{ phrase('thread_was_posted_no_more_than_x_days_ago') }}:">
+
+						<xf:numberbox name="index_criteria[max_days_post][value]" value="{{ $forum.index_criteria.max_days_post ?: 1 }}"
+							min="1" />
+					</xf:option>
+
+					<xf:option name="index_criteria[max_days_last_post][enabled]" selected="{$forum.index_criteria.max_days_last_post}"
+						label="{{ phrase('thread_was_replied_to_no_more_than_x_days_ago') }}:">
+
+						<xf:numberbox name="index_criteria[max_days_last_post][value]" value="{{ $forum.index_criteria.max_days_last_post ?: 1 }}"
+							min="1" />
+					</xf:option>
+
+					<xf:option name="index_criteria[min_replies][enabled]" selected="{$forum.index_criteria.min_replies}"
+						label="{{ phrase('thread_has_at_least_x_replies') }}:">
+
+						<xf:numberbox name="index_criteria[min_replies][value]" value="{{ $forum.index_criteria.min_replies ?: 1 }}"
+							min="1" />
+					</xf:option>
+
+					<xf:option name="index_criteria[min_reaction_score][enabled]" selected="{{ $forum.index_criteria.min_reaction_score !== null }}"
+						label="{{ phrase('thread_has_at_least_x_reaction_score') }}:">
+
+						<xf:numberbox name="index_criteria[min_reaction_score][value]" value="{{ $forum.index_criteria.min_reaction_score ?: 0 }}" />
+					</xf:option>
+				</xf:checkboxrow>
+			</div>
+
+			<xf:numberboxrow name="min_tags" value="{$forum.min_tags}" min="0" max="100"
+				label="{{ phrase('minimum_required_tags') }}"
+				explain="{{ phrase('forum_min_tags_explain') }}" />
+
+			<xf:radiorow name="allowed_watch_notifications" value="{$forum.allowed_watch_notifications}"
+				label="{{ phrase('forum_watch_notification_limit') }}"
+				explain="{{ phrase('forum_watch_notification_limit_desc') }}">
+
+				<xf:option value="all" label="{{ phrase('new_messages') }}" />
+				<xf:option value="thread" label="{{ phrase('new_threads') }}" />
+				<xf:option value="none" label="{{ phrase('none') }}" />
+			</xf:radiorow>
+
+			<xf:formrow rowtype="input"
+				label="{{ phrase('default_sort_order') }}">
+
+				<div class="inputPair">
+					<xf:select name="default_sort_order" value="{$forum.default_sort_order}" class="input--inline">
+						<xf:foreach loop="$sortOptions" key="$sortKey" value="$null">
+							<xf:option value="{$sortKey}">{{ phrase_dynamic('forum_sort.' . $sortKey) }}</xf:option>
+						</xf:foreach>
+					</xf:select>
+					<xf:select name="default_sort_direction" value="{$forum.default_sort_direction}"
+						class="input--inline">
+						<xf:option value="desc" label="{{ phrase('descending') }}" />
+						<xf:option value="asc" label="{{ phrase('ascending') }}" />
+					</xf:select>
+				</div>
+			</xf:formrow>
+
+			<xf:selectrow name="list_date_limit_days" value="{$forum.list_date_limit_days}"
+				label="{{ phrase('thread_list_date_limit') }}"
+				explain="{{ phrase('thread_list_date_limit_used_on_busy_forums_to_improve_performance') }}">
+
+				<xf:option value="0">{{ phrase('none') }}</xf:option>
+				<xf:option value="7">{{ phrase('x_days', {'days': '7'}) }}</xf:option>
+				<xf:option value="14">{{ phrase('x_days', {'days': '14'}) }}</xf:option>
+				<xf:option value="30">{{ phrase('x_days', {'days': '30'}) }}</xf:option>
+				<xf:option value="60">{{ phrase('x_months', {'months': '2'}) }}</xf:option>
+				<xf:option value="90">{{ phrase('x_months', {'months': '3'}) }}</xf:option>
+				<xf:option value="182">{{ phrase('x_months', {'months': '6'}) }}</xf:option>
+				<xf:option value="365">{{ phrase('1_year') }}</xf:option>
+			</xf:selectrow>
+
+			<xf:macro template="node_edit_macros" name="style" arg-node="{$node}" arg-styleTree="{$styleTree}" />
+
+			<xf:if is="$availablePrompts is not empty">
+				<hr class="formRowSep" />
+
+				<xf:checkboxrow name="available_prompts" rowtype="explainOffset" listclass="prompt"
+					label="{{ phrase('available_prompts') }}"
+					explain="{{ phrase('available_thread_prompts_explain',
+					{
+						'link': link(
+							'phrases/edit-by-name', {},
+							{'title': 'thread_prompt.default'}
+						)
+					}) }}">
+
+					<xf:foreach loop="$promptGroups" key="$promptGroupId" value="$promptGroup" if="{$promptsGrouped.{$promptGroupId}}">
+
+						<xf:optgroup check-all="true" listclass="_listColumns"
+							label="{{ $promptGroupId ? $promptGroup.title : phrase('ungrouped') }}">
+
+							<xf:foreach loop="{$promptsGrouped.{$promptGroupId}}" key="$promptId" value="$prompt">
+								<xf:option value="{$promptId}" selected="{$forum.prompt_cache.{$promptId}}">
+									<xf:label>{$prompt.title}</xf:label>
+								</xf:option>
+							</xf:foreach>
+						</xf:optgroup>
+					</xf:foreach>
+
+					<xf:hint>
+						<xf:checkbox standalone="true">
+							<xf:option check-all=".prompt">{{ phrase('select_all') }}</xf:option>
+						</xf:checkbox>
+					</xf:hint>
+				</xf:checkboxrow>
+
+			</xf:if>
+		</div>
+
+		<xf:submitrow icon="save" sticky="true" />
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="fs_molly_thread_list_macros" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="item"
+	arg-thread="!"
+	arg-forum=""
+	arg-forceRead="{{ false }}"
+	arg-showWatched="{{ true }}"
+	arg-allowInlineMod="{{ true }}"
+	arg-chooseName=""
+	arg-extraInfo=""
+	arg-allowEdit="{{ true }}">
+
+	<xf:css src="structured_list.less" />
+
+	<div class="structItem structItem--thread{{ $thread.prefix_id ? ' is-prefix' . $thread.prefix_id : '' }}{{ $thread.isIgnored() ? ' is-ignored' : '' }}{{ ($thread.isUnread() AND !$forceRead) ? ' is-unread' : '' }}{{ $thread.discussion_state == 'moderated' ? ' is-moderated' : '' }}{{ $thread.discussion_state == 'deleted' ? ' is-deleted' : '' }} js-inlineModContainer js-threadListItem-{$thread.thread_id}" data-author="{{ $thread.User.username ?: $thread.username }}">
+
+	<xf:extension name="icon_cell">
+		<div class="structItem-cell structItem-cell--icon">
+			<div class="structItem-iconContainer">
+				<xf:avatar user="$thread.User" size="s" defaultname="{$thread.username}" />
+				<xf:if is="$thread.getUserPostCount()">
+					<xf:avatar user="$xf.visitor" size="s"
+						href=""
+						class="avatar--separated structItem-secondaryIcon"
+						tabindex="0"
+						data-xf-init="tooltip"
+						data-trigger="auto"
+						title="{{ phrase('you_have_posted_x_messages_in_this_thread', {'count': $thread.getUserPostCount() }) }}" />
+				</xf:if>
+			</div>
+		</div>
+	</xf:extension>
+
+	<xf:extension name="main_cell">
+		<div class="structItem-cell structItem-cell--main" data-xf-init="touch-proxy">
+			<xf:if contentcheck="true">
+				<ul class="structItem-statuses">
+				<xf:contentcheck>
+				<xf:extension name="statuses">
+					<xf:if is="property('reactionSummaryOnLists') == 'status' && $thread.first_post_reactions">
+						<li><xf:reactions summary="true" reactions="{$thread.first_post_reactions}" /></li>
+					</xf:if>
+					<xf:extension name="before_status_state"></xf:extension>
+					<xf:if is="$thread.discussion_state == 'moderated'">
+						<li>
+							<xf:set var="$moderatedStatus">
+								<i class="structItem-status structItem-status--moderated" aria-hidden="true" title="{{ phrase('awaiting_approval')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('awaiting_approval') }}</span>
+							</xf:set>
+							<xf:if is="$thread.canCleanSpam()">
+								<a href="{{ link('spam-cleaner', $thread) }}" data-xf-click="overlay">{$moderatedStatus}</a>
+							<xf:else />
+								{$moderatedStatus}
+							</xf:if>
+						</li>
+					</xf:if>
+					<xf:if is="$thread.discussion_state == 'deleted'">
+						<li>
+							<i class="structItem-status structItem-status--deleted" aria-hidden="true" title="{{ phrase('deleted')|for_attr }}"></i>
+							<span class="u-srOnly">{{ phrase('deleted') }}</span>
+						</li>
+					</xf:if>
+					<xf:if is="!$thread.discussion_open">
+						<li>
+							<i class="structItem-status structItem-status--locked" aria-hidden="true" title="{{ phrase('locked')|for_attr }}"></i>
+							<span class="u-srOnly">{{ phrase('locked') }}</span>
+						</li>
+					</xf:if>
+
+					<xf:extension name="status_sticky">
+						<xf:if is="$thread.sticky">
+							<li>
+								<i class="structItem-status structItem-status--sticky" aria-hidden="true" title="{{ phrase('sticky')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('sticky') }}</span>
+							</li>
+						</xf:if>
+					</xf:extension>
+
+					<xf:extension name="before_status_watch"></xf:extension>
+					<xf:if is="{$showWatched} AND {$xf.visitor.user_id}">
+						<xf:if is="{$thread.Watch.{$xf.visitor.user_id}}">
+							<li>
+								<i class="structItem-status structItem-status--watched" aria-hidden="true" title="{{ phrase('thread_watched')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('thread_watched') }}</span>
+							</li>
+							<xf:elseif is="!$forum AND {$thread.Forum.Watch.{$xf.visitor.user_id}}" />
+							<li>
+								<i class="structItem-status structItem-status--watched" aria-hidden="true" title="{{ phrase('forum_watched')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('forum_watched') }}</span>
+							</li>
+						</xf:if>
+					</xf:if>
+
+					<xf:extension name="before_status_type"></xf:extension>
+					<xf:if is="$thread.discussion_type == 'redirect'">
+						<xf:extension name="thread_type_redirect">
+							<li>
+								<i class="structItem-status structItem-status--redirect" aria-hidden="true" title="{{ phrase('redirect')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('redirect') }}</span>
+							</li>
+						</xf:extension>
+					<xf:elseif is="$thread.discussion_type == 'question' && $thread.type_data.solution_post_id" />
+						<xf:extension name="thread_type_question_solved">
+							<li>
+								<i class="structItem-status structItem-status--solved" aria-hidden="true" title="{{ phrase('solved')|for_attr }}"></i>
+								<span class="u-srOnly">{{ phrase('solved') }}</span>
+							</li>
+						</xf:extension>
+					<xf:elseif is="!$forum || $forum.forum_type_id == 'discussion'" />
+						<xf:extension name="thread_type_icon">
+							<xf:if is="$thread.discussion_type != 'discussion'">
+								<xf:set var="$threadTypeHandler" value="{{ $thread.getTypeHandler() }}" />
+								<xf:if is="$threadTypeHandler.getTypeIconClass()">
+									<li>
+										<xf:set var="$threadTypePhrase" value="{{ $threadTypeHandler.getTypeTitle() }}" />
+										<xf:fa class="structItem-status" icon="{{ $threadTypeHandler.getTypeIconClass() }}" title="{$threadTypePhrase|for_attr}" />
+										<span class="u-srOnly">{$threadTypePhrase}</span>
+									</li>
+								</xf:if>
+							</xf:if>
+						</xf:extension>
+					</xf:if>
+				</xf:extension>
+				</xf:contentcheck>
+				</ul>
+			</xf:if>
+
+			<div class="structItem-title">
+				<xf:set var="$canPreview" value="{{ $thread.canPreview() }}" />
+				<xf:if is="$thread.prefix_id">
+					<xf:if is="$forum">
+						<a href="{{ link('forums', $forum, {'prefix_id': $thread.prefix_id}) }}" class="labelLink" rel="nofollow">{{ prefix('thread', $thread, 'html', '') }}</a>
+					<xf:else />
+						{{ prefix('thread', $thread, 'html', '') }}
+					</xf:if>
+				</xf:if>
+				<a href="{{ link('threads' . (($thread.isUnread() AND !$forceRead) ? '/unread' : ''), $thread) }}" class="" data-tp-primary="on" data-xf-init="{{ $canPreview ? 'preview-tooltip' : '' }}" data-preview-url="{{ $canPreview ? link('threads/preview', $thread) : '' }}">{$thread.title}</a>
+			</div>
+
+			<div class="structItem-minor">
+				<xf:if contentcheck="true">
+					<ul class="structItem-extraInfo">
+					<xf:contentcheck>
+						<xf:if is="property('reactionSummaryOnLists') == 'minor_opposite' && $thread.first_post_reactions">
+							<li><xf:reactions summary="true" reactions="{$thread.first_post_reactions}" /></li>
+						</xf:if>
+						<xf:if is="{$extraInfo}">
+							<li>{$extraInfo}</li>
+						<xf:elseif is="$allowEdit AND $thread.canEdit() AND $thread.canUseInlineModeration()" />
+							<xf:if is="!$allowInlineMod OR !$forum">
+								<xf:set var="$editParams" value="{{ {
+									'_xfNoInlineMod': !$allowInlineMod ? 1 : null,
+									 '_xfForumName': !$forum ? 1 : 0
+								} }}" />
+							<xf:else />
+								<xf:set var="$editParams" value="{{ [] }}" />
+							</xf:if>
+							<xf:if is="$thread.discussion_type != 'redirect'">
+								<li class="structItem-extraInfoMinor">
+									<a href="{{ link('threads/edit', $thread) }}" data-xf-click="overlay" data-cache="false" data-href="{{ link('threads/edit', $thread, $editParams) }}">
+										{{ phrase('edit') }}
+									</a>
+								</li>
+							</xf:if>
+						</xf:if>
+						<xf:if is="$chooseName">
+							<li><xf:checkbox standalone="true">
+								<xf:option name="{$chooseName}[]" value="{$thread.thread_id}" class="js-chooseItem" />
+							</xf:checkbox></li>
+						<xf:elseif is="$allowInlineMod AND $thread.canUseInlineModeration()" />
+							<li><xf:checkbox standalone="true">
+								<xf:option value="{$thread.thread_id}" class="js-inlineModToggle"
+									data-xf-init="tooltip"
+									title="{{ phrase('select_for_moderation') }}"
+									label="{{ phrase('select_for_moderation') }}"
+									hiddenlabel="true"
+								/>
+							</xf:checkbox></li>
+						</xf:if>
+					</xf:contentcheck>
+					</ul>
+				</xf:if>
+
+				<xf:if is="$thread.discussion_state == 'deleted'">
+					<xf:if is="{$extraInfo}"><span class="structItem-extraInfo">{$extraInfo}</span></xf:if>
+
+					<xf:macro template="deletion_macros" name="notice" arg-log="{$thread.DeletionLog}" />
+				<xf:else />
+					<ul class="structItem-parts">
+						<li><xf:username user="$thread.User" defaultname="{$thread.username}" /></li>
+						<li class="structItem-startDate"><a href="{{ link('threads', $thread) }}" rel="nofollow"><xf:date time="{$thread.post_date}" /></a></li>
+						<xf:if is="!$forum">
+							<li><a href="{{ link('forums', $thread.Forum) }}">{$thread.Forum.title}</a></li>
+						</xf:if>
+					</ul>
+
+					<xf:if is="$thread.discussion_type != 'redirect' && $thread.reply_count >= $xf.options.messagesPerPage && $xf.options.lastPageLinks">
+						<span class="structItem-pageJump">
+						<xf:foreach loop="{{ last_pages($thread.reply_count + 1, $xf.options.messagesPerPage, $xf.options.lastPageLinks) }}" value="$p">
+							<a href="{{ link('threads', $thread, {'page': $p}) }}">{$p}</a>
+						</xf:foreach>
+						</span>
+					</xf:if>
+				</xf:if>
+			</div>
+		</div>
+	</xf:extension>
+
+	<xf:extension name="meta_cell">
+		<div class="structItem-cell structItem-cell--meta" title="{{ phrase('first_message_reaction_score:')|for_attr }} {$thread.first_post_reaction_score|number}">
+			<dl class="pairs pairs--justified">
+				<dt>{{ phrase('replies') }}</dt>
+				<dd>{{ $thread.discussion_type == 'redirect' ? '&ndash;' : $thread.reply_count|number_short }}</dd>
+			</dl>
+			<dl class="pairs pairs--justified structItem-minor">
+				<dt>{{ phrase('views') }}</dt>
+				<dd>{{ $thread.discussion_type == 'redirect' ? '&ndash;' : ($thread.view_count > $thread.reply_count ? $thread.view_count|number_short : number_short($thread.reply_count+1)) }}</dd>
+			</dl>
+		</div>
+	</xf:extension>
+
+	<xf:extension name="latest_cell">
+		<div class="structItem-cell structItem-cell--latest">
+			<xf:if is="$thread.discussion_type == 'redirect'">
+				{{ phrase('n_a') }}
+			<xf:else />
+				<a href="{{ link('threads/latest', $thread) }}" rel="nofollow"><xf:date time="{$thread.last_post_date}" class="structItem-latestDate" /></a>
+				<div class="structItem-minor">
+					<xf:if is="$xf.visitor.isIgnoring($thread.last_post_user_id)">
+						{{ phrase('ignored_member') }}
+					<xf:else />
+						<xf:username user="{$thread.LastPoster}" defaultname="{$thread.last_post_username}" />
+					</xf:if>
+				</div>
+			</xf:if>
+		</div>
+	</xf:extension>
+
+	<xf:extension name="icon_end_cell">
+		<div class="structItem-cell structItem-cell--icon structItem-cell--iconEnd">
+			<div class="structItem-iconContainer">
+				<xf:if is="$xf.visitor.isIgnoring($thread.last_post_user_id) OR $thread.discussion_type == 'redirect'">
+					<xf:avatar user="{{ null }}" size="xxs" />
+				<xf:else />
+					<xf:avatar user="{$thread.LastPoster}" defaultname="{$thread.last_post_username}" size="xxs" />
+				</xf:if>
+			</div>
+		</div>
+	</xf:extension>
+
+	</div>
+</xf:macro>
+
+<xf:macro name="item_new_posts" arg-thread="!">
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<xf:avatar user="$thread.LastPoster" size="xxs" defaultname="{$thread.last_post_username}" />
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<xf:if is="$thread.isUnread()">
+				<a href="{{ link('threads/unread', $thread) }}">{{ prefix('thread', $thread) }}{$thread.title}</a>
+			<xf:else />
+				<a href="{{ link('threads/post', $thread, {'post_id': $thread.last_post_id}) }}">{{ prefix('thread', $thread) }}{$thread.title}</a>
+			</xf:if>
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>{{ phrase('latest_x', {'name': $thread.last_post_cache.username}) }}</li>
+					<li><xf:date time="{$thread.last_post_date}" /></li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="{{ link('forums', $thread.Forum) }}">{$thread.Forum.title}</a>
+			</div>
+		</div>
+	</div>
+</xf:macro>
+
+<xf:macro name="item_new_threads" arg-thread="!">
+	<div class="contentRow">
+		<div class="contentRow-figure">
+			<xf:avatar user="$thread.User" size="xxs" defaultname="{$thread.username}" />
+		</div>
+		<div class="contentRow-main contentRow-main--close">
+			<a href="{{ link('threads', $thread) }}">{{ prefix('thread', $thread) }}{$thread.title}</a>
+
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<ul class="listInline listInline--bullet">
+					<li>{{ phrase('started_by_x', {'name': $thread.username}) }}</li>
+					<li><xf:date time="{$thread.post_date}" /></li>
+					<li>{{ phrase('replies:') }} {$thread.reply_count|number_short}</li>
+				</ul>
+			</div>
+			<div class="contentRow-minor contentRow-minor--hideLinks">
+				<a href="{{ link('forums', $thread.Forum) }}">{$thread.Forum.title}</a>
+			</div>
+		</div>
+	</div>
+</xf:macro>
+
+<xf:macro name="quick_thread"
+	arg-forum="!"
+	arg-page="1"
+	arg-order="last_post_date"
+	arg-direction="desc"
+	arg-prefixes="{{ [] }}">
+
+	<xf:css src="structured_list.less" />
+
+	<xf:if is="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
+
+		<xf:js src="xf/thread.js" min="1" />
+
+		<xf:set var="$inlineMode" value="{{ ($page == 1 && $order == 'last_post_date' && $direction == 'desc') ? true : false }}" />
+
+		<xf:form action="{{ link('forums/post-thread', $forum, {'inline-mode': $inlineMode}) }}" ajax="true"
+			class="structItem structItem--quickCreate"
+			draft="{{ link('forums/draft', $forum) }}"
+			data-xf-init="quick-thread"
+			data-focus-activate=".js-titleInput"
+			data-focus-activate-href="{{ link('forums/post-thread', $forum, {'inline-mode': true}) }}"
+			data-focus-activate-target=".js-quickThreadFields"
+			data-insert-target=".js-threadList"
+			data-replace-target=".js-emptyThreadList">
+
+		<xf:extension name="icon_cell">
+			<div class="structItem-cell structItem-cell--icon">
+				<div class="structItem-iconContainer">
+					<xf:avatar user="$xf.visitor" size="s" />
+				</div>
+			</div>
+		</xf:extension>
+
+		<xf:extension name="main_cell">
+			<div class="structItem-cell structItem-cell--newThread js-prefixListenContainer">
+
+				<xf:formrow rowtype="noGutter noLabel fullWidth noPadding mergeNext"
+					label="{{ phrase('title') }}">
+
+					<xf:prefixinput maxlength="{{ max_length('XF:Thread', 'title') }}"
+						placeholder="{$forum.thread_prompt}"
+						title="{{ phrase('post_new_thread_in_this_forum') }}"
+						prefix-value="{$forum.default_prefix_id}"
+						type="thread"
+						prefixes="{$prefixes}"
+						data-xf-init="tooltip"
+						rows="1"
+						help-href="{{ link('forums/prefix-help', $forum) }}"
+						help-skip-initial="{{ true }}" />
+
+					<!--[XF:qt_title_after]-->
+				</xf:formrow>
+
+				<div class="js-quickThreadFields inserter-container is-hidden"><!--{{ phrase('loading...') }}--></div>
+			</div>
+		</xf:extension>
+
+		</xf:form>
+	</xf:if>
+
+</xf:macro>]]></template>
+  <template type="public" title="fs_molly_view" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{$group.name}</xf:title>
+
+<xf:css src="tlg_style.less" />
+
+
+<xf:sidenav>
+	
+	<!-- Avatar -->
+	
+	<div class="block groupAvatar-block">
+        <a href="{{ link('molly', $subForums) }}"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+           <xf:if is="$subForums.AvatarAttachment">
+			<img src="{{ $subForums.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img bbImage" width="250" height="250"
+                 data-width="{$subForums.AvatarAttachment.width}"
+                 data-height="{$subForums.AvatarAttachment.height}"
+                 alt="{$subForums.title}"/>
+			<xf:else />
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+			</xf:if>
+    </a>
+    </div>
+	
+	<!-- Avatar -->
+
+</xf:sidenav>
+
+<div class="groupWrapper groupWrapper-{$subForums.node_id}">
+
+	<!-- Header -->
+
+	<xf:page option="headerHtml">
+        <div class="contentRow contentRow--hideFigureNarrow">
+            <div class="contentRow-main">
+                <div class="p-title">
+                    <h1 class="p-title-value">
+                        {$subForums.title}
+                    </h1>
+                </div>
+                    <div class="p-description">
+                        {$subForums.description}
+                    </div>
+            </div>
+        </div>
+    </xf:page>
+
+	<!-- Header -->
+
+	<!-- Cover Header -->
+
+	<div class="block">
+        <div class="block-container groupCover-header">
+            <div class="block-body">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
+        <a href="{{ link('molly', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+                <xf:if is="$subForums.CoverAttachment">
+                <img data-crop="{$subForums->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
+            </xf:if>
+        </a>
+    </div>
+            </div>
+
+            <xf:if is="$isEditing is not empty">
+                <xf:macro name="cover_editor_setup" arg-group="{$group}"
+                          arg-width="{$baseWidth}"
+                          arg-height="{$baseHeight}" />
+            <xf:else />
+               
+				 <div class="gridCard--header--actions">
+		   
+			<div class="buttonGroup-buttonWrapper">
+                <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+					<div class="menu" data-menu="menu" aria-hidden="true">
+                    <div class="menu-content">
+                                <a href="{{ link('molly/add-moderator', $subForums) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_moderator')  }}
+                            </a>
+						
+						<a href="{{ link('molly/avatar', $subForums) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_upload_avatar')  }}
+                            </a>
+						
+						<a href="{{ link('molly/cover', $subForums) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_molly_upload_cover')  }}
+                            </a>
+                           
+                            <hr class="menu-separator" />
+                    </div>
+                </div>
+            </div>   
+			   
+		   </div>
+				
+            </xf:if>
+
+        </div>
+    </div>
+
+	<!-- Cover Header -->
+	
+	<!-- Thread Lists -->
+	
+		<div class="block-container">
+		<div class="block-body">
+				<div class="structItemContainer">
+					<xf:if is="$threads is not empty">
+						<div class="structItemContainer-group js-threadList">
+							<xf:if is="$threads is not empty">
+								<xf:foreach loop="$threads" value="$thread">
+									<xf:macro name="fs_molly_thread_list_macros::item"
+										arg-thread="{$thread}"
+										arg-forum="{$forum}"
+										args="null"  />
+								</xf:foreach>
+							</xf:if>
+						</div>				
+					<xf:else />
+						<div class="structItemContainer-group js-threadList">
+								<div class="structItem js-emptyThreadList">
+									<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
+								</div>
+						</div>
+					</xf:if>
+				</div>
+		</div>
+	</div>
+	
+	<!-- Thread Lists -->
+	
+</div>]]></template>
+  <template type="public" title="moderator_add_choice" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('add_moderator') }}</xf:title>
+
+<xf:form action="{{ link('molly/add-moderator') }}" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textboxrow name="username" value="{$username}" type="search" ac="single"
+				placeholder="{{ phrase('user_name...') }}"
+				label="{{ phrase('moderator_user_name') }}" />
+
+			<xf:radiorow name="type" value="{$type}"
+				label="{{ phrase('type_of_moderator') }}">
+
+				<xf:option value="_super"
+					label="{{ phrase('super_moderator') }}"
+					hint="{{ phrase('super_moderator_can_moderate_entire_board') }}" />
+
+					<xf:option value="node" label="Forum moderator:" selected="true">
+						<xf:select name="type_id[node]">
+								<xf:option value="{$subForum.node_id}" label="{$subForum.title}"/>
+						</xf:select>
+					</xf:option>
+			</xf:radiorow>
+		</div>
+		<xf:submitrow submit="{{ phrase('add_moderator...') }}" />
+	</div>
+</xf:form>]]></template>
+  <template type="public" title="moderator_edit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('edit_moderator:') }} {$user.username}</xf:title>
+
+<xf:pageaction if="$contentModerator ? $contentModerator.isUpdate() : $generalModerator.isUpdate()">
+	<xf:if is="$contentModerator">
+		<xf:button href="{{ link('moderators/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
+	<xf:else />
+		<xf:button href="{{ link('moderators/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
+	</xf:if>
+</xf:pageaction>
+
+<xf:form action="{{ link('molly/moderator-save') }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:formrow label="{{ phrase('type_of_moderator') }}">
+				<xf:if is="$contentTitle">
+					{$contentTitle}
+					<xf:else />
+					{{ phrase('super_moderator') }}
+				</xf:if>
+			</xf:formrow>
+
+			<hr class="formRowSep" />
+
+			<xf:checkboxrow>
+				<xf:option name="is_staff" selected="$isStaff"
+					label="{{ phrase('display_user_as_staff') }}"
+					hint="{{ phrase('if_selected_this_user_will_be_listed_publicly_as_staff_member') }}" />
+			</xf:checkboxrow>
+
+			<xf:checkboxrow name="extra_user_group_ids[]" value="{{ $generalModerator.extra_user_group_ids }}"
+				listclass="listColumns"
+				rowid="addUserGroups"
+				label="{{ phrase('add_moderator_to_user_groups') }}">
+
+				<xf:hint>
+					<xf:checkbox standalone="true">
+						<xf:option check-all="#addUserGroups" label="{{ phrase('select_all') }}" />
+					</xf:checkbox>
+				</xf:hint>
+				<xf:options source="$userGroups" />
+			</xf:checkboxrow>
+
+			<hr class="formRowSep" />
+
+			<div id="piGroups">
+
+				<xf:checkboxrow>
+					<xf:option check-all="#piGroups" label="{{ phrase('select_all') }}" />
+				</xf:checkboxrow>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
+						<xf:hiddenval
+							name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+							value="unset" />
+					</xf:foreach>
+					<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
+						<xf:hiddenval
+							name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+							value="unset" />
+					</xf:foreach>
+				</xf:foreach>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:if is="{$globalPermissions.{$interfaceGroupId}}">
+						<hr class="formRowSep" />
+
+						<xf:checkboxrow listclass="listColumns"
+							label="{$interfaceGroup.title}">
+							<xf:hint>
+								<xf:checkbox standalone="true">
+									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
+								</xf:checkbox>
+							</xf:hint>
+							<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
+								<xf:option name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+									value="allow"
+									selected="{{ {$existingValues.{$permission.permission_group_id}.{$permission.permission_id}} == 'allow' }}"
+									label="{$permission.title}" />
+							</xf:foreach>
+						</xf:checkboxrow>
+					</xf:if>
+				</xf:foreach>
+
+				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
+					<xf:if is="{$contentPermissions.{$interfaceGroupId}}">
+						<hr class="formRowSep" />
+
+						<xf:checkboxrow listclass="listColumns"
+							label="{$interfaceGroup.title}">
+							<xf:hint>
+								<xf:checkbox standalone="true">
+									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
+								</xf:checkbox>
+							</xf:hint>
+							<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
+								<xf:option name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
+									value="content_allow"
+									selected="{{ {$existingValues.{$permission.permission_group_id}.{$permission.permission_id}} == 'content_allow' }}"
+									label="{$permission.title}" />
+							</xf:foreach>
+						</xf:checkboxrow>
+					</xf:if>
+				</xf:foreach>
+
+			</div>
+		</div>
+		<xf:submitrow icon="save" />
+	</div>
+
+	<xf:hiddenval name="user_id">{$generalModerator.user_id}</xf:hiddenval>
+	<xf:hiddenval name="content_type">{$contentModerator.content_type}</xf:hiddenval>
+	<xf:hiddenval name="content_id">{$contentModerator.content_id}</xf:hiddenval>
+</xf:form>]]></template>
+  <template type="public" title="node_edit_macros" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro name="title" arg-node="!">
+	<xf:textboxrow name="node[title]" value="{$node.title}" label="{{ phrase('title') }}" />
+</xf:macro>
+
+<xf:macro name="description" arg-node="!">
+	<xf:textarearow name="node[description]" value="{$node.description}" autosize="true"
+		label="{{ phrase('description') }}"
+		hint="{{ phrase('you_may_use_html') }}"
+		explain="{{ phrase('node_description_explain') }}" />
+</xf:macro>
+
+<xf:macro name="node_name" arg-node="!" arg-optional="{{ true }}">
+	<xf:textboxrow name="node[node_name]" value="{$node.node_name}"
+		label="{{ phrase('url_portion') }}"
+		hint="{{ $optional ? phrase('optional') : '' }}"
+		explain="{{ $optional ? phrase('if_entered_url_to_forum_not_contain_id_change_breaks_urls') : '' }}"
+		dir="ltr" />
+</xf:macro>
+
+<xf:macro name="position" arg-node="!" arg-nodeTree="!">
+	<xf:selectrow name="node[parent_node_id]" value="{$node.parent_node_id}"
+		label="{{ phrase('parent_node') }}">
+
+		<xf:option value="0">{{ phrase('(none)') }}</xf:option>
+
+		<xf:foreach loop="$nodeTree.getFlattened(0)" value="$treeEntry">
+			<xf:option value="{$treeEntry.record.node_id}">{{ repeat('--', $treeEntry.depth) }} {$treeEntry.record.title}</xf:option>
+		</xf:foreach>
+	</xf:selectrow>
+
+	<xf:macro template="display_order_macros" name="row"
+		arg-name="node[display_order]"
+		arg-value="{$node.display_order}"
+		arg-explain="{{ phrase('position_of_this_item_relative_to_other_nodes_with_same_parent') }}" />
+
+	<xf:checkboxrow>
+		<xf:option name="node[display_in_list]" selected="$node.display_in_list"
+			label="{{ phrase('display_in_node_list') }}"
+			hint="{{ phrase('if_unselected_users_will_not_see_this_node_in_list') }}" />
+	</xf:checkboxrow>
+</xf:macro>
+
+<xf:macro name="style" arg-node="!" arg-styleTree="!">
+	<xf:checkboxrow>
+		<xf:option name="style_override" selected="$node.style_id"
+			label="{{ phrase('override_user_style_choice') }}"
+			explain="{{ phrase('if_specified_all_visitors_view_using_selected_style') }}">
+
+			<xf:select name="node[style_id]" value="{$node.style_id}">
+				<xf:foreach loop="$styleTree.getFlattened(0)" value="$treeEntry">
+					<xf:option value="{$treeEntry.record.style_id}">{{ repeat('--', $treeEntry.depth) }} {$treeEntry.record.title}</xf:option>
+				</xf:foreach>
+			</xf:select>
+
+		</xf:option>
+	</xf:checkboxrow>
+</xf:macro>
+
+<xf:macro name="navigation" arg-node="!" arg-navChoices="!">
+	<xf:set var="$defaultValue" value="{{ $node.Parent.effective_navigation_id ?: 'forums' }}" />
+	<xf:set var="$defaultNav" value="{$navChoices.{$defaultValue}}" />
+	<xf:selectrow name="node[navigation_id]" value="{$node.navigation_id}"
+		label="{{ phrase('navigation_section') }}"
+		explain="{{ phrase('navigation_section_explain') }}">
+
+		<xf:option value="">{{ phrase('default') . ($defaultNav ? ' (' . $defaultNav.title . ')' : '') }}</xf:option>
+
+		<xf:foreach loop="$navChoices" value="$nav">
+			<xf:if is="$nav.navigation_id != '_default'">
+				<xf:option value="{$nav.navigation_id}">{$nav.title}</xf:option>
+			</xf:if>
+		</xf:foreach>
+	</xf:selectrow>
+</xf:macro>]]></template>
+</templates>

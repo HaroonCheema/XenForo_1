@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: b77cae5def8d2b52e34b6868cb49f7f9
+// FROM HASH: 27157c16a51ae162fa2821c56ac93ebb
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -21,9 +21,19 @@ return array(
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
             <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
-                
-                    <span class="groupCover--text">' . $__templater->escape($__vars['subForum']['title']) . '</span>
-                
+                ';
+	if ($__vars['subForum']['CoverAttachment']) {
+		$__finalCompiled .= '
+                <img data-crop="' . $__templater->filter($__templater->method($__vars['subForum'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     ' . ($__vars['imgAttrs'] ? (' ' . $__templater->escape($__vars['imgAttrs'])) : '') . '/>
+            ';
+	} else {
+		$__finalCompiled .= '
+                <span class="groupCover--text">' . $__templater->func('snippet', array($__vars['subForum']['title'], 25, ), true) . '</span>
+            ';
+	}
+	$__finalCompiled .= '
             </a>
         </div>
                     <span class="groupCover--inlineMod">
@@ -47,7 +57,7 @@ return array(
 		   
 		   <div class="gridCard--header--avatar">
 			   
-			   <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '"
+			   <a href="' . $__templater->func('link', array('molly', $__vars['subForum'], ), true) . '"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
            ';
 	if ($__vars['subForum']['AvatarAttachment']) {
@@ -64,10 +74,7 @@ return array(
 			';
 	}
 	$__finalCompiled .= '
-    </a>
-			
-			   ' . '
-		   
+    </a>		   
 		   </div>
 		   
 			<!-- Avatar -->
@@ -140,12 +147,6 @@ return array(
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 ' . 'Add Moderator' . '
-                            </a>
-						
-						<a href="' . $__templater->func('link', array('molly/chatroom', $__vars['subForum'], ), true) . '"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                ' . 'Add Chatroom' . '
                             </a>
                            
                             <hr class="menu-separator" />

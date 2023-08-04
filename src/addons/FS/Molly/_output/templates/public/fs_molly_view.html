@@ -53,8 +53,14 @@
         <div class="block-container groupCover-header">
             <div class="block-body">
                <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="{{ link('groups', $group) }}" style="background-color:#e08585;color:#8f2424">
+        <a href="{{ link('molly', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+                <xf:if is="$subForums.CoverAttachment">
+                <img data-crop="{$subForums->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+            <xf:else />
                 <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
+            </xf:if>
         </a>
     </div>
             </div>
@@ -78,12 +84,6 @@
                                        class="menu-linkRow"
                                        data-xf-click="overlay">
                                 {{  phrase('fs_molly_moderator')  }}
-                            </a>
-						
-						<a href="{{ link('molly/chatroom', $subForums) }}"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                {{  phrase('fs_molly_add_chatroom')  }}
                             </a>
 						
 						<a href="{{ link('molly/avatar', $subForums) }}"

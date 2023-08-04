@@ -62,18 +62,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.defaultRegister'),
-		'href' => $__templater->func('link', array('register', ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['_default']['children']['defaultRegister'] = $__navTemp;
-				$__flat['defaultRegister'] =& $__tree['_default']['children']['defaultRegister'];
-			}
-		}
-
 		if ($__vars['xf']['visitor']['user_id']) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.defaultLogOut'),
@@ -83,6 +71,18 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
 				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
+			}
+		}
+
+		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.defaultRegister'),
+		'href' => $__templater->func('link', array('register', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['_default']['children']['defaultRegister'] = $__navTemp;
+				$__flat['defaultRegister'] =& $__tree['_default']['children']['defaultRegister'];
 			}
 		}
 
@@ -329,6 +329,30 @@ return function($__templater, $__selectedNav, array $__vars)
 	}
 
 	$__navTemp = [
+		'title' => \XF::phrase('nav.fs_molly_index'),
+		'href' => $__templater->func('link', array('molly', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fs_molly_index'] = $__navTemp;
+		$__flat['fs_molly_index'] =& $__tree['fs_molly_index'];
+		if (empty($__tree['fs_molly_index']['children'])) { $__tree['fs_molly_index']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.mollyAddSubForum'),
+		'href' => $__templater->func('link', array('molly/add', ), false),
+		'attributes' => [
+			'data-xf-click' => 'overlay',
+		],
+	];
+		if ($__navTemp) {
+			$__tree['fs_molly_index']['children']['mollyAddSubForum'] = $__navTemp;
+			$__flat['mollyAddSubForum'] =& $__tree['fs_molly_index']['children']['mollyAddSubForum'];
+		}
+
+	}
+
+	$__navTemp = [
 		'title' => \XF::phrase('nav.fs_auction_category'),
 		'href' => $__templater->func('link', array('auction', ), false),
 		'attributes' => [],
@@ -370,30 +394,6 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['fs_escrow']['children']['fs_escrow_add'] = $__navTemp;
 			$__flat['fs_escrow_add'] =& $__tree['fs_escrow']['children']['fs_escrow_add'];
-		}
-
-	}
-
-	$__navTemp = [
-		'title' => \XF::phrase('nav.fs_molly_index'),
-		'href' => $__templater->func('link', array('molly', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['fs_molly_index'] = $__navTemp;
-		$__flat['fs_molly_index'] =& $__tree['fs_molly_index'];
-		if (empty($__tree['fs_molly_index']['children'])) { $__tree['fs_molly_index']['children'] = []; }
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.mollyAddSubForum'),
-		'href' => $__templater->func('link', array('molly/add', ), false),
-		'attributes' => [
-			'data-xf-click' => 'overlay',
-		],
-	];
-		if ($__navTemp) {
-			$__tree['fs_molly_index']['children']['mollyAddSubForum'] = $__navTemp;
-			$__flat['mollyAddSubForum'] =& $__tree['fs_molly_index']['children']['mollyAddSubForum'];
 		}
 
 	}
@@ -540,64 +540,6 @@ return function($__templater, $__selectedNav, array $__vars)
 				if ($__navTemp) {
 					$__tree['members']['children']['searchProfilePosts'] = $__navTemp;
 					$__flat['searchProfilePosts'] =& $__tree['members']['children']['searchProfilePosts'];
-				}
-			}
-
-		}
-	}
-
-	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('tl_groups', 'view', ))) {
-		$__navTemp = [
-		'title' => \XF::phrase('nav.tl_groups'),
-		'href' => $__templater->func('link', array('groups', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['tl_groups'] = $__navTemp;
-			$__flat['tl_groups'] =& $__tree['tl_groups'];
-			if (empty($__tree['tl_groups']['children'])) { $__tree['tl_groups']['children'] = []; }
-
-			$__navTemp = [
-		'title' => \XF::phrase('nav.tl_groups_search'),
-		'href' => $__templater->func('link', array('search', null, array('type' => 'tl_group', ), ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['tl_groups']['children']['tl_groups_search'] = $__navTemp;
-				$__flat['tl_groups_search'] =& $__tree['tl_groups']['children']['tl_groups_search'];
-			}
-
-			if (($__vars['xf']['visitor']['user_id'] > 0)) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.tl_groups_joined'),
-		'href' => $__templater->func('link', array('groups/browse/joined', ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['tl_groups']['children']['tl_groups_joined'] = $__navTemp;
-					$__flat['tl_groups_joined'] =& $__tree['tl_groups']['children']['tl_groups_joined'];
-				}
-			}
-
-			$__navTemp = [
-		'title' => \XF::phrase('nav.tl_groups_upcomingEvents'),
-		'href' => $__templater->func('link', array('groups/browse/events', ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['tl_groups']['children']['tl_groups_upcomingEvents'] = $__navTemp;
-				$__flat['tl_groups_upcomingEvents'] =& $__tree['tl_groups']['children']['tl_groups_upcomingEvents'];
-			}
-
-			if (($__vars['xf']['visitor']['user_id'] > 0)) {
-				$__navTemp = [
-		'title' => \XF::phrase('nav.tlg_feeds'),
-		'href' => $__templater->func('link', array('groups/browse/feeds', ), false),
-		'attributes' => [],
-	];
-				if ($__navTemp) {
-					$__tree['tl_groups']['children']['tlg_feeds'] = $__navTemp;
-					$__flat['tlg_feeds'] =& $__tree['tl_groups']['children']['tlg_feeds'];
 				}
 			}
 
