@@ -43,9 +43,9 @@
     },
     "nav.fs_molly_index.txt": {
         "global_cache": false,
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "9dd5d0d80c6edf7f55faaa698ceff84a"
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "0b1db98b451709c6ba3205838455aa2f"
     },
     "nav.mollyAddSubForum.txt": {
         "global_cache": false,
