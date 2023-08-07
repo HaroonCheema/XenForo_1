@@ -4,6 +4,7 @@ namespace FS\Molly\XF\Entity;
 
 use XF\Mvc\Entity\Structure;
 use FS\Molly\Service\Molly\Cover;
+use InvalidArgumentException;
 
 class Node extends XFCP_Node
 {
@@ -92,5 +93,32 @@ class Node extends XFCP_Node
             ->app()
             ->router('public')
             ->buildLink(($canonical ? 'canonical:' : '') . 'attachments', $attachment);
+    }
+
+    public function getImageAttributes()
+    {
+        $imgAttrs = [
+            'data-debug=' . (\XF::$debugMode ? 1 : 0)
+        ];
+
+        if ($this->CoverAttachment !== null) {
+            $imgAttrs[] = 'data-width=' . $this->CoverAttachment->width;
+            $imgAttrs[] = 'data-height=' . $this->CoverAttachment->height;
+            $imgAttrs[] = 'alt=' . htmlspecialchars($this->title);
+            $top = $this->getCoverCropData('y', 0);
+
+            $imgAttrs[] = 'style="top:' . $top;
+            $coverUrl = $this->getCoverUrl(true) !== null
+                ? htmlspecialchars($this->getCoverUrl(true))
+                : '';
+            if ($coverUrl === '') {
+                throw new InvalidArgumentException('Group did not have cover!');
+            }
+            $imgAttrs[] = 'src=' . $coverUrl;
+            $imgAttrs[] = 'data-src=' . $coverUrl;
+        }
+
+
+        return implode(' ', $imgAttrs);
     }
 }

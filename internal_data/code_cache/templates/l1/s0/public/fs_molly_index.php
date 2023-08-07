@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 27157c16a51ae162fa2821c56ac93ebb
+// FROM HASH: 6f3bea85dbcfe195249d8460b41e8baa
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -25,8 +25,8 @@ return array(
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '
                 <img data-crop="' . $__templater->filter($__templater->method($__vars['subForum'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
-                     ' . ($__vars['imgAttrs'] ? (' ' . $__templater->escape($__vars['imgAttrs'])) : '') . '/>
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     ' . ($__templater->method($__vars['subForum'], 'getImageAttributes', array()) ? (' ' . $__templater->escape($__templater->method($__vars['subForum'], 'getImageAttributes', array()))) : '') . '/>
             ';
 	} else {
 		$__finalCompiled .= '
@@ -56,25 +56,27 @@ return array(
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
-			   
-			   <a href="' . $__templater->func('link', array('molly', $__vars['subForum'], ), true) . '"
-       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
            ';
 	if ($__vars['subForum']['AvatarAttachment']) {
 		$__finalCompiled .= '
+			   <a href="' . $__templater->func('link', array('molly', $__vars['subForum'], ), true) . '"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
 			<img src="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['thumbnail_url']) . '"
                  class="groupAvatar--img bbImage" width="100" height="100"
                  data-width="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['width']) . '"
                  data-height="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['height']) . '"
                  alt="' . $__templater->escape($__vars['subForum']['title']) . '"/>
+    </a>		   
+			   
 			';
 	} else {
 		$__finalCompiled .= '
-            <span class="groupAvatar--text groupAvatar--dynamic">' . $__templater->escape($__vars['xf']['visitor']['username']) . '</span>
+			   ' . '
+			   			  ' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
+		))) . '
 			';
 	}
 	$__finalCompiled .= '
-    </a>		   
 		   </div>
 		   
 			<!-- Avatar -->

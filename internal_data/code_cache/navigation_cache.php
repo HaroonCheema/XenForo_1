@@ -62,18 +62,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-		if ($__vars['xf']['visitor']['user_id']) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.defaultLogOut'),
-		'href' => $__templater->func('link', array('logout', null, array('t' => $__templater->func('csrf_token', array(), false), ), ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
-				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
-			}
-		}
-
 		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.defaultRegister'),
@@ -83,6 +71,18 @@ return function($__templater, $__selectedNav, array $__vars)
 			if ($__navTemp) {
 				$__tree['_default']['children']['defaultRegister'] = $__navTemp;
 				$__flat['defaultRegister'] =& $__tree['_default']['children']['defaultRegister'];
+			}
+		}
+
+		if ($__vars['xf']['visitor']['user_id']) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.defaultLogOut'),
+		'href' => $__templater->func('link', array('logout', null, array('t' => $__templater->func('csrf_token', array(), false), ), ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
+				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
 			}
 		}
 
@@ -329,30 +329,6 @@ return function($__templater, $__selectedNav, array $__vars)
 	}
 
 	$__navTemp = [
-		'title' => \XF::phrase('nav.fs_molly_index'),
-		'href' => $__templater->func('link', array('molly', ), false),
-		'attributes' => [],
-	];
-	if ($__navTemp) {
-		$__tree['fs_molly_index'] = $__navTemp;
-		$__flat['fs_molly_index'] =& $__tree['fs_molly_index'];
-		if (empty($__tree['fs_molly_index']['children'])) { $__tree['fs_molly_index']['children'] = []; }
-
-		$__navTemp = [
-		'title' => \XF::phrase('nav.mollyAddSubForum'),
-		'href' => $__templater->func('link', array('molly/add', ), false),
-		'attributes' => [
-			'data-xf-click' => 'overlay',
-		],
-	];
-		if ($__navTemp) {
-			$__tree['fs_molly_index']['children']['mollyAddSubForum'] = $__navTemp;
-			$__flat['mollyAddSubForum'] =& $__tree['fs_molly_index']['children']['mollyAddSubForum'];
-		}
-
-	}
-
-	$__navTemp = [
 		'title' => \XF::phrase('nav.fs_auction_category'),
 		'href' => $__templater->func('link', array('auction', ), false),
 		'attributes' => [],
@@ -394,6 +370,30 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['fs_escrow']['children']['fs_escrow_add'] = $__navTemp;
 			$__flat['fs_escrow_add'] =& $__tree['fs_escrow']['children']['fs_escrow_add'];
+		}
+
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.fs_molly_index'),
+		'href' => $__templater->func('link', array('molly', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fs_molly_index'] = $__navTemp;
+		$__flat['fs_molly_index'] =& $__tree['fs_molly_index'];
+		if (empty($__tree['fs_molly_index']['children'])) { $__tree['fs_molly_index']['children'] = []; }
+
+		$__navTemp = [
+		'title' => \XF::phrase('nav.mollyAddSubForum'),
+		'href' => $__templater->func('link', array('molly/add', ), false),
+		'attributes' => [
+			'data-xf-click' => 'overlay',
+		],
+	];
+		if ($__navTemp) {
+			$__tree['fs_molly_index']['children']['mollyAddSubForum'] = $__navTemp;
+			$__flat['mollyAddSubForum'] =& $__tree['fs_molly_index']['children']['mollyAddSubForum'];
 		}
 
 	}
@@ -546,6 +546,64 @@ return function($__templater, $__selectedNav, array $__vars)
 		}
 	}
 
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('tl_groups', 'view', ))) {
+		$__navTemp = [
+		'title' => \XF::phrase('nav.tl_groups'),
+		'href' => $__templater->func('link', array('groups', ), false),
+		'attributes' => [],
+	];
+		if ($__navTemp) {
+			$__tree['tl_groups'] = $__navTemp;
+			$__flat['tl_groups'] =& $__tree['tl_groups'];
+			if (empty($__tree['tl_groups']['children'])) { $__tree['tl_groups']['children'] = []; }
+
+			$__navTemp = [
+		'title' => \XF::phrase('nav.tl_groups_search'),
+		'href' => $__templater->func('link', array('search', null, array('type' => 'tl_group', ), ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['tl_groups']['children']['tl_groups_search'] = $__navTemp;
+				$__flat['tl_groups_search'] =& $__tree['tl_groups']['children']['tl_groups_search'];
+			}
+
+			if (($__vars['xf']['visitor']['user_id'] > 0)) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.tl_groups_joined'),
+		'href' => $__templater->func('link', array('groups/browse/joined', ), false),
+		'attributes' => [],
+	];
+				if ($__navTemp) {
+					$__tree['tl_groups']['children']['tl_groups_joined'] = $__navTemp;
+					$__flat['tl_groups_joined'] =& $__tree['tl_groups']['children']['tl_groups_joined'];
+				}
+			}
+
+			$__navTemp = [
+		'title' => \XF::phrase('nav.tl_groups_upcomingEvents'),
+		'href' => $__templater->func('link', array('groups/browse/events', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['tl_groups']['children']['tl_groups_upcomingEvents'] = $__navTemp;
+				$__flat['tl_groups_upcomingEvents'] =& $__tree['tl_groups']['children']['tl_groups_upcomingEvents'];
+			}
+
+			if (($__vars['xf']['visitor']['user_id'] > 0)) {
+				$__navTemp = [
+		'title' => \XF::phrase('nav.tlg_feeds'),
+		'href' => $__templater->func('link', array('groups/browse/feeds', ), false),
+		'attributes' => [],
+	];
+				if ($__navTemp) {
+					$__tree['tl_groups']['children']['tlg_feeds'] = $__navTemp;
+					$__flat['tlg_feeds'] =& $__tree['tl_groups']['children']['tlg_feeds'];
+				}
+			}
+
+		}
+	}
+
 	$__navTemp = [
 		'title' => \XF::phrase('nav.createCrud'),
 		'href' => $__templater->func('link', array('crud', ), false),
@@ -564,6 +622,53 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
 			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
+		}
+
+	}
+
+	$__callbackTemp = ['\\Siropu\\Chat\\Navigation\\Tab', 'chat'];
+	$__navTemp = is_callable($__callbackTemp) ? call_user_func($__callbackTemp, array (
+  'navigation_id' => 'siropuChat',
+), '', $__selectedNav) : null;
+	if ($__navTemp) {
+		$__tree['siropuChat'] = $__navTemp;
+		$__flat['siropuChat'] =& $__tree['siropuChat'];
+		if (empty($__tree['siropuChat']['children'])) { $__tree['siropuChat']['children'] = []; }
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatArchive', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatArchive'),
+		'href' => $__templater->func('link', array('chat/archive', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatArchive'] = $__navTemp;
+				$__flat['siropuChatArchive'] =& $__tree['siropuChat']['children']['siropuChatArchive'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatTopChatters', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatTopChatters'),
+		'href' => $__templater->func('link', array('chat/top-chatters', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatTopChatters'] = $__navTemp;
+				$__flat['siropuChatTopChatters'] =& $__tree['siropuChat']['children']['siropuChatTopChatters'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatSanctions', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatSanctions'),
+		'href' => $__templater->func('link', array('chat/sanctions', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatSanctions'] = $__navTemp;
+				$__flat['siropuChatSanctions'] =& $__tree['siropuChat']['children']['siropuChatSanctions'];
+			}
 		}
 
 	}

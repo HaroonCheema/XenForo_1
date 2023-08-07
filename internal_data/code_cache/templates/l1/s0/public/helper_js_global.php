@@ -44,6 +44,29 @@ return array(
 	$__finalCompiled .= '
 	' . $__templater->func('core_js') . '
 	<!--XF:JS-->
+';
+	if ($__vars['xf']['options']['siropuChatEnabled'] AND $__templater->method($__vars['xf']['visitor'], 'hasPermission', array('siropuChat', 'viewChat', ))) {
+		$__finalCompiled .= '
+	<script>
+		XF.SiropuChatPopup = XF.Click.newHandler({
+			eventNameSpace: \'SiropuChatPopup\',
+			init: function() {},
+			click: function(e) {
+				e.preventDefault();
+				var siropuChatWindowPopup;
+				var url = e.target.href ? e.target.href : this.$target.attr(\'href\');
+				if (siropuChatWindowPopup === undefined || siropuChatWindowPopup.closed) {
+					siropuChatWindowPopup = window.open(url, \'siropuChatWindowPopup\', \'width=800,height=500\');
+				} else {
+					siropuChatWindowPopup.focus();
+				};
+			}
+		});
+		XF.Click.register(\'siropu-chat-popup\', \'XF.SiropuChatPopup\');
+	</script>
+';
+	}
+	$__finalCompiled .= '
 	<script>
 		jQuery.extend(true, XF.config, {
 			// ' . '

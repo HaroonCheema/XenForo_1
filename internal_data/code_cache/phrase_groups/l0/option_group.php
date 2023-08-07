@@ -39,6 +39,7 @@ return array (
   'option_group.seo' => 'Search engine optimization (SEO)',
   'option_group.serviceProviders' => 'External service providers',
   'option_group.sharing' => 'Sharing',
+  'option_group.siropuChat' => 'Chat',
   'option_group.sitemap' => 'XML sitemap generation',
   'option_group.spam' => 'Spam management',
   'option_group.stats' => 'Statistics and metrics',

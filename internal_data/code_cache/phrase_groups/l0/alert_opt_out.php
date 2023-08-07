@@ -28,6 +28,8 @@ return array (
   'alert_opt_out.resource_update_insert' => 'Updates a watched resource',
   'alert_opt_out.resource_update_mention' => 'Mentions you in a resource',
   'alert_opt_out.resource_update_reaction' => 'Reacts to your resource',
+  'alert_opt_out.siropu_chat_conv_message_reaction' => 'Reacts to your chat conversation message',
+  'alert_opt_out.siropu_chat_room_message_reaction' => 'Reacts to your chat room message',
   'alert_opt_out.trophy_award' => 'Awards you a new trophy',
   'alert_opt_out.user_following' => 'Starts following you',
 );

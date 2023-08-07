@@ -54,90 +54,14 @@ class Molly extends AbstractController
 
         $subCommunity = \XF::em()->find('XF:Node', $params->node_id);
 
-        $imgAttrs = $this->imageAttributes($subCommunity);
-
-        // $imgAttrs = [
-        //     'data-debug=' . (\XF::$debugMode ? 1 : 0)
-        // ];
-
-        // if ($subCommunity->CoverAttachment !== null) {
-        //     $imgAttrs[] = 'data-width=' . $subCommunity->CoverAttachment->width;
-        //     $imgAttrs[] = 'data-height=' . $subCommunity->CoverAttachment->height;
-        //     $imgAttrs[] = 'alt=' . htmlspecialchars($subCommunity->title);
-        //     $top = $subCommunity->getCoverCropData('y', 0);
-        //     // if ($forceHeight > 0) {
-        //     //     $top = preg_replace('/[^\-0-9\.+]/', '', $top);
-        //     //     $top = (float) $top;
-
-        //     //     $cropHeight = (int) $group->getCoverCropData('h');
-        //     //     $cropHeight = max(200, $cropHeight);
-
-        //     //     $ratio = $forceHeight/$cropHeight;
-        //     //     $top = ($top * $ratio) . 'px';
-        //     // }
-
-        //     $imgAttrs[] = 'style="top:' . $top;
-        //     $coverUrl = $subCommunity->getCoverUrl(true) !== null
-        //         ? htmlspecialchars($subCommunity->getCoverUrl(true))
-        //         : '';
-        //     if ($coverUrl === '') {
-        //         throw new InvalidArgumentException('Group did not have cover!');
-        //     }
-        //     $imgAttrs[] = 'src=' . $coverUrl;
-        //     $imgAttrs[] = 'data-src=' . $coverUrl;
-        //     // ? ('src=' . $coverUrl)
-        //     // : ('data-src=' . $coverUrl);
-        // }
-
-
         $viewParams = [
             'forum' => $forum,
             'threads' => $threads,
             "subForums" => $subCommunity ?: '',
-            'imgAttrs' => implode(' ', $imgAttrs),
-
             // "subForums" => \XF::em()->find('XF:Node', $params->node_id) ?: ''
         ];
 
         return $this->view('FS\Molly:Molly\Index', 'fs_molly_view', $viewParams);
-    }
-
-    protected function imageAttributes($subCommunity)
-    {
-        $imgAttrs = [
-            'data-debug=' . (\XF::$debugMode ? 1 : 0)
-        ];
-
-        if ($subCommunity->CoverAttachment !== null) {
-            $imgAttrs[] = 'data-width=' . $subCommunity->CoverAttachment->width;
-            $imgAttrs[] = 'data-height=' . $subCommunity->CoverAttachment->height;
-            $imgAttrs[] = 'alt=' . htmlspecialchars($subCommunity->title);
-            $top = $subCommunity->getCoverCropData('y', 0);
-            // if ($forceHeight > 0) {
-            //     $top = preg_replace('/[^\-0-9\.+]/', '', $top);
-            //     $top = (float) $top;
-
-            //     $cropHeight = (int) $group->getCoverCropData('h');
-            //     $cropHeight = max(200, $cropHeight);
-
-            //     $ratio = $forceHeight/$cropHeight;
-            //     $top = ($top * $ratio) . 'px';
-            // }
-
-            $imgAttrs[] = 'style="top:' . $top;
-            $coverUrl = $subCommunity->getCoverUrl(true) !== null
-                ? htmlspecialchars($subCommunity->getCoverUrl(true))
-                : '';
-            if ($coverUrl === '') {
-                throw new InvalidArgumentException('Group did not have cover!');
-            }
-            $imgAttrs[] = 'src=' . $coverUrl;
-            $imgAttrs[] = 'data-src=' . $coverUrl;
-            // ? ('src=' . $coverUrl)
-            // : ('data-src=' . $coverUrl);
-        }
-
-        return $imgAttrs;
     }
 
     protected function getForumViewExtraWith()

@@ -350,6 +350,83 @@ return array(
 	$__compilerTemp11 = '';
 	if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_escrow_applicable_forum']) {
 		$__compilerTemp11 .= '
+';
+		if ($__templater->method($__vars['thread'], 'isInsert', array()) AND $__templater->method($__vars['xf']['visitor'], 'hasPermission', array('siropuChat', 'createThreadRoom', ))) {
+			$__compilerTemp11 .= '
+	';
+			$__templater->inlineJs('
+		$(function()
+		{
+			$(\'.siropuChatThreadOptions\').click(function()
+			{
+				var roomName = $(\'input[name="siropu_chat[room_name]"]\');
+
+				if (roomName.data(\'set\'))
+				{
+					return;
+				}
+
+				roomName.val($(\'.js-titleInput\').val()).attr(\'data-set\', true);
+			});
+		});
+	');
+			$__compilerTemp11 .= '
+	<h2 class="block-formSectionHeader">
+		<span class="collapseTrigger collapseTrigger--block siropuChatThreadOptions" data-xf-click="toggle" data-target="< :up :next">
+			<span class="block-formSectionHeader-aligner">' . 'Chat room options' . '</span>
+		</span>
+	</h2>
+	<div class="block-body block-body--collapsible">
+		' . $__templater->formCheckBoxRow(array(
+			), array(array(
+				'name' => 'siropu_chat[room_create]',
+				'value' => '1',
+				'label' => 'Create room',
+				'_dependent' => array('
+					' . $__templater->formTextBox(array(
+				'name' => 'siropu_chat[room_name]',
+				'placeholder' => 'Room name',
+			)) . '
+					' . $__templater->formTextBox(array(
+				'name' => 'siropu_chat[room_description]',
+				'placeholder' => 'Room description',
+				'style' => 'margin-top: 5px;',
+			)) . '
+					' . $__templater->formCheckBox(array(
+				'style' => 'margin-top: 5px;',
+			), array(array(
+				'name' => 'siropu_chat[room_thread_post]',
+				'value' => '1',
+				'label' => 'Post chat messages in this thread',
+				'_dependent' => array('
+								' . $__templater->formCheckBox(array(
+			), array(array(
+				'name' => 'siropu_chat[room_thread_reply]',
+				'value' => '1',
+				'label' => 'Post thread replies in this room',
+				'_type' => 'option',
+			))) . '
+							'),
+				'_type' => 'option',
+			),
+			array(
+				'label' => 'Lock room',
+				'_dependent' => array('
+								' . $__templater->formDateInput(array(
+				'name' => 'room_lock',
+				'placeholder' => 'Until' . $__vars['xf']['language']['ellipsis'],
+			)) . '
+							'),
+				'_type' => 'option',
+			))) . '
+				'),
+				'_type' => 'option',
+			)), array(
+			)) . '
+	</div>
+';
+		}
+		$__compilerTemp11 .= '
 ' . $__templater->formSubmitRow(array(
 			'submit' => 'Post Escrow',
 			'icon' => 'write',
@@ -359,7 +436,84 @@ return array(
 	';
 	} else {
 		$__compilerTemp11 .= '
-	' . $__templater->formSubmitRow(array(
+	';
+		if ($__templater->method($__vars['thread'], 'isInsert', array()) AND $__templater->method($__vars['xf']['visitor'], 'hasPermission', array('siropuChat', 'createThreadRoom', ))) {
+			$__compilerTemp11 .= '
+	';
+			$__templater->inlineJs('
+		$(function()
+		{
+			$(\'.siropuChatThreadOptions\').click(function()
+			{
+				var roomName = $(\'input[name="siropu_chat[room_name]"]\');
+
+				if (roomName.data(\'set\'))
+				{
+					return;
+				}
+
+				roomName.val($(\'.js-titleInput\').val()).attr(\'data-set\', true);
+			});
+		});
+	');
+			$__compilerTemp11 .= '
+	<h2 class="block-formSectionHeader">
+		<span class="collapseTrigger collapseTrigger--block siropuChatThreadOptions" data-xf-click="toggle" data-target="< :up :next">
+			<span class="block-formSectionHeader-aligner">' . 'Chat room options' . '</span>
+		</span>
+	</h2>
+	<div class="block-body block-body--collapsible">
+		' . $__templater->formCheckBoxRow(array(
+			), array(array(
+				'name' => 'siropu_chat[room_create]',
+				'value' => '1',
+				'label' => 'Create room',
+				'_dependent' => array('
+					' . $__templater->formTextBox(array(
+				'name' => 'siropu_chat[room_name]',
+				'placeholder' => 'Room name',
+			)) . '
+					' . $__templater->formTextBox(array(
+				'name' => 'siropu_chat[room_description]',
+				'placeholder' => 'Room description',
+				'style' => 'margin-top: 5px;',
+			)) . '
+					' . $__templater->formCheckBox(array(
+				'style' => 'margin-top: 5px;',
+			), array(array(
+				'name' => 'siropu_chat[room_thread_post]',
+				'value' => '1',
+				'label' => 'Post chat messages in this thread',
+				'_dependent' => array('
+								' . $__templater->formCheckBox(array(
+			), array(array(
+				'name' => 'siropu_chat[room_thread_reply]',
+				'value' => '1',
+				'label' => 'Post thread replies in this room',
+				'_type' => 'option',
+			))) . '
+							'),
+				'_type' => 'option',
+			),
+			array(
+				'label' => 'Lock room',
+				'_dependent' => array('
+								' . $__templater->formDateInput(array(
+				'name' => 'room_lock',
+				'placeholder' => 'Until' . $__vars['xf']['language']['ellipsis'],
+			)) . '
+							'),
+				'_type' => 'option',
+			))) . '
+				'),
+				'_type' => 'option',
+			)), array(
+			)) . '
+	</div>
+';
+		}
+		$__compilerTemp11 .= '
+' . $__templater->formSubmitRow(array(
 			'submit' => 'Post thread',
 			'icon' => 'write',
 			'sticky' => 'true',

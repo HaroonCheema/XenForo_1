@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 7e2bde1a3dee0fa1112c37af4f4571f3
+// FROM HASH: 60b623f1f9bd3036c92f44ee0b21c372
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -16,15 +16,21 @@ return array(
 	$__compilerTemp1 = '';
 	if ($__vars['subForums']['AvatarAttachment']) {
 		$__compilerTemp1 .= '
+        <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
 			<img src="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['thumbnail_url']) . '"
                  class="groupAvatar--img bbImage" width="250" height="250"
                  data-width="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['width']) . '"
                  data-height="' . $__templater->escape($__vars['subForums']['AvatarAttachment']['height']) . '"
                  alt="' . $__templater->escape($__vars['subForums']['title']) . '"/>
+    </a>
+			   
 			';
 	} else {
 		$__compilerTemp1 .= '
-            <span class="groupAvatar--text groupAvatar--dynamic">' . $__templater->escape($__vars['xf']['visitor']['username']) . '</span>
+			   ' . '
+			  ' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
+		))) . '
 			';
 	}
 	$__templater->modifySideNavHtml(null, '
@@ -32,10 +38,7 @@ return array(
 	<!-- Avatar -->
 	
 	<div class="block groupAvatar-block">
-        <a href="' . $__templater->func('link', array('molly', $__vars['subForums'], ), true) . '"
-       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
            ' . $__compilerTemp1 . '
-    </a>
     </div>
 	
 	<!-- Avatar -->
@@ -78,7 +81,7 @@ return array(
 		$__finalCompiled .= '
                 <img data-crop="' . $__templater->filter($__templater->method($__vars['subForums'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
                      class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
-                     ' . ($__vars['imgAttrs'] ? (' ' . $__templater->escape($__vars['imgAttrs'])) : '') . '/>
+                     ' . ($__templater->method($__vars['subForums'], 'getImageAttributes', array()) ? (' ' . $__templater->escape($__templater->method($__vars['subForums'], 'getImageAttributes', array()))) : '') . '/>
             ';
 	} else {
 		$__finalCompiled .= '

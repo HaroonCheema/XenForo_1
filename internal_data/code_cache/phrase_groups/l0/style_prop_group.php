@@ -26,6 +26,8 @@ return array (
   'style_prop_group.page' => 'Page setup',
   'style_prop_group.palette' => 'Color palette',
   'style_prop_group.rte' => 'Rich text editor',
+  'style_prop_group.siropuChat' => 'Chat',
   'style_prop_group.tab' => 'Tabs',
+  'style_prop_group.tl_Groups' => '[tl] Social Groups',
   'style_prop_group.tooltip' => 'Tooltips',
 );

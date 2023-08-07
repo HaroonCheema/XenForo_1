@@ -8,18 +8,22 @@
 	<!-- Avatar -->
 	
 	<div class="block groupAvatar-block">
+           <xf:if is="$subForums.AvatarAttachment">
         <a href="{{ link('molly', $subForums) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
-           <xf:if is="$subForums.AvatarAttachment">
 			<img src="{{ $subForums.AvatarAttachment.thumbnail_url }}"
                  class="groupAvatar--img bbImage" width="250" height="250"
                  data-width="{$subForums.AvatarAttachment.width}"
                  data-height="{$subForums.AvatarAttachment.height}"
                  alt="{$subForums.title}"/>
-			<xf:else />
-            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
-			</xf:if>
     </a>
+			   
+			<xf:else />
+			   <xf:comment>
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+			   </xf:comment>
+			  <xf:avatar user="$xf.visitor" size="l" />
+			</xf:if>
     </div>
 	
 	<!-- Avatar -->
@@ -57,7 +61,7 @@
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
-                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+                     {{ ($subForums.getImageAttributes()) ? (' ' . $subForums.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
             </xf:if>

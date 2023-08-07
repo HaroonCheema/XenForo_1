@@ -125,8 +125,8 @@
             <a href="/xenforo/index.php?molly" style="background-color:#1f7a5c;color:#70dbb8">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
-                     {{ ($imgAttrs) ? (' ' . $imgAttrs) : '' }}/>
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
             </xf:if>
@@ -152,19 +152,22 @@
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
-			   
+           <xf:if is="$subForum.AvatarAttachment">
 			   <a href="{{ link('molly', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
-           <xf:if is="$subForum.AvatarAttachment">
 			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
                  class="groupAvatar--img bbImage" width="100" height="100"
                  data-width="{$subForum.AvatarAttachment.width}"
                  data-height="{$subForum.AvatarAttachment.height}"
                  alt="{$subForum.title}"/>
-			<xf:else />
-            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
-			</xf:if>
     </a>		   
+			   
+			<xf:else />
+			   <xf:comment>
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+				   </xf:comment>
+			   			  <xf:avatar user="$xf.visitor" size="l" />
+			</xf:if>
 		   </div>
 		   
 			<!-- Avatar -->
