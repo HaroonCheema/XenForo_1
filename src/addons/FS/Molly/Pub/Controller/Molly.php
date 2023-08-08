@@ -183,22 +183,27 @@ class Molly extends AbstractController
 
     protected function nodeSaveProcess(\XF\Entity\Node $node)
     {
-        // var_dump('lksdjfdsf');exit;
-
         $form = $this->formAction();
 
-        $input = $this->filter([
+        $forumTitleDesc = $this->filter([
             'node' => [
                 'title' => 'str',
-                'node_name' => 'str',
                 'description' => 'str',
-                'parent_node_id' => 'uint',
-                'display_order' => 'uint',
-                'display_in_list' => 'bool',
-                'style_id' => 'uint',
-                'navigation_id' => 'str'
             ]
         ]);
+
+        $input = [
+            'node' => [
+                'title' => $forumTitleDesc['node']['title'],
+                'node_name' => '',
+                'description' => $forumTitleDesc['node']['description'],
+                'parent_node_id' => \xf::app()->options()->fs_molly_applicable_forum,
+                'display_order' => '',
+                'display_in_list' => true,
+                'style_id' => '',
+                'navigation_id' => ''
+            ]
+        ];
 
         if (!$this->filter('style_override', 'bool')) {
             $input['node']['style_id'] = 0;
@@ -221,26 +226,26 @@ class Molly extends AbstractController
             return;
         }
 
-        $forumInput = $this->filter([
-            'allow_posting' => 'bool',
-            'moderate_threads' => 'bool',
-            'moderate_replies' => 'bool',
-            'count_messages' => 'bool',
-            'find_new' => 'bool',
-            'allowed_watch_notifications' => 'str',
-            // 'default_sort_order' => 'str',
-            'default_sort_direction' => 'str',
-            'list_date_limit_days' => 'uint',
-            'default_prefix_id' => 'uint',
-            'require_prefix' => 'bool',
-            'min_tags' => 'uint',
-            'allow_index' => 'str'
-        ]);
+        $forumInput = [
+            'allow_posting' => 'true',
+            'moderate_threads' => 'false',
+            'moderate_replies' => 'false',
+            'count_messages' => 'true',
+            'find_new' => 'true',
+            'allowed_watch_notifications' => 'all',
+            'default_sort_order' => 'last_post_date',
+            'default_sort_direction' => 'desc',
+            'list_date_limit_days' => 0,
+            'default_prefix_id' => 0,
+            'require_prefix' => false,
+            'min_tags' => 0,
+            'allow_index' => 'allow'
+        ];
 
         // last_post_date
 
 
-        $forumInput += ['default_sort_order' => 'last_post_date',];
+        // $forumInput += ['default_sort_order' => 'last_post_date',];
 
         $forumInput['index_criteria'] = $this->filterIndexCriteria();
 
@@ -258,30 +263,30 @@ class Molly extends AbstractController
 
         $data->type_config = $typeConfig;
 
-        $prefixIds = $this->filter('available_prefixes', 'array-uint');
-        $form->complete(function () use ($data, $prefixIds) {
-            /** @var \XF\Repository\ForumPrefix $repo */
-            $repo = $this->repository('XF:ForumPrefix');
-            $repo->updateContentAssociations($data->node_id, $prefixIds);
-        });
+        // $prefixIds = $this->filter('available_prefixes', 'array-uint');
+        // $form->complete(function () use ($data, $prefixIds) {
+        //     /** @var \XF\Repository\ForumPrefix $repo */
+        //     $repo = $this->repository('XF:ForumPrefix');
+        //     $repo->updateContentAssociations($data->node_id, $prefixIds);
+        // });
 
-        if (!in_array($data->default_prefix_id, $prefixIds)) {
-            $data->default_prefix_id = 0;
-        }
+        // if (!in_array($data->default_prefix_id, $prefixIds)) {
+        //     $data->default_prefix_id = 0;
+        // }
 
-        $fieldIds = $this->filter('available_fields', 'array-str');
-        $form->complete(function () use ($data, $fieldIds) {
-            /** @var \XF\Repository\ForumField $repo */
-            $repo = $this->repository('XF:ForumField');
-            $repo->updateContentAssociations($data->node_id, $fieldIds);
-        });
+        // $fieldIds = $this->filter('available_fields', 'array-str');
+        // $form->complete(function () use ($data, $fieldIds) {
+        //     /** @var \XF\Repository\ForumField $repo */
+        //     $repo = $this->repository('XF:ForumField');
+        //     $repo->updateContentAssociations($data->node_id, $fieldIds);
+        // });
 
-        $promptIds = $this->filter('available_prompts', 'array-uint');
-        $form->complete(function () use ($data, $promptIds) {
-            /** @var \XF\Repository\ForumPrompt $repo */
-            $repo = $this->repository('XF:ForumPrompt');
-            $repo->updateContentAssociations($data->node_id, $promptIds);
-        });
+        // $promptIds = $this->filter('available_prompts', 'array-uint');
+        // $form->complete(function () use ($data, $promptIds) {
+        //     /** @var \XF\Repository\ForumPrompt $repo */
+        //     $repo = $this->repository('XF:ForumPrompt');
+        //     $repo->updateContentAssociations($data->node_id, $promptIds);
+        // });
     }
 
     /**
@@ -309,27 +314,24 @@ class Molly extends AbstractController
     {
         $criteria = [];
 
-        $input = $this->filterArray(
-            $this->filter('index_criteria', 'array'),
-            [
-                'max_days_post' => [
-                    'enabled' => 'bool',
-                    'value' => 'posint'
-                ],
-                'max_days_last_post' => [
-                    'enabled' => 'bool',
-                    'value' => 'posint'
-                ],
-                'min_replies' => [
-                    'enabled' => 'bool',
-                    'value' => 'posint'
-                ],
-                'min_reaction_score' => [
-                    'enabled' => 'bool',
-                    'value' => 'int'
-                ]
+        $input = [
+            'max_days_post' => [
+                'enabled' => false,
+                'value' => 0
+            ],
+            'max_days_last_post' => [
+                'enabled' => false,
+                'value' => 0
+            ],
+            'min_replies' => [
+                'enabled' => false,
+                'value' => 0
+            ],
+            'min_reaction_score' => [
+                'enabled' => false,
+                'value' => 0
             ]
-        );
+        ];
 
         foreach ($input as $rule => $criterion) {
             if (!$criterion['enabled']) {
@@ -383,6 +385,21 @@ class Molly extends AbstractController
             ];
             return $this->view('XF:Moderator\AddChoice', 'moderator_add_choice', $viewParams);
         }
+
+        $moderatorFields = $this->filter([
+            'username' => 'str',
+            'type' => 'str',
+        ]);
+
+        $input = [
+            'username' => $moderatorFields['username'],
+            'type' => $moderatorFields['type'],
+            "type_id" => $moderatorFields['type'] == '_super' ? [] :
+                [
+                    "node" =>
+                    $params->node_id
+                ]
+        ];
 
         $user = $this->finder('XF:User')->where('username', $input['username'])->fetchOne();
         if (!$user) {
@@ -460,7 +477,8 @@ class Molly extends AbstractController
 
         $user = $generalModerator->User;
 
-        $moderatorPermissionData = $modRepo->getModeratorPermissionData(
+
+        $moderatorPermissionData = $this->getModeratorPermissionData(
             $contentModerator ? $contentModerator->content_type : null
         );
 
@@ -485,8 +503,52 @@ class Molly extends AbstractController
         return $this->view('XF:Moderator\Edit', 'moderator_edit', $viewParams);
     }
 
+    public function getModeratorPermissionData($contentType = null)
+    {
+        $moderationIds = explode(",", "editAnyMessage,deleteAnyMessage,viewHiddenUsers,changeAuthor,editNotice,editRules,editAds,editRoomSettings,postAnnouncements,stickUnstickThread,lockUnlockThread,deleteAnyThread,threadReplyBan,editAnyPost,deleteAnyPost,warn,manageAnyTag,viewDeleted,viewModerated,undelete,approveUnapprove,markSolutionAnyThread");
+        // $moderationIds = explode(",", "add,addClosedGroups");
+        $permissionGroupsIds = explode(",", "siropuChatModerator,siropuChatModerator,siropuChatModerator,siropuChatModerator,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum");
+
+        /** @var \XF\Repository\Permission $permissionRepo */
+        $permissionRepo = $this->repository('XF:Permission');
+
+        $contentHandler = $contentType ? $permissionRepo->getPermissionHandler($contentType) : null;
+
+        $permissions = $permissionRepo->findPermissionsForList()
+            ->where('permission_type', 'flag')->where("permission_id", $moderationIds)
+            ->where("permission_group_id", $permissionGroupsIds) // all that's supported
+            ->fetch();
+
+        // echo '<pre>';
+        // var_dump($permissions);
+        // exit;
+        $interfaceGroups = $permissionRepo->findInterfaceGroupsForList()->where('is_moderator', 1)->fetch();
+
+        $globalPermissions = [];
+        $contentPermissions = [];
+
+        foreach ($permissions as $key => $permission) {
+            if (!isset($interfaceGroups[$permission->interface_group_id])) {
+                continue;
+            }
+
+            if ($contentHandler && $contentHandler->isValidPermission($permission)) {
+                $contentPermissions[$permission->interface_group_id][] = $permission;
+            } else {
+                $globalPermissions[$permission->interface_group_id][] = $permission;
+            }
+        }
+
+        return [
+            'interfaceGroups' => $interfaceGroups,
+            'contentPermissions' => $contentPermissions,
+            'globalPermissions' => $globalPermissions
+        ];
+    }
+
     public function actionModeratorSave(ParameterBag $params)
     {
+
         $this->assertPostOnly();
 
         $findInput = $this->filter([

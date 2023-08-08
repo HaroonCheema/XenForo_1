@@ -13,7 +13,7 @@ class UpgradeUserGroupCron
         foreach ($finder as $value) {
             $conditions = [
                 ['user_group_id', $value->current_userGroup],
-                ['secondary_group_ids', 'LIKE', '%' . $value->current_userGroup . '%'],
+              
             ];
 
             $finderUsergroup = \XF::finder('XF:User')->where('message_count', '>=', $value->message_count)->whereOr($conditions)->fetch();

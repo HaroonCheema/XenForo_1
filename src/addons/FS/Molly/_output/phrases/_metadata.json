@@ -67,14 +67,14 @@
     },
     "option_group.fs_molly.txt": {
         "global_cache": false,
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "d24af4cc3ce8e65dc456ed7186a6ef0b"
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "51c873b35b7446c3b9a43fd3f6ef3935"
     },
     "option_group_description.fs_molly.txt": {
         "global_cache": false,
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "d24af4cc3ce8e65dc456ed7186a6ef0b"
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "51c873b35b7446c3b9a43fd3f6ef3935"
     }
 }

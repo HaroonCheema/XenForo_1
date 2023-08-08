@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 76947a065f7bb986f5c4f04fa2802f44
+// FROM HASH: 1d1682cb8addcfabeb017a657284bb5e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -31,15 +31,8 @@ return array(
 	),
 	array(
 		'value' => 'node',
-		'label' => 'Forum moderator:',
+		'label' => 'Forum moderator',
 		'selected' => true,
-		'_dependent' => array($__templater->formSelect(array(
-		'name' => 'type_id[node]',
-	), array(array(
-		'value' => $__vars['subForum']['node_id'],
-		'label' => $__templater->escape($__vars['subForum']['title']),
-		'_type' => 'option',
-	)))),
 		'_type' => 'option',
 	)), array(
 		'label' => 'Type of moderator',
@@ -51,7 +44,7 @@ return array(
 	)) . '
 	</div>
 ', array(
-		'action' => $__templater->func('link', array('molly/add-moderator', ), false),
+		'action' => $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), false),
 		'class' => 'block',
 	));
 	return $__finalCompiled;

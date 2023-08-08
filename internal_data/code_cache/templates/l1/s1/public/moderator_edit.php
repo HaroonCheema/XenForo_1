@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: f7a525bc16832315cc4ae09580c3d7f3
+// FROM HASH: ae3eaf9872ef3546bfa91c1bad297e46
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -46,48 +46,18 @@ return array(
 					' . 'Super moderator' . '
 				';
 	}
-	$__compilerTemp3 = $__templater->mergeChoiceOptions(array(), $__vars['userGroups']);
-	$__compilerTemp4 = '';
+	$__compilerTemp3 = '';
 	if ($__templater->isTraversable($__vars['interfaceGroups'])) {
 		foreach ($__vars['interfaceGroups'] AS $__vars['interfaceGroupId'] => $__vars['interfaceGroup']) {
-			$__compilerTemp4 .= '
-					';
-			if ($__templater->isTraversable($__vars['globalPermissions'][$__vars['interfaceGroupId']])) {
-				foreach ($__vars['globalPermissions'][$__vars['interfaceGroupId']] AS $__vars['permission']) {
-					$__compilerTemp4 .= '
-						' . $__templater->formHiddenVal('globalPermissions[' . $__vars['permission']['permission_group_id'] . '][' . $__vars['permission']['permission_id'] . ']', 'unset', array(
-					)) . '
-					';
-				}
-			}
-			$__compilerTemp4 .= '
-					';
-			if ($__templater->isTraversable($__vars['contentPermissions'][$__vars['interfaceGroupId']])) {
-				foreach ($__vars['contentPermissions'][$__vars['interfaceGroupId']] AS $__vars['permission']) {
-					$__compilerTemp4 .= '
-						' . $__templater->formHiddenVal('contentPermissions[' . $__vars['permission']['permission_group_id'] . '][' . $__vars['permission']['permission_id'] . ']', 'unset', array(
-					)) . '
-					';
-				}
-			}
-			$__compilerTemp4 .= '
-				';
-		}
-	}
-	$__compilerTemp5 = '';
-	if ($__templater->isTraversable($__vars['interfaceGroups'])) {
-		foreach ($__vars['interfaceGroups'] AS $__vars['interfaceGroupId'] => $__vars['interfaceGroup']) {
-			$__compilerTemp5 .= '
+			$__compilerTemp3 .= '
 					';
 			if ($__vars['globalPermissions'][$__vars['interfaceGroupId']]) {
-				$__compilerTemp5 .= '
-						<hr class="formRowSep" />
-
+				$__compilerTemp3 .= '
 						';
-				$__compilerTemp6 = array();
+				$__compilerTemp4 = array();
 				if ($__templater->isTraversable($__vars['globalPermissions'][$__vars['interfaceGroupId']])) {
 					foreach ($__vars['globalPermissions'][$__vars['interfaceGroupId']] AS $__vars['permission']) {
-						$__compilerTemp6[] = array(
+						$__compilerTemp4[] = array(
 							'name' => 'globalPermissions[' . $__vars['permission']['permission_group_id'] . '][' . $__vars['permission']['permission_id'] . ']',
 							'value' => 'allow',
 							'selected' => ($__vars['existingValues'][$__vars['permission']['permission_group_id']][$__vars['permission']['permission_id']] == 'allow'),
@@ -96,40 +66,28 @@ return array(
 						);
 					}
 				}
-				$__compilerTemp5 .= $__templater->formCheckBoxRow(array(
+				$__compilerTemp3 .= $__templater->formCheckBoxRow(array(
 					'listclass' => 'listColumns',
-				), $__compilerTemp6, array(
-					'label' => $__templater->escape($__vars['interfaceGroup']['title']),
-					'hint' => '
-								' . $__templater->formCheckBox(array(
-					'standalone' => 'true',
-				), array(array(
-					'check-all' => '< .formRow',
-					'label' => 'Select all',
-					'_type' => 'option',
-				))) . '
-							',
+				), $__compilerTemp4, array(
 				)) . '
 					';
 			}
-			$__compilerTemp5 .= '
+			$__compilerTemp3 .= '
 				';
 		}
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp5 = '';
 	if ($__templater->isTraversable($__vars['interfaceGroups'])) {
 		foreach ($__vars['interfaceGroups'] AS $__vars['interfaceGroupId'] => $__vars['interfaceGroup']) {
-			$__compilerTemp7 .= '
+			$__compilerTemp5 .= '
 					';
 			if ($__vars['contentPermissions'][$__vars['interfaceGroupId']]) {
-				$__compilerTemp7 .= '
-						<hr class="formRowSep" />
-
+				$__compilerTemp5 .= '
 						';
-				$__compilerTemp8 = array();
+				$__compilerTemp6 = array();
 				if ($__templater->isTraversable($__vars['contentPermissions'][$__vars['interfaceGroupId']])) {
 					foreach ($__vars['contentPermissions'][$__vars['interfaceGroupId']] AS $__vars['permission']) {
-						$__compilerTemp8[] = array(
+						$__compilerTemp6[] = array(
 							'name' => 'contentPermissions[' . $__vars['permission']['permission_group_id'] . '][' . $__vars['permission']['permission_id'] . ']',
 							'value' => 'content_allow',
 							'selected' => ($__vars['existingValues'][$__vars['permission']['permission_group_id']][$__vars['permission']['permission_id']] == 'content_allow'),
@@ -138,23 +96,13 @@ return array(
 						);
 					}
 				}
-				$__compilerTemp7 .= $__templater->formCheckBoxRow(array(
+				$__compilerTemp5 .= $__templater->formCheckBoxRow(array(
 					'listclass' => 'listColumns',
-				), $__compilerTemp8, array(
-					'label' => $__templater->escape($__vars['interfaceGroup']['title']),
-					'hint' => '
-								' . $__templater->formCheckBox(array(
-					'standalone' => 'true',
-				), array(array(
-					'check-all' => '< .formRow',
-					'label' => 'Select all',
-					'_type' => 'option',
-				))) . '
-							',
+				), $__compilerTemp6, array(
 				)) . '
 					';
 			}
-			$__compilerTemp7 .= '
+			$__compilerTemp5 .= '
 				';
 		}
 	}
@@ -177,43 +125,13 @@ return array(
 		'hint' => 'If selected, this user will be listed publicly as a staff member.',
 		'_type' => 'option',
 	)), array(
-	)) . '
-
-			' . $__templater->formCheckBoxRow(array(
-		'name' => 'extra_user_group_ids[]',
-		'value' => $__vars['generalModerator']['extra_user_group_ids'],
-		'listclass' => 'listColumns',
-	), $__compilerTemp3, array(
-		'rowid' => 'addUserGroups',
-		'label' => 'Add moderator to user groups',
-		'hint' => '
-					' . $__templater->formCheckBox(array(
-		'standalone' => 'true',
-	), array(array(
-		'check-all' => '#addUserGroups',
-		'label' => 'Select all',
-		'_type' => 'option',
-	))) . '
-				',
-	)) . '
-
-			<hr class="formRowSep" />
+	)) . '			
 
 			<div id="piGroups">
-
-				' . $__templater->formCheckBoxRow(array(
-	), array(array(
-		'check-all' => '#piGroups',
-		'label' => 'Select all',
-		'_type' => 'option',
-	)), array(
-	)) . '
-
-				' . $__compilerTemp4 . '
+				
+				' . $__compilerTemp3 . '
 
 				' . $__compilerTemp5 . '
-
-				' . $__compilerTemp7 . '
 
 			</div>
 		</div>

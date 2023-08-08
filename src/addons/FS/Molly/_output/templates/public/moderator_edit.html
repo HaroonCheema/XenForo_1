@@ -25,53 +25,14 @@
 				<xf:option name="is_staff" selected="$isStaff"
 					label="{{ phrase('display_user_as_staff') }}"
 					hint="{{ phrase('if_selected_this_user_will_be_listed_publicly_as_staff_member') }}" />
-			</xf:checkboxrow>
-
-			<xf:checkboxrow name="extra_user_group_ids[]" value="{{ $generalModerator.extra_user_group_ids }}"
-				listclass="listColumns"
-				rowid="addUserGroups"
-				label="{{ phrase('add_moderator_to_user_groups') }}">
-
-				<xf:hint>
-					<xf:checkbox standalone="true">
-						<xf:option check-all="#addUserGroups" label="{{ phrase('select_all') }}" />
-					</xf:checkbox>
-				</xf:hint>
-				<xf:options source="$userGroups" />
-			</xf:checkboxrow>
-
-			<hr class="formRowSep" />
+			</xf:checkboxrow>			
 
 			<div id="piGroups">
-
-				<xf:checkboxrow>
-					<xf:option check-all="#piGroups" label="{{ phrase('select_all') }}" />
-				</xf:checkboxrow>
-
-				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
-					<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
-						<xf:hiddenval
-							name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
-							value="unset" />
-					</xf:foreach>
-					<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
-						<xf:hiddenval
-							name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
-							value="unset" />
-					</xf:foreach>
-				</xf:foreach>
-
+				
 				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
 					<xf:if is="{$globalPermissions.{$interfaceGroupId}}">
-						<hr class="formRowSep" />
-
-						<xf:checkboxrow listclass="listColumns"
-							label="{$interfaceGroup.title}">
-							<xf:hint>
-								<xf:checkbox standalone="true">
-									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
-								</xf:checkbox>
-							</xf:hint>
+						<xf:checkboxrow listclass="listColumns">
+						
 							<xf:foreach loop="{$globalPermissions.{$interfaceGroupId}}" value="$permission">
 								<xf:option name="globalPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
 									value="allow"
@@ -84,15 +45,7 @@
 
 				<xf:foreach loop="$interfaceGroups" key="$interfaceGroupId" value="$interfaceGroup">
 					<xf:if is="{$contentPermissions.{$interfaceGroupId}}">
-						<hr class="formRowSep" />
-
-						<xf:checkboxrow listclass="listColumns"
-							label="{$interfaceGroup.title}">
-							<xf:hint>
-								<xf:checkbox standalone="true">
-									<xf:option check-all="< .formRow" label="{{ phrase('select_all') }}" />
-								</xf:checkbox>
-							</xf:hint>
+						<xf:checkboxrow listclass="listColumns">
 							<xf:foreach loop="{$contentPermissions.{$interfaceGroupId}}" value="$permission">
 								<xf:option name="contentPermissions[{$permission.permission_group_id}][{$permission.permission_id}]"
 									value="content_allow"
