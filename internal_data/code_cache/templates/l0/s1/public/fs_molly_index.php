@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 6f3bea85dbcfe195249d8460b41e8baa
+// FROM HASH: 894a1dc9e3f03b637d33fd22e0003b17
 return array(
 'macros' => array('molly_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -36,9 +36,7 @@ return array(
 	$__finalCompiled .= '
             </a>
         </div>
-                    <span class="groupCover--inlineMod">
-                        <label class="iconic iconic--noLabel" title="Select for moderation" data-xf-init="tooltip"><input type="checkbox"  name="ids[]" value="2" hiddenLabel="true" class="js-inlineModToggle" /><i aria-hidden="true"></i></label>
-                    </span>
+                   
                 
 
             </div>

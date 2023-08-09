@@ -4,6 +4,11 @@
         "version_string": "1.0.0 Alpha",
         "hash": "a2e981cd90be92305896a5dc06f02fe5"
     },
+    "public/fs_forum_groups_moderator_list.html": {
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "1892b9939bc39ccaf581ac929d52385d"
+    },
     "public/fs_molly_form_upload.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -12,12 +17,12 @@
     "public/fs_molly_index.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "6f3bea85dbcfe195249d8460b41e8baa"
+        "hash": "894a1dc9e3f03b637d33fd22e0003b17"
     },
     "public/fs_molly_sub_forum_add_edit.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "7a4e9ed011cee368d1c61f1f6a573d57"
+        "hash": "0cfcb96c32b1218d415f1104d4ff62ca"
     },
     "public/fs_molly_thread_list_macros.html": {
         "version_id": 1000010,
@@ -27,7 +32,7 @@
     "public/fs_molly_view.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "60b623f1f9bd3036c92f44ee0b21c372"
+        "hash": "ed13d0940d728c7322870849a80c2236"
     },
     "public/moderator_add_choice.html": {
         "version_id": 1000100,
@@ -37,7 +42,7 @@
     "public/moderator_edit.html": {
         "version_id": 1000100,
         "version_string": "1.0.1 Alpha",
-        "hash": "ae3eaf9872ef3546bfa91c1bad297e46"
+        "hash": "64806a3c5d202fb281bb09995de63ce5"
     },
     "public/node_edit_macros.html": {
         "version_id": 1000010,

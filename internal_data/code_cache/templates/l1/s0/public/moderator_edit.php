@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: ae3eaf9872ef3546bfa91c1bad297e46
+// FROM HASH: 64806a3c5d202fb281bb09995de63ce5
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -13,7 +13,7 @@ return array(
 		if ($__vars['contentModerator']) {
 			$__compilerTemp1 .= '
 		' . $__templater->button('', array(
-				'href' => $__templater->func('link', array('moderators/content/delete', $__vars['contentModerator'], ), false),
+				'href' => $__templater->func('link', array('molly/content/delete', $__vars['contentModerator'], ), false),
 				'icon' => 'delete',
 				'overlay' => 'true',
 			), '', array(
@@ -22,7 +22,7 @@ return array(
 		} else {
 			$__compilerTemp1 .= '
 		' . $__templater->button('', array(
-				'href' => $__templater->func('link', array('moderators/super/delete', $__vars['generalModerator'], ), false),
+				'href' => $__templater->func('link', array('molly/super/delete', $__vars['generalModerator'], ), false),
 				'icon' => 'delete',
 				'overlay' => 'true',
 			), '', array(

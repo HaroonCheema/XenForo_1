@@ -1,7 +1,10 @@
 <xf:title>{$group.name}</xf:title>
 
-<xf:css src="tlg_style.less" />
+	<xf:button href="{{ link('molly/moderator-list', $subForums) }}" class="button--cta" icon="write">
+		{{ phrase('fs_forum_group_moderator_list') }}
+	</xf:button>
 
+<xf:css src="tlg_style.less" />
 
 <xf:sidenav>
 	
@@ -115,6 +118,26 @@
     </div>
 
 	<!-- Cover Header -->
+	
+	<xf:comment>
+	
+		<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
+	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
+		{{ phrase('post_thread') }}
+	</xf:button>
+</xf:pageaction>
+		
+	</xf:comment>
+	
+	<!-- Thread BTN -->
+	
+	
+	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('post_thread') }}
+	</xf:button>
+	
+	<!-- Thread BTN -->
+	
 	
 	<!-- Thread Lists -->
 	

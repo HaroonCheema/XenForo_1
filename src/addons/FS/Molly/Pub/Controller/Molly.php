@@ -138,17 +138,138 @@ class Molly extends AbstractController
         $navRepo = $this->repository('XF:Navigation');
         $navChoices = $navRepo->getTopLevelEntries();
 
+        $room = $this->em()->create('Siropu\Chat:Room');
+        $roomParams = $this->roomAddEdit($room);
+
         $viewParams = [
             'node' => $node,
             'forum' => $node->getDataRelationOrDefault(),
             'nodeTree' => $nodeTree,
             'styleTree' => $styleTree,
             'navChoices' => $navChoices,
-        ];
+        ] + $roomParams;
 
         // var_dump($this->getViewClassPrefix() . '\Edit', $this->getTemplatePrefix() . '_edit');
         // exit;
         return $this->view('FS\Molly:Molly\Index', 'fs_molly_sub_forum_add_edit', $viewParams);
+    }
+
+    protected function roomAddEdit(\Siropu\Chat\Entity\Room $room)
+    {
+        $rooms = $this->getRoomRepo()
+            ->findRoomsForList()
+            ->notFromRoom($room->room_id)
+            ->fetch()
+            ->pluckNamed('room_name', 'room_id');
+
+        $viewParams = [
+            'room'       => $room,
+            'rooms'      => $rooms,
+            'userGroups' => $this->repository('XF:UserGroup')->findUserGroupsForList()->fetch(),
+            'languages'  => $this->repository('XF:Language')->getLanguageTree(false)->getFlattened()
+        ];
+
+        return $viewParams;
+    }
+
+    public function roomSave()
+    {
+        $this->assertPostOnly();
+
+        $visitor = \XF::visitor();
+
+        //   if ($params->room_id)
+        //   {
+        //        $room = $this->assertRoomExistsAndCanEdit($params->room_id);
+        //   }
+        //   else
+        //   {
+        if (!$visitor->canCreateSiropuChatRooms()) {
+            return $this->noPermission();
+        }
+
+        $room = $this->em()->create('Siropu\Chat:Room');
+        //   }
+
+        if ($visitor->canPasswordProtectSiropuChatRooms()) {
+            $room->room_password = $this->filter('room_password', 'str');
+        }
+
+
+        if ($visitor->canEditSiropuChatRoomSettings()) {
+            $room->room_user_groups  = $this->filter('room_user_groups', 'array-uint');
+            $room->room_leave        = $this->filter('room_leave', 'uint');
+            $room->room_readonly     = $this->filter('room_readonly', 'bool');
+            $room->room_locked       = $this->filter('room_locked', 'datetime');
+            $room->room_rss          = $this->filter('room_rss', 'bool');
+            $room->room_max_users    = $this->filter('room_max_users', 'uint');
+            $room->room_prune        = $this->filter('room_prune', 'uint');
+            $room->room_flood        = $this->filter('room_flood', 'uint');
+            $room->room_thread_id    = $this->filter('room_thread_id', 'uint');
+            $room->room_thread_reply = $this->filter('room_thread_reply', 'bool');
+            $room->room_language_id  = $this->filter('room_language_id', 'uint');
+            $room->room_child_ids    = $this->filter('room_child_ids', 'array-uint');
+
+            if ($room->room_prune) {
+                if (!$room->room_last_prune) {
+                    $room->room_last_prune = \XF::$time;
+                }
+            } else {
+                $room->room_last_prune = 0;
+            }
+        }
+
+        $users = $this->filter('room_users', 'str');
+
+        if ($visitor->canSetSiropuChatRoomUsers()) {
+            if (!empty($users)) {
+                $userFinder = $this->finder('XF:User')
+                    ->where('username', array_map('trim', explode(',', $users)))
+                    ->fetch()
+                    ->filter(function (\XF\Entity\User $user) {
+                        return ($user->canUseSiropuChat() && $user->canJoinSiropuChatRooms());
+                    });
+
+                if ($userFinder->count()) {
+                    $room->room_users = $userFinder->pluckNamed('username', 'user_id');
+                } else {
+                    return $this->message(\XF::phrase('siropu_chat_room_users_no_valid'));
+                }
+            } else {
+                $room->room_users = [];
+            }
+        }
+
+
+
+        $input = $this->filter([
+            'room_name'        => 'str',
+            'room_description' => 'str'
+        ]);
+
+        $room->bulkSet($input);
+        $room->save();
+
+        $parts = explode('/room/', $this->buildLink('chat/room/', $room));
+
+        if (count($parts) > 1) {
+            $nextValue = $parts[1];
+        }
+
+        $this->addRouteFilter('chat/room/' . $nextValue, 'chat/' . $this->filter('replace_route', 'str'));
+
+        if ($this->filter('join_room', 'bool')) {
+            return $this->plugin('Siropu\Chat:Room')->joinRoom($room);
+        }
+
+        if ($room->isUpdate()) {
+            return $this->message(\XF::phrase('your_changes_have_been_saved'));
+        }
+
+        $reply = $this->view('Siropu\Chat:Room\List', 'siropu_chat_room_list');
+        $reply->setJsonParam('room_id', $room->room_id);
+
+        return $room;
     }
 
     public function actionAdd()
@@ -165,6 +286,9 @@ class Molly extends AbstractController
         // var_dump("hello");
         // exit;
 
+        // $this->roomSave();
+
+
         if ($params['node_id']) {
             $node = $this->assertNodeExists($params['node_id']);
         } else {
@@ -175,10 +299,13 @@ class Molly extends AbstractController
 
         $this->nodeSaveProcess($node)->run();
 
-        $this->addRouteFilter($node);
+        $this->addRouteFilter('forums/' . $node->title . '.' . $node->node_id . '/', $this->filter('replace_route', 'str'));
+
+        $this->setGroupImages($node, 'avatarFile', 'FS\Molly:Molly\Avatar');
+        $this->setGroupImages($node, 'coverFile', 'FS\Molly:Molly\Cover');
 
         // return $this->redirect($this->buildLink('forums/') . $node->node_id);
-        return $this->redirect($this->buildLink('molly'));
+        return $this->redirect($this->buildLink('molly/' . $node->node_id));
     }
 
     protected function nodeSaveProcess(\XF\Entity\Node $node)
@@ -215,6 +342,14 @@ class Molly extends AbstractController
         $form->basicEntitySave($node, $input['node']);
         $this->saveTypeData($form, $node, $data);
 
+        $this->roomSave();
+
+        // // var_dump($room);
+        // var_dump($this->buildLink('chat/room/' , $room));
+
+        // exit;
+        $this->permissionRebuild();
+
         return $form;
     }
 
@@ -242,11 +377,6 @@ class Molly extends AbstractController
             'allow_index' => 'allow'
         ];
 
-        // last_post_date
-
-
-        // $forumInput += ['default_sort_order' => 'last_post_date',];
-
         $forumInput['index_criteria'] = $this->filterIndexCriteria();
 
         /** @var \XF\Entity\Forum $data */
@@ -262,31 +392,21 @@ class Molly extends AbstractController
         }
 
         $data->type_config = $typeConfig;
+    }
 
-        // $prefixIds = $this->filter('available_prefixes', 'array-uint');
-        // $form->complete(function () use ($data, $prefixIds) {
-        //     /** @var \XF\Repository\ForumPrefix $repo */
-        //     $repo = $this->repository('XF:ForumPrefix');
-        //     $repo->updateContentAssociations($data->node_id, $prefixIds);
-        // });
+    protected function setGroupImages($node, $varName, $serviceName)
+    {
+        $forumGroupImage = $this->service($serviceName, $node);
 
-        // if (!in_array($data->default_prefix_id, $prefixIds)) {
-        //     $data->default_prefix_id = 0;
-        // }
+        $uploadedFile = $this->request->getFile($varName);
+        if ($uploadedFile) {
+            $forumGroupImage->setUpload($uploadedFile);
+            if (!$forumGroupImage->validate($errors)) {
+                return $this->error($errors);
+            }
 
-        // $fieldIds = $this->filter('available_fields', 'array-str');
-        // $form->complete(function () use ($data, $fieldIds) {
-        //     /** @var \XF\Repository\ForumField $repo */
-        //     $repo = $this->repository('XF:ForumField');
-        //     $repo->updateContentAssociations($data->node_id, $fieldIds);
-        // });
-
-        // $promptIds = $this->filter('available_prompts', 'array-uint');
-        // $form->complete(function () use ($data, $promptIds) {
-        //     /** @var \XF\Repository\ForumPrompt $repo */
-        //     $repo = $this->repository('XF:ForumPrompt');
-        //     $repo->updateContentAssociations($data->node_id, $promptIds);
-        // });
+            $forumGroupImage->upload();
+        }
     }
 
     /**
@@ -344,21 +464,21 @@ class Molly extends AbstractController
         return $criteria;
     }
 
-    protected function addRouteFilter($node)
+    protected function addRouteFilter($findRoute, $replaceRoute)
     {
         $routeFilter = $this->em()->create('XF:RouteFilter');
 
-        $this->routeFilterSaveProcess($routeFilter, $node)->run();
+        $this->routeFilterSaveProcess($routeFilter, $findRoute, $replaceRoute)->run();
     }
 
 
-    protected function routeFilterSaveProcess(\XF\Entity\RouteFilter $routeFilter, $node)
+    protected function routeFilterSaveProcess(\XF\Entity\RouteFilter $routeFilter, $findRoute, $replaceRoute)
     {
         $form = \xf::app()->formAction();
 
         $input = [
-            'find_route' => 'forums/' . $node->title . '.' . $node->node_id . '/',
-            'replace_route' => $this->filter('replace_route', 'str'),
+            'find_route' => $findRoute,
+            'replace_route' => $replaceRoute,
             'url_to_route_only' => '',
             'enabled' => 'true'
         ];
@@ -370,6 +490,9 @@ class Molly extends AbstractController
 
     public function actionAddModerator(ParameterBag $params)
     {
+
+        // var_dump($params);exit;
+
         $input = $this->filter([
             'username' => 'str',
             'type' => 'str',
@@ -443,6 +566,17 @@ class Molly extends AbstractController
             $contentModerator = null;
         }
 
+        return $this->moderatorAddEdit($generalModerator, $contentModerator);
+    }
+
+    public function actionContentEdit(ParameterBag $params)
+    {
+        // var_dump($params);exit;
+
+        // moderator_id replace with node_id
+
+        $contentModerator = $this->assertContentModeratorExists($params['node_id']);
+        $generalModerator = $this->assertGeneralModeratorExists($contentModerator->user_id);
         return $this->moderatorAddEdit($generalModerator, $contentModerator);
     }
 
@@ -629,6 +763,107 @@ class Molly extends AbstractController
         return $form;
     }
 
+    public function actionModeratorList(ParameterBag $params)
+    {
+
+        // var_dump($params);exit;
+        // var_dump("hello");exit;
+
+        $modRepo = $this->getModRepo();
+
+        $superModerators = $this->findModeratorsForList(true)->fetch();
+
+        $contentModFinder = $this->findContentModeratorsForList($params->node_id);
+
+        $userIdFilter = $this->filter('user_id', 'uint');
+        if ($userIdFilter) {
+            $moderator = $this->assertGeneralModeratorExists($userIdFilter);
+            $displayLimit = null;
+
+            $contentModFinder->where('user_id', $moderator->user_id);
+        } else {
+            $moderator = null;
+            $displayLimit =  10;
+        }
+
+        $contentModerators = $contentModFinder
+            ->where('content_type', array_keys($modRepo->getModeratorHandlers()))
+            ->fetch();
+
+        $groupedModerators = $modRepo->getGroupedContentModeratorsForList(
+            $contentModerators,
+            $displayLimit
+        );
+        $contentModeratorTotals = $modRepo->getContentModeratorTotals();
+
+        $users = $this->finder('XF:User')
+            ->whereIds(array_keys($contentModeratorTotals))
+            ->order('username')
+            ->fetch();
+
+        $viewParams = [
+            'superModerators' => $superModerators,
+            'contentModerators' => $groupedModerators,
+            'contentModeratorTotals' => $contentModeratorTotals,
+            'displayLimit' => $displayLimit,
+            'users' => $users,
+            'userIdFilter' => $userIdFilter,
+            'forumGroup' => $params
+        ];
+        return $this->view('XF:Moderator\Listing', 'fs_forum_groups_moderator_list', $viewParams);
+    }
+
+    /**
+     * @return Finder
+     */
+    public function findModeratorsForList($isSuperModerator = false)
+    {
+        $finder = $this->finder('XF:Moderator')->where('user_id', \XF::visitor()->user_id)
+            ->with('User', true)
+            ->order('User.username');
+
+        if ($isSuperModerator) {
+            $finder->where('is_super_moderator', 1);
+        }
+
+        return $finder;
+    }
+
+    /**
+     * @return Finder
+     */
+    public function findContentModeratorsForList($Id)
+    {
+        return $this->finder('XF:ModeratorContent')->where('content_id', $Id)
+            ->with(['User', 'Moderator'])
+            ->order(['content_id', 'content_type']);
+    }
+
+    public function actionContentDelete(ParameterBag $params)
+    {
+        // moderator_id replace with node_id
+
+        $contentModerator = $this->assertContentModeratorExists($params['node_id']);
+        $handler = $this->getModRepo()->getModeratorHandler($contentModerator->content_type);
+        $contentTitle = $handler->getContentTitle($contentModerator->content_id);
+
+        /** @var \XF\ControllerPlugin\Delete $plugin */
+        $plugin = $this->plugin('XF:Delete');
+        return $plugin->actionDelete(
+            $contentModerator,
+            $this->buildLink('molly/content/delete', $contentModerator),
+            $this->buildLink('molly/content/edit', $contentModerator),
+            $this->buildLink('molly'),
+            sprintf(
+                "%s %s%s%s",
+                $contentModerator->User->username,
+                \XF::language()->parenthesis_open,
+                $contentTitle,
+                \XF::language()->parenthesis_close
+            )
+        );
+    }
+
     public function actionAvatar(ParameterBag $params)
     {
         $subCommunity = $this->assertNodeExists($params['node_id']);
@@ -723,12 +958,82 @@ class Molly extends AbstractController
         return $this->view('FS\Molly:Molly\FormUpload', 'fs_molly_form_upload', $params);
     }
 
+    public function permissionRebuild()
+    {
+
+        // $userGroup = \xf::app()->finder('XF:UserGroup')->whereId(2)->fetchOne();
+
+
+        // $permissions = [
+        //     'general' => [
+
+        //         'viewNode' => 'content_allow',
+        //     ],
+        //     'forum' => [
+
+        //         'postThread' => 'content_allow',
+        //         'postReply' => 'content_allow',
+        //     ]
+        // ];
+
+
+
+        // $permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
+        // $permissionUpdater->setContent("node", $node->node_id)->setUserGroup($userGroup);
+        // $permissionUpdater->updatePermissions($permissions);
+
+        $userGroups = $this->getUserGroupRepo()->findUserGroupsForList()->fetch();
+
+        if (count($userGroups)) {
+            //
+            $permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
+            foreach ($userGroups as $group) {
+
+                $permissionUpdater->setUserGroup($group)->setGlobal();
+                if (\xf::app()->container()->isCached('permission.builder')) {
+                    \xf::app()->permissionBuilder()->refreshData();
+                }
+
+                $permissionUpdater->triggerCacheRebuild();
+            }
+        }
+    }
+
+    public function getUserGroupRepo()
+    {
+        return \xf::app()->repository('XF:UserGroup');
+    }
+
     /**
      * @return \XF\Repository\Moderator
      */
     protected function getModRepo()
     {
         return $this->repository('XF:Moderator');
+    }
+
+    /**
+     * @param string $id
+     * @param array|string|null $with
+     * @param null|string $phraseKey
+     *
+     * @return \XF\Entity\Moderator
+     */
+    protected function assertGeneralModeratorExists($id, $with = null, $phraseKey = null)
+    {
+        return $this->assertRecordExists('XF:Moderator', $id, $with, $phraseKey);
+    }
+
+    /**
+     * @param string $id
+     * @param array|string|null $with
+     * @param null|string $phraseKey
+     *
+     * @return \XF\Entity\ModeratorContent
+     */
+    protected function assertContentModeratorExists($id, $with = null, $phraseKey = null)
+    {
+        return $this->assertRecordExists('XF:ModeratorContent', $id, $with, $phraseKey);
     }
 
     /**
@@ -745,5 +1050,10 @@ class Molly extends AbstractController
             throw $this->exception($this->error(\XF::phrase('requested_node_not_found'), 404));
         }
         return $node;
+    }
+
+    public function getRoomRepo()
+    {
+        return $this->repository('Siropu\Chat:Room');
     }
 }

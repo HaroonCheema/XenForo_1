@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 60b623f1f9bd3036c92f44ee0b21c372
+// FROM HASH: ed13d0940d728c7322870849a80c2236
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -7,10 +7,18 @@ return array(
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['group']['name']));
 	$__finalCompiled .= '
 
+	' . $__templater->button('
+		' . 'fs_forum_group_moderator_list' . '
+	', array(
+		'href' => $__templater->func('link', array('molly/moderator-list', $__vars['subForums'], ), false),
+		'class' => 'button--cta',
+		'icon' => 'write',
+	), '', array(
+	)) . '
+
 ';
 	$__templater->includeCss('tlg_style.less');
 	$__finalCompiled .= '
-
 
 ';
 	$__compilerTemp1 = '';
@@ -152,6 +160,24 @@ return array(
     </div>
 
 	<!-- Cover Header -->
+	
+	' . '
+	
+	<!-- Thread BTN -->
+	
+	
+	' . $__templater->button('
+		' . 'Post thread' . '
+	', array(
+		'href' => $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), false),
+		'class' => 'button--cta',
+		'icon' => 'write',
+		'style' => 'float: right',
+	), '', array(
+	)) . '
+	
+	<!-- Thread BTN -->
+	
 	
 	<!-- Thread Lists -->
 	

@@ -2,9 +2,9 @@
 
 <xf:pageaction if="$contentModerator ? $contentModerator.isUpdate() : $generalModerator.isUpdate()">
 	<xf:if is="$contentModerator">
-		<xf:button href="{{ link('moderators/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
+		<xf:button href="{{ link('molly/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
 	<xf:else />
-		<xf:button href="{{ link('moderators/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
+		<xf:button href="{{ link('molly/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
 	</xf:if>
 </xf:pageaction>
 

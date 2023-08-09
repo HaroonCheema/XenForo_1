@@ -24,6 +24,101 @@
 
 	<xf:numberbox name="{$name}" value="{$value}" min="0" step="{$step}" readonly="{{ $readOnly ? 'readonly' : '' }}" />
 </xf:macro>]]></template>
+  <template type="public" title="fs_forum_groups_moderator_list" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('moderators') }}</xf:title>
+
+<xf:pageaction>
+	<xf:button href="{{ link('molly/add-moderator', $forumGroup) }}" icon="add">{{ phrase('add_moderator') }}</xf:button>
+</xf:pageaction>
+
+<xf:if contentcheck="true">
+	<xf:contentcheck>
+
+	<xf:if is="$superModerators is not empty">
+		<div class="block">
+			<div class="block-container">
+				<h2 class="block-header">{{ phrase('super_moderators') }}</h2>
+				<div class="block-body">
+					<xf:datalist>
+						<xf:foreach loop="$superModerators" value="$superMod">
+							<xf:datarow>
+								<xf:cell class="dataList-cell--min dataList-cell--image dataList-cell--imageSmall"
+									href="{{ link('molly/super/edit', $superMod) }}">
+									<xf:avatar user="$superMod.User" size="s" href="" />
+								</xf:cell>
+								<xf:main href="{{ link('molly/super/edit', $superMod) }}"
+									label="{$superMod.User.username}" />
+								<xf:action href="{{ link('users/edit', $superMod.User) }}">{{ phrase('user_info') }}</xf:action>
+								<xf:delete href="{{ link('molly/super/delete', $superMod) }}" overlay="true" />
+							</xf:datarow>
+						</xf:foreach>
+					</xf:datalist>
+				</div>
+			</div>
+		</div>
+	</xf:if>
+
+	<xf:if is="$contentModerators is not empty">
+		<div class="block">
+			<div class="block-outer">
+				<div class="block-outer-main">
+					<a class="button button--link menuTrigger"
+						data-xf-click="menu"
+						role="button"
+						tabindex="0"
+						aria-expanded="false"
+						aria-haspopup="true">{{ phrase('filter:') }} {{ $userIdFilter ? {$users.{$userIdFilter}.username} : phrase('(all)') }}</a>
+
+					<div class="menu" data-menu="menu" aria-hidden="true">
+						<div class="menu-content">
+							<h3 class="menu-header">{{ phrase('content_moderators') }}</h3>
+							<a href="{{ link('molly') }}" class="menu-linkRow {{ !$userIdFilter ? 'is-selected' : '' }}">{{ phrase('(all)') }}</a>
+							<xf:foreach loop="$users" value="$user">
+								<a href="{{ link('molly', null, {'user_id': $user.user_id}) }}"
+									class="menu-linkRow {{ ($userIdFilter && $userIdFilter == $user.user_id) ? 'is-selected' : '' }}">
+									<span>{$user.username}</span>
+								</a>
+							</xf:foreach>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="block-container">
+				<h2 class="block-header">{{ phrase('content_moderators') }}</h2>
+				<div class="block-body">
+					<xf:datalist>
+						<xf:foreach loop="$users" key="$userId" value="$user">
+							<xf:if is="{$contentModerators.{$userId}}">
+								<xf:datarow rowtype="subsection" rowclass="dataList-row--noHover">
+									<xf:cell colspan="2">{$user.username}</xf:cell>
+								</xf:datarow>
+								<tbody class="js-moderatorInsert-{$userId}">
+									<xf:foreach loop="{$contentModerators.{$userId}}" value="$contentMod">
+										<xf:datarow>
+											<xf:main href="{{ link('molly/content/edit', $contentMod) }}"
+												label="{$contentMod.getContentTitle()}" />
+											<xf:delete href="{{ link('molly/content/delete', $contentMod) }}" overlay="true" />
+										</xf:datarow>
+									</xf:foreach>
+									<xf:if is="$displayLimit AND {$contentModeratorTotals.{$userId}} > $displayLimit">
+										<xf:datarow>
+											<xf:cell colspan="2" class="dataList-cell--link">
+												<a href="{{ link('molly', null, {'user_id': $userId}) }}" data-xf-click="inserter" data-replace=".js-moderatorInsert-{$userId}" data-animate-replace="false">{{ phrase('ellipsis_and_x_more', {'count': ({$contentModeratorTotals.{$userId}} - $displayLimit)|number}) }}</a>
+											</xf:cell>
+										</xf:datarow>
+									</xf:if>
+								</tbody>
+							</xf:if>
+						</xf:foreach>
+					</xf:datalist>
+				</div>
+			</div>
+		</div>
+	</xf:if>
+
+	</xf:contentcheck>
+<xf:else />
+	<div class="blockMessage">{{ phrase('there_currently_no_moderators_use_link_create') }}</div>
+</xf:if>]]></template>
   <template type="public" title="fs_molly_form_upload" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{$fieldLabel}</xf:title>
 
 <xf:form action="{$formAction}" ajax="true" upload="true" class="block">
@@ -180,9 +275,7 @@
             </xf:if>
             </a>
         </div>
-                    <span class="groupCover--inlineMod">
-                        <label class="iconic iconic--noLabel" title="Select for moderation" data-xf-init="tooltip"><input type="checkbox"  name="ids[]" value="2" hiddenLabel="true" class="js-inlineModToggle" /><i aria-hidden="true"></i></label>
-                    </span>
+                   
                 
 
             </div>
@@ -335,15 +428,15 @@
 				required="required" hint="{{ phrase('required') }}"/>
 			
 			
-			 <xf:uploadrow name="file"
-                          label="Group Avatar"
+			 <xf:uploadrow name="avatarFile"
+                          label="{{ phrase('fs_forum_group_avatar') }}"
                           explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
                                 'width': $baseWidth,
                                 'height': $baseHeight
                           }) }}" />
 			
-			<xf:uploadrow name="file"
-                          label="Group Cover"
+			<xf:uploadrow name="coverFile"
+                          label="{{ phrase('fs_forum_group_cover') }}"
                           explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
                                 'width': $baseWidth,
                                 'height': $baseHeight
@@ -748,8 +841,11 @@
 </xf:macro>]]></template>
   <template type="public" title="fs_molly_view" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{$group.name}</xf:title>
 
-<xf:css src="tlg_style.less" />
+	<xf:button href="{{ link('molly/moderator-list', $subForums) }}" class="button--cta" icon="write">
+		{{ phrase('fs_forum_group_moderator_list') }}
+	</xf:button>
 
+<xf:css src="tlg_style.less" />
 
 <xf:sidenav>
 	
@@ -864,6 +960,26 @@
 
 	<!-- Cover Header -->
 	
+	<xf:comment>
+	
+		<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
+	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
+		{{ phrase('post_thread') }}
+	</xf:button>
+</xf:pageaction>
+		
+	</xf:comment>
+	
+	<!-- Thread BTN -->
+	
+	
+	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('post_thread') }}
+	</xf:button>
+	
+	<!-- Thread BTN -->
+	
+	
 	<!-- Thread Lists -->
 	
 		<div class="block-container">
@@ -920,9 +1036,9 @@
 
 <xf:pageaction if="$contentModerator ? $contentModerator.isUpdate() : $generalModerator.isUpdate()">
 	<xf:if is="$contentModerator">
-		<xf:button href="{{ link('moderators/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
+		<xf:button href="{{ link('molly/content/delete', $contentModerator) }}" icon="delete" overlay="true" />
 	<xf:else />
-		<xf:button href="{{ link('moderators/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
+		<xf:button href="{{ link('molly/super/delete', $generalModerator) }}" icon="delete" overlay="true" />
 	</xf:if>
 </xf:pageaction>
 
