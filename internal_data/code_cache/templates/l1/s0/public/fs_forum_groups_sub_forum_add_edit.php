@@ -100,14 +100,14 @@ return array(
 			 ' . $__templater->formUploadRow(array(
 		'name' => 'avatarFile',
 	), array(
-		'label' => 'fs_forum_group_avatar',
+		'label' => 'Group Avatar',
 		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['baseWidth']) . 'x' . $__templater->escape($__vars['baseHeight']) . ' pixels.',
 	)) . '
 			
 			' . $__templater->formUploadRow(array(
 		'name' => 'coverFile',
 	), array(
-		'label' => 'fs_forum_group_cover',
+		'label' => 'Group Cover',
 		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['baseWidth']) . 'x' . $__templater->escape($__vars['baseHeight']) . ' pixels.',
 	)) . '
 				

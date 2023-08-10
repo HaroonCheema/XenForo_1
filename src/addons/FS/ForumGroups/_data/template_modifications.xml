@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<template_modifications/>
+<template_modifications>
+  <modification type="public" template="forum_view" modification_key="fs_forum_gorups_forum_view" description="fs_forum_gorups_forum_view_change_view" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:macro template="forum_list" name="node_list"
+					arg-children="{$nodeTree}"
+					arg-extras="{$nodeExtras}"
+					arg-depth="2" />]]></find>
+    <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_forum_groups_applicable_forum">
+<xf:css src="tlg_group_list.less" />
+<xf:css src="tlg_style.less" />
+<xf:css src="tlg_grid_card.less" />
+
+			<div class="block groupListBlock" data-xf-init="inline-mod"
+         data-type="tl_group"
+         data-href="{{ link('inline-mod') }}">
+		
+					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+				<xf:foreach loop="$nodeTree" key="$id" value="$child">
+					<xf:macro
+					template="fs_forum_groups_forum_view_list"
+					name="fs_forum_groups_forum_view_list_macro"
+					arg-subForum="{$child.record}"
+				  />
+				</xf:foreach>
+					</div>
+				</div>
+<xf:else />
+	$0	
+</xf:if>]]></replace>
+  </modification>
+</template_modifications>

@@ -9,10 +9,15 @@
         "version_string": "1.0.0 Alpha",
         "hash": "73746da2d87f74e4a1b2b4124efc8168"
     },
+    "public/fs_forum_groups_forum_view_list.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e50594633f6a1766711cfb09524d33d8"
+    },
     "public/fs_forum_groups_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "83ae2762c3daf68da7dc49920dddb483"
+        "hash": "3b258412e4e025bb5c75e10a15b37b08"
     },
     "public/fs_forum_groups_moderator_list.html": {
         "version_id": 1000010,
@@ -32,7 +37,7 @@
     "public/fs_forum_groups_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "fc76ddc233a3281ad77bcc69fce4acea"
+        "hash": "2876eeaf2aec21eab31c1f371abc6588"
     },
     "public/moderator_add_choice.html": {
         "version_id": 1000010,

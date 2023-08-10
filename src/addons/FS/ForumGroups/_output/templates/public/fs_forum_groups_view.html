@@ -4,6 +4,12 @@
 		{{ phrase('fs_forum_group_moderator_list') }}
 	</xf:button>
 
+<xf:pageaction>
+	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
+		{{ phrase('post_thread') }}
+	</xf:button>
+</xf:pageaction>
+
 <xf:css src="tlg_style.less" />
 
 <xf:sidenav>

@@ -1,4 +1,22 @@
 {
+    "fs_forum_group_avatar.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "0017341bef207f924828355aa08cef80"
+    },
+    "fs_forum_group_cover.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "13e579eb7b2d1f6589f5d2ef8a7b0153"
+    },
+    "fs_forum_group_moderator_list.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "8e109249def5354c47efd5dcaa8068ca"
+    },
     "fs_forum_groups.txt": {
         "global_cache": false,
         "version_id": 1000010,

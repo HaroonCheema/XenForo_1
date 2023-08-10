@@ -1,7 +1,7 @@
 <?php
-// FROM HASH: 3b258412e4e025bb5c75e10a15b37b08
+// FROM HASH: e50594633f6a1766711cfb09524d33d8
 return array(
-'macros' => array('forum_groups_sub_forum_list' => array(
+'macros' => array('fs_forum_groups_forum_view_list_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
 		'subForum' => '!',
 	); },
@@ -189,124 +189,7 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Forum Groups');
-	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
-
-';
-	$__templater->setPageParam('searchConstraints', array('Auctions' => array('search_type' => 'fs_auction_auctions', ), ));
-	$__finalCompiled .= '
-
-';
-	if ($__vars['xf']['visitor']) {
-		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-    ' . $__templater->button('Add Sub Community', array(
-			'href' => $__templater->func('link', array('forumGroups/add', ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-		), '', array(
-		)) . '
-');
-	}
-	$__finalCompiled .= '
-  
-
-<div
-  class="block"
-  data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '"
-  data-type="fs_forum_groups"
-  data-href="' . $__templater->func('link', array('inline-mod', ), true) . '"
->
-  <div class="block-outer">
-
-  </div>
-  <div class="block-container">
-
-    <!--Listing View--->
-    <div class="block-body">
-		
-    <!--Sub Forums List View--->
-		';
-	if ($__templater->func('count', array($__vars['subForums'], ), false) != 0) {
-		$__finalCompiled .= '
-            
-			    ';
-		$__vars['dummyArray'] = $__templater->func('range', array(0, 3, ), false);
-		$__finalCompiled .= '
-		
-		
-			 	<div class="block groupListBlock" data-xf-init="inline-mod"
-         data-type="tl_group"
-         data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
-		
-		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
-		
-		 ';
-		if ($__templater->isTraversable($__vars['subForums'])) {
-			foreach ($__vars['subForums'] AS $__vars['value']) {
-				$__finalCompiled .= '
-
-    				' . $__templater->callMacro(null, 'forum_groups_sub_forum_list', array(
-					'subForum' => $__vars['value'],
-				), $__vars) . '
-			 
-			 
-  ';
-			}
-		}
-		$__finalCompiled .= '
-					</div>
-		</div>
-			';
-	}
-	$__finalCompiled .= '
-		
-	';
-	$__templater->includeCss('tlg_group_list.less');
-	$__finalCompiled .= '
-    ';
-	$__templater->includeCss('tlg_style.less');
-	$__finalCompiled .= '
-	';
-	$__templater->includeCss('tlg_grid_card.less');
-	$__finalCompiled .= '
-
-    ';
-	$__templater->includeJs(array(
-		'src' => 'Truonglv/Groups/group.js',
-		'addon' => 'Truonglv/Groups',
-		'min' => '1',
-	));
-	$__finalCompiled .= '
-	 
-		
-    <!--Sub Forums List View--->
-
-      <div class="block-footer">
-        <span class="block-footer-counter"
-          >' . $__templater->func('display_totals', array($__vars['totalReturn'], $__vars['total'], ), true) . '</span
-        >
-      </div>
-    </div>
-  </div>
-
-  <div class="block-outer block-outer--after">
-
-    ' . $__templater->func('show_ignored', array(array(
-		'wrapperclass' => 'block-outer-opposite',
-	))) . '
-  </div>
-</div>
-
-';
-	$__templater->setPageParam('sideNavTitle', 'Sub Communties');
-	$__finalCompiled .= '
-
-<!-- Filter Bar Macro Start -->
-
-    <!--Sub Forums List View--->
-
-' . '
 
     <!--Sub Forums List View--->';
 	return $__finalCompiled;

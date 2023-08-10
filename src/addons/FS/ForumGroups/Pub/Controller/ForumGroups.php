@@ -59,6 +59,36 @@ class ForumGroups extends AbstractController
         return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_view', $viewParams);
     }
 
+    public function actionForumSingleView(ParameterBag $params)
+    {
+        $forum = $this->assertViewableForum($params->node_id ?: $params->node_name, $this->getForumViewExtraWith());
+
+        $threadRepo = $this->getThreadRepo();
+
+        $threadList = $threadRepo->findThreadsForForumView(
+            $forum,
+            [
+                'allowOwnPending' => $this->hasContentPendingApproval()
+            ]
+        );
+
+        $threadList->where('sticky', 0);
+
+        /** @var \XF\Entity\Thread[]|\XF\Mvc\Entity\AbstractCollection $threads */
+        $threads = $threadList->fetch();
+
+        $subCommunity = \XF::em()->find('XF:Node', $params->node_id);
+
+        $viewParams = [
+            'forum' => $forum,
+            'threads' => $threads,
+            "subForums" => $subCommunity ?: '',
+            // "subForums" => \XF::em()->find('XF:Node', $params->node_id) ?: ''
+        ];
+
+        return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_single_view', $viewParams);
+    }
+
     protected function getForumViewExtraWith()
     {
         $extraWith = [];

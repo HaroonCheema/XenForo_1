@@ -429,11 +429,48 @@ return array(
 	<div class="block">
 		<div class="block-container">
 			<div class="block-body">
-				' . $__templater->callMacro('forum_list', 'node_list', array(
-			'children' => $__vars['nodeTree'],
-			'extras' => $__vars['nodeExtras'],
-			'depth' => '2',
-		), $__vars) . '
+				';
+		if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_forum_groups_applicable_forum']) {
+			$__finalCompiled .= '
+';
+			$__templater->includeCss('tlg_group_list.less');
+			$__finalCompiled .= '
+';
+			$__templater->includeCss('tlg_style.less');
+			$__finalCompiled .= '
+';
+			$__templater->includeCss('tlg_grid_card.less');
+			$__finalCompiled .= '
+
+			<div class="block groupListBlock" data-xf-init="inline-mod"
+         data-type="tl_group"
+         data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
+		
+					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+				';
+			if ($__templater->isTraversable($__vars['nodeTree'])) {
+				foreach ($__vars['nodeTree'] AS $__vars['id'] => $__vars['child']) {
+					$__finalCompiled .= '
+					' . $__templater->callMacro('fs_forum_groups_forum_view_list', 'fs_forum_groups_forum_view_list_macro', array(
+						'subForum' => $__vars['child']['record'],
+					), $__vars) . '
+				';
+				}
+			}
+			$__finalCompiled .= '
+					</div>
+				</div>
+';
+		} else {
+			$__finalCompiled .= '
+	' . $__templater->callMacro('forum_list', 'node_list', array(
+				'children' => $__vars['nodeTree'],
+				'extras' => $__vars['nodeExtras'],
+				'depth' => '2',
+			), $__vars) . '	
+';
+		}
+		$__finalCompiled .= '
 			</div>
 		</div>
 	</div>

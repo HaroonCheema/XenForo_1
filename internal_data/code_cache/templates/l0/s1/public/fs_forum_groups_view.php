@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: fc76ddc233a3281ad77bcc69fce4acea
+// FROM HASH: 2876eeaf2aec21eab31c1f371abc6588
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -8,13 +8,26 @@ return array(
 	$__finalCompiled .= '
 
 	' . $__templater->button('
-		' . 'fs_forum_group_moderator_list' . '
+		' . 'Moderator List' . '
 	', array(
 		'href' => $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), false),
 		'class' => 'button--cta',
 		'icon' => 'write',
 	), '', array(
 	)) . '
+
+';
+	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__templater->button('
+		' . 'Post thread' . '
+	', array(
+		'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+		'class' => 'button--cta',
+		'icon' => 'write',
+	), '', array(
+	)) . '
+');
+	$__finalCompiled .= '
 
 ';
 	$__templater->includeCss('tlg_style.less');

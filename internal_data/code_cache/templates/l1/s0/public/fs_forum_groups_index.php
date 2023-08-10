@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 83ae2762c3daf68da7dc49920dddb483
+// FROM HASH: 3b258412e4e025bb5c75e10a15b37b08
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -246,10 +246,10 @@ return array(
 			foreach ($__vars['subForums'] AS $__vars['value']) {
 				$__finalCompiled .= '
 
-    
-			 ' . $__templater->callMacro(null, 'forum_groups_sub_forum_list', array(
+    				' . $__templater->callMacro(null, 'forum_groups_sub_forum_list', array(
 					'subForum' => $__vars['value'],
 				), $__vars) . '
+			 
 			 
   ';
 			}
@@ -300,24 +300,6 @@ return array(
 
 ';
 	$__templater->setPageParam('sideNavTitle', 'Sub Communties');
-	$__finalCompiled .= '
-
-';
-	$__templater->modifySideNavHtml(null, '
-	' . '
-	
-	<div class="block">
-		<div class="block-container">
-			<h3 class="block-header">' . 'Sub Communties' . '</h3>
-			<div class="block-body">
-				
-					<div class="block-row">' . 'N/A' . '</div>
-				
-			</div>
-		</div>
-	</div>
-
-', 'replace');
 	$__finalCompiled .= '
 
 <!-- Filter Bar Macro Start -->
