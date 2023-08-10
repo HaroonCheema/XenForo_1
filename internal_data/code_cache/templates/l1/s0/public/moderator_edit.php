@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 64806a3c5d202fb281bb09995de63ce5
+// FROM HASH: cfb2e531d8ff0f3dcc1de9c0748c11e1
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -13,7 +13,7 @@ return array(
 		if ($__vars['contentModerator']) {
 			$__compilerTemp1 .= '
 		' . $__templater->button('', array(
-				'href' => $__templater->func('link', array('molly/content/delete', $__vars['contentModerator'], ), false),
+				'href' => $__templater->func('link', array('forumGroups/content/delete', $__vars['contentModerator'], ), false),
 				'icon' => 'delete',
 				'overlay' => 'true',
 			), '', array(
@@ -22,7 +22,7 @@ return array(
 		} else {
 			$__compilerTemp1 .= '
 		' . $__templater->button('', array(
-				'href' => $__templater->func('link', array('molly/super/delete', $__vars['generalModerator'], ), false),
+				'href' => $__templater->func('link', array('forumGroups/super/delete', $__vars['generalModerator'], ), false),
 				'icon' => 'delete',
 				'overlay' => 'true',
 			), '', array(
@@ -148,7 +148,7 @@ return array(
 	' . $__templater->formHiddenVal('content_id', $__vars['contentModerator']['content_id'], array(
 	)) . '
 ', array(
-		'action' => $__templater->func('link', array('molly/moderator-save', ), false),
+		'action' => $__templater->func('link', array('forumGroups/moderator-save', ), false),
 		'ajax' => 'true',
 		'class' => 'block',
 	));

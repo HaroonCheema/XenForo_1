@@ -19,6 +19,7 @@ class Setup extends AbstractSetup
 	public function installstep1()
 	{
 		$this->alterTable('xf_node', function (\XF\Db\Schema\Alter $table) {
+			$table->addColumn('user_id', 'int')->setDefault(0);
 			$table->addColumn('avatar_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_crop_data', 'blob');
@@ -28,6 +29,7 @@ class Setup extends AbstractSetup
 	public function uninstallStep1()
 	{
 		$this->schemaManager()->alterTable('xf_node', function (\XF\Db\Schema\Alter $table) {
+			$table->dropColumns(['user_id']);
 			$table->dropColumns(['avatar_attachment_id']);
 			$table->dropColumns(['cover_attachment_id']);
 			$table->dropColumns(['cover_crop_data']);

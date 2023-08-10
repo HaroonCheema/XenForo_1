@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="fs_forum_groups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Groups]]></phrase>
+  <phrase title="fs_forum_groups_add_chatroom" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Chatroom]]></phrase>
+  <phrase title="fs_forum_groups_add_sub_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Sub Community]]></phrase>
+  <phrase title="fs_forum_groups_moderator" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Moderator]]></phrase>
+  <phrase title="fs_forum_groups_side_community" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Sub Communties]]></phrase>
+  <phrase title="fs_forum_groups_upload_avatar" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload avatar]]></phrase>
+  <phrase title="fs_forum_groups_upload_cover" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload cover]]></phrase>
+  <phrase title="nav.forumGroupsAddSubForum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Sub Forum]]></phrase>
+  <phrase title="nav.fs_forumGroups_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Groups]]></phrase>
+  <phrase title="option.fs_forum_groups_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Parent Forum Id]]></phrase>
+  <phrase title="option_explain.fs_forum_groups_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Id]]></phrase>
+  <phrase title="option_group.fs_forum_groups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Forum Groups]]></phrase>
+  <phrase title="option_group_description.fs_forum_groups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Forum Groups]]></phrase>
+</phrases>

@@ -21,7 +21,7 @@ return array (
   'option_group.form_thread_moderation' => '[FS] Form Thread Moderation',
   'option_group.fsEscrow' => '[FS] Escrow',
   'option_group.fs_MediaTagSetting' => '[FS] Media-Tag-Setting',
-  'option_group.fs_molly' => '[FS] Forum Groups',
+  'option_group.fs_forum_groups' => '[FS] Forum Groups',
   'option_group.fs_post_schdueling' => '[FS] Post schedule',
   'option_group.fs_question_answers' => '[FS] Question-Answers',
   'option_group.hou_attachments' => '[HoU] Attachments List with Like',

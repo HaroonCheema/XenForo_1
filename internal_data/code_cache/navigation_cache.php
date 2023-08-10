@@ -375,25 +375,25 @@ return function($__templater, $__selectedNav, array $__vars)
 	}
 
 	$__navTemp = [
-		'title' => \XF::phrase('nav.fs_molly_index'),
-		'href' => $__templater->func('link', array('molly', ), false),
+		'title' => \XF::phrase('nav.fs_forumGroups_index'),
+		'href' => $__templater->func('link', array('forumGroups', ), false),
 		'attributes' => [],
 	];
 	if ($__navTemp) {
-		$__tree['fs_molly_index'] = $__navTemp;
-		$__flat['fs_molly_index'] =& $__tree['fs_molly_index'];
-		if (empty($__tree['fs_molly_index']['children'])) { $__tree['fs_molly_index']['children'] = []; }
+		$__tree['fs_forumGroups_index'] = $__navTemp;
+		$__flat['fs_forumGroups_index'] =& $__tree['fs_forumGroups_index'];
+		if (empty($__tree['fs_forumGroups_index']['children'])) { $__tree['fs_forumGroups_index']['children'] = []; }
 
 		$__navTemp = [
-		'title' => \XF::phrase('nav.mollyAddSubForum'),
-		'href' => $__templater->func('link', array('molly/add', ), false),
+		'title' => \XF::phrase('nav.forumGroupsAddSubForum'),
+		'href' => $__templater->func('link', array('forumGroups/add', ), false),
 		'attributes' => [
 			'data-xf-click' => 'overlay',
 		],
 	];
 		if ($__navTemp) {
-			$__tree['fs_molly_index']['children']['mollyAddSubForum'] = $__navTemp;
-			$__flat['mollyAddSubForum'] =& $__tree['fs_molly_index']['children']['mollyAddSubForum'];
+			$__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'] = $__navTemp;
+			$__flat['forumGroupsAddSubForum'] =& $__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'];
 		}
 
 	}

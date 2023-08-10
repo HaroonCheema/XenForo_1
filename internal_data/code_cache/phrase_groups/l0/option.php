@@ -170,7 +170,7 @@ return array (
   'option.fs_escrow_admin_Id' => 'Escrow Percentage Holder Id',
   'option.fs_escrow_admin_percentage' => 'Admin Percentage',
   'option.fs_escrow_applicable_forum' => 'Forum Id',
-  'option.fs_molly_applicable_forum' => 'Parent Forum Id',
+  'option.fs_forum_groups_applicable_forum' => 'Parent Forum Id',
   'option.fs_mts_customMsgColor' => 'Custom message Text Color',
   'option.fs_mts_customMsgbackGroundColor' => 'Custom message Background Color',
   'option.fs_qa_routeFilterId' => 'Route Filter ID',

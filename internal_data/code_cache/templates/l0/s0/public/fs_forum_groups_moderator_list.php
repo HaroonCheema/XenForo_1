@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1892b9939bc39ccaf581ac929d52385d
+// FROM HASH: 567298f497eed2f26a1221ac407b10f9
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -10,7 +10,7 @@ return array(
 ';
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('Add moderator', array(
-		'href' => $__templater->func('link', array('molly/add-moderator', $__vars['forumGroup'], ), false),
+		'href' => $__templater->func('link', array('forumGroups/add-moderator', $__vars['forumGroup'], ), false),
 		'icon' => 'add',
 	), '', array(
 	)) . '
@@ -36,7 +36,7 @@ return array(
 							' . $__templater->dataRow(array(
 				), array(array(
 					'class' => 'dataList-cell--min dataList-cell--image dataList-cell--imageSmall',
-					'href' => $__templater->func('link', array('molly/super/edit', $__vars['superMod'], ), false),
+					'href' => $__templater->func('link', array('forumGroups/super/edit', $__vars['superMod'], ), false),
 					'_type' => 'cell',
 					'html' => '
 									' . $__templater->func('avatar', array($__vars['superMod']['User'], 's', false, array(
@@ -45,7 +45,7 @@ return array(
 								',
 				),
 				array(
-					'href' => $__templater->func('link', array('molly/super/edit', $__vars['superMod'], ), false),
+					'href' => $__templater->func('link', array('forumGroups/super/edit', $__vars['superMod'], ), false),
 					'label' => $__templater->escape($__vars['superMod']['User']['username']),
 					'_type' => 'main',
 					'html' => '',
@@ -56,7 +56,7 @@ return array(
 					'html' => 'User info',
 				),
 				array(
-					'href' => $__templater->func('link', array('molly/super/delete', $__vars['superMod'], ), false),
+					'href' => $__templater->func('link', array('forumGroups/super/delete', $__vars['superMod'], ), false),
 					'overlay' => 'true',
 					'_type' => 'delete',
 					'html' => '',
@@ -91,12 +91,12 @@ return array(
 					<div class="menu" data-menu="menu" aria-hidden="true">
 						<div class="menu-content">
 							<h3 class="menu-header">' . 'Content moderators' . '</h3>
-							<a href="' . $__templater->func('link', array('molly', ), true) . '" class="menu-linkRow ' . ((!$__vars['userIdFilter']) ? 'is-selected' : '') . '">' . $__vars['xf']['language']['parenthesis_open'] . 'All' . $__vars['xf']['language']['parenthesis_close'] . '</a>
+							<a href="' . $__templater->func('link', array('forumGroups', ), true) . '" class="menu-linkRow ' . ((!$__vars['userIdFilter']) ? 'is-selected' : '') . '">' . $__vars['xf']['language']['parenthesis_open'] . 'All' . $__vars['xf']['language']['parenthesis_close'] . '</a>
 							';
 		if ($__templater->isTraversable($__vars['users'])) {
 			foreach ($__vars['users'] AS $__vars['user']) {
 				$__compilerTemp1 .= '
-								<a href="' . $__templater->func('link', array('molly', null, array('user_id' => $__vars['user']['user_id'], ), ), true) . '"
+								<a href="' . $__templater->func('link', array('forumGroups', null, array('user_id' => $__vars['user']['user_id'], ), ), true) . '"
 									class="menu-linkRow ' . (($__vars['userIdFilter'] AND ($__vars['userIdFilter'] == $__vars['user']['user_id'])) ? 'is-selected' : '') . '">
 									<span>' . $__templater->escape($__vars['user']['username']) . '</span>
 								</a>
@@ -134,13 +134,13 @@ return array(
 							$__compilerTemp3 .= '
 										' . $__templater->dataRow(array(
 							), array(array(
-								'href' => $__templater->func('link', array('molly/content/edit', $__vars['contentMod'], ), false),
+								'href' => $__templater->func('link', array('forumGroups/content/edit', $__vars['contentMod'], ), false),
 								'label' => $__templater->escape($__templater->method($__vars['contentMod'], 'getContentTitle', array())),
 								'_type' => 'main',
 								'html' => '',
 							),
 							array(
-								'href' => $__templater->func('link', array('molly/content/delete', $__vars['contentMod'], ), false),
+								'href' => $__templater->func('link', array('forumGroups/content/delete', $__vars['contentMod'], ), false),
 								'overlay' => 'true',
 								'_type' => 'delete',
 								'html' => '',
@@ -158,7 +158,7 @@ return array(
 							'class' => 'dataList-cell--link',
 							'_type' => 'cell',
 							'html' => '
-												<a href="' . $__templater->func('link', array('molly', null, array('user_id' => $__vars['userId'], ), ), true) . '" data-xf-click="inserter" data-replace=".js-moderatorInsert-' . $__templater->escape($__vars['userId']) . '" data-animate-replace="false">' . '... and ' . $__templater->filter($__vars['contentModeratorTotals'][$__vars['userId']] - $__vars['displayLimit'], array(array('number', array()),), true) . ' more.' . '</a>
+												<a href="' . $__templater->func('link', array('forumGroups', null, array('user_id' => $__vars['userId'], ), ), true) . '" data-xf-click="inserter" data-replace=".js-moderatorInsert-' . $__templater->escape($__vars['userId']) . '" data-animate-replace="false">' . '... and ' . $__templater->filter($__vars['contentModeratorTotals'][$__vars['userId']] - $__vars['displayLimit'], array(array('number', array()),), true) . ' more.' . '</a>
 											',
 						))) . '
 									';

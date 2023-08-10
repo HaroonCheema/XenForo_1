@@ -216,7 +216,7 @@ This option requires that the specified account is a catch-all account or suppor
   'option_explain.fs_escrow_admin_Id' => 'transfer percentage',
   'option_explain.fs_escrow_admin_percentage' => 'Admin Percentage',
   'option_explain.fs_escrow_applicable_forum' => '',
-  'option_explain.fs_molly_applicable_forum' => 'Forum Id',
+  'option_explain.fs_forum_groups_applicable_forum' => 'Forum Id',
   'option_explain.fs_mts_customMsgColor' => 'Enter the colour name or colour code for Custom message',
   'option_explain.fs_mts_customMsgbackGroundColor' => 'Enter the colour name or colour code for custom message Background',
   'option_explain.fs_qa_routeFilterId' => 'Enter the ID of RouteFilter which you yave create for QuestionsAnswers forum',

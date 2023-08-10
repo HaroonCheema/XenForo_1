@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1d1682cb8addcfabeb017a657284bb5e
+// FROM HASH: 67785304147dd0f3880596073f84a934
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -44,7 +44,7 @@ return array(
 	)) . '
 	</div>
 ', array(
-		'action' => $__templater->func('link', array('molly/add-moderator', $__vars['subForum'], ), false),
+		'action' => $__templater->func('link', array('forumGroups/add-moderator', $__vars['subForum'], ), false),
 		'class' => 'block',
 	));
 	return $__finalCompiled;

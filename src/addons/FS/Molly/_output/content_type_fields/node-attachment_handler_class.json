@@ -1,5 +1,0 @@
-{
-    "content_type": "node",
-    "field_name": "attachment_handler_class",
-    "field_value": "FS\\Molly\\Attachment\\Molly"
-}

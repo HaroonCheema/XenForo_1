@@ -23,7 +23,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.form_thread_moderation' => '',
   'option_group_description.fsEscrow' => '[FS] Escrow',
   'option_group_description.fs_MediaTagSetting' => '',
-  'option_group_description.fs_molly' => '[FS] Forum Groups',
+  'option_group_description.fs_forum_groups' => '[FS] Forum Groups',
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.fs_question_answers' => '',
   'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',

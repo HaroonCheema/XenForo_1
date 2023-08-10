@@ -1,0 +1,258 @@
+<xf:title page="{$page}">{{ phrase('fs_forum_groups') }}</xf:title>
+
+<xf:page
+  option="searchConstraints"
+  value="{{ {
+	phrase('fs_auction_auctions'): {'search_type': 'fs_auction_auctions'}
+} }}"
+/>
+
+<xf:pageaction if="$xf.visitor">
+    <xf:button
+    href="{{ link('forumGroups/add') }}"
+    class="button--cta"
+    icon="write"
+    >{{ phrase('fs_forum_groups_add_sub_forum') }}</xf:button
+  >
+</xf:pageaction>
+  
+
+<div
+  class="block"
+  data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}"
+  data-type="fs_forum_groups"
+  data-href="{{ link('inline-mod') }}"
+>
+  <div class="block-outer">
+
+  </div>
+  <div class="block-container">
+
+    <!--Listing View--->
+    <div class="block-body">
+		
+    <!--Sub Forums List View--->
+		<xf:if is="count($subForums) != 0">
+            
+			    <xf:set var="$dummyArray" value="{{range(0,3)}}" />
+		
+		
+			 	<div class="block groupListBlock" data-xf-init="inline-mod"
+         data-type="tl_group"
+         data-href="{{ link('inline-mod') }}">
+		
+		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+		
+		 <xf:foreach loop="{$subForums}" value="$value">
+
+    
+			 <xf:macro
+					name="forum_groups_sub_forum_list"
+					arg-subForum="{$value}"
+				  />
+			 
+  </xf:foreach>
+					</div>
+		</div>
+			</xf:if>
+		
+	<xf:css src="tlg_group_list.less" />
+    <xf:css src="tlg_style.less" />
+	<xf:css src="tlg_grid_card.less" />
+
+    <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
+	 
+		
+    <!--Sub Forums List View--->
+
+      <div class="block-footer">
+        <span class="block-footer-counter"
+          >{{ display_totals($totalReturn, $total) }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="block-outer block-outer--after">
+
+    <xf:showignored wrapperclass="block-outer-opposite" />
+  </div>
+</div>
+
+<xf:page option="sideNavTitle">{{ phrase('fs_forum_groups_side_community') }}</xf:page>
+
+<xf:sidenav>
+	<xf:comment>
+  <xf:macro
+    template="fs_auction_category_list_macros"
+    name="simple_list_block"
+    arg-categoryTree="null"
+  />
+	</xf:comment>
+	
+	<div class="block">
+		<div class="block-container">
+			<h3 class="block-header">{{ phrase('fs_forum_groups_side_community') }}</h3>
+			<div class="block-body">
+				
+					<div class="block-row">{{ phrase('n_a') }}</div>
+				
+			</div>
+		</div>
+	</div>
+
+</xf:sidenav>
+
+<!-- Filter Bar Macro Start -->
+
+    <!--Sub Forums List View--->
+
+<xf:macro
+  name="forum_groups_sub_forum_list"
+  arg-subForum="!"
+>	  			
+	  <div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		  
+        <div class="gridCard--container">
+			
+			<!-- Cover -->
+			
+			<div class="gridCard--cover">
+			
+				<div class="groupCover--wrapper">
+                
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
+                <xf:if is="$subForum.CoverAttachment">
+                <img data-crop="{$subForum->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
+            </xf:if>
+            </a>
+        </div>
+                   
+                
+
+            </div>
+			
+			</div>
+			
+			<!-- Cover -->
+			
+			
+			<!-- Header -->
+			
+	  
+	   <div class="gridCard--header">
+		   
+			<!-- Avatar -->
+		   
+		   <div class="gridCard--header--avatar">
+           <xf:if is="$subForum.AvatarAttachment">
+			   <a href="{{ link('forumGroups', $subForum) }}"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img bbImage" width="100" height="100"
+                 data-width="{$subForum.AvatarAttachment.width}"
+                 data-height="{$subForum.AvatarAttachment.height}"
+                 alt="{$subForum.title}"/>
+    </a>		   
+			   
+			<xf:else />
+			   <xf:comment>
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+				   </xf:comment>
+			   			  <xf:avatar user="$xf.visitor" size="l" />
+			</xf:if>
+		   </div>
+		   
+			<!-- Avatar -->
+		   
+			<!-- Header Main -->
+              
+                <div class="gridCard--header--main">
+                    
+		<xf:trim>
+        <a href="{{ link('forumGroups', $subForum) }}" class="gridCard--header--title"
+           data-tp-primary="on">
+            <span>{$subForum.title}</span>
+        </a>
+    </xf:trim>					
+					
+					
+		<xf:trim>
+        <ul class="listInline group--counterList u-muted">
+            <li class="groupItem-stat groupItem-stat--viewCount">
+                <xf:fa icon="fa-eye" />
+                1
+            </li>
+            <li class="groupItem-stat groupItem-stat--memberCount">
+                <xf:fa icon="fa-users" />
+                2
+            </li>
+            <xf:if is="$xf.options.tl_groups_enableForums">
+                <li class="groupItem-stat groupItem-stat--discussionCount">
+                    <xf:fa icon="fa-comment" />
+                    3
+                </li>
+            </xf:if>
+            <li class="groupItem-stat groupItem-stat--eventCount">
+                <xf:fa icon="fa-calendar" />
+                4
+            </li>
+        </ul>
+    </xf:trim>
+						
+                </div>
+		   
+			<!-- Header Main -->
+		   
+			<!-- Action -->
+		   
+		   <div class="gridCard--header--actions">
+		   
+			<div class="buttonGroup-buttonWrapper">
+                <xf:button class="button--link menuTrigger"
+                       data-xf-click="menu"
+                       aria-expanded="false"
+                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
+					<div class="menu" data-menu="menu" aria-hidden="true">
+                    <div class="menu-content">
+                                <a href="{{ link('forumGroups/add-moderator', $subForum) }}"
+                                       class="menu-linkRow"
+                                       data-xf-click="overlay">
+                                {{  phrase('fs_forum_groups_moderator')  }}
+                            </a>
+                           
+                            <hr class="menu-separator" />
+                    </div>
+                </div>
+            </div>   
+			   
+		   </div>
+		   
+			<!-- Action -->
+		   
+            </div>
+			
+			<!-- Header -->
+			
+	  <xf:if contentcheck="true">
+                <div class="gridCard--body">
+                    <xf:contentcheck>
+					
+						<div class="groupList--description u-muted">{$subForum.description}</div>
+						
+					</xf:contentcheck>
+                </div>
+            </xf:if>
+			
+		  </div>
+		  
+	  </div>
+
+</xf:macro>
+
+    <!--Sub Forums List View--->
