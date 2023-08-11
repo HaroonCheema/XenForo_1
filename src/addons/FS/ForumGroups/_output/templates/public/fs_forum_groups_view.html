@@ -1,8 +1,10 @@
 <xf:title>{$group.name}</xf:title>
 
+<xf:if is="$xf.visitor.user_id && $xf.visitor.user_id == $subForums.user_id">
 	<xf:button href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta" icon="write">
 		{{ phrase('fs_forum_group_moderator_list') }}
 	</xf:button>
+</xf:if>
 	
 	<!-- Thread BTN -->
 	
@@ -11,9 +13,11 @@
 		{{ phrase('post_thread') }}
 	</xf:button>
 
+<xf:if is="$xf.visitor.user_id && $subForums.room_path && $xf.visitor.user_id == $subForums.user_id">
 	<xf:button href="{{ link($subForums.room_path) }}" class="button--cta" icon="write" style="float: right">
 		{{ phrase('fs_forum_groups_room_chat') }}
 	</xf:button>
+</xf:if>
 	
 	<!-- Thread BTN -->
 

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: baa90a8cedb99f20b00064504dfadd31
+// FROM HASH: 7a5f5a44013b2152a9874cc9e995f5d6
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -7,14 +7,20 @@ return array(
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['group']['name']));
 	$__finalCompiled .= '
 
+';
+	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id'])) {
+		$__finalCompiled .= '
 	' . $__templater->button('
 		' . 'Moderator List' . '
 	', array(
-		'href' => $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), false),
-		'class' => 'button--cta',
-		'icon' => 'write',
-	), '', array(
-	)) . '
+			'href' => $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), false),
+			'class' => 'button--cta',
+			'icon' => 'write',
+		), '', array(
+		)) . '
+';
+	}
+	$__finalCompiled .= '
 	
 	<!-- Thread BTN -->
 	
@@ -29,15 +35,21 @@ return array(
 	), '', array(
 	)) . '
 
+';
+	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['subForums']['room_path'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id']))) {
+		$__finalCompiled .= '
 	' . $__templater->button('
 		' . 'Chat Room' . '
 	', array(
-		'href' => $__templater->func('link', array($__vars['subForums']['room_path'], ), false),
-		'class' => 'button--cta',
-		'icon' => 'write',
-		'style' => 'float: right',
-	), '', array(
-	)) . '
+			'href' => $__templater->func('link', array($__vars['subForums']['room_path'], ), false),
+			'class' => 'button--cta',
+			'icon' => 'write',
+			'style' => 'float: right',
+		), '', array(
+		)) . '
+';
+	}
+	$__finalCompiled .= '
 	
 	<!-- Thread BTN -->
 

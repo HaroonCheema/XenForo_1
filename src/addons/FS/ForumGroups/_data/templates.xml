@@ -1024,7 +1024,7 @@
 } }}"
 />
 
-<xf:pageaction if="$xf.visitor">
+<xf:pageaction if="$xf.visitor.user_id">
     <xf:button
     href="{{ link('forumGroups/add') }}"
     class="button--cta"
@@ -1788,9 +1788,11 @@
 </xf:macro>]]></template>
   <template type="public" title="fs_forum_groups_view" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{$group.name}</xf:title>
 
+<xf:if is="$xf.visitor.user_id && $xf.visitor.user_id == $subForums.user_id">
 	<xf:button href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta" icon="write">
 		{{ phrase('fs_forum_group_moderator_list') }}
 	</xf:button>
+</xf:if>
 	
 	<!-- Thread BTN -->
 	
@@ -1799,9 +1801,11 @@
 		{{ phrase('post_thread') }}
 	</xf:button>
 
+<xf:if is="$xf.visitor.user_id && $subForums.room_path && $xf.visitor.user_id == $subForums.user_id">
 	<xf:button href="{{ link($subForums.room_path) }}" class="button--cta" icon="write" style="float: right">
 		{{ phrase('fs_forum_groups_room_chat') }}
 	</xf:button>
+</xf:if>
 	
 	<!-- Thread BTN -->
 

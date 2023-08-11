@@ -7,7 +7,7 @@
 } }}"
 />
 
-<xf:pageaction if="$xf.visitor">
+<xf:pageaction if="$xf.visitor.user_id">
     <xf:button
     href="{{ link('forumGroups/add') }}"
     class="button--cta"

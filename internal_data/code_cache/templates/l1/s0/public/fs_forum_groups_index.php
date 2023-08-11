@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: e3bb0faadc4a13c3d57fa9db2b806148
+// FROM HASH: c7fcb851a7fc0aeeaa0ffe1589595663
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -198,7 +198,7 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	if ($__vars['xf']['visitor']) {
+	if ($__vars['xf']['visitor']['user_id']) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
     ' . $__templater->button('Add Group', array(
 			'href' => $__templater->func('link', array('forumGroups/add', ), false),
