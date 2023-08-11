@@ -1,4 +1,10 @@
 {
+    "fs_forum_gorups_delete_existing_image.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "54ef1cb34e86c46e05c0111febae1397"
+    },
     "fs_forum_group_avatar.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -33,13 +39,19 @@
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "c9d956ceb5c1fb1fee595c13b07ec07a"
+        "hash": "b112803ab9deb7deba2a6b24ef3bb91a"
     },
     "fs_forum_groups_moderator.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "575311a705a163a867cf067e48daa652"
+    },
+    "fs_forum_groups_room_chat.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "16a418a65e5ac52ac98bcaf6b82fb9aa"
     },
     "fs_forum_groups_side_community.txt": {
         "global_cache": false,
@@ -94,5 +106,29 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "51c873b35b7446c3b9a43fd3f6ef3935"
+    },
+    "style_prop.fs_avatarBorderRadius.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "f8a868853c207c1be844b7d270dfe746"
+    },
+    "style_prop_desc.fs_avatarBorderRadius.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "style_prop_group.fs_forum_gorups.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "51c873b35b7446c3b9a43fd3f6ef3935"
+    },
+    "style_prop_group_desc.fs_forum_gorups.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
     }
 }

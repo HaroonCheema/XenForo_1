@@ -4,20 +4,45 @@
         "version_string": "1.0.0 Alpha",
         "hash": "a2e981cd90be92305896a5dc06f02fe5"
     },
+    "public/fs_forum_gorups_css_helper.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "1f22da9b6835e44e72b7a3671f70654c"
+    },
+    "public/fs_forum_gorups_grid_card.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "cef170c9835862c028f38b1e31a2e75e"
+    },
+    "public/fs_forum_gorups_group_list.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e02962ee36056c109c4b74ce79c61c30"
+    },
+    "public/fs_forum_gorups_style.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "6b7507bb573eb609d03e59b8d3056a5f"
+    },
     "public/fs_forum_groups_form_upload.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "73746da2d87f74e4a1b2b4124efc8168"
+        "hash": "9bc9fd6d495a513f520e18034d51e83d"
     },
     "public/fs_forum_groups_forum_view_list.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "e50594633f6a1766711cfb09524d33d8"
+        "hash": "a3e52ba46337ce45fff0eb19ae36b856"
+    },
+    "public/fs_forum_groups_forum_view_single.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "94787fc9a8774d708b6f04250cd0aae4"
     },
     "public/fs_forum_groups_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "3b258412e4e025bb5c75e10a15b37b08"
+        "hash": "e3bb0faadc4a13c3d57fa9db2b806148"
     },
     "public/fs_forum_groups_moderator_list.html": {
         "version_id": 1000010,
@@ -37,7 +62,7 @@
     "public/fs_forum_groups_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "2876eeaf2aec21eab31c1f371abc6588"
+        "hash": "baa90a8cedb99f20b00064504dfadd31"
     },
     "public/moderator_add_choice.html": {
         "version_id": 1000010,

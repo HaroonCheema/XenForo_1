@@ -6,9 +6,9 @@
 					arg-extras="{$nodeExtras}"
 					arg-depth="2" />]]></find>
     <replace><![CDATA[<xf:if is="$forum.node_id == $xf.options.fs_forum_groups_applicable_forum">
-<xf:css src="tlg_group_list.less" />
-<xf:css src="tlg_style.less" />
-<xf:css src="tlg_grid_card.less" />
+<xf:css src="fs_forum_gorups_group_list.less" />
+<xf:css src="fs_forum_gorups_style.less" />
+<xf:css src="fs_forum_gorups_grid_card.less" />
 
 			<div class="block groupListBlock" data-xf-init="inline-mod"
          data-type="tl_group"
@@ -26,6 +26,22 @@
 				</div>
 <xf:else />
 	$0	
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_forum_gorups_forum_view_single" description="fs_forum_gorups_forum_view_single" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:if is="$canInlineMod">
+	<xf:js src="xf/inline_mod.js" min="1" />
+</xf:if>]]></find>
+    <replace><![CDATA[$0
+
+<xf:if is="$forum.Node.parent_node_id == $xf.options.fs_forum_groups_applicable_forum">
+			<xf:if is="!$nodeTree">
+			  <xf:macro
+			  template="fs_forum_groups_forum_view_single"
+			  name="fs_forum_groups_forum_view_single_macro"
+			  arg-subForums="{$forum.Node}"
+			  />
+			</xf:if>
 </xf:if>]]></replace>
   </modification>
 </template_modifications>

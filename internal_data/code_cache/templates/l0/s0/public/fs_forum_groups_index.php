@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 3b258412e4e025bb5c75e10a15b37b08
+// FROM HASH: e3bb0faadc4a13c3d57fa9db2b806148
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -25,7 +25,7 @@ return array(
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '
                 <img data-crop="' . $__templater->filter($__templater->method($__vars['subForum'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      ' . ($__templater->method($__vars['subForum'], 'getImageAttributes', array()) ? (' ' . $__templater->escape($__templater->method($__vars['subForum'], 'getImageAttributes', array()))) : '') . '/>
             ';
 	} else {
@@ -70,7 +70,7 @@ return array(
 	} else {
 		$__finalCompiled .= '
 			   ' . '
-			   			  ' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
+			   			  ' . $__templater->func('avatar', array($__vars['subForum']['User'], 'l', false, array(
 		))) . '
 			';
 	}
@@ -200,7 +200,7 @@ return array(
 ';
 	if ($__vars['xf']['visitor']) {
 		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-    ' . $__templater->button('Add Sub Community', array(
+    ' . $__templater->button('Add Group', array(
 			'href' => $__templater->func('link', array('forumGroups/add', ), false),
 			'class' => 'button--cta',
 			'icon' => 'write',
@@ -262,13 +262,13 @@ return array(
 	$__finalCompiled .= '
 		
 	';
-	$__templater->includeCss('tlg_group_list.less');
+	$__templater->includeCss('fs_forum_gorups_group_list.less');
 	$__finalCompiled .= '
     ';
-	$__templater->includeCss('tlg_style.less');
+	$__templater->includeCss('fs_forum_gorups_style.less');
 	$__finalCompiled .= '
 	';
-	$__templater->includeCss('tlg_grid_card.less');
+	$__templater->includeCss('fs_forum_gorups_grid_card.less');
 	$__finalCompiled .= '
 
     ';

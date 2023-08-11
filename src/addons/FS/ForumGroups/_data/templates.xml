@@ -24,6 +24,747 @@
 
 	<xf:numberbox name="{$name}" value="{$value}" min="0" step="{$step}" readonly="{{ $readOnly ? 'readonly' : '' }}" />
 </xf:macro>]]></template>
+  <template type="public" title="fs_forum_gorups_css_helper.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[.m-groupFlexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+// helper display flex.
+.h-dFlex {
+  .groups-displayFlex();
+}
+
+.h-dFlex--wrap {
+  flex-wrap: wrap;
+}
+
+.groups-displayFlex() {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+}
+
+// loaders
+/**
+ * Lines
+ */
+@-webkit-keyframes line-scale {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4); }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
+@keyframes line-scale {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4); }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
+
+.loader--line-scale {
+  > div {
+    background-color: #fff;
+    width: 4px;
+    height: 35px;
+    border-radius: 2px;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+
+    &:nth-child(1) {
+      -webkit-animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    }
+
+    &:nth-child(2) {
+      -webkit-animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    }
+
+    &:nth-child(3) {
+      -webkit-animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+    &:nth-child(4) {
+      -webkit-animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+    &:nth-child(5) {
+      -webkit-animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+  }
+}]]></template>
+  <template type="public" title="fs_forum_gorups_grid_card.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_forum_gorups_css_helper.less') }}
+
+.gridCard {
+  flex: 0 0 33.33%;
+  padding: @xf-paddingMedium;
+  min-width: 33.33%;
+  align-self: stretch;
+  position: relative;
+  .m-transition();
+
+  .fa {
+    margin-right: 4px;
+  }
+
+  &.is-mod-selected {
+    opacity: 0.5;
+  }
+
+  .groupCover--wrapper {
+    position: relative;
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      .m-dropShadow();
+    }
+  }
+}
+
+// header
+.gridCard--header {
+  display: flex;
+  background-color: @xf-contentHighlightBg;
+  border-bottom: 1px solid @xf-borderColorLight;
+
+  .gridCard--header--avatar {
+    >* {
+      .m-avatarSize(60px);
+    }
+  }
+
+  .gridCard--header--main {
+    flex: 1;
+    margin-left: @xf-paddingMedium;
+    margin-right: @xf-paddingMedium;
+  }
+
+  .gridCard--header--actions {
+    min-width: 50px;
+  }
+}
+
+.gridCard--container {
+  height: 100%;
+  background: @xf-contentBg;
+  border-radius: @xf-borderRadiusSmall;
+  display: flex;
+  flex-direction: column;
+
+  .m-dropShadow();
+
+  .gridCard--cover {
+    height: 100px;
+    overflow: hidden;
+
+    .m-borderTopRadius(@xf-borderRadiusSmall);
+
+    >* {
+      height: 100px;
+      font-size: 30px;
+    }
+  }
+
+  .groupAvatar--img {
+    width: 100%;
+    height: 100%;
+  }
+
+  > * {
+    &:not(.gridCard--cover) {
+      padding: @xf-paddingMedium;
+    }
+  }
+}
+
+.gridCard--body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.gridCard--footer {
+  border-top: 1px solid @xf-borderColorLight;
+  display: flex;
+  flex-direction: row;
+
+  .groupItem--members {
+    flex: 1;
+    margin: 0 !important;
+    overflow-x: hidden;
+    .groups-displayFlex();
+
+    li {
+      + li {
+        margin-left: -10px;
+      }
+
+      .avatar {
+        border:2px solid #fff;
+      }
+    }
+  }
+
+  .button--groupJoin {
+    align-self: flex-start;
+  }
+}
+
+.gridCard--header--title {
+  font-weight: normal;
+  font-size: @xf-fontSizeLarge;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  .badge {
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-left: @xf-paddingMedium;
+  }
+}
+
+.groupItem--meta {
+  font-size: @xf-fontSizeSmaller;
+}
+
+.gridCardFlexColLoop(5);
+
+// 900px
+@media(max-width: @xf-responsiveWide) {
+  .gridCardList--flex--3-col {
+    .gridCard {
+      flex-basis: 50%;
+      min-width: 50%;
+    }
+  }
+}
+
+// 650px
+@media(max-width: @xf-responsiveMedium) {
+  .gridCardList--flex--3-col,
+  .gridCardList--flex--2-col {
+    .gridCard {
+      flex-basis: 100%;
+      min-width: 100%;
+    }
+  }
+}
+// 480px
+@media(max-width: @xf-responsiveNarrow) {
+  .gridCardList--flex{
+    .gridCard {
+      flex-basis: 100%;
+      min-width: 100%;
+    }
+  }
+}
+
+// Auto generate grid card columns class
+.gridCardFlexColLoop(@n) when (@n > 0) {
+  .gridCardList--flex--@{n}-col {
+    .gridCard {
+      flex-basis: (100% / @n);
+      min-width: (100% / @n);
+    }
+  }
+
+  .gridCardFlexColLoop((@n - 1));
+}]]></template>
+  <template type="public" title="fs_forum_gorups_group_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_forum_gorups_css_helper.less') }}
+
+.group--counterList {
+  justify-content: space-between;
+  .groups-displayFlex();
+}
+
+.groupListBlock {
+  .groupList {
+    margin-right: -@xf-paddingMedium + 1;
+    margin-left: -@xf-paddingMedium + 1;
+    flex-wrap: wrap;
+  }
+
+  &.groupListBlock--empty {
+    .block-container {
+        margin-bottom: @xf-paddingMedium;
+      }
+  }
+
+  .block-filterBar {
+    border-bottom-width: 0;
+  }
+}
+
+.groupCover--wrapper {
+  position: relative;
+
+  .groupCoverFrame {
+    height: 100%;
+    font-size: 30px;
+  }
+
+  .groupCover--inlineMod {
+    .m-dropShadow();
+    background: rgba(0,0,0,.6);
+    color: #ecf0ff;
+    border-radius: 50%;
+
+    position: absolute;
+    top: @xf-paddingMedium;
+    left: @xf-paddingMedium;
+    width: 24px;
+    height: 24px;
+    font-size: 15px;
+    padding-top: 2px;
+    padding-left: 2px;
+    text-align: center;
+  }
+
+  .iconic--noLabel {
+    &:hover {
+      cursor: pointer;
+      input {
+        + i:before {
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+}
+.widget-groups {
+  .contentRow-figure {
+    .groupAvatar {
+      .m-avatarSize(24px);
+    }
+  }
+}
+
+// 650px
+@media(max-width: @xf-responsiveMedium) {
+  .groupListBlock {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+
+    .groupList {
+      margin-right: -@xf-paddingLarge;
+      margin-left: -@xf-paddingLarge;
+
+      .gridCard {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .gridCard--container {
+      border-radius: 0;
+      .gridCard--cover {
+        .m-borderTopRadius(0);
+      }
+    }
+  }
+}
+// 480px
+@media(max-width: @xf-responsiveNarrow) {
+}]]></template>
+  <template type="public" title="fs_forum_gorups_style.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_forum_gorups_css_helper.less') }}
+
+// declare variables.
+@groupNavItemHeight: 42px;
+
+.groupViewNav--item {
+  &:hover, &.is-active {
+    background-color: @xf-paletteColor1;
+    a {
+      text-decoration: none;
+      .xf-link();
+    }
+  }
+}
+
+.groupViewNav {
+  .groupViewNav--item {
+    a {
+      padding: @xf-paddingLarge;
+      display: flex;
+
+      .groupViewNav--itemText {
+        flex: 1;
+      }
+    }
+
+    &:last-child {
+      a {
+        .m-borderBottomRadius(@xf-borderRadiusMedium - 1);
+      }
+    }
+
+    &.is-active {
+      a {
+        border-left: 2px solid @xf-borderColorFeature;
+      }
+    }
+
+    .badge {
+      align-self: center;
+    }
+  }
+}
+
+.groupCover-header {
+  .groupCover {
+    .m-borderTopRadius(@xf-borderRadiusSmall + 1);
+  }
+}
+
+.groupCoverFrame {
+  width: 100%;
+  height: 205px;
+  overflow: hidden;
+  position: relative;
+
+  .m-transition(height, 200ms, ease-in);
+
+  &.groupCoverFrame--setup {
+    background-color: @xf-contentAccentBg;
+    .loader--line-scale {
+      > div {
+        background-color: @xf-textColorAccentContent;
+      }
+    }
+  }
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .groupCover--img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .m-transition(top);
+  }
+
+  &.groupCoverFrame--setup {
+    .groupCover--img {
+      .m-transition(none);
+    }
+  }
+
+  .groupCover--guide {
+    position: absolute;
+    font-size: @xf-fontSizeSmall;
+    padding: @xf-paddingMedium @xf-paddingLarge;
+    background-color: rgba(0,0,0,.4);
+    border-radius: @xf-borderRadiusMedium;
+    color: @xf-paletteNeutral1;
+
+    .m-dropShadow();
+
+    &:before {
+      .m-faBase();
+      .m-faContent("\f047");
+      margin-right: @xf-paddingSmall;
+    }
+  }
+
+  // fixed flash text while cover editor
+  .cropControls {
+    display: none;
+  }
+}
+
+.timePicker--wrap {
+  display: block;
+  padding: @xf-paddingLarge;
+  box-sizing: border-box;
+
+  .timePicker--wrap--text {
+    font-size: @xf-fontSizeNormal;
+  }
+}
+
+.flex--row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex--grow {
+  flex-grow: 1;
+}
+
+// Group Prevew Customized
+.tooltip--preview {
+  .tooltip-content {
+    .tooltip-expanded {
+      max-height: 255px;
+      margin: -@xf-paddingMedium;
+
+      .memberTooltip-avatar {
+        padding-right: 10px;
+      }
+
+      .groupCoverFrame {
+        height: 90px;
+        font-size: 25px;
+      }
+
+      .memberTooltip-actions {
+        display: flex;
+      }
+    }
+
+    .memberTooltip-name {
+      font-size: @xf-fontSizeLarge;
+    }
+
+    .groupAvatar {
+      .m-avatarSize(50px);
+    }
+  }
+}
+
+.groupCoverFrame,
+.groupAvatar--default {
+  .m-groupFlexCenter();
+
+  font-size: 50px;
+}
+
+// Group avatar default (text dynamic)
+.groupAvatar {
+  display: flex;
+  border-radius: @xf-fs_avatarBorderRadius;
+  overflow: hidden;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+// SIDEBAR GROUP AVATAR
+.contentRow-figure {
+  .groupAvatar {
+    .m-avatarSize(24px);
+    border-radius: @xf-fs_avatarBorderRadius;
+  }
+}
+
+.groupAvatar--default {
+  text-decoration: none;
+}
+
+.p-body-sideNav {
+  .groupAvatar {
+    .m-avatarSize(@xf-sidebarWidth);
+  }
+}
+
+.p-body-sideNavInner {
+  &.is-active,
+  &.is-transitioning {
+    .groupAvatar-block {
+      .groupAvatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.groupHeader-navList {
+  .groupViewNav--item, .groupHeader-navList--user {
+    padding: @xf-paddingMedium;
+  }
+
+  .hScroller-action {
+    .m-hScrollerActionColorVariation(@xf-contentHighlightBg, @xf-textColorFeature, @xf-textColorEmphasized);
+  }
+
+  .groupViewNav--item {
+    height: @groupNavItemHeight;
+    box-sizing: border-box;
+    line-height: (@groupNavItemHeight + @xf-paddingMedium * 2)/2;
+    padding-left: @xf-paddingLargest;
+    padding-right: @xf-paddingLargest;
+
+    &.is-active {
+      border-bottom: 2px solid @xf-borderColorFeature;
+      background-color: @xf-paletteColor1;
+
+      a {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .groupHeader-navList--user {
+    min-width: 200px;
+    justify-content: flex-end;
+  }
+}
+
+// template: tl_groups_bb_code_group.html
+.groupBbCode--wrapper {
+  max-width: 320px;
+
+  .listInline {
+    margin: 0 !important;
+  }
+}
+
+.groupMembers {
+  .contentRow {
+    .avatar {
+      .m-avatarSize(66px);
+    }
+  }
+}
+
+// 900px
+@media (min-width: @xf-responsiveWide) {
+  .groupHeader-navList {
+    .hScroller {
+      display: none !important;
+    }
+
+    .groupHeader-navList--user {
+      justify-content: flex-start;
+    }
+  }
+}
+
+// 900px
+@media (max-width: @xf-responsiveWide) {
+  .groupHeader-navList {
+    .hScroller {
+      display: block !important;
+    }
+  }
+
+  .groupCover-header {
+    position: relative;
+    .groupCover {
+      .m-borderTopRadius(0);
+    }
+
+    .groupHeader-navList--user {
+      position: absolute;
+      bottom: @groupNavItemHeight;
+      right: 0;
+
+      .button--groupJoin,
+      .button--groupAlerts {
+        display: none;
+      }
+
+      .button {
+        &.menuTrigger {
+          border: 1px solid @xf-borderColor;
+          border-top-left-radius: @xf-borderRadiusMedium !important;
+          border-bottom-left-radius: @xf-borderRadiusMedium !important;
+        }
+      }
+    }
+  }
+}
+
+.tooltip-group--inner {
+  .memberTooltip-avatar {
+    width: 60px;
+  }
+}
+
+.groupBadge {
+  display: flex;
+  align-items: center;
+  padding: @xf-paddingMedium;
+  background-color: @xf-inlineModHighlightColor;
+  border-radius: @xf-borderRadiusMedium;
+
+  &.has-cover {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .groupBadge-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.3);
+    border-radius: @xf-borderRadiusMedium;
+  }
+
+  .groupAvatar {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    z-index: 1;
+  }
+
+  .groupBadge-name {
+    margin-left: @xf-paddingMedium;
+    z-index: 1;
+    color: #fff;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: ~"calc(100% - 28px)";
+    white-space: nowrap;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+// fs-forum-groups_media_album_add_chooser.html
+.linkAlbums-fields {
+  .input {
+    + .input {
+      margin-top: @xf-paddingLarge;
+    }
+  }
+}]]></template>
   <template type="public" title="fs_forum_groups_form_upload" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{$fieldLabel}</xf:title>
 
 <xf:form action="{$formAction}" ajax="true" upload="true" class="block">
@@ -38,7 +779,7 @@
 
             <xf:if is="$canDelete">
                 <xf:checkboxrow>
-                    <xf:option name="delete">{{ phrase('tlg_delete_existing_image') }}</xf:option>
+                    <xf:option name="delete">{{ phrase('fs_forum_gorups_delete_existing_image') }}</xf:option>
                 </xf:checkboxrow>
             </xf:if>
         </div>
@@ -61,10 +802,10 @@
 				<div class="groupCover--wrapper">
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="{{ link('forums', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
@@ -90,7 +831,7 @@
 		   
 		   <div class="gridCard--header--avatar">
            <xf:if is="$subForum.AvatarAttachment">
-			   <a href="{{ link('forumGroups', $subForum) }}"
+			   <a href="{{ link('forums', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
 			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
                  class="groupAvatar--img bbImage" width="100" height="100"
@@ -114,7 +855,7 @@
                 <div class="gridCard--header--main">
                     
 		<xf:trim>
-        <a href="{{ link('forumGroups', $subForum) }}" class="gridCard--header--title"
+        <a href="{{ link('forums', $subForum) }}" class="gridCard--header--title"
            data-tp-primary="on">
             <span>{$subForum.title}</span>
         </a>
@@ -195,6 +936,85 @@
 </xf:macro>
 
     <!--Sub Forums List View--->]]></template>
+  <template type="public" title="fs_forum_groups_forum_view_single" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:macro
+  name="fs_forum_groups_forum_view_single_macro"
+  arg-subForums="!"
+>
+
+<xf:css src="fs_forum_gorups_style.less" />
+	
+<xf:sidenav>
+	
+	<!-- Avatar -->
+	
+	<div class="block groupAvatar-block">
+           <xf:if is="$subForums.AvatarAttachment">
+        <a href="{{ link('forumGroups', $subForums) }}"
+       class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
+			<img src="{{ $subForums.AvatarAttachment.thumbnail_url }}"
+                 class="groupAvatar--img bbImage" width="250" height="250"
+                 data-width="{$subForums.AvatarAttachment.width}"
+                 data-height="{$subForums.AvatarAttachment.height}"
+                 alt="{$subForums.title}"/>
+    </a>
+			   
+			<xf:else />
+			   <xf:comment>
+            <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
+			   </xf:comment>
+			  <xf:avatar user="$xf.visitor" size="l" />
+			</xf:if>
+    </div>
+	
+	<!-- Avatar -->
+
+</xf:sidenav>
+
+<div class="groupWrapper groupWrapper-{$subForums.node_id}">
+
+	<!-- Header -->
+
+	<xf:page option="headerHtml">
+        <div class="contentRow contentRow--hideFigureNarrow">
+            <div class="contentRow-main">
+                <div class="p-title">
+                    <h1 class="p-title-value">
+                        {$subForums.title}
+                    </h1>
+                </div>
+                    <div class="p-description">
+                        {$subForums.description}
+                    </div>
+            </div>
+        </div>
+    </xf:page>
+
+	<!-- Header -->
+
+	<!-- Cover Header -->
+
+	<div class="block">
+        <div class="block-container groupCover-header">
+            <div class="block-body">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
+        <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+                <xf:if is="$subForums.CoverAttachment">
+                <img data-crop="{$subForums->getCoverCropData()|json}"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
+                     {{ ($subForums.getImageAttributes()) ? (' ' . $subForums.getImageAttributes()) : '' }}/>
+            <xf:else />
+                <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
+            </xf:if>
+        </a>
+    </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- Cover Header -->
+	
+</div>
+</xf:macro>]]></template>
   <template type="public" title="fs_forum_groups_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_forum_groups') }}</xf:title>
 
 <xf:page
@@ -253,9 +1073,9 @@
 		</div>
 			</xf:if>
 		
-	<xf:css src="tlg_group_list.less" />
-    <xf:css src="tlg_style.less" />
-	<xf:css src="tlg_grid_card.less" />
+	<xf:css src="fs_forum_gorups_group_list.less" />
+    <xf:css src="fs_forum_gorups_style.less" />
+	<xf:css src="fs_forum_gorups_grid_card.less" />
 
     <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
 	 
@@ -300,7 +1120,7 @@
             <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
@@ -339,7 +1159,7 @@
 			   <xf:comment>
             <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
 				   </xf:comment>
-			   			  <xf:avatar user="$xf.visitor" size="l" />
+			   			  <xf:avatar user="$subForum.User" size="l" />
 			</xf:if>
 		   </div>
 		   
@@ -971,6 +1791,19 @@
 	<xf:button href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta" icon="write">
 		{{ phrase('fs_forum_group_moderator_list') }}
 	</xf:button>
+	
+	<!-- Thread BTN -->
+	
+	
+	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('post_thread') }}
+	</xf:button>
+
+	<xf:button href="{{ link($subForums.room_path) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('fs_forum_groups_room_chat') }}
+	</xf:button>
+	
+	<!-- Thread BTN -->
 
 <xf:pageaction>
 	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
@@ -978,7 +1811,7 @@
 	</xf:button>
 </xf:pageaction>
 
-<xf:css src="tlg_style.less" />
+<xf:css src="fs_forum_gorups_style.less" />
 
 <xf:sidenav>
 	
@@ -999,7 +1832,7 @@
 			   <xf:comment>
             <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
 			   </xf:comment>
-			  <xf:avatar user="$xf.visitor" size="l" />
+			  <xf:avatar user="$subForums.User" size="l" />
 			</xf:if>
     </div>
 	
@@ -1037,7 +1870,7 @@
         <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
                      {{ ($subForums.getImageAttributes()) ? (' ' . $subForums.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
@@ -1092,27 +1925,7 @@
     </div>
 
 	<!-- Cover Header -->
-	
-	<xf:comment>
-	
-		<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
-	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
-		{{ phrase('post_thread') }}
-	</xf:button>
-</xf:pageaction>
 		
-	</xf:comment>
-	
-	<!-- Thread BTN -->
-	
-	
-	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
-		{{ phrase('post_thread') }}
-	</xf:button>
-	
-	<!-- Thread BTN -->
-	
-	
 	<!-- Thread Lists -->
 	
 		<div class="block-container">

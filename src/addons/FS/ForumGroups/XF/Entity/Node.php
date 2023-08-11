@@ -18,6 +18,7 @@ class Node extends XFCP_Node
         $structure = parent::getStructure($structure);
 
         $structure->columns['user_id'] =  ['type' => self::UINT, 'default' => 0];
+        $structure->columns['room_path'] =  ['type' => self::STR, 'default' => null];
         $structure->columns['avatar_attachment_id'] =  ['type' => self::UINT, 'default' => 0];
         $structure->columns['cover_attachment_id'] =  ['type' => self::UINT, 'default' => 0];
         $structure->columns['cover_crop_data'] =  ['type' => self::JSON_ARRAY, 'default' => []];
@@ -40,6 +41,11 @@ class Node extends XFCP_Node
                 ],
                 'primary' => true,
                 'with' => ['Data']
+            ],
+            'User' => [
+                'entity' => 'XF:User',
+                'type' => self::TO_ONE,
+                'conditions' => 'user_id',
             ],
         ];
 

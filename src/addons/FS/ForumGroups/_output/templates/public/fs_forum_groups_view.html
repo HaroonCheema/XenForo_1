@@ -3,6 +3,19 @@
 	<xf:button href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta" icon="write">
 		{{ phrase('fs_forum_group_moderator_list') }}
 	</xf:button>
+	
+	<!-- Thread BTN -->
+	
+	
+	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('post_thread') }}
+	</xf:button>
+
+	<xf:button href="{{ link($subForums.room_path) }}" class="button--cta" icon="write" style="float: right">
+		{{ phrase('fs_forum_groups_room_chat') }}
+	</xf:button>
+	
+	<!-- Thread BTN -->
 
 <xf:pageaction>
 	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
@@ -10,7 +23,7 @@
 	</xf:button>
 </xf:pageaction>
 
-<xf:css src="tlg_style.less" />
+<xf:css src="fs_forum_gorups_style.less" />
 
 <xf:sidenav>
 	
@@ -31,7 +44,7 @@
 			   <xf:comment>
             <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
 			   </xf:comment>
-			  <xf:avatar user="$xf.visitor" size="l" />
+			  <xf:avatar user="$subForums.User" size="l" />
 			</xf:if>
     </div>
 	
@@ -69,7 +82,7 @@
         <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
                      {{ ($subForums.getImageAttributes()) ? (' ' . $subForums.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForums.title, 25) }}</span>
@@ -124,27 +137,7 @@
     </div>
 
 	<!-- Cover Header -->
-	
-	<xf:comment>
-	
-		<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
-	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
-		{{ phrase('post_thread') }}
-	</xf:button>
-</xf:pageaction>
 		
-	</xf:comment>
-	
-	<!-- Thread BTN -->
-	
-	
-	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
-		{{ phrase('post_thread') }}
-	</xf:button>
-	
-	<!-- Thread BTN -->
-	
-	
 	<!-- Thread Lists -->
 	
 		<div class="block-container">

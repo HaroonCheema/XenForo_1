@@ -23,7 +23,9 @@ class ForumGroups extends AbstractController
 
 
         $viewParams = [
-            "subForums" => $finder ?: ''
+            "subForums" => $finder ?: '',
+            "totalReturn" => count($finder),
+            "total" => count($finder)
         ];
 
         return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_index', $viewParams);
@@ -197,7 +199,7 @@ class ForumGroups extends AbstractController
         return $viewParams;
     }
 
-    public function roomSave()
+    public function roomSave($node)
     {
         $this->assertPostOnly();
 
@@ -265,8 +267,6 @@ class ForumGroups extends AbstractController
             }
         }
 
-
-
         $input = $this->filter([
             'room_name'        => 'str',
             'room_description' => 'str'
@@ -281,7 +281,11 @@ class ForumGroups extends AbstractController
             $nextValue = $parts[1];
         }
 
-        $this->addRouteFilter('chat/room/' . $nextValue, 'chat/' . $this->filter('replace_route', 'str'));
+        $replaceRoute = 'chat/room/' . $nextValue;
+
+        $this->addRouteFilter($replaceRoute, 'chat/' . $this->filter('replace_route', 'str'));
+
+        $node->fastUpdate('room_path', $replaceRoute);
 
         if ($this->filter('join_room', 'bool')) {
             return $this->plugin('Siropu\Chat:Room')->joinRoom($room);
@@ -331,6 +335,8 @@ class ForumGroups extends AbstractController
         $this->setGroupImages($node, 'avatarFile', 'FS\ForumGroups:ForumGroups\Avatar');
         $this->setGroupImages($node, 'coverFile', 'FS\ForumGroups:ForumGroups\Cover');
 
+        $this->roomSave($node);
+
         // return $this->redirect($this->buildLink('forums/') . $node->node_id);
         return $this->redirect($this->buildLink('forumGroups/' . $node->node_id));
     }
@@ -368,8 +374,6 @@ class ForumGroups extends AbstractController
 
         $form->basicEntitySave($node, $input['node']);
         $this->saveTypeData($form, $node, $data);
-
-        $this->roomSave();
 
         $this->permissionRebuild();
 

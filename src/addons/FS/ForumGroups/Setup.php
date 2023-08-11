@@ -20,6 +20,7 @@ class Setup extends AbstractSetup
 	{
 		$this->alterTable('xf_node', function (\XF\Db\Schema\Alter $table) {
 			$table->addColumn('user_id', 'int')->setDefault(0);
+			$table->addColumn('room_path', 'mediumtext')->nullable();
 			$table->addColumn('avatar_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_crop_data', 'blob');

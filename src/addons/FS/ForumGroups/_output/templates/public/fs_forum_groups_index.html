@@ -56,9 +56,9 @@
 		</div>
 			</xf:if>
 		
-	<xf:css src="tlg_group_list.less" />
-    <xf:css src="tlg_style.less" />
-	<xf:css src="tlg_grid_card.less" />
+	<xf:css src="fs_forum_gorups_group_list.less" />
+    <xf:css src="fs_forum_gorups_style.less" />
+	<xf:css src="fs_forum_gorups_grid_card.less" />
 
     <xf:js src="Truonglv/Groups/group.js" addon="Truonglv/Groups" min="1" />
 	 
@@ -103,7 +103,7 @@
             <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
@@ -142,7 +142,7 @@
 			   <xf:comment>
             <span class="groupAvatar--text groupAvatar--dynamic">{$xf.visitor.username}</span>
 				   </xf:comment>
-			   			  <xf:avatar user="$xf.visitor" size="l" />
+			   			  <xf:avatar user="$subForum.User" size="l" />
 			</xf:if>
 		   </div>
 		   

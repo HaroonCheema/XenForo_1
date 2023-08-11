@@ -13,10 +13,10 @@
 				<div class="groupCover--wrapper">
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="{{ link('forums', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      {{ ($subForum.getImageAttributes()) ? (' ' . $subForum.getImageAttributes()) : '' }}/>
             <xf:else />
                 <span class="groupCover--text">{{ snippet($subForum.title, 25) }}</span>
@@ -42,7 +42,7 @@
 		   
 		   <div class="gridCard--header--avatar">
            <xf:if is="$subForum.AvatarAttachment">
-			   <a href="{{ link('forumGroups', $subForum) }}"
+			   <a href="{{ link('forums', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
 			<img src="{{ $subForum.AvatarAttachment.thumbnail_url }}"
                  class="groupAvatar--img bbImage" width="100" height="100"
@@ -66,7 +66,7 @@
                 <div class="gridCard--header--main">
                     
 		<xf:trim>
-        <a href="{{ link('forumGroups', $subForum) }}" class="gridCard--header--title"
+        <a href="{{ link('forums', $subForum) }}" class="gridCard--header--title"
            data-tp-primary="on">
             <span>{$subForum.title}</span>
         </a>

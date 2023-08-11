@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 2876eeaf2aec21eab31c1f371abc6588
+// FROM HASH: baa90a8cedb99f20b00064504dfadd31
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -15,6 +15,31 @@ return array(
 		'icon' => 'write',
 	), '', array(
 	)) . '
+	
+	<!-- Thread BTN -->
+	
+	
+	' . $__templater->button('
+		' . 'Post thread' . '
+	', array(
+		'href' => $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), false),
+		'class' => 'button--cta',
+		'icon' => 'write',
+		'style' => 'float: right',
+	), '', array(
+	)) . '
+
+	' . $__templater->button('
+		' . 'Chat Room' . '
+	', array(
+		'href' => $__templater->func('link', array($__vars['subForums']['room_path'], ), false),
+		'class' => 'button--cta',
+		'icon' => 'write',
+		'style' => 'float: right',
+	), '', array(
+	)) . '
+	
+	<!-- Thread BTN -->
 
 ';
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
@@ -30,7 +55,7 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	$__templater->includeCss('tlg_style.less');
+	$__templater->includeCss('fs_forum_gorups_style.less');
 	$__finalCompiled .= '
 
 ';
@@ -50,7 +75,7 @@ return array(
 	} else {
 		$__compilerTemp1 .= '
 			   ' . '
-			  ' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
+			  ' . $__templater->func('avatar', array($__vars['subForums']['User'], 'l', false, array(
 		))) . '
 			';
 	}
@@ -101,7 +126,7 @@ return array(
 	if ($__vars['subForums']['CoverAttachment']) {
 		$__finalCompiled .= '
                 <img data-crop="' . $__templater->filter($__templater->method($__vars['subForums'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
                      ' . ($__templater->method($__vars['subForums'], 'getImageAttributes', array()) ? (' ' . $__templater->escape($__templater->method($__vars['subForums'], 'getImageAttributes', array()))) : '') . '/>
             ';
 	} else {
@@ -173,25 +198,7 @@ return array(
     </div>
 
 	<!-- Cover Header -->
-	
-	' . '
-	
-	<!-- Thread BTN -->
-	
-	
-	' . $__templater->button('
-		' . 'Post thread' . '
-	', array(
-		'href' => $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), false),
-		'class' => 'button--cta',
-		'icon' => 'write',
-		'style' => 'float: right',
-	), '', array(
-	)) . '
-	
-	<!-- Thread BTN -->
-	
-	
+		
 	<!-- Thread Lists -->
 	
 		<div class="block-container">

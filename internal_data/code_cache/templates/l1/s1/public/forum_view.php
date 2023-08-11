@@ -433,13 +433,13 @@ return array(
 		if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_forum_groups_applicable_forum']) {
 			$__finalCompiled .= '
 ';
-			$__templater->includeCss('tlg_group_list.less');
+			$__templater->includeCss('fs_forum_gorups_group_list.less');
 			$__finalCompiled .= '
 ';
-			$__templater->includeCss('tlg_style.less');
+			$__templater->includeCss('fs_forum_gorups_style.less');
 			$__finalCompiled .= '
 ';
-			$__templater->includeCss('tlg_grid_card.less');
+			$__templater->includeCss('fs_forum_gorups_grid_card.less');
 			$__finalCompiled .= '
 
 			<div class="block groupListBlock" data-xf-init="inline-mod"
@@ -489,6 +489,22 @@ return array(
 			'src' => 'xf/inline_mod.js',
 			'min' => '1',
 		));
+		$__finalCompiled .= '
+';
+	}
+	$__finalCompiled .= '
+
+';
+	if ($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_forum_groups_applicable_forum']) {
+		$__finalCompiled .= '
+			';
+		if (!$__vars['nodeTree']) {
+			$__finalCompiled .= '
+			  ' . $__templater->callMacro('fs_forum_groups_forum_view_single', 'fs_forum_groups_forum_view_single_macro', array(
+				'subForums' => $__vars['forum']['Node'],
+			), $__vars) . '
+			';
+		}
 		$__finalCompiled .= '
 ';
 	}

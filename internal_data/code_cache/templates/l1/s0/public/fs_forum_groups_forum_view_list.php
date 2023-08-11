@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: e50594633f6a1766711cfb09524d33d8
+// FROM HASH: a3e52ba46337ce45fff0eb19ae36b856
 return array(
 'macros' => array('fs_forum_groups_forum_view_list_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -20,12 +20,12 @@ return array(
 				<div class="groupCover--wrapper">
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="' . $__templater->func('link', array('forums', $__vars['subForum'], ), true) . '" style="background-color:#1f7a5c;color:#70dbb8">
                 ';
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '
                 <img data-crop="' . $__templater->filter($__templater->method($__vars['subForum'], 'getCoverCropData', array()), array(array('json', array()),), true) . '"
-                     class="groupCover--img groupCover--lazy" data-xf-init="tlg-cover-setup" data-force-height="100"
+                     class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
                      ' . ($__templater->method($__vars['subForum'], 'getImageAttributes', array()) ? (' ' . $__templater->escape($__templater->method($__vars['subForum'], 'getImageAttributes', array()))) : '') . '/>
             ';
 	} else {
@@ -57,7 +57,7 @@ return array(
            ';
 	if ($__vars['subForum']['AvatarAttachment']) {
 		$__finalCompiled .= '
-			   <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForum'], ), true) . '"
+			   <a href="' . $__templater->func('link', array('forums', $__vars['subForum'], ), true) . '"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
 			<img src="' . $__templater->escape($__vars['subForum']['AvatarAttachment']['thumbnail_url']) . '"
                  class="groupAvatar--img bbImage" width="100" height="100"
@@ -84,7 +84,7 @@ return array(
                 <div class="gridCard--header--main">
                     
 		' . trim('
-        <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForum'], ), true) . '" class="gridCard--header--title"
+        <a href="' . $__templater->func('link', array('forums', $__vars['subForum'], ), true) . '" class="gridCard--header--title"
            data-tp-primary="on">
             <span>' . $__templater->escape($__vars['subForum']['title']) . '</span>
         </a>
