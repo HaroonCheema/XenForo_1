@@ -446,7 +446,7 @@ return array(
          data-type="tl_group"
          data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 		
-					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--' . $__templater->escape($__vars['xf']['options']['fs_forum_gorups_per_row']) . '-col" data-xf-init="tl_groups_list">
 				';
 			if ($__templater->isTraversable($__vars['nodeTree'])) {
 				foreach ($__vars['nodeTree'] AS $__vars['id'] => $__vars['child']) {

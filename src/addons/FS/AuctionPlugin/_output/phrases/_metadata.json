@@ -22,5 +22,11 @@
         "version_id": 1000600,
         "version_string": "1.0.6 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "permission.fs_auction_permissions_add.txt": {
+        "global_cache": false,
+        "version_id": 1040700,
+        "version_string": "1.4.7 Alpha",
+        "hash": "bee0c8c0cb75f76a6c2e541ee98b1b80"
     }
 }

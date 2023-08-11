@@ -47,6 +47,12 @@ class Node extends XFCP_Node
                 'type' => self::TO_ONE,
                 'conditions' => 'user_id',
             ],
+            'Forum' => [
+                'entity' => 'XF:Forum',
+                'type' => self::TO_ONE,
+                'conditions' => 'node_id',
+                'primary' => true
+            ]
         ];
 
         return $structure;
@@ -127,5 +133,22 @@ class Node extends XFCP_Node
 
 
         return implode(' ', $imgAttrs);
+    }
+
+    public function getViewCounts()
+    {
+        $db = \XF::db();
+
+        $res =  $db->fetchAll(
+            "SELECT SUM(`view_count`) AS total_sum
+            FROM xf_thread
+            WHERE node_id  = ?
+		",
+            [
+                $this->node_id,
+            ]
+        );
+
+        return intval($res['0']['total_sum']);
     }
 }

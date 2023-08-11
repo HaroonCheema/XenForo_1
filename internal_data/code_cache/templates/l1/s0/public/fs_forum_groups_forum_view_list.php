@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: a3e52ba46337ce45fff0eb19ae36b856
+// FROM HASH: 141409620ecc20f1ae03685e61a98f69
 return array(
 'macros' => array('fs_forum_groups_forum_view_list_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -98,7 +98,7 @@ return array(
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     ' . $__templater->fontAwesome('fa-comment', array(
 		)) . '
-                    3
+                    ' . $__templater->escape($__vars['subForum']['Forum']['message_count']) . '
                 </li>
             ';
 	}
@@ -107,7 +107,7 @@ return array(
             <li class="groupItem-stat groupItem-stat--viewCount">
                 ' . $__templater->fontAwesome('fa-eye', array(
 	)) . '
-                1
+                ' . $__templater->escape($__templater->method($__vars['subForum'], 'getViewCounts', array())) . '
             </li>
             <li class="groupItem-stat groupItem-stat--memberCount">
                 ' . $__templater->fontAwesome('fa-users', array(
@@ -115,11 +115,6 @@ return array(
                 2
             </li>
             ' . $__compilerTemp1 . '
-            <li class="groupItem-stat groupItem-stat--eventCount">
-                ' . $__templater->fontAwesome('fa-calendar', array(
-	)) . '
-                4
-            </li>
         </ul>
     ') . '
 						

@@ -12,6 +12,7 @@ return array (
   'permission_interface.forumPermissions' => 'Forum permissions',
   'permission_interface.fs_attachment' => '[FS] Like See Attachment',
   'permission_interface.fs_auction_permissions' => 'FS Auction Plugin Permissions',
+  'permission_interface.fs_forum_group_permission' => 'FS Forum Group Permission',
   'permission_interface.fs_thread_replies_abrove' => 'Thread Post Approve',
   'permission_interface.fs_threadsaleitem' => '[FS] ThreadSaleItem',
   'permission_interface.generalModeratorPermissions' => 'General moderator permissions',

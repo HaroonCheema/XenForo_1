@@ -374,28 +374,30 @@ return function($__templater, $__selectedNav, array $__vars)
 
 	}
 
-	$__navTemp = [
+	if ($__templater->method($__vars['xf']['visitor'], 'haspermission', array('fs_forum_group_permission', 'add', ))) {
+		$__navTemp = [
 		'title' => \XF::phrase('nav.fs_forumGroups_index'),
 		'href' => $__templater->func('link', array('forumGroups', ), false),
 		'attributes' => [],
 	];
-	if ($__navTemp) {
-		$__tree['fs_forumGroups_index'] = $__navTemp;
-		$__flat['fs_forumGroups_index'] =& $__tree['fs_forumGroups_index'];
-		if (empty($__tree['fs_forumGroups_index']['children'])) { $__tree['fs_forumGroups_index']['children'] = []; }
+		if ($__navTemp) {
+			$__tree['fs_forumGroups_index'] = $__navTemp;
+			$__flat['fs_forumGroups_index'] =& $__tree['fs_forumGroups_index'];
+			if (empty($__tree['fs_forumGroups_index']['children'])) { $__tree['fs_forumGroups_index']['children'] = []; }
 
-		$__navTemp = [
+			$__navTemp = [
 		'title' => \XF::phrase('nav.forumGroupsAddSubForum'),
 		'href' => $__templater->func('link', array('forumGroups/add', ), false),
 		'attributes' => [
 			'data-xf-click' => 'overlay',
 		],
 	];
-		if ($__navTemp) {
-			$__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'] = $__navTemp;
-			$__flat['forumGroupsAddSubForum'] =& $__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'];
-		}
+			if ($__navTemp) {
+				$__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'] = $__navTemp;
+				$__flat['forumGroupsAddSubForum'] =& $__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'];
+			}
 
+		}
 	}
 
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {

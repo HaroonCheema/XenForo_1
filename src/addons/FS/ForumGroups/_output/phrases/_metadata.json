@@ -83,11 +83,23 @@
         "version_string": "1.0.0 Alpha",
         "hash": "0b1db98b451709c6ba3205838455aa2f"
     },
+    "option.fs_forum_gorups_per_row.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "0e67135f15372eaee160d1dc4c41b152"
+    },
     "option.fs_forum_groups_applicable_forum.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "71f931be04fdd468b2664e76e4db6d09"
+    },
+    "option_explain.fs_forum_gorups_per_row.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "653b1007e7e68a1888c02462fed9322f"
     },
     "option_explain.fs_forum_groups_applicable_forum.txt": {
         "global_cache": false,
@@ -106,6 +118,18 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "51c873b35b7446c3b9a43fd3f6ef3935"
+    },
+    "permission.fs_forum_group_permission_add.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "ab081a8f1b0164d9fd88c477dbc0f96c"
+    },
+    "permission_interface.fs_forum_group_permission.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c2e6fe54be1de5b9024f1ec05d8daa0f"
     },
     "style_prop.fs_avatarBorderRadius.txt": {
         "global_cache": false,

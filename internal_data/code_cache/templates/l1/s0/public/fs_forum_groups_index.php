@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: c7fcb851a7fc0aeeaa0ffe1589595663
+// FROM HASH: 7279fc972e235cba9694d214662ae64a
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -98,7 +98,7 @@ return array(
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     ' . $__templater->fontAwesome('fa-comment', array(
 		)) . '
-                    3
+                    ' . $__templater->escape($__vars['subForum']['Forum']['message_count']) . '
                 </li>
             ';
 	}
@@ -107,7 +107,7 @@ return array(
             <li class="groupItem-stat groupItem-stat--viewCount">
                 ' . $__templater->fontAwesome('fa-eye', array(
 	)) . '
-                1
+                ' . $__templater->escape($__templater->method($__vars['subForum'], 'getViewCounts', array())) . '
             </li>
             <li class="groupItem-stat groupItem-stat--memberCount">
                 ' . $__templater->fontAwesome('fa-users', array(
@@ -115,11 +115,6 @@ return array(
                 2
             </li>
             ' . $__compilerTemp1 . '
-            <li class="groupItem-stat groupItem-stat--eventCount">
-                ' . $__templater->fontAwesome('fa-calendar', array(
-	)) . '
-                4
-            </li>
         </ul>
     ') . '
 						
@@ -239,7 +234,7 @@ return array(
          data-type="tl_group"
          data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 		
-		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--' . $__templater->escape($__vars['xf']['options']['fs_forum_gorups_per_row']) . '-col" data-xf-init="tl_groups_list">
 		
 		 ';
 		if ($__templater->isTraversable($__vars['subForums'])) {

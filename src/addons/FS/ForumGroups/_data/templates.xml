@@ -866,7 +866,7 @@
         <ul class="listInline group--counterList u-muted">
             <li class="groupItem-stat groupItem-stat--viewCount">
                 <xf:fa icon="fa-eye" />
-                1
+                {$subForum.getViewCounts()}
             </li>
             <li class="groupItem-stat groupItem-stat--memberCount">
                 <xf:fa icon="fa-users" />
@@ -875,13 +875,9 @@
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
-                    3
+                    {$subForum.Forum.message_count}
                 </li>
             </xf:if>
-            <li class="groupItem-stat groupItem-stat--eventCount">
-                <xf:fa icon="fa-calendar" />
-                4
-            </li>
         </ul>
     </xf:trim>
 						
@@ -1058,7 +1054,7 @@
          data-type="tl_group"
          data-href="{{ link('inline-mod') }}">
 		
-		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+		<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_forum_gorups_per_row}-col" data-xf-init="tl_groups_list">
 		
 		 <xf:foreach loop="{$subForums}" value="$value">
 
@@ -1181,7 +1177,7 @@
         <ul class="listInline group--counterList u-muted">
             <li class="groupItem-stat groupItem-stat--viewCount">
                 <xf:fa icon="fa-eye" />
-                1
+                {$subForum.getViewCounts()}
             </li>
             <li class="groupItem-stat groupItem-stat--memberCount">
                 <xf:fa icon="fa-users" />
@@ -1190,13 +1186,9 @@
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
-                    3
+                    {$subForum.Forum.message_count}
                 </li>
             </xf:if>
-            <li class="groupItem-stat groupItem-stat--eventCount">
-                <xf:fa icon="fa-calendar" />
-                4
-            </li>
         </ul>
     </xf:trim>
 						

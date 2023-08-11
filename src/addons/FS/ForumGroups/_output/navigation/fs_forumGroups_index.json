@@ -4,7 +4,7 @@
     "navigation_type_id": "basic",
     "type_config": {
         "link": "{{ link('forumGroups') }}",
-        "display_condition": "",
+        "display_condition": "$xf.visitor.haspermission('fs_forum_group_permission','add')",
         "extra_attributes": []
     },
     "enabled": true

@@ -77,7 +77,7 @@
         <ul class="listInline group--counterList u-muted">
             <li class="groupItem-stat groupItem-stat--viewCount">
                 <xf:fa icon="fa-eye" />
-                1
+                {$subForum.getViewCounts()}
             </li>
             <li class="groupItem-stat groupItem-stat--memberCount">
                 <xf:fa icon="fa-users" />
@@ -86,13 +86,9 @@
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
-                    3
+                    {$subForum.Forum.message_count}
                 </li>
             </xf:if>
-            <li class="groupItem-stat groupItem-stat--eventCount">
-                <xf:fa icon="fa-calendar" />
-                4
-            </li>
         </ul>
     </xf:trim>
 						

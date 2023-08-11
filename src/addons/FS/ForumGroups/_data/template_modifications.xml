@@ -14,7 +14,7 @@
          data-type="tl_group"
          data-href="{{ link('inline-mod') }}">
 		
-					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--2-col" data-xf-init="tl_groups_list">
+					<div class="groupList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_forum_gorups_per_row}-col" data-xf-init="tl_groups_list">
 				<xf:foreach loop="$nodeTree" key="$id" value="$child">
 					<xf:macro
 					template="fs_forum_groups_forum_view_list"

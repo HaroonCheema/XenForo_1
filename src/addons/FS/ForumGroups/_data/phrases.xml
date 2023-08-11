@@ -14,10 +14,14 @@
   <phrase title="fs_forum_groups_upload_cover" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload cover]]></phrase>
   <phrase title="nav.forumGroupsAddSubForum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Sub Forum]]></phrase>
   <phrase title="nav.fs_forumGroups_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Groups]]></phrase>
+  <phrase title="option.fs_forum_gorups_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Groups display on per row]]></phrase>
   <phrase title="option.fs_forum_groups_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Parent Forum Id]]></phrase>
+  <phrase title="option_explain.fs_forum_gorups_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[how many groups display on per "Row" you can set from here..!]]></phrase>
   <phrase title="option_explain.fs_forum_groups_applicable_forum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Id]]></phrase>
   <phrase title="option_group.fs_forum_groups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Forum Groups]]></phrase>
   <phrase title="option_group_description.fs_forum_groups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Forum Groups]]></phrase>
+  <phrase title="permission.fs_forum_group_permission_add" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Forum Group]]></phrase>
+  <phrase title="permission_interface.fs_forum_group_permission" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[FS Forum Group Permission]]></phrase>
   <phrase title="style_prop.fs_avatarBorderRadius" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Group avatar border radius]]></phrase>
   <phrase title="style_prop_desc.fs_avatarBorderRadius" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="style_prop_group.fs_forum_gorups" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Forum Groups]]></phrase>

@@ -12,6 +12,12 @@ use InvalidArgumentException;
 
 class ForumGroups extends AbstractController
 {
+    protected function preDispatchController($action, ParameterBag $params)
+    {
+        if (!\xf::visitor()->hasPermission('fs_forum_group_permission', 'add')) {
+            throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
+        }
+    }
 
     public function actionIndex(ParameterBag $params)
     {
@@ -345,8 +351,8 @@ class ForumGroups extends AbstractController
 
         $this->roomSave($node);
 
-        // return $this->redirect($this->buildLink('forums/') . $node->node_id);
-        return $this->redirect($this->buildLink('forumGroups/' . $node->node_id));
+        return $this->redirect($this->buildLink('forumGroups/'));
+        // return $this->redirect($this->buildLink('forumGroups/' . $node->node_id));
     }
 
     protected function nodeSaveProcess(\XF\Entity\Node $node)
@@ -750,7 +756,7 @@ class ForumGroups extends AbstractController
 
         $this->moderatorSaveProcess($generalModerator, $contentModerator)->run();
 
-        return $this->redirect($this->buildLink('forumGroups'));
+        return $this->redirect($this->buildLink('forumGroups/' . $findInput['content_id'] . '/moderator-list'));
     }
 
     protected function moderatorSaveProcess(
@@ -1120,4 +1126,30 @@ class ForumGroups extends AbstractController
             }
         }
     }
+
+    // public function getMessageCounts()
+    // {
+    //     $db = \XF::db();
+
+    //     $res =  $db->fetchAll(
+    //         "SELECT SUM(`view_count`) AS total_sum
+    //         FROM xf_thread
+    //         WHERE node_id  = ?
+    // 	",
+    //         [
+    //             $this->node_id,
+    //         ]
+    //     );
+
+    //     return intval($res['0']['total_sum']);
+    // }
+
+    // $this->db->query("
+    // 		INSERT INTO xf_data_registry
+    // 			(data_key, data_value)
+    // 		VALUES
+    // 			(?, ?)
+    // 		ON DUPLICATE KEY UPDATE
+    // 			data_value = VALUES(data_value)
+    // 	", [$key, serialize($value)]);
 }
