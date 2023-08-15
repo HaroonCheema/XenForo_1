@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 94787fc9a8774d708b6f04250cd0aae4
+// FROM HASH: 3d0c5233723ff713fa92495ff6d949d2
 return array(
 'macros' => array('fs_forum_groups_forum_view_single_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -50,26 +50,6 @@ return array(
 
 <div class="groupWrapper groupWrapper-' . $__templater->escape($__vars['subForums']['node_id']) . '">
 
-	<!-- Header -->
-
-	';
-	$__templater->setPageParam('headerHtml', '
-        <div class="contentRow contentRow--hideFigureNarrow">
-            <div class="contentRow-main">
-                <div class="p-title">
-                    <h1 class="p-title-value">
-                        ' . $__templater->escape($__vars['subForums']['title']) . '
-                    </h1>
-                </div>
-                    <div class="p-description">
-                        ' . $__templater->escape($__vars['subForums']['description']) . '
-                    </div>
-            </div>
-        </div>
-    ');
-	$__finalCompiled .= '
-
-	<!-- Header -->
 
 	<!-- Cover Header -->
 

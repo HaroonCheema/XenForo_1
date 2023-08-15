@@ -1,69 +1,10 @@
 <?php
-// FROM HASH: 7a5f5a44013b2152a9874cc9e995f5d6
+// FROM HASH: d2f6f13b5e7ff5bd279ab4709557c00f
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['group']['name']));
-	$__finalCompiled .= '
-
-';
-	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id'])) {
-		$__finalCompiled .= '
-	' . $__templater->button('
-		' . 'Moderator List' . '
-	', array(
-			'href' => $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-		), '', array(
-		)) . '
-';
-	}
-	$__finalCompiled .= '
-	
-	<!-- Thread BTN -->
-	
-	
-	' . $__templater->button('
-		' . 'Post thread' . '
-	', array(
-		'href' => $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), false),
-		'class' => 'button--cta',
-		'icon' => 'write',
-		'style' => 'float: right',
-	), '', array(
-	)) . '
-
-';
-	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['subForums']['room_path'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id']))) {
-		$__finalCompiled .= '
-	' . $__templater->button('
-		' . 'Chat Room' . '
-	', array(
-			'href' => $__templater->func('link', array($__vars['subForums']['room_path'], ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-			'style' => 'float: right',
-		), '', array(
-		)) . '
-';
-	}
-	$__finalCompiled .= '
-	
-	<!-- Thread BTN -->
-
-';
-	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-	' . $__templater->button('
-		' . 'Post thread' . '
-	', array(
-		'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
-		'class' => 'button--cta',
-		'icon' => 'write',
-	), '', array(
-	)) . '
-');
 	$__finalCompiled .= '
 
 ';
@@ -109,6 +50,22 @@ return array(
 	<!-- Header -->
 
 	';
+	$__compilerTemp2 = '';
+	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['subForums']['room_path'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id']))) {
+		$__compilerTemp2 .= '
+							<a href="' . $__templater->func('link', array($__vars['subForums']['room_path'], ), true) . '" class="button--cta button button--icon"><span class="button-text">
+							<i class="fas fa-comment-dots"></i> ' . 'Chat Room' . '
+						</span></a>
+						';
+	}
+	$__compilerTemp3 = '';
+	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id'])) {
+		$__compilerTemp3 .= '
+							<a href="' . $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), true) . '" class="button--cta button button--icon button--icon--list"><span class="button-text">
+							' . 'Moderator List' . '
+						</span></a>
+						';
+	}
 	$__templater->setPageParam('headerHtml', '
         <div class="contentRow contentRow--hideFigureNarrow">
             <div class="contentRow-main">
@@ -116,8 +73,20 @@ return array(
                     <h1 class="p-title-value">
                         ' . $__templater->escape($__vars['subForums']['title']) . '
                     </h1>
-                </div>
-                    <div class="p-description">
+                
+					<div class="p-title-pageAction">
+						<a href="' . $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), true) . '" class="button--cta button button--icon button--icon--write"><span class="button-text">
+							' . 'Post thread' . '
+						</span></a>
+
+						' . $__compilerTemp2 . '
+
+						' . $__compilerTemp3 . '
+						
+					</div>
+					
+					</div>
+				<div class="p-description">
                         ' . $__templater->escape($__vars['subForums']['description']) . '
                     </div>
             </div>

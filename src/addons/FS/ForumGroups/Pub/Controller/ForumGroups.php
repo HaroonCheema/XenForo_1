@@ -27,8 +27,19 @@ class ForumGroups extends AbstractController
             return $this->actionSingleView($params);
         }
 
-        $finder = $this->finder('XF:Node')->where("parent_node_id", $this->app()->options()->fs_forum_groups_applicable_forum)->where('user_id', \XF::visitor()->user_id)->fetch();
+        $nodeFinder = $this->finder('XF:Node')->where("parent_node_id", $this->app()->options()->fs_forum_groups_applicable_forum);
+        $tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
 
+        $forumFinder = $this->finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
+        $nodeIds = $forumFinder->pluckfrom('node_id')->fetch()->toArray();
+
+        $quoteNodeIds = \XF::db()->quote($nodeIds);
+
+        $setOrderFinder = \XF::finder('XF:Node');
+
+        $finder = $setOrderFinder->where("node_id", $nodeIds)->where('user_id', \XF::visitor()->user_id)
+            ->order($setOrderFinder->expression('FIELD(node_id, ' . $quoteNodeIds . ')'))
+            ->fetch();
 
         $viewParams = [
             "subForums" => $finder ?: '',

@@ -1,32 +1,5 @@
 <xf:title>{$group.name}</xf:title>
 
-<xf:if is="$xf.visitor.user_id && $xf.visitor.user_id == $subForums.user_id">
-	<xf:button href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta" icon="write">
-		{{ phrase('fs_forum_group_moderator_list') }}
-	</xf:button>
-</xf:if>
-	
-	<!-- Thread BTN -->
-	
-	
-	<xf:button href="{{ link('forums/post-thread', $subForums) }}" class="button--cta" icon="write" style="float: right">
-		{{ phrase('post_thread') }}
-	</xf:button>
-
-<xf:if is="$xf.visitor.user_id && $subForums.room_path && $xf.visitor.user_id == $subForums.user_id">
-	<xf:button href="{{ link($subForums.room_path) }}" class="button--cta" icon="write" style="float: right">
-		{{ phrase('fs_forum_groups_room_chat') }}
-	</xf:button>
-</xf:if>
-	
-	<!-- Thread BTN -->
-
-<xf:pageaction>
-	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
-		{{ phrase('post_thread') }}
-	</xf:button>
-</xf:pageaction>
-
 <xf:css src="fs_forum_gorups_style.less" />
 
 <xf:sidenav>
@@ -67,8 +40,28 @@
                     <h1 class="p-title-value">
                         {$subForums.title}
                     </h1>
-                </div>
-                    <div class="p-description">
+                
+					<div class="p-title-pageAction">
+						<a href="{{ link('forums/post-thread', $subForums) }}" class="button--cta button button--icon button--icon--write"><span class="button-text">
+							{{ phrase('post_thread') }}
+						</span></a>
+
+						<xf:if is="$xf.visitor.user_id && $subForums.room_path && $xf.visitor.user_id == $subForums.user_id">
+							<a href="{{ link($subForums.room_path) }}" class="button--cta button button--icon"><span class="button-text">
+							<i class="fas fa-comment-dots"></i> {{ phrase('fs_forum_groups_room_chat') }}
+						</span></a>
+						</xf:if>
+
+						<xf:if is="$xf.visitor.user_id && $xf.visitor.user_id == $subForums.user_id">
+							<a href="{{ link('forumGroups/moderator-list', $subForums) }}" class="button--cta button button--icon button--icon--list"><span class="button-text">
+							{{ phrase('fs_forum_group_moderator_list') }}
+						</span></a>
+						</xf:if>
+						
+					</div>
+					
+					</div>
+				<div class="p-description">
                         {$subForums.description}
                     </div>
             </div>

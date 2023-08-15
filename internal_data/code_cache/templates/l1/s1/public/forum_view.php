@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 58bec4583255117e7c71daa3e7a4d4b9
+// FROM HASH: 349dc0a9d659c06525ba8908bc49ebd3
 return array(
 'extensions' => array('above_node_list' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -361,6 +361,22 @@ return array(
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped($__templater->escape($__vars['forum']['Node']['title']));
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
 	$__finalCompiled .= '
+
+';
+	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
+		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__templater->button('
+		' . 'Post thread' . '
+	', array(
+			'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+			'class' => 'button--cta',
+			'icon' => 'write',
+		), '', array(
+		)) . '
+');
+	}
+	$__finalCompiled .= '
+
 ';
 	$__templater->pageParams['pageDescription'] = $__templater->preEscaped($__templater->filter($__vars['forum']['Node']['description'], array(array('raw', array()),), true));
 	$__templater->pageParams['pageDescriptionMeta'] = true;
@@ -395,20 +411,7 @@ return array(
 	$__templater->breadcrumbs($__templater->method($__vars['forum'], 'getBreadcrumbs', array(false, )));
 	$__finalCompiled .= '
 
-';
-	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-	' . $__templater->button('
-		' . 'Post thread' . '
-	', array(
-			'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-		), '', array(
-		)) . '
-');
-	}
-	$__finalCompiled .= '
+
 
 ';
 	if ($__vars['pendingApproval']) {
