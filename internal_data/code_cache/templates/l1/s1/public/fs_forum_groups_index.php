@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 7279fc972e235cba9694d214662ae64a
+// FROM HASH: 431473fe6f7eb9a2b123aa21d7017864
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -20,7 +20,7 @@ return array(
 				<div class="groupCover--wrapper">
                 
         <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="/xenforo/index.php?forumGroups" style="background-color:#1f7a5c;color:#70dbb8">
+            <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForum'], ), true) . '" style="background-color:#1f7a5c;color:#70dbb8">
                 ';
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '

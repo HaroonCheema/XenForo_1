@@ -12,6 +12,12 @@ use InvalidArgumentException;
 
 class ForumGroups extends AbstractController
 {
+
+    /**
+     * @var RoomPath
+     */
+    protected $chatRoomURlPath;
+
     protected function preDispatchController($action, ParameterBag $params)
     {
         if (!\xf::visitor()->hasPermission('fs_forum_group_permission', 'add')) {
@@ -225,7 +231,7 @@ class ForumGroups extends AbstractController
         return $viewParams;
     }
 
-    public function roomSave($node)
+    public function roomSave()
     {
         $this->assertPostOnly();
 
@@ -311,7 +317,9 @@ class ForumGroups extends AbstractController
 
         $this->addRouteFilter($replaceRoute, 'chat/' . $this->filter('replace_route', 'str'));
 
-        $node->fastUpdate('room_path', $replaceRoute);
+        $this->chatRoomURlPath = $replaceRoute;
+
+        // $node->fastUpdate('room_path', $replaceRoute);
 
         if ($this->filter('join_room', 'bool')) {
             return $this->plugin('Siropu\Chat:Room')->joinRoom($room);
@@ -351,19 +359,22 @@ class ForumGroups extends AbstractController
             $node->node_type_id = "Forum";
         }
 
+        $this->roomSave();
+
         $this->nodeSaveProcess($node)->run();
 
         $node->fastUpdate('user_id', \XF::visitor()->user_id);
+
+        $node->fastUpdate('room_path', $this->chatRoomURlPath);
 
         $this->addRouteFilter('forums/' . $node->title . '.' . $node->node_id . '/', $this->filter('replace_route', 'str'));
 
         $this->setGroupImages($node, 'avatarFile', 'FS\ForumGroups:ForumGroups\Avatar');
         $this->setGroupImages($node, 'coverFile', 'FS\ForumGroups:ForumGroups\Cover');
 
-        $this->roomSave($node);
+        $this->permissionRebuild();
 
-        return $this->redirect($this->buildLink('forumGroups/'));
-        // return $this->redirect($this->buildLink('forumGroups/' . $node->node_id));
+        return $this->redirect($this->buildLink('forumGroups/' . $node->node_id));
     }
 
     protected function nodeSaveProcess(\XF\Entity\Node $node)
@@ -399,8 +410,6 @@ class ForumGroups extends AbstractController
 
         $form->basicEntitySave($node, $input['node']);
         $this->saveTypeData($form, $node, $data);
-
-        $this->permissionRebuild();
 
         return $form;
     }
