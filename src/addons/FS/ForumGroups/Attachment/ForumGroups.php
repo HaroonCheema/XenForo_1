@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @license
- * Copyright 2018 TruongLuu. All Rights Reserved.
- */
-
 namespace FS\ForumGroups\Attachment;
 
 use XF;
@@ -12,7 +7,6 @@ use XF\Entity\Attachment;
 use XF\Mvc\Entity\Entity;
 use InvalidArgumentException;
 use XF\Attachment\AbstractHandler;
-// use Truonglv\Groups\Entity\Category;
 
 class ForumGroups extends AbstractHandler
 {
@@ -86,11 +80,6 @@ class ForumGroups extends AbstractHandler
 
             // $category = $group->Category;
         }
-
-        // elseif (isset($context['category_id'])) {
-        //     /** @var Category|null $category */
-        //     $category = $em->find('Truonglv\Groups:Category', $context['category_id']);
-        // }
 
         return $category !== null && $category->canUploadAndManageAttachments($error);
     }

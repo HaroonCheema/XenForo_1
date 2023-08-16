@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 431473fe6f7eb9a2b123aa21d7017864
+// FROM HASH: a5b44e630be83fceccb4da8e04e29367
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -265,15 +265,6 @@ return array(
 	';
 	$__templater->includeCss('fs_forum_gorups_grid_card.less');
 	$__finalCompiled .= '
-
-    ';
-	$__templater->includeJs(array(
-		'src' => 'Truonglv/Groups/group.js',
-		'addon' => 'Truonglv/Groups',
-		'min' => '1',
-	));
-	$__finalCompiled .= '
-	 
 		
     <!--Sub Forums List View--->
 

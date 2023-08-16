@@ -1,8 +1,4 @@
 <?php
-/**
- * @license
- * Copyright 2018 TruongLuu. All Rights Reserved.
- */
 
 namespace FS\ForumGroups\Service\ForumGroups;
 
