@@ -151,4 +151,15 @@ class Node extends XFCP_Node
 
         return intval($res['0']['total_sum']);
     }
+
+    public function getRandomColor()
+    {
+        return sprintf('%06X', mt_rand(0, 0xFFFFFF));
+        // mt_srand((float)microtime() * 1000000);
+        // $c = '';
+        // while (strlen($c) < 6) {
+        //     $c .= sprintf("%02X", mt_rand(0, 255));
+        // }
+        // return $c;
+    }
 }

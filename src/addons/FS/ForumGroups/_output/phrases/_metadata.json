@@ -71,6 +71,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "502e827457c577f0c38c8c3827150155"
     },
+    "fs_group_please_upload_image_at_least_xy_pixels.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e90d04232ddca9cb7587c022de5ba78b"
+    },
     "nav.forumGroupsAddSubForum.txt": {
         "global_cache": false,
         "version_id": 1000010,

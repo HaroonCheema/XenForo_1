@@ -10,10 +10,11 @@
 			<xf:radiorow name="type" value="{$type}"
 				label="{{ phrase('type_of_moderator') }}">
 
+				<xf:comment>
 				<xf:option value="_super"
 					label="{{ phrase('super_moderator') }}"
 					hint="{{ phrase('super_moderator_can_moderate_entire_board') }}" />
-
+				</xf:comment>
 					<xf:option value="node" label="Forum moderator" selected="true"/>
 			</xf:radiorow>
 		</div>

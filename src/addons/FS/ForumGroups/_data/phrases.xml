@@ -12,6 +12,7 @@
   <phrase title="fs_forum_groups_side_community" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Sub Communties]]></phrase>
   <phrase title="fs_forum_groups_upload_avatar" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload avatar]]></phrase>
   <phrase title="fs_forum_groups_upload_cover" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload cover]]></phrase>
+  <phrase title="fs_group_please_upload_image_at_least_xy_pixels" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Please upload an image that have at least {width}x{height} pixels.]]></phrase>
   <phrase title="nav.forumGroupsAddSubForum" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Add Sub Forum]]></phrase>
   <phrase title="nav.fs_forumGroups_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Forum Groups]]></phrase>
   <phrase title="option.fs_forum_gorups_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Groups display on per row]]></phrase>

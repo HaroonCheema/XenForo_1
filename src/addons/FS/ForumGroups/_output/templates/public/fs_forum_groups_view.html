@@ -75,8 +75,8 @@
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForums.getRandomColor()}};color:#fff">
+        <a href="{{ link('forumGroups', $subForums) }}" style="color:#fff">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
@@ -136,11 +136,11 @@
 	<!-- Cover Header -->
 		
 	<!-- Thread Lists -->
-	
+	<xf:if is="$threads is not empty">
 		<div class="block-container">
 		<div class="block-body">
 				<div class="structItemContainer">
-					<xf:if is="$threads is not empty">
+					
 						<div class="structItemContainer-group js-threadList">
 							<xf:if is="$threads is not empty">
 								<xf:foreach loop="$threads" value="$thread">
@@ -150,17 +150,17 @@
 										args="null"  />
 								</xf:foreach>
 							</xf:if>
-						</div>				
+						</div>		
+			</div>
+			</div>
+		</div>
 					<xf:else />
-						<div class="structItemContainer-group js-threadList">
-								<div class="structItem js-emptyThreadList">
-									<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
-								</div>
+						<div class="blockMessage  ">
+							<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
 						</div>
 					</xf:if>
-				</div>
-		</div>
-	</div>
+					
+
 	
 	<!-- Thread Lists -->
 	

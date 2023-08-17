@@ -12,11 +12,20 @@ use InvalidArgumentException;
 
 class ForumGroups extends AbstractController
 {
-
     /**
      * @var RoomPath
      */
     protected $chatRoomURlPath;
+
+    /**
+     * @var Cover Image Width
+     */
+    protected $imageWidth = 918;
+
+    /**
+     * @var Cover Image Height
+     */
+    protected $imageHeight = 200;
 
     protected function preDispatchController($action, ParameterBag $params)
     {
@@ -33,24 +42,30 @@ class ForumGroups extends AbstractController
             return $this->actionSingleView($params);
         }
 
-        $nodeFinder = $this->finder('XF:Node')->where("parent_node_id", $this->app()->options()->fs_forum_groups_applicable_forum);
+        $nodeFinder = \xf::finder('XF:Node')->where("parent_node_id", \xf::app()->options()->fs_forum_groups_applicable_forum);
         $tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
 
-        $forumFinder = $this->finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
+        $forumFinder = \xf::finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
         $nodeIds = $forumFinder->pluckfrom('node_id')->fetch()->toArray();
 
         $quoteNodeIds = \XF::db()->quote($nodeIds);
 
-        $setOrderFinder = \XF::finder('XF:Node');
+        $finder = null;
 
-        $finder = $setOrderFinder->where("node_id", $nodeIds)->where('user_id', \XF::visitor()->user_id)
-            ->order($setOrderFinder->expression('FIELD(node_id, ' . $quoteNodeIds . ')'))
-            ->fetch();
+        if ($quoteNodeIds) {
+            $setOrderFinder = \XF::finder('XF:Node');
+
+            $finder = $setOrderFinder->where("node_id", $nodeIds)->where('user_id', \XF::visitor()->user_id)
+                ->order($setOrderFinder->expression('FIELD(node_id, ' . $quoteNodeIds . ')'))
+                ->fetch();
+        }
+
+
 
         $viewParams = [
             "subForums" => $finder ?: '',
-            "totalReturn" => count($finder),
-            "total" => count($finder)
+            "totalReturn" => $finder ? count($finder) : 0,
+            "total" => $finder ? count($finder) : 0
         ];
 
         return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_index', $viewParams);
@@ -83,45 +98,10 @@ class ForumGroups extends AbstractController
             'forum' => $forum,
             'threads' => $threads,
             "subForums" => $subCommunity ?: '',
-            // "subForums" => \XF::em()->find('XF:Node', $params->node_id) ?: ''
         ];
 
         return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_view', $viewParams);
     }
-
-    // public function actionForumSingleView(ParameterBag $params)
-    // {
-    //     if (!\XF::visitor()->user_id) {
-    //         throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
-    //     }
-
-    //     $forum = $this->assertViewableForum($params->node_id ?: $params->node_name, $this->getForumViewExtraWith());
-
-    //     $threadRepo = $this->getThreadRepo();
-
-    //     $threadList = $threadRepo->findThreadsForForumView(
-    //         $forum,
-    //         [
-    //             'allowOwnPending' => $this->hasContentPendingApproval()
-    //         ]
-    //     );
-
-    //     $threadList->where('sticky', 0);
-
-    //     /** @var \XF\Entity\Thread[]|\XF\Mvc\Entity\AbstractCollection $threads */
-    //     $threads = $threadList->fetch();
-
-    //     $subCommunity = \XF::em()->find('XF:Node', $params->node_id);
-
-    //     $viewParams = [
-    //         'forum' => $forum,
-    //         'threads' => $threads,
-    //         "subForums" => $subCommunity ?: '',
-    //         // "subForums" => \XF::em()->find('XF:Node', $params->node_id) ?: ''
-    //     ];
-
-    //     return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_single_view', $viewParams);
-    // }
 
     protected function getForumViewExtraWith()
     {
@@ -132,56 +112,6 @@ class ForumGroups extends AbstractController
         }
 
         return $extraWith;
-    }
-
-    /**
-     * @return \XF\Repository\Thread
-     */
-    protected function getThreadRepo()
-    {
-        return $this->repository('XF:Thread');
-    }
-
-    /**
-     * @param string|int $nodeIdOrName
-     * @param array $extraWith
-     *
-     * @return \XF\Entity\Forum
-     *
-     * @throws \XF\Mvc\Reply\Exception
-     */
-    protected function assertViewableForum($nodeIdOrName, array $extraWith = [])
-    {
-        if ($nodeIdOrName === null) {
-            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
-        }
-
-        $visitor = \XF::visitor();
-        $extraWith[] = 'Node.Permissions|' . $visitor->permission_combination_id;
-        if ($visitor->user_id) {
-            $extraWith[] = 'Read|' . $visitor->user_id;
-        }
-
-        $finder = $this->em()->getFinder('XF:Forum');
-        $finder->with('Node', true)->with($extraWith);
-        if (is_int($nodeIdOrName) || $nodeIdOrName === strval(intval($nodeIdOrName))) {
-            $finder->where('node_id', $nodeIdOrName);
-        } else {
-            $finder->where(['Node.node_name' => $nodeIdOrName, 'Node.node_type_id' => 'Forum']);
-        }
-
-        /** @var \XF\Entity\Forum $forum */
-        $forum = $finder->fetchOne();
-        if (!$forum) {
-            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
-        }
-        if (!$forum->canView($error)) {
-            throw $this->exception($this->noPermission($error));
-        }
-
-        $this->plugin('XF:Node')->applyNodeContext($forum->Node);
-
-        return $forum;
     }
 
     protected function nodeAddEdit(\XF\Entity\Node $node)
@@ -206,10 +136,12 @@ class ForumGroups extends AbstractController
             'nodeTree' => $nodeTree,
             'styleTree' => $styleTree,
             'navChoices' => $navChoices,
+            'avatarWidth' => 250,
+            'avatarHeight' => 250,
+            'coverWidth' => $this->imageWidth,
+            'coverHeight' => $this->imageHeight
         ] + $roomParams;
 
-        // var_dump($this->getViewClassPrefix() . '\Edit', $this->getTemplatePrefix() . '_edit');
-        // exit;
         return $this->view('FS\ForumGroups:ForumGroups\Index', 'fs_forum_groups_sub_forum_add_edit', $viewParams);
     }
 
@@ -237,18 +169,11 @@ class ForumGroups extends AbstractController
 
         $visitor = \XF::visitor();
 
-        //   if ($params->room_id)
-        //   {
-        //        $room = $this->assertRoomExistsAndCanEdit($params->room_id);
-        //   }
-        //   else
-        //   {
         if (!$visitor->canCreateSiropuChatRooms()) {
             return $this->noPermission();
         }
 
         $room = $this->em()->create('Siropu\Chat:Room');
-        //   }
 
         if ($visitor->canPasswordProtectSiropuChatRooms()) {
             $room->room_password = $this->filter('room_password', 'str');
@@ -319,8 +244,6 @@ class ForumGroups extends AbstractController
 
         $this->chatRoomURlPath = $replaceRoute;
 
-        // $node->fastUpdate('room_path', $replaceRoute);
-
         if ($this->filter('join_room', 'bool')) {
             return $this->plugin('Siropu\Chat:Room')->joinRoom($room);
         }
@@ -358,6 +281,8 @@ class ForumGroups extends AbstractController
             $node = $this->em()->create('XF:Node');
             $node->node_type_id = "Forum";
         }
+
+        $this->validateCoverImage();
 
         $this->roomSave();
 
@@ -460,6 +385,7 @@ class ForumGroups extends AbstractController
         $forumGroupImage = $this->service($serviceName, $node);
 
         $uploadedFile = $this->request->getFile($varName);
+
         if ($uploadedFile) {
             $forumGroupImage->setUpload($uploadedFile);
             if (!$forumGroupImage->validate($errors)) {
@@ -467,6 +393,23 @@ class ForumGroups extends AbstractController
             }
 
             $forumGroupImage->upload();
+        }
+    }
+
+    protected function validateCoverImage()
+    {
+        $uploadedFile = $this->request->getFile('coverFile');
+
+        $imageInfo = @getimagesize($uploadedFile->getTempFile());
+
+        $width = (int) $imageInfo[0];
+        $height = (int) $imageInfo[1];
+
+        if ($width < $this->imageWidth || $height < $this->imageHeight) {
+            throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
+                'width' => $this->imageWidth,
+                'height' => $this->imageHeight
+            ]), 404));
         }
     }
 
@@ -701,7 +644,6 @@ class ForumGroups extends AbstractController
     public function getModeratorPermissionData($contentType = null)
     {
         $moderationIds = explode(",", "editAnyMessage,deleteAnyMessage,viewHiddenUsers,changeAuthor,editNotice,editRules,editAds,editRoomSettings,postAnnouncements,stickUnstickThread,lockUnlockThread,deleteAnyThread,threadReplyBan,editAnyPost,deleteAnyPost,warn,manageAnyTag,viewDeleted,viewModerated,undelete,approveUnapprove,markSolutionAnyThread");
-        // $moderationIds = explode(",", "add,addClosedGroups");
         $permissionGroupsIds = explode(",", "siropuChatModerator,siropuChatModerator,siropuChatModerator,siropuChatModerator,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,siropuChatAdmin,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum,forum");
 
         /** @var \XF\Repository\Permission $permissionRepo */
@@ -714,9 +656,6 @@ class ForumGroups extends AbstractController
             ->where("permission_group_id", $permissionGroupsIds) // all that's supported
             ->fetch();
 
-        // echo '<pre>';
-        // var_dump($permissions);
-        // exit;
         $interfaceGroups = $permissionRepo->findInterfaceGroupsForList()->where('is_moderator', 1)->fetch();
 
         $globalPermissions = [];
@@ -811,7 +750,6 @@ class ForumGroups extends AbstractController
         });
 
         if ($contentModerator) {
-            // need to get this saved, even though it has been configured already
             $form->basicEntitySave($contentModerator, []);
 
             $form->complete(function () use ($permissionUpdater, $contentModerator, $input) {
@@ -819,8 +757,6 @@ class ForumGroups extends AbstractController
                 $permissionUpdater->updatePermissions($input['contentPermissions']);
             });
         }
-
-        // TODO: the permissions are actually rebuilt twice with this method
 
         return $form;
     }
@@ -831,7 +767,7 @@ class ForumGroups extends AbstractController
 
         $modRepo = $this->getModRepo();
 
-        $superModerators = $this->findModeratorsForList(true)->fetch();
+        // $superModerators = $this->findModeratorsForList(true)->fetch();
 
         $contentModFinder = $this->findContentModeratorsForList($params->node_id);
 
@@ -862,7 +798,7 @@ class ForumGroups extends AbstractController
             ->fetch();
 
         $viewParams = [
-            'superModerators' => $superModerators,
+            // 'superModerators' => $superModerators,
             'contentModerators' => $groupedModerators,
             'contentModeratorTotals' => $contentModeratorTotals,
             'displayLimit' => $displayLimit,
@@ -933,11 +869,6 @@ class ForumGroups extends AbstractController
 
         $subCommunity = $this->assertNodeExists($params['node_id']);
 
-        // var_dump($subCommunity);exit;
-        // if (!$subCommunity->canManageAvatar($errors)) {
-        //     return $this->noPermission($errors);
-        // }
-
         /** @var \FS\ForumGroups\Service\ForumGroups\Avatar $avatar */
         $avatar = $this->service('FS\ForumGroups:ForumGroups\Avatar', $subCommunity);
 
@@ -950,9 +881,6 @@ class ForumGroups extends AbstractController
         $this->matchUser($params);
 
         $subCommunity = $this->assertNodeExists($params['node_id']);
-        // if (!$group->canManageCover($errors)) {
-        //     return $this->noPermission($errors);
-        // }
 
         /** @var \FS\ForumGroups\Service\ForumGroups\Cover $cover */
         $cover = $this->service('FS\ForumGroups:ForumGroups\Cover', $subCommunity);
@@ -1053,7 +981,6 @@ class ForumGroups extends AbstractController
         $userGroups = $this->getUserGroupRepo()->findUserGroupsForList()->fetch();
 
         if (count($userGroups)) {
-            //
             $permissionUpdater = \xf::app()->service('XF:UpdatePermissions');
             foreach ($userGroups as $group) {
 
@@ -1120,6 +1047,56 @@ class ForumGroups extends AbstractController
         return $node;
     }
 
+    /**
+     * @return \XF\Repository\Thread
+     */
+    protected function getThreadRepo()
+    {
+        return $this->repository('XF:Thread');
+    }
+
+    /**
+     * @param string|int $nodeIdOrName
+     * @param array $extraWith
+     *
+     * @return \XF\Entity\Forum
+     *
+     * @throws \XF\Mvc\Reply\Exception
+     */
+    protected function assertViewableForum($nodeIdOrName, array $extraWith = [])
+    {
+        if ($nodeIdOrName === null) {
+            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
+        }
+
+        $visitor = \XF::visitor();
+        $extraWith[] = 'Node.Permissions|' . $visitor->permission_combination_id;
+        if ($visitor->user_id) {
+            $extraWith[] = 'Read|' . $visitor->user_id;
+        }
+
+        $finder = $this->em()->getFinder('XF:Forum');
+        $finder->with('Node', true)->with($extraWith);
+        if (is_int($nodeIdOrName) || $nodeIdOrName === strval(intval($nodeIdOrName))) {
+            $finder->where('node_id', $nodeIdOrName);
+        } else {
+            $finder->where(['Node.node_name' => $nodeIdOrName, 'Node.node_type_id' => 'Forum']);
+        }
+
+        /** @var \XF\Entity\Forum $forum */
+        $forum = $finder->fetchOne();
+        if (!$forum) {
+            throw $this->exception($this->notFound(\XF::phrase('requested_forum_not_found')));
+        }
+        if (!$forum->canView($error)) {
+            throw $this->exception($this->noPermission($error));
+        }
+
+        $this->plugin('XF:Node')->applyNodeContext($forum->Node);
+
+        return $forum;
+    }
+
     public function getRoomRepo()
     {
         return $this->repository('Siropu\Chat:Room');
@@ -1146,30 +1123,4 @@ class ForumGroups extends AbstractController
             }
         }
     }
-
-    // public function getMessageCounts()
-    // {
-    //     $db = \XF::db();
-
-    //     $res =  $db->fetchAll(
-    //         "SELECT SUM(`view_count`) AS total_sum
-    //         FROM xf_thread
-    //         WHERE node_id  = ?
-    // 	",
-    //         [
-    //             $this->node_id,
-    //         ]
-    //     );
-
-    //     return intval($res['0']['total_sum']);
-    // }
-
-    // $this->db->query("
-    // 		INSERT INTO xf_data_registry
-    // 			(data_key, data_value)
-    // 		VALUES
-    // 			(?, ?)
-    // 		ON DUPLICATE KEY UPDATE
-    // 			data_value = VALUES(data_value)
-    // 	", [$key, serialize($value)]);
 }

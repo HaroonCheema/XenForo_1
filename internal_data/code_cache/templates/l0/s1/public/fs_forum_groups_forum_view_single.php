@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 3d0c5233723ff713fa92495ff6d949d2
+// FROM HASH: 82c058805142971b858fdede245a121e
 return array(
 'macros' => array('fs_forum_groups_forum_view_single_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -56,8 +56,8 @@ return array(
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForums'], ), true) . '" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#' . $__templater->escape($__templater->method($__vars['subForums'], 'getRandomColor', array())) . ';color:#fff">
+        <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForums'], ), true) . '" style="color:#fff">
                 ';
 	if ($__vars['subForums']['CoverAttachment']) {
 		$__finalCompiled .= '

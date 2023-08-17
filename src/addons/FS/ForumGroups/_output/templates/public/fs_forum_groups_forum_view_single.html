@@ -40,8 +40,8 @@
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForums.getRandomColor()}};color:#fff">
+        <a href="{{ link('forumGroups', $subForums) }}" style="color:#fff">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"

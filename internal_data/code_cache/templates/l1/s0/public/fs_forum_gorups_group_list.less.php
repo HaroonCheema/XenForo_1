@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: e02962ee36056c109c4b74ce79c61c30
+// FROM HASH: ea9a350e49e60cd53b9f0a3b4dbe3258
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -7,7 +7,7 @@ return array(
 	$__finalCompiled .= $__templater->includeTemplate('fs_forum_gorups_css_helper.less', $__vars) . '
 
 .group--counterList {
-  justify-content: space-between;
+  
   .groups-displayFlex();
 }
 
@@ -16,6 +16,7 @@ return array(
     margin-right: -@xf-paddingMedium + 1;
     margin-left: -@xf-paddingMedium + 1;
     flex-wrap: wrap;
+	  padding:0px 5px;
   }
 
   &.groupListBlock--empty {

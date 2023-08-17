@@ -12,8 +12,8 @@
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="{{ link('forums', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForum.getRandomColor()}};color:#70dbb8">
+            <a href="{{ link('forums', $subForum) }}" style="color:#fff">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
@@ -41,6 +41,7 @@
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
+			   
            <xf:if is="$subForum.AvatarAttachment">
 			   <a href="{{ link('forums', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
@@ -75,14 +76,11 @@
 					
 		<xf:trim>
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 <xf:fa icon="fa-eye" />
                 {$subForum.getViewCounts()}
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                <xf:fa icon="fa-users" />
-                2
-            </li>
+  
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
@@ -96,31 +94,7 @@
 		   
 			<!-- Header Main -->
 		   
-			<!-- Action -->
-		   
-		   <div class="gridCard--header--actions">
-		   
-			<div class="buttonGroup-buttonWrapper">
-                <xf:button class="button--link menuTrigger"
-                       data-xf-click="menu"
-                       aria-expanded="false"
-                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
-					<div class="menu" data-menu="menu" aria-hidden="true">
-                    <div class="menu-content">
-                                <a href="{{ link('forumGroups/add-moderator', $subForum) }}"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                {{  phrase('fs_forum_groups_moderator')  }}
-                            </a>
-                           
-                            <hr class="menu-separator" />
-                    </div>
-                </div>
-            </div>   
-			   
-		   </div>
-		   
-			<!-- Action -->
+		
 		   
             </div>
 			

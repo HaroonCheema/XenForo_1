@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: a5b44e630be83fceccb4da8e04e29367
+// FROM HASH: ca9272065b9ea5b51b1f60a7c25fc993
 return array(
 'macros' => array('forum_groups_sub_forum_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -19,8 +19,8 @@ return array(
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForum'], ), true) . '" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#' . $__templater->escape($__templater->method($__vars['subForum'], 'getRandomColor', array())) . ';color:#70dbb8">
+            <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForum'], ), true) . '" style="color:#fff">
                 ';
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '
@@ -104,16 +104,12 @@ return array(
 	}
 	$__finalCompiled .= trim('
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 ' . $__templater->fontAwesome('fa-eye', array(
 	)) . '
                 ' . $__templater->escape($__templater->method($__vars['subForum'], 'getViewCounts', array())) . '
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                ' . $__templater->fontAwesome('fa-users', array(
-	)) . '
-                2
-            </li>
+      
             ' . $__compilerTemp1 . '
         </ul>
     ') . '

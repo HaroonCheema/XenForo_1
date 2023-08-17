@@ -301,7 +301,7 @@
   <template type="public" title="fs_forum_gorups_group_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_forum_gorups_css_helper.less') }}
 
 .group--counterList {
-  justify-content: space-between;
+  
   .groups-displayFlex();
 }
 
@@ -310,6 +310,7 @@
     margin-right: -@xf-paddingMedium + 1;
     margin-left: -@xf-paddingMedium + 1;
     flex-wrap: wrap;
+	  padding:0px 5px;
   }
 
   &.groupListBlock--empty {
@@ -801,8 +802,8 @@
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="{{ link('forums', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForum.getRandomColor()}};color:#70dbb8">
+            <a href="{{ link('forums', $subForum) }}" style="color:#fff">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
@@ -830,6 +831,7 @@
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
+			   
            <xf:if is="$subForum.AvatarAttachment">
 			   <a href="{{ link('forums', $subForum) }}"
        class="groupAvatar groupAvatar--link groupAvatar--default" style="background-color:#e08585;color:#8f2424">
@@ -864,14 +866,11 @@
 					
 		<xf:trim>
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 <xf:fa icon="fa-eye" />
                 {$subForum.getViewCounts()}
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                <xf:fa icon="fa-users" />
-                2
-            </li>
+  
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
@@ -885,31 +884,7 @@
 		   
 			<!-- Header Main -->
 		   
-			<!-- Action -->
-		   
-		   <div class="gridCard--header--actions">
-		   
-			<div class="buttonGroup-buttonWrapper">
-                <xf:button class="button--link menuTrigger"
-                       data-xf-click="menu"
-                       aria-expanded="false"
-                       aria-haspopup="true" title="{{ phrase('more_options')|for_attr }}"><xf:fa icon="fa-cog" /></xf:button>
-					<div class="menu" data-menu="menu" aria-hidden="true">
-                    <div class="menu-content">
-                                <a href="{{ link('forumGroups/add-moderator', $subForum) }}"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                {{  phrase('fs_forum_groups_moderator')  }}
-                            </a>
-                           
-                            <hr class="menu-separator" />
-                    </div>
-                </div>
-            </div>   
-			   
-		   </div>
-		   
-			<!-- Action -->
+		
 		   
             </div>
 			
@@ -974,8 +949,8 @@
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForums.getRandomColor()}};color:#fff">
+        <a href="{{ link('forumGroups', $subForums) }}" style="color:#fff">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
@@ -1091,8 +1066,8 @@
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="{{ link('forumGroups', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForum.getRandomColor()}};color:#70dbb8">
+            <a href="{{ link('forumGroups', $subForum) }}" style="color:#fff">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
@@ -1154,14 +1129,11 @@
 					
 		<xf:trim>
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 <xf:fa icon="fa-eye" />
                 {$subForum.getViewCounts()}
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                <xf:fa icon="fa-users" />
-                2
-            </li>
+      
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
@@ -1231,6 +1203,7 @@
 <xf:if contentcheck="true">
 	<xf:contentcheck>
 
+	<xf:comment>		
 	<xf:if is="$superModerators is not empty">
 		<div class="block">
 			<div class="block-container">
@@ -1254,18 +1227,22 @@
 			</div>
 		</div>
 	</xf:if>
+	</xf:comment>
 
 	<xf:if is="$contentModerators is not empty">
 		<div class="block">
 			<div class="block-outer">
 				<div class="block-outer-main">
+					
+					<xf:comment>
 					<a class="button button--link menuTrigger"
 						data-xf-click="menu"
 						role="button"
 						tabindex="0"
 						aria-expanded="false"
 						aria-haspopup="true">{{ phrase('filter:') }} {{ $userIdFilter ? {$users.{$userIdFilter}.username} : phrase('(all)') }}</a>
-
+					</xf:comment>
+					
 					<div class="menu" data-menu="menu" aria-hidden="true">
 						<div class="menu-content">
 							<h3 class="menu-header">{{ phrase('content_moderators') }}</h3>
@@ -1349,15 +1326,15 @@
 			 <xf:uploadrow name="avatarFile"
                           label="{{ phrase('fs_forum_group_avatar') }}"
                           explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
-                                'width': $baseWidth,
-                                'height': $baseHeight
+                                'width': $avatarWidth,
+                                'height': $avatarHeight
                           }) }}" />
 			
 			<xf:uploadrow name="coverFile"
                           label="{{ phrase('fs_forum_group_cover') }}"
                           explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
-                                'width': $baseWidth,
-                                'height': $baseHeight
+                                'width': $coverWidth,
+                                'height': $coverHeight
                           }) }}" />
 				
 			
@@ -1834,8 +1811,8 @@
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="{{ link('forumGroups', $subForums) }}" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForums.getRandomColor()}};color:#fff">
+        <a href="{{ link('forumGroups', $subForums) }}" style="color:#fff">
                 <xf:if is="$subForums.CoverAttachment">
                 <img data-crop="{$subForums->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup"
@@ -1895,11 +1872,11 @@
 	<!-- Cover Header -->
 		
 	<!-- Thread Lists -->
-	
+	<xf:if is="$threads is not empty">
 		<div class="block-container">
 		<div class="block-body">
 				<div class="structItemContainer">
-					<xf:if is="$threads is not empty">
+					
 						<div class="structItemContainer-group js-threadList">
 							<xf:if is="$threads is not empty">
 								<xf:foreach loop="$threads" value="$thread">
@@ -1909,17 +1886,17 @@
 										args="null"  />
 								</xf:foreach>
 							</xf:if>
-						</div>				
+						</div>		
+			</div>
+			</div>
+		</div>
 					<xf:else />
-						<div class="structItemContainer-group js-threadList">
-								<div class="structItem js-emptyThreadList">
-									<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
-								</div>
+						<div class="blockMessage  ">
+							<div class="structItem-cell">{{ phrase('there_no_threads_in_this_forum') }}</div>
 						</div>
 					</xf:if>
-				</div>
-		</div>
-	</div>
+					
+
 	
 	<!-- Thread Lists -->
 	
@@ -1936,10 +1913,11 @@
 			<xf:radiorow name="type" value="{$type}"
 				label="{{ phrase('type_of_moderator') }}">
 
+				<xf:comment>
 				<xf:option value="_super"
 					label="{{ phrase('super_moderator') }}"
 					hint="{{ phrase('super_moderator_can_moderate_entire_board') }}" />
-
+				</xf:comment>
 					<xf:option value="node" label="Forum moderator" selected="true"/>
 			</xf:radiorow>
 		</div>

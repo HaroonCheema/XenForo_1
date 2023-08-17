@@ -17,7 +17,7 @@
     "public/fs_forum_gorups_group_list.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "e02962ee36056c109c4b74ce79c61c30"
+        "hash": "ea9a350e49e60cd53b9f0a3b4dbe3258"
     },
     "public/fs_forum_gorups_style.less": {
         "version_id": 1000010,
@@ -32,27 +32,27 @@
     "public/fs_forum_groups_forum_view_list.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "141409620ecc20f1ae03685e61a98f69"
+        "hash": "8dc73e0f3e10b0a24ede2915e658142f"
     },
     "public/fs_forum_groups_forum_view_single.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "3d0c5233723ff713fa92495ff6d949d2"
+        "hash": "82c058805142971b858fdede245a121e"
     },
     "public/fs_forum_groups_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "a5b44e630be83fceccb4da8e04e29367"
+        "hash": "ca9272065b9ea5b51b1f60a7c25fc993"
     },
     "public/fs_forum_groups_moderator_list.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "567298f497eed2f26a1221ac407b10f9"
+        "hash": "dc39a1b0504dcdd843fc54a6a01b918c"
     },
     "public/fs_forum_groups_sub_forum_add_edit.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "1c7defdd5c8fddbf6cd837f2aad8568a"
+        "hash": "49a5c92db1ca7d37b4d5a686bb281bd7"
     },
     "public/fs_forum_groups_thread_list_macros.html": {
         "version_id": 1000010,
@@ -62,12 +62,12 @@
     "public/fs_forum_groups_view.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "d2f6f13b5e7ff5bd279ab4709557c00f"
+        "hash": "cce04d5ed14ef988b4c6371c221ad27e"
     },
     "public/moderator_add_choice.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "67785304147dd0f3880596073f84a934"
+        "hash": "df9b7e1f5c10b44a8b62de7c22a776f2"
     },
     "public/moderator_edit.html": {
         "version_id": 1000010,

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 1c7defdd5c8fddbf6cd837f2aad8568a
+// FROM HASH: 49a5c92db1ca7d37b4d5a686bb281bd7
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -101,14 +101,14 @@ return array(
 		'name' => 'avatarFile',
 	), array(
 		'label' => 'Group Avatar',
-		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['baseWidth']) . 'x' . $__templater->escape($__vars['baseHeight']) . ' pixels.',
+		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['avatarWidth']) . 'x' . $__templater->escape($__vars['avatarHeight']) . ' pixels.',
 	)) . '
 			
 			' . $__templater->formUploadRow(array(
 		'name' => 'coverFile',
 	), array(
 		'label' => 'Group Cover',
-		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['baseWidth']) . 'x' . $__templater->escape($__vars['baseHeight']) . ' pixels.',
+		'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['coverWidth']) . 'x' . $__templater->escape($__vars['coverHeight']) . ' pixels.',
 	)) . '
 				
 			

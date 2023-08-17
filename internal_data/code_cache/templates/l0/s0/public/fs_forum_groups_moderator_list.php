@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 567298f497eed2f26a1221ac407b10f9
+// FROM HASH: dc39a1b0504dcdd843fc54a6a01b918c
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -21,59 +21,7 @@ return array(
 	$__compilerTemp1 = '';
 	$__compilerTemp1 .= '
 
-	';
-	if (!$__templater->test($__vars['superModerators'], 'empty', array())) {
-		$__compilerTemp1 .= '
-		<div class="block">
-			<div class="block-container">
-				<h2 class="block-header">' . 'Super moderators' . '</h2>
-				<div class="block-body">
-					';
-		$__compilerTemp2 = '';
-		if ($__templater->isTraversable($__vars['superModerators'])) {
-			foreach ($__vars['superModerators'] AS $__vars['superMod']) {
-				$__compilerTemp2 .= '
-							' . $__templater->dataRow(array(
-				), array(array(
-					'class' => 'dataList-cell--min dataList-cell--image dataList-cell--imageSmall',
-					'href' => $__templater->func('link', array('forumGroups/super/edit', $__vars['superMod'], ), false),
-					'_type' => 'cell',
-					'html' => '
-									' . $__templater->func('avatar', array($__vars['superMod']['User'], 's', false, array(
-					'href' => '',
-				))) . '
-								',
-				),
-				array(
-					'href' => $__templater->func('link', array('forumGroups/super/edit', $__vars['superMod'], ), false),
-					'label' => $__templater->escape($__vars['superMod']['User']['username']),
-					'_type' => 'main',
-					'html' => '',
-				),
-				array(
-					'href' => $__templater->func('link', array('users/edit', $__vars['superMod']['User'], ), false),
-					'_type' => 'action',
-					'html' => 'User info',
-				),
-				array(
-					'href' => $__templater->func('link', array('forumGroups/super/delete', $__vars['superMod'], ), false),
-					'overlay' => 'true',
-					'_type' => 'delete',
-					'html' => '',
-				))) . '
-						';
-			}
-		}
-		$__compilerTemp1 .= $__templater->dataList('
-						' . $__compilerTemp2 . '
-					', array(
-		)) . '
-				</div>
-			</div>
-		</div>
-	';
-	}
-	$__compilerTemp1 .= '
+	' . '
 
 	';
 	if (!$__templater->test($__vars['contentModerators'], 'empty', array())) {
@@ -81,13 +29,9 @@ return array(
 		<div class="block">
 			<div class="block-outer">
 				<div class="block-outer-main">
-					<a class="button button--link menuTrigger"
-						data-xf-click="menu"
-						role="button"
-						tabindex="0"
-						aria-expanded="false"
-						aria-haspopup="true">' . 'Filter' . $__vars['xf']['language']['label_separator'] . ' ' . ($__vars['userIdFilter'] ? $__templater->escape($__vars['users'][$__vars['userIdFilter']]['username']) : $__vars['xf']['language']['parenthesis_open'] . 'All' . $__vars['xf']['language']['parenthesis_close']) . '</a>
-
+					
+					' . '
+					
 					<div class="menu" data-menu="menu" aria-hidden="true">
 						<div class="menu-content">
 							<h3 class="menu-header">' . 'Content moderators' . '</h3>
@@ -112,13 +56,13 @@ return array(
 				<h2 class="block-header">' . 'Content moderators' . '</h2>
 				<div class="block-body">
 					';
-		$__compilerTemp3 = '';
+		$__compilerTemp2 = '';
 		if ($__templater->isTraversable($__vars['users'])) {
 			foreach ($__vars['users'] AS $__vars['userId'] => $__vars['user']) {
-				$__compilerTemp3 .= '
+				$__compilerTemp2 .= '
 							';
 				if ($__vars['contentModerators'][$__vars['userId']]) {
-					$__compilerTemp3 .= '
+					$__compilerTemp2 .= '
 								' . $__templater->dataRow(array(
 						'rowtype' => 'subsection',
 						'rowclass' => 'dataList-row--noHover',
@@ -131,7 +75,7 @@ return array(
 									';
 					if ($__templater->isTraversable($__vars['contentModerators'][$__vars['userId']])) {
 						foreach ($__vars['contentModerators'][$__vars['userId']] AS $__vars['contentMod']) {
-							$__compilerTemp3 .= '
+							$__compilerTemp2 .= '
 										' . $__templater->dataRow(array(
 							), array(array(
 								'href' => $__templater->func('link', array('forumGroups/content/edit', $__vars['contentMod'], ), false),
@@ -148,10 +92,10 @@ return array(
 									';
 						}
 					}
-					$__compilerTemp3 .= '
+					$__compilerTemp2 .= '
 									';
 					if ($__vars['displayLimit'] AND ($__vars['contentModeratorTotals'][$__vars['userId']] > $__vars['displayLimit'])) {
-						$__compilerTemp3 .= '
+						$__compilerTemp2 .= '
 										' . $__templater->dataRow(array(
 						), array(array(
 							'colspan' => '2',
@@ -163,16 +107,16 @@ return array(
 						))) . '
 									';
 					}
-					$__compilerTemp3 .= '
+					$__compilerTemp2 .= '
 								</tbody>
 							';
 				}
-				$__compilerTemp3 .= '
+				$__compilerTemp2 .= '
 						';
 			}
 		}
 		$__compilerTemp1 .= $__templater->dataList('
-						' . $__compilerTemp3 . '
+						' . $__compilerTemp2 . '
 					', array(
 		)) . '
 				</div>

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: d2f6f13b5e7ff5bd279ab4709557c00f
+// FROM HASH: cce04d5ed14ef988b4c6371c221ad27e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -101,8 +101,8 @@ return array(
 	<div class="block">
         <div class="block-container groupCover-header">
             <div class="block-body">
-               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#e08585;color:#8f2424">
-        <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForums'], ), true) . '" style="background-color:#e08585;color:#8f2424">
+               <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#' . $__templater->escape($__templater->method($__vars['subForums'], 'getRandomColor', array())) . ';color:#fff">
+        <a href="' . $__templater->func('link', array('forumGroups', $__vars['subForums'], ), true) . '" style="color:#fff">
                 ';
 	if ($__vars['subForums']['CoverAttachment']) {
 		$__finalCompiled .= '
@@ -181,13 +181,13 @@ return array(
 	<!-- Cover Header -->
 		
 	<!-- Thread Lists -->
-	
+	';
+	if (!$__templater->test($__vars['threads'], 'empty', array())) {
+		$__finalCompiled .= '
 		<div class="block-container">
 		<div class="block-body">
 				<div class="structItemContainer">
-					';
-	if (!$__templater->test($__vars['threads'], 'empty', array())) {
-		$__finalCompiled .= '
+					
 						<div class="structItemContainer-group js-threadList">
 							';
 		if (!$__templater->test($__vars['threads'], 'empty', array())) {
@@ -207,21 +207,21 @@ return array(
 							';
 		}
 		$__finalCompiled .= '
-						</div>				
+						</div>		
+			</div>
+			</div>
+		</div>
 					';
 	} else {
 		$__finalCompiled .= '
-						<div class="structItemContainer-group js-threadList">
-								<div class="structItem js-emptyThreadList">
-									<div class="structItem-cell">' . 'There are no threads in this forum.' . '</div>
-								</div>
+						<div class="blockMessage  ">
+							<div class="structItem-cell">' . 'There are no threads in this forum.' . '</div>
 						</div>
 					';
 	}
 	$__finalCompiled .= '
-				</div>
-		</div>
-	</div>
+					
+
 	
 	<!-- Thread Lists -->
 	

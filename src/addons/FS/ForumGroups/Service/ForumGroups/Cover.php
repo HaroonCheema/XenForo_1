@@ -101,7 +101,7 @@ class Cover extends AbstractFormUpload
         $errors = [];
         list($baseWidth, $baseHeight) = $this->getBaseDimensions();
         if (!$this->skipCheckDimensions && ($this->width < $baseWidth || $this->height < $baseHeight)) {
-            $errors[] = XF::phrase('tlg_please_upload_image_at_least_xy_pixels', [
+            $errors[] = XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
                 'width' => $baseWidth,
                 'height' => $baseHeight
             ]);

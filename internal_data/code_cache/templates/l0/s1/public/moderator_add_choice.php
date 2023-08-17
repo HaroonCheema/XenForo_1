@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 67785304147dd0f3880596073f84a934
+// FROM HASH: df9b7e1f5c10b44a8b62de7c22a776f2
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -24,12 +24,6 @@ return array(
 		'name' => 'type',
 		'value' => $__vars['type'],
 	), array(array(
-		'value' => '_super',
-		'label' => 'Super moderator',
-		'hint' => 'A super moderator can moderate the entire board.',
-		'_type' => 'option',
-	),
-	array(
 		'value' => 'node',
 		'label' => 'Forum moderator',
 		'selected' => true,

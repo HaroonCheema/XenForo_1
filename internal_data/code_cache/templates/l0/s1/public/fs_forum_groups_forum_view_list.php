@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 141409620ecc20f1ae03685e61a98f69
+// FROM HASH: 8dc73e0f3e10b0a24ede2915e658142f
 return array(
 'macros' => array('fs_forum_groups_forum_view_list_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -19,8 +19,8 @@ return array(
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="' . $__templater->func('link', array('forums', $__vars['subForum'], ), true) . '" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#' . $__templater->escape($__templater->method($__vars['subForum'], 'getRandomColor', array())) . ';color:#70dbb8">
+            <a href="' . $__templater->func('link', array('forums', $__vars['subForum'], ), true) . '" style="color:#fff">
                 ';
 	if ($__vars['subForum']['CoverAttachment']) {
 		$__finalCompiled .= '
@@ -54,6 +54,7 @@ return array(
 			<!-- Avatar -->
 		   
 		   <div class="gridCard--header--avatar">
+			   
            ';
 	if ($__vars['subForum']['AvatarAttachment']) {
 		$__finalCompiled .= '
@@ -104,16 +105,12 @@ return array(
 	}
 	$__finalCompiled .= trim('
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 ' . $__templater->fontAwesome('fa-eye', array(
 	)) . '
                 ' . $__templater->escape($__templater->method($__vars['subForum'], 'getViewCounts', array())) . '
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                ' . $__templater->fontAwesome('fa-users', array(
-	)) . '
-                2
-            </li>
+  
             ' . $__compilerTemp1 . '
         </ul>
     ') . '
@@ -122,36 +119,7 @@ return array(
 		   
 			<!-- Header Main -->
 		   
-			<!-- Action -->
-		   
-		   <div class="gridCard--header--actions">
-		   
-			<div class="buttonGroup-buttonWrapper">
-                ' . $__templater->button($__templater->fontAwesome('fa-cog', array(
-	)), array(
-		'class' => 'button--link menuTrigger',
-		'data-xf-click' => 'menu',
-		'aria-expanded' => 'false',
-		'aria-haspopup' => 'true',
-		'title' => $__templater->filter('More options', array(array('for_attr', array()),), false),
-	), '', array(
-	)) . '
-					<div class="menu" data-menu="menu" aria-hidden="true">
-                    <div class="menu-content">
-                                <a href="' . $__templater->func('link', array('forumGroups/add-moderator', $__vars['subForum'], ), true) . '"
-                                       class="menu-linkRow"
-                                       data-xf-click="overlay">
-                                ' . 'Add Moderator' . '
-                            </a>
-                           
-                            <hr class="menu-separator" />
-                    </div>
-                </div>
-            </div>   
-			   
-		   </div>
-		   
-			<!-- Action -->
+		
 		   
             </div>
 			

@@ -96,8 +96,8 @@
 			
 				<div class="groupCover--wrapper">
                 
-        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#1f7a5c;color:#70dbb8">
-            <a href="{{ link('forumGroups', $subForum) }}" style="background-color:#1f7a5c;color:#70dbb8">
+        <div class="groupCover groupCoverFrame groupCover--default" style="background-color:#{{$subForum.getRandomColor()}};color:#70dbb8">
+            <a href="{{ link('forumGroups', $subForum) }}" style="color:#fff">
                 <xf:if is="$subForum.CoverAttachment">
                 <img data-crop="{$subForum->getCoverCropData()|json}"
                      class="groupCover--img groupCover--lazy" data-xf-init="fs-forum-groups-cover-setup" data-force-height="100"
@@ -159,14 +159,11 @@
 					
 		<xf:trim>
         <ul class="listInline group--counterList u-muted">
-            <li class="groupItem-stat groupItem-stat--viewCount">
+            <li class="groupItem-stat groupItem-stat--viewCount" style="margin-right:10px;">
                 <xf:fa icon="fa-eye" />
                 {$subForum.getViewCounts()}
             </li>
-            <li class="groupItem-stat groupItem-stat--memberCount">
-                <xf:fa icon="fa-users" />
-                2
-            </li>
+      
             <xf:if is="$xf.options.tl_groups_enableForums">
                 <li class="groupItem-stat groupItem-stat--discussionCount">
                     <xf:fa icon="fa-comment" />
