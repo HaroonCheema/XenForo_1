@@ -27,6 +27,16 @@ class ForumGroups extends AbstractController
      */
     protected $imageHeight = 200;
 
+    /**
+     * @var Avatar Image Width
+     */
+    protected $avatarWidth = 250;
+
+    /**
+     * @var Avatar Image Height
+     */
+    protected $avatarHeight = 250;
+
     protected function preDispatchController($action, ParameterBag $params)
     {
         if (!\xf::visitor()->hasPermission('fs_forum_group_permission', 'add')) {
@@ -59,8 +69,6 @@ class ForumGroups extends AbstractController
                 ->order($setOrderFinder->expression('FIELD(node_id, ' . $quoteNodeIds . ')'))
                 ->fetch();
         }
-
-
 
         $viewParams = [
             "subForums" => $finder ?: '',
@@ -136,8 +144,8 @@ class ForumGroups extends AbstractController
             'nodeTree' => $nodeTree,
             'styleTree' => $styleTree,
             'navChoices' => $navChoices,
-            'avatarWidth' => 250,
-            'avatarHeight' => 250,
+            'avatarWidth' => $this->avatarWidth,
+            'avatarHeight' => $this->avatarHeight,
             'coverWidth' => $this->imageWidth,
             'coverHeight' => $this->imageHeight
         ] + $roomParams;
@@ -282,6 +290,7 @@ class ForumGroups extends AbstractController
             $node->node_type_id = "Forum";
         }
 
+        $this->validateAvatarImage();
         $this->validateCoverImage();
 
         $this->roomSave();
@@ -396,6 +405,25 @@ class ForumGroups extends AbstractController
         }
     }
 
+    protected function validateAvatarImage()
+    {
+        $uploadedFile = $this->request->getFile('avatarFile');
+
+        $imageInfo = @getimagesize($uploadedFile->getTempFile());
+
+        $width = (int) $imageInfo[0];
+        $height = (int) $imageInfo[1];
+
+        if ($width < $this->avatarWidth || $height < $this->avatarHeight) {
+            throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
+                'width' => $this->avatarWidth,
+                'height' => $this->avatarHeight
+            ]), 404));
+        } elseif (!$this->app->imageManager()->canResize($width, $height)) {
+            throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
+        }
+    }
+
     protected function validateCoverImage()
     {
         $uploadedFile = $this->request->getFile('coverFile');
@@ -410,6 +438,8 @@ class ForumGroups extends AbstractController
                 'width' => $this->imageWidth,
                 'height' => $this->imageHeight
             ]), 404));
+        } elseif (!$this->app->imageManager()->canResize($width, $height)) {
+            throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
         }
     }
 
