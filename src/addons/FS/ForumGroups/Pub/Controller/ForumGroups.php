@@ -4,6 +4,7 @@ namespace FS\ForumGroups\Pub\Controller;
 
 use XF\Mvc\FormAction;
 use XF\Mvc\ParameterBag;
+use XF\Http\Upload;
 
 use XF\Pub\Controller\AbstractController;
 use FS\ForumGroups\Service\ForumGroups\AbstractFormUpload;
@@ -409,18 +410,26 @@ class ForumGroups extends AbstractController
     {
         $uploadedFile = $this->request->getFile('avatarFile');
 
-        $imageInfo = @getimagesize($uploadedFile->getTempFile());
+        if ($uploadedFile) {
+            $uploadedFile->requireImage();
 
-        $width = (int) $imageInfo[0];
-        $height = (int) $imageInfo[1];
+            if (!$uploadedFile->isValid($errors)) {
+                throw $this->exception($this->error(\XF::phrase('uploaded_file_must_be_valid_image'), 404));
+            }
 
-        if ($width < $this->avatarWidth || $height < $this->avatarHeight) {
-            throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
-                'width' => $this->avatarWidth,
-                'height' => $this->avatarHeight
-            ]), 404));
-        } elseif (!$this->app->imageManager()->canResize($width, $height)) {
-            throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
+            $imageInfo = @getimagesize($uploadedFile->getTempFile());
+
+            $width = (int) $imageInfo[0];
+            $height = (int) $imageInfo[1];
+
+            if ($width < $this->avatarWidth || $height < $this->avatarHeight) {
+                throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
+                    'width' => $this->avatarWidth,
+                    'height' => $this->avatarHeight
+                ]), 404));
+            } elseif (!$this->app->imageManager()->canResize($width, $height)) {
+                throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
+            }
         }
     }
 
@@ -428,18 +437,27 @@ class ForumGroups extends AbstractController
     {
         $uploadedFile = $this->request->getFile('coverFile');
 
-        $imageInfo = @getimagesize($uploadedFile->getTempFile());
+        if ($uploadedFile) {
+            $uploadedFile->requireImage();
 
-        $width = (int) $imageInfo[0];
-        $height = (int) $imageInfo[1];
+            if (!$uploadedFile->isValid($errors)) {
+                throw $this->exception($this->error(\XF::phrase('uploaded_file_must_be_valid_image'), 404));
+            }
 
-        if ($width < $this->imageWidth || $height < $this->imageHeight) {
-            throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
-                'width' => $this->imageWidth,
-                'height' => $this->imageHeight
-            ]), 404));
-        } elseif (!$this->app->imageManager()->canResize($width, $height)) {
-            throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
+
+            $imageInfo = @getimagesize($uploadedFile->getTempFile());
+
+            $width = (int) $imageInfo[0];
+            $height = (int) $imageInfo[1];
+
+            if ($width < $this->imageWidth || $height < $this->imageHeight) {
+                throw $this->exception($this->error(\XF::phrase('fs_group_please_upload_image_at_least_xy_pixels', [
+                    'width' => $this->imageWidth,
+                    'height' => $this->imageHeight
+                ]), 404));
+            } elseif (!$this->app->imageManager()->canResize($width, $height)) {
+                throw $this->exception($this->error(\XF::phrase('uploaded_image_is_too_big'), 404));
+            }
         }
     }
 
