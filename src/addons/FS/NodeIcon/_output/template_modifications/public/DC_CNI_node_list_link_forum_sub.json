@@ -1,0 +1,9 @@
+{
+    "template": "node_list_link_forum",
+    "description": "Append node icon sub",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<a href=\"{{ link('link-forums', $node) }}\" class=\"subNodeLink subNodeLink--link\">{$node.title}</a>",
+    "replace": "<xf:if is=\"$xf.options.DC_CNI_icon_subNodes && $node.getIcon()\">\n\t<a href=\"{{ link('link-forums', $node) }}\" \n\t   class=\"subNodeLink subNodeLink--custom subNodeLink--link\">\n\t\t<span class=\"subNodeLink--icon\"\n\t\t\t  style=\"background-image: url({{ base_url($node.getIcon()) }})\">\n\t\t</span>\n\t\t{$node.title}\n\t</a>\n<xf:else/>\n\t$0\n</xf:if>"
+}

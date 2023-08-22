@@ -1,0 +1,9 @@
+{
+    "template": "extra.less",
+    "description": "Append extra stylesheet",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/^(.*)$/is",
+    "replace": "$0\n<xf:include template=\"DC_CNI_icon.less\" />"
+}

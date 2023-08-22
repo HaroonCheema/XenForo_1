@@ -1,0 +1,9 @@
+{
+    "template": "node_list_link_forum",
+    "description": "Append node icon to node link forum",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<span class=\"node-icon\" aria-hidden=\"true\"><i></i></span>",
+    "replace": "<xf:if is=\"$node.getIcon()\">\n\t<div class=\"node-icon--custom\" \n\t\t style=\"background-image: url({{ base_url($node.getIcon()) }});\n\t\t\t\twidth: {$xf.options.DC_CNI_nodeDimensions.width}px;\n\t\t\t\theight: {$xf.options.DC_CNI_nodeDimensions.height}px;\">\n\t</div>\n<xf:else/>\n\t<span class=\"node-icon\" aria-hidden=\"true\"\n\t\t  style=\"width: {$xf.options.DC_CNI_nodeDimensions.width}px;\n\t\t\t\t height: {$xf.options.DC_CNI_nodeDimensions.height}px;\">\n\t\t<i></i>\n\t</span>\n</xf:if>"
+}

@@ -1,0 +1,9 @@
+{
+    "template": "node_list_forum",
+    "description": "Append node icon sub",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<a href=\"{{ link('forums', $node) }}\" class=\"subNodeLink subNodeLink--forum {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}\">\n\t\t\t<xf:fa icon=\"{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}\" class=\"subNodeLink-icon\" />{$node.title}\n\t\t</a>",
+    "replace": "<xf:if is=\"$xf.options.DC_CNI_icon_subNodes && $node.getIcon()\">\n\t<xf:if is=\"$extras.hasNew && $node.getIconUnread()\">\n\t\t<a href=\"{{ link('forums', $node) }}\" \n\t\t   class=\"subNodeLink subNodeLink--custom subNodeLink--forum subNodeLink--unread\">\n\t\t\t<span class=\"subNodeLink--icon\"\n\t\t\t\t  style=\"background-image: url({{ base_url($node.getIconUnread()) }})\">\n\t\t\t</span>\n\t\t\t{$node.title}\n\t\t</a>\n\t<xf:else/>\n\t\t<a href=\"{{ link('forums', $node) }}\" \n\t\t   class=\"subNodeLink subNodeLink--custom subNodeLink--forum {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}\">\n\t\t\t<span class=\"subNodeLink--icon\"\n\t\t\t\t  style=\"background-image: url({{ base_url($node.getIcon()) }})\">\n\t\t\t</span>\n\t\t\t{$node.title}\n\t\t</a>\n\t</xf:if>\n<xf:else/>\n\t$0\n</xf:if>"
+}

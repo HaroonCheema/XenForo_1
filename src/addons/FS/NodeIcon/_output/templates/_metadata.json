@@ -1,0 +1,12 @@
+{
+    "admin/FS_NodeIcon_delete_icon.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "69e40543bc56c43d800822f7d5000a68"
+    },
+    "admin/FS_NodeIcon_delete_icon_unread.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "16e41bfbe675cea53c82beb2b8e79275"
+    }
+}
