@@ -41,29 +41,6 @@
 			{{ phrase('no_icon') }}
 		</xf:formrow>
 	</xf:if>
-</xf:if>
-
-<xf:if is="$xf.visitor.canEditIcon()">
-	<xf:uploadrow name="upload_unread" accept=".gif,.jpeg,.jpg,.jpe,.png"
-				  label="{{ phrase('icon_unread') }}"
-				  explain="{{ phrase('it_is_recommended_that_you_use_image_that_is_at_least_x_pixels', {
-						   'width': $xf.options.Fs_NodeIcon_nodeDimensions.width,
-						   'height': $xf.options.Fs_NodeIcon_nodeDimensions.height
-						   }) }}" />
-</xf:if>
-
-<xf:if is="!$forum.isInsert()">
-	<xf:if is="{$node.getIconUnread()}">
-		<xf:formrow label="{{ phrase('custom_node_unread_icon') }}">
-			<img src="{{ base_url($node.getIconUnread()) }}" />
-			<br/>
-			<xf:button href="{{ link('forums/delete-icon-unread', $node) }}" icon="delete" overlay="true" />
-		</xf:formrow>
-	<xf:else/>
-		<xf:formrow label="{{ phrase('custom_node_unread_icon') }}">
-			{{ phrase('no_icon') }}
-		</xf:formrow>
-	</xf:if>
 </xf:if>]]></replace>
   </modification>
   <modification type="admin" template="link_forum_edit" modification_key="Fs_NodeIcon_link_node_icon_edit" description="Append node icon editor" execution_order="10" enabled="1" action="str_replace">
@@ -105,13 +82,7 @@
   </modification>
   <modification type="public" template="node_list_category" modification_key="Fs_NodeIcon_node_list_category" description="Append node icon to node category" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<span class="node-icon" aria-hidden="true"><i></i></span>]]></find>
-    <replace><![CDATA[<xf:if is="$node.getIconUnread() && $extras.hasNew">
-	<div class="node-icon--custom unread" 
-		 style="background-image: url({{ base_url($node.getIconUnread()) }});
-				width: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;
-				height: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;">
-	</div>
-<xf:elseif is="$node.getIcon()" />
+    <replace><![CDATA[<xf:if is="$node.getIcon()" >
 	<div class="node-icon--custom read" 
 		 style="background-image: url({{ base_url($node.getIcon()) }});
 				width: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;
@@ -125,41 +96,11 @@
 	</span>
 </xf:if>]]></replace>
   </modification>
-  <modification type="public" template="node_list_category" modification_key="Fs_NodeIcon_node_list_category_sub" description="Append node icon sub" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<a href="{{ link('categories', $node) }}" class="subNodeLink subNodeLink--category {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}">{$node.title}</a>]]></find>
-    <replace><![CDATA[<xf:if is="$xf.options.Fs_NodeIcon_icon_subNodes && $node.getIcon()">
-	<xf:if is="$extras.hasNew && $node.getIconUnread()">
-		<a href="{{ link('categories', $node) }}" 
-		   class="subNodeLink subNodeLink--custom subNodeLink--category subNodeLink--unread">
-			<span class="subNodeLink--icon"
-				  style="background-image: url({{ base_url($node.getIconUnread()) }})">
-			</span>
-			{$node.title}
-		</a>
-	<xf:else/>
-		<a href="{{ link('categories', $node) }}" 
-		   class="subNodeLink subNodeLink--custom subNodeLink--category {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}">
-			<span class="subNodeLink--icon"
-				  style="background-image: url({{ base_url($node.getIcon()) }})">
-			</span>
-			{$node.title}
-		</a>
-	</xf:if>
-<xf:else/>
-	$0
-</xf:if>]]></replace>
-  </modification>
   <modification type="public" template="node_list_forum" modification_key="Fs_NodeIcon_node_list_forum" description="Append node icon to node forum" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<span class="node-icon" aria-hidden="true">
 				<xf:fa icon="{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}" />
 			</span>]]></find>
-    <replace><![CDATA[<xf:if is="$node.getIconUnread() && $extras.hasNew">
-	<div class="node-icon--custom unread" 
-		 style="background-image: url({{ base_url($node.getIconUnread()) }});
-				width: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;
-				height: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;">
-	</div>
-<xf:elseif is="$node.getIcon()" />
+    <replace><![CDATA[<xf:if is="$node.getIcon()" >
 	<div class="node-icon--custom read" 
 		 style="background-image: url({{ base_url($node.getIcon()) }});
 				width: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;
@@ -171,32 +112,6 @@
 				 height: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;">
 		<xf:fa icon="{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}" />
 	</span>
-</xf:if>]]></replace>
-  </modification>
-  <modification type="public" template="node_list_forum" modification_key="Fs_NodeIcon_node_list_forum_sub" description="Append node icon sub" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<a href="{{ link('forums', $node) }}" class="subNodeLink subNodeLink--forum {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}">
-			<xf:fa icon="{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}" class="subNodeLink-icon" />{$node.title}
-		</a>]]></find>
-    <replace><![CDATA[<xf:if is="$xf.options.Fs_NodeIcon_icon_subNodes && $node.getIcon()">
-	<xf:if is="$extras.hasNew && $node.getIconUnread()">
-		<a href="{{ link('forums', $node) }}" 
-		   class="subNodeLink subNodeLink--custom subNodeLink--forum subNodeLink--unread">
-			<span class="subNodeLink--icon"
-				  style="background-image: url({{ base_url($node.getIconUnread()) }})">
-			</span>
-			{$node.title}
-		</a>
-	<xf:else/>
-		<a href="{{ link('forums', $node) }}" 
-		   class="subNodeLink subNodeLink--custom subNodeLink--forum {{ $extras.hasNew ? 'subNodeLink--unread' : '' }}">
-			<span class="subNodeLink--icon"
-				  style="background-image: url({{ base_url($node.getIcon()) }})">
-			</span>
-			{$node.title}
-		</a>
-	</xf:if>
-<xf:else/>
-	$0
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="node_list_link_forum" modification_key="Fs_NodeIcon_node_list_link_forum" description="Append node icon to node link forum" execution_order="10" enabled="1" action="str_replace">
@@ -215,20 +130,6 @@
 	</span>
 </xf:if>]]></replace>
   </modification>
-  <modification type="public" template="node_list_link_forum" modification_key="Fs_NodeIcon_node_list_link_forum_sub" description="Append node icon sub" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<a href="{{ link('link-forums', $node) }}" class="subNodeLink subNodeLink--link">{$node.title}</a>]]></find>
-    <replace><![CDATA[<xf:if is="$xf.options.Fs_NodeIcon_icon_subNodes && $node.getIcon()">
-	<a href="{{ link('link-forums', $node) }}" 
-	   class="subNodeLink subNodeLink--custom subNodeLink--link">
-		<span class="subNodeLink--icon"
-			  style="background-image: url({{ base_url($node.getIcon()) }})">
-		</span>
-		{$node.title}
-	</a>
-<xf:else/>
-	$0
-</xf:if>]]></replace>
-  </modification>
   <modification type="public" template="node_list_page" modification_key="Fs_NodeIcon_node_list_page" description="Append node icon to node page" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<span class="node-icon" aria-hidden="true"><i></i></span>]]></find>
     <replace><![CDATA[<xf:if is="$node.getIcon()">
@@ -243,20 +144,6 @@
 				 height: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;">
 		<i></i>
 	</span>
-</xf:if>]]></replace>
-  </modification>
-  <modification type="public" template="node_list_page" modification_key="Fs_NodeIcon_node_list_page_sub" description="Append node icon sub" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<a href="{{ link('pages', $node) }}" class="subNodeLink subNodeLink--page">{$node.title}</a>]]></find>
-    <replace><![CDATA[<xf:if is="$xf.options.Fs_NodeIcon_icon_subNodes && $node.getIcon()">
-	<a href="{{ link('pages', $node) }}" 
-	   class="subNodeLink subNodeLink--custom subNodeLink--page">
-		<span class="subNodeLink--icon"
-			  style="background-image: url({{ base_url($node.getIcon()) }})">
-		</span>
-		{$node.title}
-	</a>
-<xf:else/>
-	$0
 </xf:if>]]></replace>
   </modification>
   <modification type="admin" template="page_edit" modification_key="Fs_NodeIcon_page_node_icon_edit" description="Append node icon editor" execution_order="10" enabled="1" action="str_replace">

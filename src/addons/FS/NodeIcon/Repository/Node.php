@@ -31,29 +31,4 @@ class Node extends Repository
 			throw new \XF\PrintableException(\XF::phrase('unexpected_error_occurred'));
 		}
 	}
-
-	public function setIconUnreadFromUpload($node, $upload)
-	{
-		$upload->requireImage();
-
-		if (!$upload->isValid($errors)) {
-			throw new \XF\PrintableException(reset($errors));
-		}
-
-		$target = 'data://nodeIcons/' . $node->node_id . '_unread.jpg';
-
-		try {
-			$image = \XF::app()->imageManager->imageFromFile($upload->getTempFile());
-
-			$tempFile = \XF\Util\File::getTempFile();
-			if ($tempFile && $image->save($tempFile)) {
-				$output = $tempFile;
-			}
-			unset($image);
-
-			\XF\Util\File::copyFileToAbstractedPath($output, $target);
-		} catch (Exception $e) {
-			throw new \XF\PrintableException(\XF::phrase('unexpected_error_occurred'));
-		}
-	}
 }

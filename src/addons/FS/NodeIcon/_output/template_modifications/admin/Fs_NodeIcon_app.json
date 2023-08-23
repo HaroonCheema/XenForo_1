@@ -1,9 +1,0 @@
-{
-    "template": "app.less",
-    "description": "Append extra stylesheet",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "preg_replace",
-    "find": "/^(.*)$/is",
-    "replace": "$0\n\n.nodeIcon--custom {\n\twidth: 15px;\n\theight: 15px;\n\tbackground-size: cover;\n\tbackground-position: center;\n}"
-}

@@ -1,9 +1,0 @@
-{
-    "template": "node_list",
-    "description": "Append node icon",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "str_replace",
-    "find": "<xf:macro name=\"node_icon\" arg-node=\"{$node}\" />",
-    "replace": "<xf:if is=\"$node.getIcon()\">\n\t<div class=\"nodeIcon--custom\"\n\t\t style=\"background-image: url({{ base_url($node.getIcon()) }})\">\n\t</div>\n<xf:else/>\n\t$0\n</xf:if>"
-}

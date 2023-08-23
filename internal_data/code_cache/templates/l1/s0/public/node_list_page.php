@@ -66,23 +66,7 @@ return array(
 	$__finalCompiled = '';
 	$__finalCompiled .= '
 	<li>
-		';
-	if ($__vars['xf']['options']['Fs_NodeIcon_icon_subNodes'] AND $__templater->method($__vars['node'], 'getIcon', array())) {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('pages', $__vars['node'], ), true) . '" 
-	   class="subNodeLink subNodeLink--custom subNodeLink--page">
-		<span class="subNodeLink--icon"
-			  style="background-image: url(' . $__templater->func('base_url', array($__templater->method($__vars['node'], 'getIcon', array()), ), true) . ')">
-		</span>
-		' . $__templater->escape($__vars['node']['title']) . '
-	</a>
-';
-	} else {
-		$__finalCompiled .= '
-	<a href="' . $__templater->func('link', array('pages', $__vars['node'], ), true) . '" class="subNodeLink subNodeLink--page">' . $__templater->escape($__vars['node']['title']) . '</a>
-';
-	}
-	$__finalCompiled .= '
+		<a href="' . $__templater->func('link', array('pages', $__vars['node'], ), true) . '" class="subNodeLink subNodeLink--page">' . $__templater->escape($__vars['node']['title']) . '</a>
 		' . $__templater->callMacro('forum_list', 'sub_node_list', array(
 		'children' => $__vars['children'],
 		'childExtras' => $__vars['childExtras'],

@@ -8,47 +8,40 @@ class Node extends XFCP_Node
 {
     public function getIcon()
     {
-        $icon = 'data://nodeIcons/'.$this->node_id.'.jpg';
-		
-		if (\XF\Util\File::abstractedPathExists($icon))
-		{
-			return $this->app()->applyExternalDataUrl('nodeIcons/' . $this->node_id . '.jpg?' . $this->icon_time, true);
-		}
-	
-		return;
-    }
+        $icon = 'data://nodeIcons/' . $this->node_id . '.jpg';
 
-    public function getIconUnread()
-    {
-        $icon = 'data://nodeIcons/'.$this->node_id.'_unread.jpg';
-		
-		if (\XF\Util\File::abstractedPathExists($icon))
-		{
-			return $this->app()->applyExternalDataUrl('nodeIcons/' . $this->node_id . '_unread.jpg?' . $this->icon_time, true);
-		}
-	
-		return;
+        if (\XF\Util\File::abstractedPathExists($icon)) {
+            return $this->app()->applyExternalDataUrl('nodeIcons/' . $this->node_id . '.jpg?' . $this->icon_time, true);
+        }
+
+        return;
     }
 
     protected function _preSave()
     {
         $parent = parent::_preSave();
-        
+
         $this->icon_time = \XF::$time;
 
         return $parent;
     }
 
+    protected function _postSave()
+    {
+        if ($upload = \xf::app()->request->getFile('upload', false, false)) {
+            \xf::app()->repository('FS\NodeIcon:Node')->setIconFromUpload($this, $upload);
+        }
+    }
+
     protected function _postDelete()
-	{
+    {
         $parent = parent::_postDelete();
-        
-        \XF\Util\File::deleteFromAbstractedPath('data://nodeIcons/'.$this->node_id.'.jpg');
-        \XF\Util\File::deleteFromAbstractedPath('data://nodeIcons/'.$this->node_id.'_unread.jpg');
+
+        \XF\Util\File::deleteFromAbstractedPath('data://nodeIcons/' . $this->node_id . '.jpg');
 
         return $parent;
     }
-    
+
     public static function getStructure(Structure $structure)
     {
         $structure = parent::getStructure($structure);

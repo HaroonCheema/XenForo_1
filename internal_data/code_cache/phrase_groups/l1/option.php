@@ -1,7 +1,6 @@
 <?php
 return array (
   'option.AwedoTceSpecialChars' => 'Special Characters to Exclude',
-  'option.Fs_NodeIcon_icon_subNodes' => 'Enable icon for sub nodes?',
   'option.Fs_NodeIcon_nodeDimensions' => 'Node icon dimensions',
   'option.acpSearchExclude' => 'Quick search content types',
   'option.activitySummaryEmail' => 'Enable activity summary email',
