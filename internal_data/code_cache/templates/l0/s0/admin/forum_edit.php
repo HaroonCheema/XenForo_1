@@ -74,15 +74,15 @@ return array(
 			), '', array(
 			)) . '
 		', array(
-				'label' => 'custom_node_icon',
+				'label' => 'Custom node icon',
 			)) . '
 	';
 		} else {
 			$__compilerTemp3 .= '
 		' . $__templater->formRow('
-			' . 'no_icon' . '
+			' . 'No icon' . '
 		', array(
-				'label' => 'custom_node_icon',
+				'label' => 'Custom node icon',
 			)) . '
 	';
 		}
@@ -96,7 +96,7 @@ return array(
 			'name' => 'upload_unread',
 			'accept' => '.gif,.jpeg,.jpg,.jpe,.png',
 		), array(
-			'label' => 'icon_unread',
+			'label' => 'Icon Unread',
 			'explain' => 'It is recommended that you use an image that is at least ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['width']) . 'x' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['height']) . ' pixels.',
 		)) . '
 ';
@@ -117,15 +117,15 @@ return array(
 			), '', array(
 			)) . '
 		', array(
-				'label' => 'custom_node_unread_icon',
+				'label' => 'Custom node unread icon',
 			)) . '
 	';
 		} else {
 			$__compilerTemp5 .= '
 		' . $__templater->formRow('
-			' . 'no_icon' . '
+			' . 'No icon' . '
 		', array(
-				'label' => 'custom_node_unread_icon',
+				'label' => 'Custom node unread icon',
 			)) . '
 	';
 		}

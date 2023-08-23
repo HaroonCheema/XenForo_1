@@ -61,15 +61,15 @@ return array(
 			), '', array(
 			)) . '
 		', array(
-				'label' => 'custom_node_icon',
+				'label' => 'Custom node icon',
 			)) . '
 	';
 		} else {
 			$__compilerTemp2 .= '
 		' . $__templater->formRow('
-			' . 'no_icon' . '
+			' . 'No icon' . '
 		', array(
-				'label' => 'custom_node_icon',
+				'label' => 'Custom node icon',
 			)) . '
 	';
 		}

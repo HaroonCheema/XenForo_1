@@ -1,4 +1,40 @@
 {
+    "custom_node_icon.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "3752d7e2006f32725e852d0e4b25dc2a"
+    },
+    "custom_node_unread_icon.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b0c81f3a99ee0ec072ee3f9dd43af8c9"
+    },
+    "icon_unread.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "10c14b5bd9755fdf934a847d6dbd66d8"
+    },
+    "no_icon.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "2372b454dd1f4081872c20c20443ff23"
+    },
+    "no_icon_to_delete.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "a038b49cbb93896c55fee9a12bab6a0a"
+    },
+    "no_unread_icon_to_delete.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b12f027b54cb1f0ddca78842839c511c"
+    },
     "option.Fs_NodeIcon_icon_subNodes.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -40,5 +76,11 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "7ddf430f7de91de1ab7d0f044ff2bc87"
+    },
+    "please_confirm_delete_icon.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "33aec40a7d1fe08c9eeaf468da5b8612"
     }
 }

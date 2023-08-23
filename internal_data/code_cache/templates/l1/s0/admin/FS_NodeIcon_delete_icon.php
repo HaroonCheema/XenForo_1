@@ -4,7 +4,7 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('please_confirm_delete_icon');
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Please confirm delete icon');
 	$__finalCompiled .= '
 
 ' . $__templater->form('
