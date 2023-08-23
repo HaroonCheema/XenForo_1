@@ -8,5 +8,10 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "16e41bfbe675cea53c82beb2b8e79275"
+    },
+    "public/Fs_NodeIcon_icon.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "a6901a598626e0fb81a5740b1979809f"
     }
 }

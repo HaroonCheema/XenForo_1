@@ -76,6 +76,7 @@ return array (
   'permission.forum_approveUnapprove' => 'Approve / unapprove threads / posts',
   'permission.forum_approve_post' => 'Submit replies without approval',
   'permission.forum_approve_thread' => 'Submit threads without approval',
+  'permission.forum_canEditIcon' => 'Can Edit Icon',
   'permission.forum_contentVote' => 'Vote on threads/posts (when applicable)',
   'permission.forum_deleteAnyPost' => 'Delete any post',
   'permission.forum_deleteAnyThread' => 'Delete any thread',

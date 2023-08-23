@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="option.Fs_NodeIcon_icon_subNodes" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Enable icon for sub nodes?]]></phrase>
+  <phrase title="option.Fs_NodeIcon_nodeDimensions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Node icon dimensions]]></phrase>
+  <phrase title="option_explain.Fs_NodeIcon_icon_subNodes" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="option_explain.Fs_NodeIcon_nodeDimensions" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="option_group.Fs_NodeIcon" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Node Icon]]></phrase>
+  <phrase title="option_group_description.Fs_NodeIcon" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="permission.forum_canEditIcon" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Can Edit Icon]]></phrase>
+</phrases>

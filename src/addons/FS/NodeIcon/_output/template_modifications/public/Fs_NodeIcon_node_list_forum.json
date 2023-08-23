@@ -1,0 +1,9 @@
+{
+    "template": "node_list_forum",
+    "description": "Append node icon to node forum",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<span class=\"node-icon\" aria-hidden=\"true\">\n\t\t\t\t<xf:fa icon=\"{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}\" />\n\t\t\t</span>",
+    "replace": "<xf:if is=\"$node.getIconUnread() && $extras.hasNew\">\n\t<div class=\"node-icon--custom unread\" \n\t\t style=\"background-image: url({{ base_url($node.getIconUnread()) }});\n\t\t\t\twidth: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;\n\t\t\t\theight: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;\">\n\t</div>\n<xf:elseif is=\"$node.getIcon()\" />\n\t<div class=\"node-icon--custom read\" \n\t\t style=\"background-image: url({{ base_url($node.getIcon()) }});\n\t\t\t\twidth: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;\n\t\t\t\theight: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;\">\n\t</div>\n<xf:else/>\n\t<span class=\"node-icon\" aria-hidden=\"true\"\n\t\t  style=\"width: {$xf.options.Fs_NodeIcon_nodeDimensions.width}px;\n\t\t\t\t height: {$xf.options.Fs_NodeIcon_nodeDimensions.height}px;\">\n\t\t<xf:fa icon=\"{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}\" />\n\t</span>\n</xf:if>"
+}

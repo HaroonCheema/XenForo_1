@@ -1,6 +1,8 @@
 <?php
 return array (
   'option_explain.AwedoTceSpecialChars' => 'Each of the characters will be removed from the content before it is checked for banned words. Note: Blanks will be ignored.',
+  'option_explain.Fs_NodeIcon_icon_subNodes' => '',
+  'option_explain.Fs_NodeIcon_nodeDimensions' => '',
   'option_explain.acpSearchExclude' => 'When using the quick search facility in the control panel, content from the following types will be searched. Disabling content types here may speed-up searching slightly.',
   'option_explain.activitySummaryEmail' => 'If enabled, users who have not visited for a while will receive an email to keep them updated about recent content. The content of the email can be configured <a href="admin.php?activity-summary/">here</a>.<br />
 <br />

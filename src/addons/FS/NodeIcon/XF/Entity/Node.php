@@ -1,6 +1,6 @@
 <?php
 
-namespace DC\CustomNodeIcon\XF\Entity;
+namespace FS\NodeIcon\XF\Entity;
 
 use XF\Mvc\Entity\Structure;
 

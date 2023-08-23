@@ -37,8 +37,6 @@ class Forum extends XFCP_Forum
             'node' => $node
         ];
 
-        dump;
-
         return $this->view('FS\NodeIcon:DeleteIcon', 'FS_NodeIcon_delete_icon', $viewParams);
     }
 

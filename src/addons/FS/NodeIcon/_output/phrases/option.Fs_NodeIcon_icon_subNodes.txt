@@ -1,0 +1,1 @@
+Enable icon for sub nodes?

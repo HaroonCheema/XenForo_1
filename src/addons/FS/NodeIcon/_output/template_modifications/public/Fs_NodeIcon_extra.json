@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "preg_replace",
     "find": "/^(.*)$/is",
-    "replace": "$0\n<xf:include template=\"DC_CNI_icon.less\" />"
+    "replace": "$0\n<xf:include template=\"Fs_NodeIcon_icon.less\" />"
 }

@@ -51,7 +51,33 @@ return array(
 	$__finalCompiled .= '
 	<div class="node node--id' . $__templater->escape($__vars['node']['node_id']) . ' node--depth' . $__templater->escape($__vars['depth']) . ' node--category ' . ($__vars['extras']['hasNew'] ? 'node--unread' : 'node--read') . '">
 		<div class="node-body">
-			<span class="node-icon" aria-hidden="true"><i></i></span>
+			';
+	if ($__templater->method($__vars['node'], 'getIconUnread', array()) AND $__vars['extras']['hasNew']) {
+		$__finalCompiled .= '
+	<div class="node-icon--custom unread" 
+		 style="background-image: url(' . $__templater->func('base_url', array($__templater->method($__vars['node'], 'getIconUnread', array()), ), true) . ');
+				width: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['width']) . 'px;
+				height: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['height']) . 'px;">
+	</div>
+';
+	} else if ($__templater->method($__vars['node'], 'getIcon', array())) {
+		$__finalCompiled .= '
+	<div class="node-icon--custom read" 
+		 style="background-image: url(' . $__templater->func('base_url', array($__templater->method($__vars['node'], 'getIcon', array()), ), true) . ');
+				width: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['width']) . 'px;
+				height: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['height']) . 'px;">
+	</div>
+';
+	} else {
+		$__finalCompiled .= '
+	<span class="node-icon" aria-hidden="true"
+		  style="width: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['width']) . 'px;
+				 height: ' . $__templater->escape($__vars['xf']['options']['Fs_NodeIcon_nodeDimensions']['height']) . 'px;">
+		<i></i>
+	</span>
+';
+	}
+	$__finalCompiled .= '
 			<div class="node-main js-nodeMain">
 				';
 	$__vars['descriptionDisplay'] = $__templater->func('property', array('nodeListDescriptionDisplay', ), false);
@@ -211,7 +237,39 @@ return array(
 	$__finalCompiled = '';
 	$__finalCompiled .= '
 	<li>
-		<a href="' . $__templater->func('link', array('categories', $__vars['node'], ), true) . '" class="subNodeLink subNodeLink--category ' . ($__vars['extras']['hasNew'] ? 'subNodeLink--unread' : '') . '">' . $__templater->escape($__vars['node']['title']) . '</a>
+		';
+	if ($__vars['xf']['options']['Fs_NodeIcon_icon_subNodes'] AND $__templater->method($__vars['node'], 'getIcon', array())) {
+		$__finalCompiled .= '
+	';
+		if ($__vars['extras']['hasNew'] AND $__templater->method($__vars['node'], 'getIconUnread', array())) {
+			$__finalCompiled .= '
+		<a href="' . $__templater->func('link', array('categories', $__vars['node'], ), true) . '" 
+		   class="subNodeLink subNodeLink--custom subNodeLink--category subNodeLink--unread">
+			<span class="subNodeLink--icon"
+				  style="background-image: url(' . $__templater->func('base_url', array($__templater->method($__vars['node'], 'getIconUnread', array()), ), true) . ')">
+			</span>
+			' . $__templater->escape($__vars['node']['title']) . '
+		</a>
+	';
+		} else {
+			$__finalCompiled .= '
+		<a href="' . $__templater->func('link', array('categories', $__vars['node'], ), true) . '" 
+		   class="subNodeLink subNodeLink--custom subNodeLink--category ' . ($__vars['extras']['hasNew'] ? 'subNodeLink--unread' : '') . '">
+			<span class="subNodeLink--icon"
+				  style="background-image: url(' . $__templater->func('base_url', array($__templater->method($__vars['node'], 'getIcon', array()), ), true) . ')">
+			</span>
+			' . $__templater->escape($__vars['node']['title']) . '
+		</a>
+	';
+		}
+		$__finalCompiled .= '
+';
+	} else {
+		$__finalCompiled .= '
+	<a href="' . $__templater->func('link', array('categories', $__vars['node'], ), true) . '" class="subNodeLink subNodeLink--category ' . ($__vars['extras']['hasNew'] ? 'subNodeLink--unread' : '') . '">' . $__templater->escape($__vars['node']['title']) . '</a>
+';
+	}
+	$__finalCompiled .= '
 		' . $__templater->callMacro('forum_list', 'sub_node_list', array(
 		'children' => $__vars['children'],
 		'childExtras' => $__vars['childExtras'],
