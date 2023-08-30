@@ -8,6 +8,7 @@ return array (
   'style_prop_group_desc.button' => 'Various text-button types are in use within XenForo but all share common styling properties, which are located here.',
   'style_prop_group_desc.color' => 'These settings define the colors that will be used throughout the system for specific content or structure types. For consistency and ease of editing, the colors used should come primarily from the Color Palette.',
   'style_prop_group_desc.content' => 'The styling for content areas, namely those areas on which dynamic information is presented, is controlled here.',
+  'style_prop_group_desc.cxfGoogleTranslateForum' => '',
   'style_prop_group_desc.dataList' => 'Data lists are used to display content organized into rows and columns (tabular content).',
   'style_prop_group_desc.dbtechEcommerce' => 'Various style properties for DragonByte eCommerce',
   'style_prop_group_desc.email' => 'Basic settings for HTML email styling are included here.',

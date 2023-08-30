@@ -7,6 +7,10 @@ use XF\Mvc\ParameterBag;
 class Forum extends XFCP_Forum
 {
 
+    // public function actionIndex(){
+    //     // system("mysqldumpPath -h hostname -u username -ppassword database > backupFilePath");
+    // }
+
     public function actionDeleteIcon(ParameterBag $params)
     {
         $node = $this->assertNodeExists($params['node_id']);

@@ -974,6 +974,13 @@ return array(
 		<!--XF:EXTRA_OUTPUT-->
 
 		';
+	if ($__templater->func('property', array('gtf_positions', ), false) == 'above_notices') {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('cxf_google_translate_forum', $__vars) . '
+';
+	}
+	$__finalCompiled .= '
+	';
 	if ($__vars['notices']['block']) {
 		$__finalCompiled .= '
 			' . $__templater->callMacro('notice_macros', 'notice_list', array(
@@ -995,7 +1002,14 @@ return array(
 	}
 	$__finalCompiled .= '
 
-		' . $__templater->callAdsMacro('container_breadcrumb_top_above', array(), $__vars) . '
+		';
+	if ($__templater->func('property', array('gtf_positions', ), false) == 'below_notices') {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('cxf_google_translate_forum', $__vars) . '
+';
+	}
+	$__finalCompiled .= '
+	' . $__templater->callAdsMacro('container_breadcrumb_top_above', array(), $__vars) . '
 		' . $__templater->callMacro(null, 'breadcrumbs', array(
 		'breadcrumbs' => $__vars['breadcrumbs'],
 		'navTree' => $__vars['navTree'],
@@ -1168,6 +1182,13 @@ return array(
 ' . $__templater->widgetPosition('siropu_chat_all_pages', array(
 		'position' => 'all_pages',
 	)) . '
+';
+	if ($__templater->func('property', array('gtf_positions', ), false) == 'below_bottom_breadcrumbs') {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('cxf_google_translate_forum', $__vars) . '
+';
+	}
+	$__finalCompiled .= '
 	</div>
 </div>
 
