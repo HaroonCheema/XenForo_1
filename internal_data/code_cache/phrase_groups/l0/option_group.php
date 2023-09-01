@@ -25,6 +25,7 @@ return array (
   'option_group.fs_forum_groups' => '[FS] Forum Groups',
   'option_group.fs_post_schdueling' => '[FS] Post schedule',
   'option_group.fs_question_answers' => '[FS] Question-Answers',
+  'option_group.fs_translator' => '[FS] Translator',
   'option_group.hou_attachments' => '[HoU] Attachments List with Like',
   'option_group.imageLinkProxy' => 'Image and link proxy',
   'option_group.logging' => 'Logging options',

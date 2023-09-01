@@ -8,6 +8,6 @@
     "value_parameters": "left=left\nright=right",
     "depends_on": "",
     "value_group": "",
-    "property_value": "left",
+    "property_value": "right",
     "display_order": 120
 }

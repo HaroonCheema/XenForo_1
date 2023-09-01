@@ -11,6 +11,8 @@
             "src/addons/XenBulletins/StopHumanSpam/_data/phrases.xml"
         ],
         "XF": [
+            "index.php",
+            "src/XF/Admin/Controller/Moderator.php",
             "src/XF/Admin/Controller/Notice.php",
             "src/XF/ControllerPlugin/AbstractCategoryTree.php",
             "src/XF/ControllerPlugin/AbstractPermission.php",
@@ -60,9 +62,28 @@
             "src/addons/FS/AuctionPlugin/_data/templates.xml",
             "src/addons/FS/AuctionPlugin/_data/template_modifications.xml"
         ],
+        "FS/Escrow": [
+            "src/addons/FS/Escrow/Pub/Controller/Escrow.php",
+            "src/addons/FS/Escrow/Setup.php",
+            "src/addons/FS/Escrow/_data/admin_navigation.xml",
+            "src/addons/FS/Escrow/_data/class_extensions.xml",
+            "src/addons/FS/Escrow/_data/content_type_fields.xml",
+            "src/addons/FS/Escrow/_data/options.xml",
+            "src/addons/FS/Escrow/_data/option_groups.xml",
+            "src/addons/FS/Escrow/_data/phrases.xml",
+            "src/addons/FS/Escrow/_data/routes.xml",
+            "src/addons/FS/Escrow/_data/templates.xml",
+            "src/addons/FS/Escrow/_data/template_modifications.xml"
+        ],
         "FS/MediaTagSetting": [
             "src/addons/FS/MediaTagSetting/addon.json",
             "src/addons/FS/MediaTagSetting/XF/Pub/Controller/Thread.php"
+        ],
+        "FS/NodeIcon": [
+            "src/addons/FS/NodeIcon/XF/Admin/Controller/Forum.php",
+            "src/addons/FS/NodeIcon/_data/options.xml",
+            "src/addons/FS/NodeIcon/_data/phrases.xml",
+            "src/addons/FS/NodeIcon/_data/template_modifications.xml"
         ],
         "FS/PostCounter": [
             "src/addons/FS/PostCounter/XF/Entity/Thread.php"
@@ -116,6 +137,6 @@
         ]
     },
     "total_missing": 0,
-    "total_inconsistent": 83,
-    "total_checked": 7961
+    "total_inconsistent": 100,
+    "total_checked": 8073
 }
