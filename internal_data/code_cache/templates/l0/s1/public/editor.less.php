@@ -810,10 +810,6 @@ return array(
 .xfPreview
 {
 	.m-clearFix();
-}
-button[data-cmd="xfCustom_chat"]
-{
-	display: none !important;
 }';
 	return $__finalCompiled;
 }

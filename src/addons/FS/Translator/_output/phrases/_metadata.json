@@ -11,11 +11,11 @@
         "version_string": "1.0.0 Alpha",
         "hash": "16b1d299fe50a5d206a630e013ad20e4"
     },
-    "option.fsEnableCdn.txt": {
+    "option.fsDefaultLanguage.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "409162262ab4b9fffd07d82ce134c3aa"
+        "hash": "951cfb94bce19fdd877e24ccfec144b9"
     },
     "option.fsFlagStyle.txt": {
         "global_cache": false,
@@ -23,11 +23,29 @@
         "version_string": "1.0.0 Alpha",
         "hash": "c41bad1d2d5c0867d42895eea939518c"
     },
+    "option.fsFloat.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "22ae0e2b89e5e3d477f988cc36d3272b"
+    },
+    "option.fsNativeLanguage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b9fbc7bc93fc22e762c8f29a34570183"
+    },
     "option.fsOpenDirection.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "f951568e6bb204472086b9753ba26822"
+    },
+    "option.fsPositions.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "5beca3b3cae5c83e0b64412f3ac69885"
     },
     "option.fsShowLanguage.txt": {
         "global_cache": false,
@@ -53,7 +71,7 @@
         "version_string": "1.0.0 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
-    "option_explain.fsEnableCdn.txt": {
+    "option_explain.fsDefaultLanguage.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -65,7 +83,25 @@
         "version_string": "1.0.0 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "option_explain.fsFloat.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.fsNativeLanguage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
     "option_explain.fsOpenDirection.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.fsPositions.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",

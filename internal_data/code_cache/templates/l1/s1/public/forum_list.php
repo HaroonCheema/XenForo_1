@@ -217,16 +217,10 @@ return array(
 	$__finalCompiled .= '
 
 ' . $__templater->widgetPosition('forum_list_above_nodes', array()) . '
-' . $__templater->widgetPosition('siropu_chat_above_forum_list', array(
-		'position' => 'above_forum_list',
-	)) . '
 ' . $__templater->callMacro(null, 'node_list', array(
 		'children' => $__vars['nodeTree'],
 		'extras' => $__vars['nodeExtras'],
 	), $__vars) . '
-' . $__templater->widgetPosition('siropu_chat_below_forum_list', array(
-		'position' => 'below_forum_list',
-	)) . '
 ' . $__templater->widgetPosition('forum_list_below_nodes', array()) . '
 
 ';

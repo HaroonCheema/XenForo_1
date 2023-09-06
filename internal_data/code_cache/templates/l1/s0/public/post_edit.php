@@ -37,30 +37,60 @@ return array(
 				';
 	}
 	$__compilerTemp3 = '';
+	if ($__vars['forum']['node_id'] == $__vars['xf']['options']['fs_auction_applicable_forum']) {
+		$__compilerTemp3 .= '
+			 ' . $__templater->formRow(' 
+	         <div class="inputGroup">         
+			 ' . $__templater->formDateInput(array(
+			'name' => 'ends_on',
+			'value' => ($__vars['thread']['auction_end_date'] ? $__templater->method($__vars['thread'], 'getFormatedDate', array()) : $__templater->func('date', array($__vars['xf']['time'], 'Y-m-d', ), false)),
+			'required' => 'true',
+		)) . '            
+			 <span class="inputGroup-splitter"></span> 
+			 <span class="inputGroup" dir="ltr">  
+			 ' . $__templater->formTextBox(array(
+			'name' => 'ends_on_time',
+			'class' => 'input--date time start',
+			'required' => 'true',
+			'type' => 'time',
+			'value' => ($__vars['thread']['auction_end_date'] ? $__templater->method($__vars['thread'], 'getFormatedTime', array()) : ''),
+			'data-xf-init' => 'time-picker',
+			'data-moment' => $__vars['timeFormat'],
+		)) . '</span>          
+			 </div>        
+			 ', array(
+			'label' => 'AUCTION ENDS ON',
+			'rowtype' => 'input',
+			'hint' => 'Required',
+			'explain' => 'Choose a date.2 to 5 days is the most used range with 3 days being the most common.',
+		)) . '
+			 ';
+	}
+	$__compilerTemp4 = '';
 	if ($__templater->method($__vars['post'], 'isFirstPost', array()) AND $__templater->method($__vars['thread'], 'canEdit', array())) {
-		$__compilerTemp3 .= '
-				';
-		$__compilerTemp4 = '';
 		$__compilerTemp4 .= '
-						' . $__templater->filter($__templater->method($__vars['thread']['TypeHandler'], 'renderExtraDataEdit', array($__vars['thread'], 'edit', ($__vars['quickEdit'] ? 'first_post_quick' : 'first_post'), )), array(array('raw', array()),), true) . '
-					';
-		if (strlen(trim($__compilerTemp4)) > 0) {
-			$__compilerTemp3 .= '
-					';
-			if (!$__vars['quickEdit']) {
-				$__compilerTemp3 .= '
-						<hr class="formRowSep" />
-					';
-			}
-			$__compilerTemp3 .= '
-					' . $__compilerTemp4 . '
-				';
-		}
-		$__compilerTemp3 .= '
-
 				';
 		$__compilerTemp5 = '';
 		$__compilerTemp5 .= '
+						' . $__templater->filter($__templater->method($__vars['thread']['TypeHandler'], 'renderExtraDataEdit', array($__vars['thread'], 'edit', ($__vars['quickEdit'] ? 'first_post_quick' : 'first_post'), )), array(array('raw', array()),), true) . '
+					';
+		if (strlen(trim($__compilerTemp5)) > 0) {
+			$__compilerTemp4 .= '
+					';
+			if (!$__vars['quickEdit']) {
+				$__compilerTemp4 .= '
+						<hr class="formRowSep" />
+					';
+			}
+			$__compilerTemp4 .= '
+					' . $__compilerTemp5 . '
+				';
+		}
+		$__compilerTemp4 .= '
+
+				';
+		$__compilerTemp6 = '';
+		$__compilerTemp6 .= '
 						' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 			'type' => 'threads',
 			'set' => $__vars['thread']['custom_fields'],
@@ -69,18 +99,18 @@ return array(
 			'rowType' => ($__vars['quickEdit'] ? 'fullWidth' : ''),
 		), $__vars) . '
 					';
-		if (strlen(trim($__compilerTemp5)) > 0) {
-			$__compilerTemp3 .= '
+		if (strlen(trim($__compilerTemp6)) > 0) {
+			$__compilerTemp4 .= '
 					<hr class="formRowSep" />
-					' . $__compilerTemp5 . '
+					' . $__compilerTemp6 . '
 				';
 		}
-		$__compilerTemp3 .= '
+		$__compilerTemp4 .= '
 			';
 	}
-	$__compilerTemp6 = '';
+	$__compilerTemp7 = '';
 	if ($__templater->method($__vars['post'], 'canEditSilently', array())) {
-		$__compilerTemp6 .= '
+		$__compilerTemp7 .= '
 				' . $__templater->formRow('
 					' . $__templater->callMacro('helper_action', 'edit_type', array(
 			'canEditSilently' => $__templater->method($__vars['post'], 'canEditSilently', array()),
@@ -90,9 +120,9 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp8 = '';
 	if ($__templater->method($__vars['post'], 'canSendModeratorActionAlert', array())) {
-		$__compilerTemp7 .= '
+		$__compilerTemp8 .= '
 				' . $__templater->formRow('
 					' . $__templater->callMacro('helper_action', 'author_alert', array(
 			'row' => false,
@@ -102,9 +132,9 @@ return array(
 		)) . '
 			';
 	}
-	$__compilerTemp8 = '';
+	$__compilerTemp9 = '';
 	if ($__vars['quickEdit']) {
-		$__compilerTemp8 .= '
+		$__compilerTemp9 .= '
 					' . $__templater->button('Cancel', array(
 			'class' => 'js-cancelButton',
 		), '', array(
@@ -135,11 +165,13 @@ return array(
 		'rowtype' => ($__vars['quickEdit'] ? 'fullWidth noLabel mergePrev' : ''),
 	)) . '
 
-			' . $__compilerTemp3 . '
+' . $__compilerTemp3 . '
 
-			' . $__compilerTemp6 . '
+			' . $__compilerTemp4 . '
 
 			' . $__compilerTemp7 . '
+
+			' . $__compilerTemp8 . '
 		</div>
 		' . $__templater->formSubmitRow(array(
 		'icon' => 'save',
@@ -147,7 +179,7 @@ return array(
 	), array(
 		'rowtype' => ($__vars['quickEdit'] ? 'simple' : ''),
 		'html' => '
-				' . $__compilerTemp8 . '
+				' . $__compilerTemp9 . '
 			',
 	)) . '
 	</div>
