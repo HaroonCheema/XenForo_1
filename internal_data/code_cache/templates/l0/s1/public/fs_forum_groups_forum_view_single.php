@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 82c058805142971b858fdede245a121e
+// FROM HASH: c4837bdfce83d617aab2cf58ad63641e
 return array(
 'macros' => array('fs_forum_groups_forum_view_single_macro' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -78,6 +78,40 @@ return array(
     </div>
 
 	<!-- Cover Header -->
+	
+	<!-- Approval Status -->
+		
+		';
+	if (($__vars['subForums']['node_state'] == 'moderated') OR ($__vars['subForums']['node_state'] == 'deleted')) {
+		$__finalCompiled .= '
+		<div class="block-outer">
+			<dl class="blockStatus" style="margin-top: 10px;">
+				<dt>' . 'Status' . '</dt>
+					';
+		if ($__vars['subForums']['node_state'] == 'deleted') {
+			$__finalCompiled .= '
+						<dd class="blockStatus-message blockStatus-message--deleted">
+							' . $__templater->callMacro('deletion_macros', 'notice', array(
+				'log' => $__vars['thread']['DeletionLog'],
+			), $__vars) . '
+						</dd>
+					';
+		} else if ($__vars['subForums']['node_state'] == 'moderated') {
+			$__finalCompiled .= '
+						<dd class="blockStatus-message blockStatus-message--moderated">
+							' . 'Awaiting approval before being displayed publicly.' . '
+						</dd>
+					';
+		}
+		$__finalCompiled .= '
+			</dl>
+		</div>
+		';
+	}
+	$__finalCompiled .= '
+    </div>
+	
+	<!-- Approval Status -->
 	
 </div>
 ';

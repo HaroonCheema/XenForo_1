@@ -66,7 +66,7 @@ class ForumGroups extends AbstractController
         if ($quoteNodeIds) {
             $setOrderFinder = \XF::finder('XF:Node');
 
-            $finder = $setOrderFinder->where("node_id", $nodeIds)->where('user_id', \XF::visitor()->user_id)
+            $finder = $setOrderFinder->where("node_id", $nodeIds)->where('node_state', 'visible')->where('user_id', \XF::visitor()->user_id)
                 ->order($setOrderFinder->expression('FIELD(node_id, ' . $quoteNodeIds . ')'))
                 ->fetch();
         }
@@ -284,6 +284,7 @@ class ForumGroups extends AbstractController
         $this->matchUser($params);
 
         if ($params['node_id']) {
+            $this->isApproved($params['node_id']);
             $node = $this->assertNodeExists($params['node_id']);
         } else {
             /** @var \XF\Entity\Node $node */
@@ -542,6 +543,8 @@ class ForumGroups extends AbstractController
 
     public function actionAddModerator(ParameterBag $params)
     {
+        $this->isApproved($params['node_id']);
+
         $this->checkUser();
         $this->matchUser($params);
 
@@ -811,6 +814,8 @@ class ForumGroups extends AbstractController
 
     public function actionModeratorList(ParameterBag $params)
     {
+        $this->isApproved($params['node_id']);
+
         $this->checkUser();
 
         $modRepo = $this->getModRepo();
@@ -912,6 +917,8 @@ class ForumGroups extends AbstractController
 
     public function actionAvatar(ParameterBag $params)
     {
+        $this->isApproved($params['node_id']);
+
         $this->checkUser();
         $this->matchUser($params);
 
@@ -925,6 +932,8 @@ class ForumGroups extends AbstractController
 
     public function actionCover(ParameterBag $params)
     {
+        $this->isApproved($params['node_id']);
+
         $this->checkUser();
         $this->matchUser($params);
 
@@ -1153,6 +1162,15 @@ class ForumGroups extends AbstractController
     protected function checkUser()
     {
         if (!\XF::visitor()->user_id) {
+            throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
+        }
+    }
+
+    protected function isApproved($nodeId)
+    {
+        $node = $this->assertNodeExists($nodeId);
+
+        if ($node['node_state'] != 'visible') {
             throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
         }
     }

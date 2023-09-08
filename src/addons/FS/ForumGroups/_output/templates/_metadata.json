@@ -1,4 +1,9 @@
 {
+    "public/approval_item_node.html": {
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "b0cb3d43fbc3f7f9385c4221a0581968"
+    },
     "public/display_order_macros.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
@@ -35,9 +40,9 @@
         "hash": "8dc73e0f3e10b0a24ede2915e658142f"
     },
     "public/fs_forum_groups_forum_view_single.html": {
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "82c058805142971b858fdede245a121e"
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "c4837bdfce83d617aab2cf58ad63641e"
     },
     "public/fs_forum_groups_index.html": {
         "version_id": 1000010,
@@ -60,9 +65,9 @@
         "hash": "e9f36ffca1e786068708b494899570ec"
     },
     "public/fs_forum_groups_view.html": {
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "cce04d5ed14ef988b4c6371c221ad27e"
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "33e994c7f9f59569254380c850f4e78f"
     },
     "public/moderator_add_choice.html": {
         "version_id": 1000010,

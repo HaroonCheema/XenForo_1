@@ -1,0 +1,12 @@
+{
+    "admin/fs_web_ranking_addEdit.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "77cd6380d44d6c99af1eb6305b0ca716"
+    },
+    "admin/fs_web_ranking_index.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "97a13907b90b0ae20be78245610e93b6"
+    }
+}

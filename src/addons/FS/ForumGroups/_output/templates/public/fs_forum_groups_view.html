@@ -41,6 +41,7 @@
                         {$subForums.title}
                     </h1>
                 
+				<xf:if is="$subForums.node_state == 'visible'">
 					<div class="p-title-pageAction">
 						<a href="{{ link('forums/post-thread', $subForums) }}" class="button--cta button button--icon button--icon--write"><span class="button-text">
 							{{ phrase('post_thread') }}
@@ -57,8 +58,8 @@
 							{{ phrase('fs_forum_group_moderator_list') }}
 						</span></a>
 						</xf:if>
-						
 					</div>
+					</xf:if>
 					
 					</div>
 				<div class="p-description">
@@ -93,7 +94,8 @@
                           arg-width="{$baseWidth}"
                           arg-height="{$baseHeight}" />
             <xf:else />
-               
+				
+				<xf:if is="$subForums.node_state == 'visible'">
 				 <div class="gridCard--header--actions">
 		   
 			<div class="buttonGroup-buttonWrapper">
@@ -129,13 +131,37 @@
 		   </div>
 				
             </xf:if>
-
+			</xf:if>
         </div>
+		
+	<!-- Approval Status -->
+		
+		<xf:if is="$subForums.node_state == 'moderated' or $subForums.node_state == 'deleted'">
+		<div class="block-outer">
+			<dl class="blockStatus" style="margin-top: 10px;">
+				<dt>{{ phrase('status') }}</dt>
+					<xf:if is="$subForums.node_state == 'deleted'">
+						<dd class="blockStatus-message blockStatus-message--deleted">
+							<xf:macro template="deletion_macros" name="notice" arg-log="{$thread.DeletionLog}" />
+						</dd>
+					<xf:elseif is="$subForums.node_state == 'moderated'" />
+						<dd class="blockStatus-message blockStatus-message--moderated">
+							{{ phrase('awaiting_approval_before_being_displayed_publicly') }}
+						</dd>
+					</xf:if>
+			</dl>
+		</div>
+		</xf:if>
     </div>
+	
+	<!-- Approval Status -->
 
 	<!-- Cover Header -->
 		
 	<!-- Thread Lists -->
+	
+	<xf:if is="$subForums.node_state == 'visible'">
+	
 	<xf:if is="$threads is not empty">
 		<div class="block-container">
 		<div class="block-body">
@@ -160,7 +186,7 @@
 						</div>
 					</xf:if>
 					
-
+	</xf:if>
 	
 	<!-- Thread Lists -->
 	

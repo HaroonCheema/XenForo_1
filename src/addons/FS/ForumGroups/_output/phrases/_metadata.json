@@ -1,4 +1,10 @@
 {
+    "fs_forum_Group_type.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "03937134cedab9078be39a77ee3a48a0"
+    },
     "fs_forum_gorups_delete_existing_image.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -16,6 +22,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "13e579eb7b2d1f6589f5d2ef8a7b0153"
+    },
+    "fs_forum_group_filter.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "03937134cedab9078be39a77ee3a48a0"
     },
     "fs_forum_group_moderator_list.txt": {
         "global_cache": false,
@@ -77,6 +89,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "e90d04232ddca9cb7587c022de5ba78b"
     },
+    "group_x_created_by_user_x.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "5fc17707de83914ddc9fe1d7b04f9a5b"
+    },
     "nav.forumGroupsAddSubForum.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -101,6 +119,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "71f931be04fdd468b2664e76e4db6d09"
     },
+    "option.fs_forum_groups_approval.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "bf18324faf0a5cad832d6e8dcd11ab43"
+    },
     "option_explain.fs_forum_gorups_per_row.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -112,6 +136,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "34ff7f75c5175d74de26ebf3d9e37bfb"
+    },
+    "option_explain.fs_forum_groups_approval.txt": {
+        "global_cache": false,
+        "version_id": 1000100,
+        "version_string": "1.0.1 Alpha",
+        "hash": "354b5029831be50f5ee695470a6f6f26"
     },
     "option_group.fs_forum_groups.txt": {
         "global_cache": false,

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: cce04d5ed14ef988b4c6371c221ad27e
+// FROM HASH: 33e994c7f9f59569254380c850f4e78f
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -51,20 +51,34 @@ return array(
 
 	';
 	$__compilerTemp2 = '';
-	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['subForums']['room_path'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id']))) {
+	if ($__vars['subForums']['node_state'] == 'visible') {
 		$__compilerTemp2 .= '
+					<div class="p-title-pageAction">
+						<a href="' . $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), true) . '" class="button--cta button button--icon button--icon--write"><span class="button-text">
+							' . 'Post thread' . '
+						</span></a>
+
+						';
+		if ($__vars['xf']['visitor']['user_id'] AND ($__vars['subForums']['room_path'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id']))) {
+			$__compilerTemp2 .= '
 							<a href="' . $__templater->func('link', array($__vars['subForums']['room_path'], ), true) . '" class="button--cta button button--icon"><span class="button-text">
 							<i class="fas fa-comment-dots"></i> ' . 'Chat Room' . '
 						</span></a>
 						';
-	}
-	$__compilerTemp3 = '';
-	if ($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id'])) {
-		$__compilerTemp3 .= '
+		}
+		$__compilerTemp2 .= '
+
+						';
+		if ($__vars['xf']['visitor']['user_id'] AND ($__vars['xf']['visitor']['user_id'] == $__vars['subForums']['user_id'])) {
+			$__compilerTemp2 .= '
 							<a href="' . $__templater->func('link', array('forumGroups/moderator-list', $__vars['subForums'], ), true) . '" class="button--cta button button--icon button--icon--list"><span class="button-text">
 							' . 'Moderator List' . '
 						</span></a>
 						';
+		}
+		$__compilerTemp2 .= '
+					</div>
+					';
 	}
 	$__templater->setPageParam('headerHtml', '
         <div class="contentRow contentRow--hideFigureNarrow">
@@ -74,16 +88,7 @@ return array(
                         ' . $__templater->escape($__vars['subForums']['title']) . '
                     </h1>
                 
-					<div class="p-title-pageAction">
-						<a href="' . $__templater->func('link', array('forums/post-thread', $__vars['subForums'], ), true) . '" class="button--cta button button--icon button--icon--write"><span class="button-text">
-							' . 'Post thread' . '
-						</span></a>
-
-						' . $__compilerTemp2 . '
-
-						' . $__compilerTemp3 . '
-						
-					</div>
+				' . $__compilerTemp2 . '
 					
 					</div>
 				<div class="p-description">
@@ -131,19 +136,22 @@ return array(
             ';
 	} else {
 		$__finalCompiled .= '
-               
+				
+				';
+		if ($__vars['subForums']['node_state'] == 'visible') {
+			$__finalCompiled .= '
 				 <div class="gridCard--header--actions">
 		   
 			<div class="buttonGroup-buttonWrapper">
                 ' . $__templater->button($__templater->fontAwesome('fa-cog', array(
-		)), array(
-			'class' => 'button--link menuTrigger',
-			'data-xf-click' => 'menu',
-			'aria-expanded' => 'false',
-			'aria-haspopup' => 'true',
-			'title' => $__templater->filter('More options', array(array('for_attr', array()),), false),
-		), '', array(
-		)) . '
+			)), array(
+				'class' => 'button--link menuTrigger',
+				'data-xf-click' => 'menu',
+				'aria-expanded' => 'false',
+				'aria-haspopup' => 'true',
+				'title' => $__templater->filter('More options', array(array('for_attr', array()),), false),
+			), '', array(
+			)) . '
 					<div class="menu" data-menu="menu" aria-hidden="true">
                     <div class="menu-content">
                                 <a href="' . $__templater->func('link', array('forumGroups/add-moderator', $__vars['subForums'], ), true) . '"
@@ -172,56 +180,98 @@ return array(
 		   </div>
 				
             ';
+		}
+		$__finalCompiled .= '
+			';
 	}
 	$__finalCompiled .= '
-
         </div>
+		
+	<!-- Approval Status -->
+		
+		';
+	if (($__vars['subForums']['node_state'] == 'moderated') OR ($__vars['subForums']['node_state'] == 'deleted')) {
+		$__finalCompiled .= '
+		<div class="block-outer">
+			<dl class="blockStatus" style="margin-top: 10px;">
+				<dt>' . 'Status' . '</dt>
+					';
+		if ($__vars['subForums']['node_state'] == 'deleted') {
+			$__finalCompiled .= '
+						<dd class="blockStatus-message blockStatus-message--deleted">
+							' . $__templater->callMacro('deletion_macros', 'notice', array(
+				'log' => $__vars['thread']['DeletionLog'],
+			), $__vars) . '
+						</dd>
+					';
+		} else if ($__vars['subForums']['node_state'] == 'moderated') {
+			$__finalCompiled .= '
+						<dd class="blockStatus-message blockStatus-message--moderated">
+							' . 'Awaiting approval before being displayed publicly.' . '
+						</dd>
+					';
+		}
+		$__finalCompiled .= '
+			</dl>
+		</div>
+		';
+	}
+	$__finalCompiled .= '
     </div>
+	
+	<!-- Approval Status -->
 
 	<!-- Cover Header -->
 		
 	<!-- Thread Lists -->
+	
 	';
-	if (!$__templater->test($__vars['threads'], 'empty', array())) {
+	if ($__vars['subForums']['node_state'] == 'visible') {
 		$__finalCompiled .= '
+	
+	';
+		if (!$__templater->test($__vars['threads'], 'empty', array())) {
+			$__finalCompiled .= '
 		<div class="block-container">
 		<div class="block-body">
 				<div class="structItemContainer">
 					
 						<div class="structItemContainer-group js-threadList">
 							';
-		if (!$__templater->test($__vars['threads'], 'empty', array())) {
-			$__finalCompiled .= '
+			if (!$__templater->test($__vars['threads'], 'empty', array())) {
+				$__finalCompiled .= '
 								';
-			if ($__templater->isTraversable($__vars['threads'])) {
-				foreach ($__vars['threads'] AS $__vars['thread']) {
-					$__finalCompiled .= '
+				if ($__templater->isTraversable($__vars['threads'])) {
+					foreach ($__vars['threads'] AS $__vars['thread']) {
+						$__finalCompiled .= '
 									' . $__templater->callMacro(null, 'fs_forum_groups_thread_list_macros::item', $__templater->combineMacroArgumentAttributes(null, array(
-						'thread' => $__vars['thread'],
-						'forum' => $__vars['forum'],
-					)), $__vars) . '
+							'thread' => $__vars['thread'],
+							'forum' => $__vars['forum'],
+						)), $__vars) . '
 								';
+					}
 				}
+				$__finalCompiled .= '
+							';
 			}
 			$__finalCompiled .= '
-							';
-		}
-		$__finalCompiled .= '
 						</div>		
 			</div>
 			</div>
 		</div>
 					';
-	} else {
-		$__finalCompiled .= '
+		} else {
+			$__finalCompiled .= '
 						<div class="blockMessage  ">
 							<div class="structItem-cell">' . 'There are no threads in this forum.' . '</div>
 						</div>
 					';
+		}
+		$__finalCompiled .= '
+					
+	';
 	}
 	$__finalCompiled .= '
-					
-
 	
 	<!-- Thread Lists -->
 	

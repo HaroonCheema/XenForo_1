@@ -28,6 +28,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.fs_question_answers' => '',
   'option_group_description.fs_translator' => '[FS] Translator',
+  'option_group_description.fs_web_ranking' => '',
   'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',
   'option_group_description.imageLinkProxy' => 'Controls the system for proxying and logging posted links and images',
   'option_group_description.logging' => 'Options that control what data is logged and how long it is maintained.',

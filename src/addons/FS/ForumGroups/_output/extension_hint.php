@@ -7,3 +7,8 @@ namespace FS\ForumGroups\XF\Entity
 {
 	class XFCP_Node extends \XF\Entity\Node {}
 }
+
+namespace FS\ForumGroups\XF\Pub\Controller
+{
+	class XFCP_Forum extends \XF\Pub\Controller\Forum {}
+}

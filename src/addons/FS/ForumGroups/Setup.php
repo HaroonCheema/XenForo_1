@@ -24,6 +24,8 @@ class Setup extends AbstractSetup
 			$table->addColumn('avatar_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_attachment_id', 'int')->setDefault(0);
 			$table->addColumn('cover_crop_data', 'blob');
+			$table->addColumn('node_state', 'enum')->values(['visible', 'moderated', 'deleted']);
+			$table->addColumn('created_at', 'int')->setDefault(0);
 		});
 	}
 
@@ -34,6 +36,8 @@ class Setup extends AbstractSetup
 			$table->dropColumns(['avatar_attachment_id']);
 			$table->dropColumns(['cover_attachment_id']);
 			$table->dropColumns(['cover_crop_data']);
+			$table->dropColumns(['node_state']);
+			$table->dropColumns(['created_at']);
 		});
 	}
 }

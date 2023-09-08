@@ -209,7 +209,7 @@ abstract class Entity implements \ArrayAccess
 	public function getValue($key)
 	{
 		$columns = $this->_structure->columns;
-
+		
 		if (empty($columns[$key]))
 		{
 			throw new \InvalidArgumentException("Unknown column $key");
@@ -1103,10 +1103,12 @@ abstract class Entity implements \ArrayAccess
 
 	public function isStateChanged($key, $state)
 	{
+		
 		if (!$this->isChanged($key))
 		{
 			return false;
 		}
+		
 		else if ($this->getValue($key) == $state)
 		{
 			return 'enter';

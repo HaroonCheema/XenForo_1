@@ -75,6 +75,7 @@ svg
 
 ' . $__templater->includeTemplate('core_collapse.less', $__vars) . '
 ' . $__templater->includeTemplate('core_badge.less', $__vars) . '
+' . $__templater->includeTemplate('siropu_chat_badge.less', $__vars) . '
 ' . $__templater->includeTemplate('core_tooltip.less', $__vars) . '
 ' . $__templater->includeTemplate('core_menu.less', $__vars) . '
 ' . $__templater->includeTemplate('core_offcanvas.less', $__vars) . '

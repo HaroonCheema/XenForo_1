@@ -363,17 +363,46 @@ return array(
 	$__finalCompiled .= '
 
 ';
-	if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-		$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	if ($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_forum_groups_applicable_forum']) {
+		$__finalCompiled .= '
+	';
+		if ($__vars['forum']['Node']['node_state'] == 'visible') {
+			$__finalCompiled .= '
+	';
+			if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
+				$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('
 		' . 'Post thread' . '
 	', array(
-			'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
-			'class' => 'button--cta',
-			'icon' => 'write',
-		), '', array(
-		)) . '
+					'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+					'class' => 'button--cta',
+					'icon' => 'write',
+				), '', array(
+				)) . '
 ');
+			}
+			$__finalCompiled .= '
+	';
+		}
+		$__finalCompiled .= '
+';
+	} else {
+		$__finalCompiled .= '
+	';
+		if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
+			$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__templater->button('
+		' . 'Post thread' . '
+	', array(
+				'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+				'class' => 'button--cta',
+				'icon' => 'write',
+			), '', array(
+			)) . '
+');
+		}
+		$__finalCompiled .= '
+';
 	}
 	$__finalCompiled .= '
 
@@ -519,7 +548,7 @@ return array(
 	), $__vars) . '
 
 ' . '
-<div class="block ' . $__templater->escape($__templater->renderExtension('thread_list_block_classes', $__vars, $__extensions)) . '" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="thread" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
+<div class="block ' . $__templater->escape($__templater->renderExtension('thread_list_block_classes', $__vars, $__extensions)) . '" style="' . ((($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_forum_groups_applicable_forum']) AND ($__vars['forum']['Node']['node_state'] != 'visible')) ? 'display: none;' : '') . '" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="thread" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
 
 	<div class="block-outer">';
 	$__compilerTemp1 = '';

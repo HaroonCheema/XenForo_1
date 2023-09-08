@@ -57,5 +57,27 @@
 
 	<!-- Cover Header -->
 	
+	<!-- Approval Status -->
+		
+		<xf:if is="$subForums.node_state == 'moderated' or $subForums.node_state == 'deleted'">
+		<div class="block-outer">
+			<dl class="blockStatus" style="margin-top: 10px;">
+				<dt>{{ phrase('status') }}</dt>
+					<xf:if is="$subForums.node_state == 'deleted'">
+						<dd class="blockStatus-message blockStatus-message--deleted">
+							<xf:macro template="deletion_macros" name="notice" arg-log="{$thread.DeletionLog}" />
+						</dd>
+					<xf:elseif is="$subForums.node_state == 'moderated'" />
+						<dd class="blockStatus-message blockStatus-message--moderated">
+							{{ phrase('awaiting_approval_before_being_displayed_publicly') }}
+						</dd>
+					</xf:if>
+			</dl>
+		</div>
+		</xf:if>
+    </div>
+	
+	<!-- Approval Status -->
+	
 </div>
 </xf:macro>

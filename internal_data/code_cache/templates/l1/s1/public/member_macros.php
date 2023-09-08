@@ -214,7 +214,19 @@ return array(
 	}
 	$__finalCompiled .= '
 
-	' . '
+	';
+	if ($__vars['xf']['options']['siropuChatPrivateConversations'] AND $__templater->method($__vars['xf']['visitor'], 'canMessageSiropuChatUser', array($__vars['user'], ))) {
+		$__finalCompiled .= '
+	' . $__templater->button('Start chat', array(
+			'href' => $__templater->func('link', array('chat/conversation/form', $__vars['user'], ), false),
+			'class' => 'button--link',
+			'overlay' => 'true',
+		), '', array(
+		)) . '
+';
+	}
+	$__finalCompiled .= '
+' . '
 
 	';
 	$__compilerTemp2 = '';

@@ -31,6 +31,7 @@ return array (
   'nav.forumGroupsAddSubForum' => 'Add Sub Forum',
   'nav.forumList' => 'Forum list',
   'nav.forums' => 'Forums',
+  'nav.fsWebsiteRanking' => 'Website Ranking',
   'nav.fs_auction_category' => 'Auction',
   'nav.fs_escrow' => 'Escrow',
   'nav.fs_escrow_add' => 'Start Escrow',

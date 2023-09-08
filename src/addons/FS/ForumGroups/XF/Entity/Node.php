@@ -8,11 +8,6 @@ use InvalidArgumentException;
 
 class Node extends XFCP_Node
 {
-    // public function canAddAuctions()
-    // {
-    //     return ($this->user_id && $this->hasPermission('fs_auction', 'add'));
-    // }
-
     public static function getStructure(Structure $structure)
     {
         $structure = parent::getStructure($structure);
@@ -22,6 +17,8 @@ class Node extends XFCP_Node
         $structure->columns['avatar_attachment_id'] =  ['type' => self::UINT, 'default' => 0];
         $structure->columns['cover_attachment_id'] =  ['type' => self::UINT, 'default' => 0];
         $structure->columns['cover_crop_data'] =  ['type' => self::JSON_ARRAY, 'default' => []];
+        $structure->columns['created_at'] =  ['type' => self::UINT, 'default' => \XF::$time];
+        $structure->columns['node_state'] =  ['type' => self::STR, 'default' => 'moderated', 'allowedValues' => ['visible', 'moderated', 'deleted']];
 
         $structure->relations += [
             'AvatarAttachment' => [
@@ -52,7 +49,16 @@ class Node extends XFCP_Node
                 'type' => self::TO_ONE,
                 'conditions' => 'node_id',
                 'primary' => true
-            ]
+            ],
+            'ApprovalQueue' => [
+                'entity' => 'XF:ApprovalQueue',
+                'type' => self::TO_ONE,
+                'conditions' => [
+                    ['content_type', '=', 'node'],
+                    ['content_id', '=', '$node_id']
+                ],
+                'primary' => true
+            ],
         ];
 
         return $structure;
@@ -161,5 +167,33 @@ class Node extends XFCP_Node
         //     $c .= sprintf("%02X", mt_rand(0, 255));
         // }
         // return $c;
+    }
+
+    protected function _postSave()
+    {
+        $approvalChange = $this->isStateChanged('node_state', 'moderated');
+        if ($this->isUpdate()) {
+            if ($approvalChange == 'leave' && $this->ApprovalQueue) {
+                $this->ApprovalQueue->delete();
+            }
+        }
+
+        if ($approvalChange == 'enter') {
+            if (!$this->app()->options()->fs_forum_groups_approval) {
+                /** @var \XF\Entity\ApprovalQueue $approvalQueue */
+                $approvalQueue = $this->getRelationOrDefault('ApprovalQueue', false);
+                $approvalQueue->content_date = \XF::$time;
+                $approvalQueue->save();
+            }
+        }
+    }
+    // public function canView( )
+    // {
+    //     return true;
+    // }
+
+    public function canApproveUnapprove(&$error = null): bool
+    {
+        return true;
     }
 }

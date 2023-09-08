@@ -1,0 +1,44 @@
+{
+    "admin_navigation.fsWebsiteCreate.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "2ba824a3620d5c8613694b14d27e78d5"
+    },
+    "admin_navigation.fsWebsiteRanking.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
+    },
+    "nav.fsWebsiteRanking.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
+    },
+    "option.fs_web_ranking_parent_web_id.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "c95d0e33005fb8be331b2d5e1b77976c"
+    },
+    "option_explain.fs_web_ranking_parent_web_id.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_group.fs_web_ranking.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "6d37a316206de0246e479868b91e6892"
+    },
+    "option_group_description.fs_web_ranking.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+}

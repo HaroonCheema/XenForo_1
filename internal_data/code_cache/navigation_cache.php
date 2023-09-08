@@ -88,6 +88,16 @@ return function($__templater, $__selectedNav, array $__vars)
 
 	}
 
+	$__navTemp = [
+		'title' => \XF::phrase('nav.fsWebsiteRanking'),
+		'href' => $__templater->func('link', array('web-ranking', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fsWebsiteRanking'] = $__navTemp;
+		$__flat['fsWebsiteRanking'] =& $__tree['fsWebsiteRanking'];
+	}
+
 	if ($__vars['xf']['homePageUrl']) {
 		$__navTemp = [
 		'title' => \XF::phrase('nav.home'),
@@ -602,6 +612,53 @@ return function($__templater, $__selectedNav, array $__vars)
 		if ($__navTemp) {
 			$__tree['createCrud']['children']['addRecord'] = $__navTemp;
 			$__flat['addRecord'] =& $__tree['createCrud']['children']['addRecord'];
+		}
+
+	}
+
+	$__callbackTemp = ['\\Siropu\\Chat\\Navigation\\Tab', 'chat'];
+	$__navTemp = is_callable($__callbackTemp) ? call_user_func($__callbackTemp, array (
+  'navigation_id' => 'siropuChat',
+), '', $__selectedNav) : null;
+	if ($__navTemp) {
+		$__tree['siropuChat'] = $__navTemp;
+		$__flat['siropuChat'] =& $__tree['siropuChat'];
+		if (empty($__tree['siropuChat']['children'])) { $__tree['siropuChat']['children'] = []; }
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatArchive', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatArchive'),
+		'href' => $__templater->func('link', array('chat/archive', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatArchive'] = $__navTemp;
+				$__flat['siropuChatArchive'] =& $__tree['siropuChat']['children']['siropuChatArchive'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatTopChatters', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatTopChatters'),
+		'href' => $__templater->func('link', array('chat/top-chatters', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatTopChatters'] = $__navTemp;
+				$__flat['siropuChatTopChatters'] =& $__tree['siropuChat']['children']['siropuChatTopChatters'];
+			}
+		}
+
+		if ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChatSanctions', array())) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.siropuChatSanctions'),
+		'href' => $__templater->func('link', array('chat/sanctions', ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['siropuChat']['children']['siropuChatSanctions'] = $__navTemp;
+				$__flat['siropuChatSanctions'] =& $__tree['siropuChat']['children']['siropuChatSanctions'];
+			}
 		}
 
 	}

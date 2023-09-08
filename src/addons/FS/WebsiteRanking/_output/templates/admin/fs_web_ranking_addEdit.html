@@ -1,0 +1,26 @@
+<xf:if is="$node.node_id">
+	<xf:title>{{ phrase('fs_web_ranking_create') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('fs_web_ranking_edit:') }} {$node.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$node.node_id">
+	<xf:button href="{{ link('web-ranking/delete', $node) }}"
+		icon="delete"
+		data-xf-click="overlay" />
+</xf:pageaction>
+
+<xf:form action="{{ link('web-ranking/save', $node) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textboxrow name="title" value="{$node.title}"
+				label="{{ phrase('title') }}" required="required" hint="{{ phrase('required') }}"/>
+
+			<xf:textarearow name="description" value="{$node.description}" rows="2" autosize="true"
+				label="{{ phrase('description') }}"
+				hint="{{ phrase('you_may_use_html') }}" />
+			
+			<xf:submitrow sticky="true" icon="save" />
+		</div>
+	</div>
+</xf:form>

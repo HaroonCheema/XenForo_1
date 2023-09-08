@@ -1132,13 +1132,6 @@ html
 .acp--advanced-mode .acp--simple
 {
 	display: none;
-}
-
-.nodeIcon--custom {
-	width: 15px;
-	height: 15px;
-	background-size: cover;
-	background-position: center;
 }';
 	return $__finalCompiled;
 }
