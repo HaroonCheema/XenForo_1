@@ -40,4 +40,12 @@ class Setup extends AbstractSetup
 			$table->dropColumns(['created_at']);
 		});
 	}
+
+	public function upgrade1000300Step1()
+	{
+		$this->alterTable('xf_node', function (\XF\Db\Schema\Alter $table) {
+			$table->addColumn('node_state', 'enum')->values(['visible', 'moderated', 'deleted']);
+			$table->addColumn('created_at', 'int')->setDefault(0);
+		});
+	}
 }
