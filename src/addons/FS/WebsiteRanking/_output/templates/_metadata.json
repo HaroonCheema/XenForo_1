@@ -2,11 +2,36 @@
     "admin/fs_web_ranking_addEdit.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "77cd6380d44d6c99af1eb6305b0ca716"
+        "hash": "d19542d504cb1ba004eef1785553651e"
     },
     "admin/fs_web_ranking_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "97a13907b90b0ae20be78245610e93b6"
+    },
+    "public/fs_web_ranking_css_helper.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "fcb6d323f2274e994286061ebcc233ae"
+    },
+    "public/fs_web_ranking_grid_card.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "98374849beda25f296c2bacdc7445647"
+    },
+    "public/fs_web_ranking_index.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "5a12a3d60d08ccc675bbc69bfe0c9b2a"
+    },
+    "public/fs_web_ranking_list.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "82a1c70b114b5834518f4551cd013d73"
+    },
+    "public/fs_web_ranking_style.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b925467765af82fe5f2cbb8da8aeff67"
     }
 }

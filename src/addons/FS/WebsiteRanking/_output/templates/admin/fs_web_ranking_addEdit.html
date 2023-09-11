@@ -1,5 +1,5 @@
-<xf:if is="$node.node_id">
-	<xf:title>{{ phrase('fs_web_ranking_create') }}</xf:title>
+<xf:if is="!$node.node_id">
+	<xf:title>{{ phrase('fs_web_ranking_create_website') }}</xf:title>
 <xf:else />
 	<xf:title>{{ phrase('fs_web_ranking_edit:') }} {$node.title}</xf:title>
 </xf:if>

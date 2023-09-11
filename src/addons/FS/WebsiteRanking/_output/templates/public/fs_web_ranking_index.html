@@ -34,6 +34,14 @@
 			<div class="block-footer">
 				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
 			</div>
+			
+			<xf:pagenav
+          page="{$page}"
+          perpage="{$perPage}"
+          total="{$total}"
+          link="{$siteUrl}"
+          wrapperclass="block"
+        />
 		</div>
 	</div>
 
@@ -138,6 +146,7 @@
 			</xf:if>
 
 		</div>
+		
 
 	</div>
 

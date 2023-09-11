@@ -191,6 +191,7 @@ return array (
   'option.fs_saleforums_allow' => 'Included Forums',
   'option.fs_scheduled_ban_user_timezone' => 'Timezones',
   'option.fs_web_ranking_parent_web_id' => 'Parent Website Id',
+  'option.fs_website_ranking_per_row' => 'Website on per row',
   'option.geoLocationUrl' => 'Location information URL',
   'option.giphy' => 'Enable GIPHY support',
   'option.googleAnalyticsAnonymize' => 'Anonymize IP addresses for Google Analytics',

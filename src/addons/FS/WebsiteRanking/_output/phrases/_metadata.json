@@ -11,6 +11,42 @@
         "version_string": "1.0.0 Alpha",
         "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
     },
+    "fs_web_Ranking_desc_title.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b8b2170b7fd50d011064abcc548b7b6b"
+    },
+    "fs_web_Ranking_table_title.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "3cf64f773eab043a4ac9785ac925d46d"
+    },
+    "fs_web_Ranking_title.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
+    },
+    "fs_web_ranking_create_website.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "2ba824a3620d5c8613694b14d27e78d5"
+    },
+    "fs_web_ranking_edit.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "7dce122004969d56ae2e0245cb754d35"
+    },
+    "fs_website_ranking.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
+    },
     "nav.fsWebsiteRanking.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -23,11 +59,23 @@
         "version_string": "1.0.0 Alpha",
         "hash": "c95d0e33005fb8be331b2d5e1b77976c"
     },
+    "option.fs_website_ranking_per_row.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e6ed0549037eb788b50f069ffa058f6e"
+    },
     "option_explain.fs_web_ranking_parent_web_id.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "option_explain.fs_website_ranking_per_row.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "9d5f1a9a36aff5e384d688680828c942"
     },
     "option_group.fs_web_ranking.txt": {
         "global_cache": false,

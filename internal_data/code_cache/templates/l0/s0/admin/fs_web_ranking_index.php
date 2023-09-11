@@ -13,11 +13,11 @@ return array(
 		'rowtype' => 'header',
 	), array(array(
 		'_type' => 'cell',
-		'html' => ' ' . 'fs_web_Ranking_table_title' . ' ',
+		'html' => ' ' . 'Website Title' . ' ',
 	),
 	array(
 		'_type' => 'cell',
-		'html' => ' ' . 'fs_web_Ranking_desc_title' . ' ',
+		'html' => ' ' . 'Website Description' . ' ',
 	),
 	array(
 		'class' => 'dataList-cell--min',
@@ -64,12 +64,12 @@ return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('fs_web_Ranking_title');
+	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Website Ranking');
 	$__finalCompiled .= '
 
 ';
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-  ' . $__templater->button('fs_web_ranking_create_website', array(
+  ' . $__templater->button('Create Website', array(
 		'href' => $__templater->func('link', array('web-ranking/add', ), false),
 		'icon' => 'add',
 	), '', array(

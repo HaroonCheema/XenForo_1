@@ -1,19 +1,19 @@
 <?php
-// FROM HASH: 77cd6380d44d6c99af1eb6305b0ca716
+// FROM HASH: d19542d504cb1ba004eef1785553651e
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
-	if ($__vars['node']['node_id']) {
+	if (!$__vars['node']['node_id']) {
 		$__finalCompiled .= '
 	';
-		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('fs_web_ranking_create');
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Create Website');
 		$__finalCompiled .= '
 ';
 	} else {
 		$__finalCompiled .= '
 	';
-		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('fs_web_ranking_edit:' . ' ' . $__templater->escape($__vars['node']['title']));
+		$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Edit' . $__vars['xf']['language']['label_separator'] . ' ' . $__templater->escape($__vars['node']['title']));
 		$__finalCompiled .= '
 ';
 	}
