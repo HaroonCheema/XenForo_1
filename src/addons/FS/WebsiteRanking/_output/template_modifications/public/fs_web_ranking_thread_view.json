@@ -1,0 +1,9 @@
+{
+    "template": "thread_view",
+    "description": "fs_web_ranking_thread_view_hide_thread_actions",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<xf:set var=\"\\$threadActionsHtml\">.*?<\\/xf:set>/is",
+    "replace": "<xf:if is=\"$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id\">\n\t$0\n</xf:if>"
+}

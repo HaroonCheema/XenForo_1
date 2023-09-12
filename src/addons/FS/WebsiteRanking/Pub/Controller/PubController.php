@@ -20,8 +20,7 @@ class PubController extends AbstractController
         $this->checkUser();
 
         $page = $params->page;
-        $perPage = 2;
-
+        $perPage = 15;
 
         // if ($params['node_id'] > 0) {
         //     return $this->actionSingleView($params);

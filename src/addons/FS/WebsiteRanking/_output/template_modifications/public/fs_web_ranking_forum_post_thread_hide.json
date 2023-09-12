@@ -1,0 +1,9 @@
+{
+    "template": "forum_post_thread",
+    "description": "fs_web_ranking_forum_post_thread_hide_after_attachments",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<xf:macro name=\"type_fields\".*?<xf:captcharow label=\"{{ phrase\\('verification'\\) }}\" \\/>/is",
+    "replace": "<xf:if is=\"$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id\">\n\t$0\n</xf:if>"
+}

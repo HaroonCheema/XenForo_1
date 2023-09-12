@@ -122,7 +122,7 @@ return array(
 	}
 	$__finalCompiled .= ($__vars['titleHtml'] ? $__templater->filter($__vars['titleHtml'], array(array('raw', array()),), true) : $__templater->escape($__vars['nav']['title']));
 	if ($__vars['nav']['counter']) {
-		$__finalCompiled .= ' <span class="badge badge--highlighted' . ((($__vars['navId'] == 'siropuChat') AND ($__vars['nav']['counter'] >= 1)) ? ' badge--active' : '') . '">' . $__templater->filter($__vars['nav']['counter'], array(array('number', array()),), true) . '</span>';
+		$__finalCompiled .= ' <span class="badge badge--highlighted">' . $__templater->filter($__vars['nav']['counter'], array(array('number', array()),), true) . '</span>';
 	}
 	$__finalCompiled .= '</' . $__templater->escape($__vars['tag']) . '>
 ';
@@ -677,14 +677,8 @@ return array(
 					';
 	}
 	$__compilerTemp5 = '';
-	if ($__vars['xf']['options']['siropuChatPage'] AND ($__vars['xf']['options']['siropuChatEnableRightNavLinkMobile'] AND ($__templater->method($__vars['xf']['visitor'], 'canViewSiropuChat', array()) AND (!$__templater->method($__vars['xf']['visitor'], 'isBannedSiropuChat', array()))))) {
-		$__compilerTemp5 .= '
-	<a href="' . $__templater->func('link', array('chat', ), true) . '" class="p-navgroup-link p-navgroup-link--chat' . ($__vars['xf']['options']['siropuChatNavUserCount'] ? ' badgeContainer badgeContainer--highlighted' : '') . '" data-badge="0" aria-label="Chat" title="' . 'Chat' . '"><i class="far fa-comments"></i></a>
-';
-	}
-	$__compilerTemp6 = '';
 	if ($__templater->method($__vars['xf']['visitor'], 'canSearch', array())) {
-		$__compilerTemp6 .= '
+		$__compilerTemp5 .= '
 						<a href="' . $__templater->func('link', array('search', ), true) . '"
 							class="p-navgroup-link p-navgroup-link--iconic p-navgroup-link--search"
 							data-xf-click="menu"
@@ -706,7 +700,7 @@ return array(
 								<div class="menu-row">
 									';
 		if ($__vars['searchConstraints']) {
-			$__compilerTemp6 .= '
+			$__compilerTemp5 .= '
 										<div class="inputGroup inputGroup--joined">
 											' . $__templater->formTextBox(array(
 				'name' => 'keywords',
@@ -715,29 +709,29 @@ return array(
 				'data-menu-autofocus' => 'true',
 			)) . '
 											';
-			$__compilerTemp7 = array(array(
+			$__compilerTemp6 = array(array(
 				'value' => '',
 				'label' => 'Everywhere',
 				'_type' => 'option',
 			));
 			if ($__templater->isTraversable($__vars['searchConstraints'])) {
 				foreach ($__vars['searchConstraints'] AS $__vars['constraintName'] => $__vars['constraint']) {
-					$__compilerTemp7[] = array(
+					$__compilerTemp6[] = array(
 						'value' => $__templater->filter($__vars['constraint'], array(array('json', array()),), false),
 						'label' => $__templater->escape($__vars['constraintName']),
 						'_type' => 'option',
 					);
 				}
 			}
-			$__compilerTemp6 .= $__templater->formSelect(array(
+			$__compilerTemp5 .= $__templater->formSelect(array(
 				'name' => 'constraints',
 				'class' => 'js-quickSearch-constraint',
 				'aria-label' => 'Search within',
-			), $__compilerTemp7) . '
+			), $__compilerTemp6) . '
 										</div>
 									';
 		} else {
-			$__compilerTemp6 .= '
+			$__compilerTemp5 .= '
 										' . $__templater->formTextBox(array(
 				'name' => 'keywords',
 				'placeholder' => 'Search' . $__vars['xf']['language']['ellipsis'],
@@ -746,15 +740,15 @@ return array(
 			)) . '
 									';
 		}
-		$__compilerTemp6 .= '
+		$__compilerTemp5 .= '
 								</div>
 
 								' . '
 								<div class="menu-row">
 									';
-		$__compilerTemp8 = '';
+		$__compilerTemp7 = '';
 		if ($__vars['xf']['options']['enableTagging']) {
-			$__compilerTemp8 .= '
+			$__compilerTemp7 .= '
 													<span tabindex="0" role="button"
 														data-xf-init="tooltip" data-trigger="hover focus click" title="' . 'Tags will also be searched' . '">
 
@@ -764,14 +758,14 @@ return array(
 													</span>
 												';
 		}
-		$__compilerTemp6 .= $__templater->formCheckBox(array(
+		$__compilerTemp5 .= $__templater->formCheckBox(array(
 			'standalone' => 'true',
 		), array(array(
 			'name' => 'c[title_only]',
 			'label' => '
 												' . 'Search titles only' . '
 
-												' . $__compilerTemp8 . '
+												' . $__compilerTemp7 . '
 											',
 			'_type' => 'option',
 		))) . '
@@ -841,7 +835,6 @@ return array(
 					</a>
 
 					' . $__compilerTemp5 . '
-' . $__compilerTemp6 . '
 				</div>
 			</div>
 		</div>
@@ -849,9 +842,9 @@ return array(
 ');
 	$__finalCompiled .= '
 ';
-	$__compilerTemp9 = '';
+	$__compilerTemp8 = '';
 	if (!$__templater->test($__vars['selectedNavChildren'], 'empty', array())) {
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 		<div class="p-sectionLinks">
 			<div class="p-sectionLinks-inner hScroller" data-xf-init="h-scroller">
 				<div class="hScroller-scroll">
@@ -861,7 +854,7 @@ return array(
 		if ($__templater->isTraversable($__vars['selectedNavChildren'])) {
 			foreach ($__vars['selectedNavChildren'] AS $__vars['navId'] => $__vars['navEntry']) {
 				$__vars['i']++;
-				$__compilerTemp9 .= '
+				$__compilerTemp8 .= '
 						<li>
 							' . $__templater->callMacro(null, 'nav_entry', array(
 					'navId' => $__vars['navId'],
@@ -872,19 +865,19 @@ return array(
 					';
 			}
 		}
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 					</ul>
 				</div>
 			</div>
 		</div>
 	';
 	} else if ($__vars['selectedNavEntry']) {
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 		<div class="p-sectionLinks p-sectionLinks--empty"></div>
 	';
 	}
 	$__vars['subNavHtml'] = $__templater->preEscaped('
-	' . $__compilerTemp9 . '
+	' . $__compilerTemp8 . '
 ');
 	$__finalCompiled .= '
 
@@ -1001,53 +994,50 @@ return array(
 		'navTree' => $__vars['navTree'],
 		'selectedNavEntry' => $__vars['selectedNavEntry'],
 	), $__vars) . '
-		' . $__templater->widgetPosition('siropu_chat_below_breadcrumb', array(
-		'position' => 'below_breadcrumb',
-	)) . '
-' . $__templater->callAdsMacro('container_breadcrumb_top_below', array(), $__vars) . '
+		' . $__templater->callAdsMacro('container_breadcrumb_top_below', array(), $__vars) . '
 
 		' . $__templater->callMacro('browser_warning_macros', 'javascript', array(), $__vars) . '
 		' . $__templater->callMacro('browser_warning_macros', 'browser', array(), $__vars) . '
 
 		';
+	$__compilerTemp9 = '';
+	$__compilerTemp9 .= '
+				';
 	$__compilerTemp10 = '';
 	$__compilerTemp10 .= '
-				';
-	$__compilerTemp11 = '';
-	$__compilerTemp11 .= '
 						';
 	if (!$__vars['noH1']) {
-		$__compilerTemp11 .= '
+		$__compilerTemp10 .= '
 							<h1 class="p-title-value">' . $__templater->escape($__vars['h1']) . '</h1>
 						';
 	}
-	$__compilerTemp11 .= '
+	$__compilerTemp10 .= '
 						';
-	$__compilerTemp12 = '';
-	$__compilerTemp12 .= (isset($__templater->pageParams['pageAction']) ? $__templater->pageParams['pageAction'] : '');
-	if (strlen(trim($__compilerTemp12)) > 0) {
-		$__compilerTemp11 .= '
-							<div class="p-title-pageAction">' . $__compilerTemp12 . '</div>
-						';
-	}
-	$__compilerTemp11 .= '
-					';
+	$__compilerTemp11 = '';
+	$__compilerTemp11 .= (isset($__templater->pageParams['pageAction']) ? $__templater->pageParams['pageAction'] : '');
 	if (strlen(trim($__compilerTemp11)) > 0) {
 		$__compilerTemp10 .= '
+							<div class="p-title-pageAction">' . $__compilerTemp11 . '</div>
+						';
+	}
+	$__compilerTemp10 .= '
+					';
+	if (strlen(trim($__compilerTemp10)) > 0) {
+		$__compilerTemp9 .= '
 					<div class="p-title ' . ($__vars['noH1'] ? 'p-title--noH1' : '') . '">
-					' . $__compilerTemp11 . '
+					' . $__compilerTemp10 . '
 					</div>
 				';
 	}
-	$__compilerTemp10 .= '
+	$__compilerTemp9 .= '
 
 				';
 	if (!$__templater->test($__vars['description'], 'empty', array())) {
-		$__compilerTemp10 .= '
+		$__compilerTemp9 .= '
 					<div class="p-description">' . $__templater->escape($__vars['description']) . '</div>
 				';
 	}
-	$__compilerTemp10 .= '
+	$__compilerTemp9 .= '
 			';
 	if (!$__templater->test($__vars['headerHtml'], 'empty', array())) {
 		$__finalCompiled .= '
@@ -1055,10 +1045,10 @@ return array(
 				' . $__templater->filter($__vars['headerHtml'], array(array('raw', array()),), true) . '
 			</div>
 		';
-	} else if (strlen(trim($__compilerTemp10)) > 0) {
+	} else if (strlen(trim($__compilerTemp9)) > 0) {
 		$__finalCompiled .= '
 			<div class="p-body-header">
-			' . $__compilerTemp10 . '
+			' . $__compilerTemp9 . '
 			</div>
 		';
 	}
@@ -1120,13 +1110,7 @@ return array(
 
 			<div class="p-body-content">
 				' . $__templater->callAdsMacro('container_content_above', array(), $__vars) . '
-				' . $__templater->widgetPosition('siropu_chat_above_content', array(
-		'position' => 'above_content',
-	)) . '
-<div class="p-body-pageContent">' . $__templater->filter($__vars['content'], array(array('raw', array()),), true) . '</div>
-' . $__templater->widgetPosition('siropu_chat_below_content', array(
-		'position' => 'below_content',
-	)) . '
+				<div class="p-body-pageContent">' . $__templater->filter($__vars['content'], array(array('raw', array()),), true) . '</div>
 				' . $__templater->callAdsMacro('container_content_below', array(), $__vars) . '
 			</div>
 
@@ -1135,10 +1119,7 @@ return array(
 		$__finalCompiled .= '
 				<div class="p-body-sidebar">
 					' . $__templater->callAdsMacro('container_sidebar_above', array(), $__vars) . '
-					' . $__templater->widgetPosition('siropu_chat_sidebar_top', array(
-			'position' => 'sidebar_top',
-		)) . '
-';
+					';
 		if ($__templater->isTraversable($__vars['sidebar'])) {
 			foreach ($__vars['sidebar'] AS $__vars['sidebarHtml']) {
 				$__finalCompiled .= '
@@ -1147,9 +1128,6 @@ return array(
 			}
 		}
 		$__finalCompiled .= '
-' . $__templater->widgetPosition('siropu_chat_sidebar_bottom', array(
-			'position' => 'sidebar_bottom',
-		)) . '
 					' . $__templater->callAdsMacro('container_sidebar_below', array(), $__vars) . '
 				</div>
 			';
@@ -1165,9 +1143,6 @@ return array(
 		'variant' => 'bottom',
 	), $__vars) . '
 		' . $__templater->callAdsMacro('container_breadcrumb_bottom_below', array(), $__vars) . '
-' . $__templater->widgetPosition('siropu_chat_all_pages', array(
-		'position' => 'all_pages',
-	)) . '
 	</div>
 </div>
 
@@ -1176,11 +1151,11 @@ return array(
 
 		<div class="p-footer-row">
 			';
-	$__compilerTemp13 = '';
-	$__compilerTemp13 .= '
+	$__compilerTemp12 = '';
+	$__compilerTemp12 .= '
 						';
 	if ($__templater->method($__vars['xf']['visitor'], 'canChangeStyle', array())) {
-		$__compilerTemp13 .= '
+		$__compilerTemp12 .= '
 							<li><a href="' . $__templater->func('link', array('misc/style', ), true) . '" data-xf-click="overlay"
 								data-xf-init="tooltip" title="' . $__templater->filter('Style chooser', array(array('for_attr', array()),), true) . '" rel="nofollow">
 								' . $__templater->fontAwesome('fa-paint-brush', array(
@@ -1188,23 +1163,23 @@ return array(
 							</a></li>
 						';
 	}
-	$__compilerTemp13 .= '
+	$__compilerTemp12 .= '
 						';
 	if ($__templater->method($__vars['xf']['visitor'], 'canChangeLanguage', array())) {
-		$__compilerTemp13 .= '
+		$__compilerTemp12 .= '
 							<li><a href="' . $__templater->func('link', array('misc/language', ), true) . '" data-xf-click="overlay"
 								data-xf-init="tooltip" title="' . $__templater->filter('Language chooser', array(array('for_attr', array()),), true) . '" rel="nofollow">
 								' . $__templater->fontAwesome('fa-globe', array(
 		)) . ' ' . $__templater->escape($__vars['xf']['language']['title']) . '</a></li>
 						';
 	}
-	$__compilerTemp13 .= '
+	$__compilerTemp12 .= '
 					';
-	if (strlen(trim($__compilerTemp13)) > 0) {
+	if (strlen(trim($__compilerTemp12)) > 0) {
 		$__finalCompiled .= '
 				<div class="p-footer-row-main">
 					<ul class="p-footer-linkList">
-					' . $__compilerTemp13 . '
+					' . $__compilerTemp12 . '
 					</ul>
 				</div>
 			';
@@ -1265,33 +1240,33 @@ return array(
 		</div>
 
 		';
-	$__compilerTemp14 = '';
-	$__compilerTemp14 .= '
+	$__compilerTemp13 = '';
+	$__compilerTemp13 .= '
 				' . $__templater->func('copyright') . '
 				' . '' . '
 			';
-	if (strlen(trim($__compilerTemp14)) > 0) {
+	if (strlen(trim($__compilerTemp13)) > 0) {
 		$__finalCompiled .= '
 			<div class="p-footer-copyright">
-			' . $__compilerTemp14 . '
+			' . $__compilerTemp13 . '
 			</div>
 		';
 	}
 	$__finalCompiled .= '
 
 		';
-	$__compilerTemp15 = '';
-	$__compilerTemp15 .= '
+	$__compilerTemp14 = '';
+	$__compilerTemp14 .= '
 				' . $__templater->callMacro('debug_macros', 'debug', array(
 		'controller' => $__vars['controller'],
 		'action' => $__vars['actionMethod'],
 		'template' => $__vars['template'],
 	), $__vars) . '
 			';
-	if (strlen(trim($__compilerTemp15)) > 0) {
+	if (strlen(trim($__compilerTemp14)) > 0) {
 		$__finalCompiled .= '
 			<div class="p-footer-debug">
-			' . $__compilerTemp15 . '
+			' . $__compilerTemp14 . '
 			</div>
 		';
 	}

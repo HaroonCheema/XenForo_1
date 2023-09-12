@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 5a12a3d60d08ccc675bbc69bfe0c9b2a
+// FROM HASH: f79bcd6b8e2d510ff6add13d7a3e1891
 return array(
 'macros' => array('data_in_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -17,11 +17,9 @@ return array(
 			<!-- Cover -->
 
 			<div class="gridCard--cover">
-
 				<div class="webRankingCover--wrapper">
-
 					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#' . $__templater->escape($__templater->method($__vars['data'], 'getRandomColor', array())) . ';color:#70dbb8">
-						<a href="' . $__templater->func('link', array($__vars['siteUrl'], $__vars['data'], ), true) . '" style="color:#fff">
+						<a href="' . $__templater->func('link', array('forums', $__vars['data'], ), true) . '" style="color:#fff">
 							<span class="webRankingCover--text">' . $__templater->func('snippet', array($__vars['data']['title'], 25, ), true) . '</span>
 						</a>
 					</div>
@@ -41,22 +39,8 @@ return array(
 				<!-- Avatar -->
 
 				<div class="gridCard--header--avatar">
-					';
-	if ($__vars['data']['AvatarAttachment']) {
-		$__finalCompiled .= '
-						<a href="' . $__templater->func('link', array($__vars['siteUrl'], $__vars['data'], ), true) . '" class="webRankingAvatar webRankingAvatar--link webRankingAvatar--default" style="background-color:#e08585;color:#8f2424">
-							<img src="' . $__templater->escape($__vars['data']['AvatarAttachment']['thumbnail_url']) . '" class="webRankingAvatar--img bbImage" width="100" height="100" data-width="' . $__templater->escape($__vars['data']['AvatarAttachment']['width']) . '" data-height="' . $__templater->escape($__vars['data']['AvatarAttachment']['height']) . '" alt="' . $__templater->escape($__vars['data']['title']) . '" />
-						</a>
-
-						';
-	} else {
-		$__finalCompiled .= '
-						' . '
 						' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
-		))) . '
-					';
-	}
-	$__finalCompiled .= '
+	))) . '
 				</div>
 
 				<!-- Avatar -->
@@ -66,7 +50,7 @@ return array(
 				<div class="gridCard--header--main">
 
 					' . trim('
-						<a href="' . $__templater->func('link', array($__vars['siteUrl'], $__vars['data'], ), true) . '" class="gridCard--header--title" data-tp-primary="on">
+						<a href="' . $__templater->func('link', array('forums', $__vars['data'], ), true) . '" class="gridCard--header--title" data-tp-primary="on">
 							<span>' . $__templater->escape($__vars['data']['title']) . '</span>
 						</a>
 					') . '

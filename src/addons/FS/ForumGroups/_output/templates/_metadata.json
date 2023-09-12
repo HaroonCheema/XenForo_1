@@ -1,7 +1,7 @@
 {
     "public/approval_item_node.html": {
-        "version_id": 1000100,
-        "version_string": "1.0.1 Alpha",
+        "version_id": 1000300,
+        "version_string": "1.0.3 Alpha",
         "hash": "b0cb3d43fbc3f7f9385c4221a0581968"
     },
     "public/display_order_macros.html": {

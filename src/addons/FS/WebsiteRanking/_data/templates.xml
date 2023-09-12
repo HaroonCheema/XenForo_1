@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="admin" title="fs_web_ranking_addEdit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:if is="!$node.node_id">
+	<xf:title>{{ phrase('fs_web_ranking_create_website') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('fs_web_ranking_edit:') }} {$node.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$node.node_id">
+	<xf:button href="{{ link('web-ranking/delete', $node) }}"
+		icon="delete"
+		data-xf-click="overlay" />
+</xf:pageaction>
+
+<xf:form action="{{ link('web-ranking/save', $node) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textboxrow name="title" value="{$node.title}"
+				label="{{ phrase('title') }}" required="required" hint="{{ phrase('required') }}"/>
+
+			<xf:textarearow name="description" value="{$node.description}" rows="2" autosize="true"
+				label="{{ phrase('description') }}"
+				hint="{{ phrase('you_may_use_html') }}" />
+			
+			<xf:submitrow sticky="true" icon="save" />
+		</div>
+	</div>
+</xf:form>]]></template>
+  <template type="admin" title="fs_web_ranking_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_web_Ranking_title') }}</xf:title>
+
+<xf:pageaction>
+  <xf:button href="{{ link('web-ranking/add') }}" icon="add">{{ phrase('fs_web_ranking_create_website') }}</xf:button>
+</xf:pageaction>
+<xf:form action="{{ link($prefix . '/toggle') }}" class="block" ajax="true">
+  <div class="block-outer">
+		<xf:macro
+		  template="filter_macros"
+		  name="quick_filter"
+		  arg-key="web-ranking"
+		  arg-class="block-outer-opposite"
+		/>
+  </div>
+
+  <div class="block-container">
+
+  <xf:if is="$node is not empty">
+	<div class="block-body">
+			<xf:datalist data-xf-init="responsive-data-list">
+					
+				<xf:macro
+					name="table_list"
+					arg-node="{$node}"
+				  />
+
+				   </xf:datalist>
+				<div class="block-footer">
+					  <span class="block-footer-counter"
+						>{{ display_totals($totalReturn, $total) }}</span
+					  >
+				</div>
+		    
+		</div>
+       <xf:else />
+			<div class="block-body block-row">{{ phrase('no_items_have_been_created_yet') }}</div>
+		
+       </xf:if>
+    
+ </div>
+
+   <xf:pagenav
+			page="{$page}"
+			perpage="{$perPage}"
+			total="{$total}"
+			link="web-ranking"
+			wrapperclass="block"
+		  />
+</xf:form>
+<xf:macro
+  name="table_list"
+  arg-node="!"
+>
+  <xf:datarow rowtype="header">
+    <xf:cell> {{ phrase('fs_web_Ranking_table_title') }} </xf:cell>
+    <xf:cell> {{ phrase('fs_web_Ranking_desc_title') }} </xf:cell>
+    <xf:cell class="dataList-cell--min"></xf:cell>
+	 <xf:cell class="dataList-cell--min"></xf:cell>
+  </xf:datarow>
+  <xf:foreach loop="{$node}" value="$value">
+    <xf:datarow>
+		
+          <xf:cell> {$value.title} </xf:cell>
+          <xf:cell> {$value.description} </xf:cell>
+		
+	<xf:action href="{{ link('web-ranking/edit', $value) }}" >{{ phrase('edit') }}</xf:action>
+      <xf:delete
+        href="{{ link('web-ranking/delete', $value) }}"
+        overlay="true"
+      />
+    </xf:datarow>
+  </xf:foreach>
+</xf:macro>]]></template>
+  <template type="public" title="fs_web_ranking_css_helper.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[.m-webRankingFlexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+// helper display flex.
+.h-dFlex {
+  .webRanking-displayFlex();
+}
+
+.h-dFlex--wrap {
+  flex-wrap: wrap;
+}
+
+.webRanking-displayFlex() {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+}
+
+// loaders
+/**
+ * Lines
+ */
+@-webkit-keyframes line-scale {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4); }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
+@keyframes line-scale {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+  50% {
+    -webkit-transform: scaley(0.4);
+    transform: scaley(0.4); }
+  100% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
+
+.loader--line-scale {
+  > div {
+    background-color: #fff;
+    width: 4px;
+    height: 35px;
+    border-radius: 2px;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+
+    &:nth-child(1) {
+      -webkit-animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    }
+
+    &:nth-child(2) {
+      -webkit-animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+    }
+
+    &:nth-child(3) {
+      -webkit-animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+    &:nth-child(4) {
+      -webkit-animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+
+    &:nth-child(5) {
+      -webkit-animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }
+  }
+}]]></template>
+  <template type="public" title="fs_web_ranking_grid_card.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
+
+.gridCard {
+  flex: 0 0 33.33%;
+  padding: @xf-paddingMedium;
+  min-width: 33.33%;
+  align-self: stretch;
+  position: relative;
+  .m-transition();
+
+  .fa {
+    margin-right: 4px;
+  }
+
+  &.is-mod-selected {
+    opacity: 0.5;
+  }
+
+  .webRankingCover--wrapper {
+    position: relative;
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      .m-dropShadow();
+    }
+  }
+}
+
+// header
+.gridCard--header {
+  display: flex;
+  background-color: @xf-contentHighlightBg;
+  border-bottom: 1px solid @xf-borderColorLight;
+
+  .gridCard--header--avatar {
+    >* {
+      .m-avatarSize(60px);
+    }
+  }
+
+  .gridCard--header--main {
+    flex: 1;
+    margin-left: @xf-paddingMedium;
+    margin-right: @xf-paddingMedium;
+  }
+
+  .gridCard--header--actions {
+    min-width: 50px;
+  }
+}
+
+.gridCard--container {
+  height: 100%;
+  background: @xf-contentBg;
+  border-radius: @xf-borderRadiusSmall;
+  display: flex;
+  flex-direction: column;
+
+  .m-dropShadow();
+
+  .gridCard--cover {
+    height: 100px;
+    overflow: hidden;
+
+    .m-borderTopRadius(@xf-borderRadiusSmall);
+
+    >* {
+      height: 100px;
+      font-size: 30px;
+    }
+  }
+
+  .webRankingAvatar--img {
+    width: 100%;
+    height: 100%;
+  }
+
+  > * {
+    &:not(.gridCard--cover) {
+      padding: @xf-paddingMedium;
+    }
+  }
+}
+
+.gridCard--body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.gridCard--footer {
+  border-top: 1px solid @xf-borderColorLight;
+  display: flex;
+  flex-direction: row;
+
+  .webRankingItem--members {
+    flex: 1;
+    margin: 0 !important;
+    overflow-x: hidden;
+    .webRanking-displayFlex();
+
+    li {
+      + li {
+        margin-left: -10px;
+      }
+
+      .avatar {
+        border:2px solid #fff;
+      }
+    }
+  }
+
+  .button--webRankingJoin {
+    align-self: flex-start;
+  }
+}
+
+.gridCard--header--title {
+  font-weight: normal;
+  font-size: @xf-fontSizeLarge;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  .badge {
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-left: @xf-paddingMedium;
+  }
+}
+
+.webRankingItem--meta {
+  font-size: @xf-fontSizeSmaller;
+}
+
+.gridCardFlexColLoop(5);
+
+// 900px
+@media(max-width: @xf-responsiveWide) {
+  .gridCardList--flex--3-col {
+    .gridCard {
+      flex-basis: 50%;
+      min-width: 50%;
+    }
+  }
+}
+
+// 650px
+@media(max-width: @xf-responsiveMedium) {
+  .gridCardList--flex--3-col,
+  .gridCardList--flex--2-col {
+    .gridCard {
+      flex-basis: 100%;
+      min-width: 100%;
+    }
+  }
+}
+// 480px
+@media(max-width: @xf-responsiveNarrow) {
+  .gridCardList--flex{
+    .gridCard {
+      flex-basis: 100%;
+      min-width: 100%;
+    }
+  }
+}
+
+// Auto generate grid card columns class
+.gridCardFlexColLoop(@n) when (@n > 0) {
+  .gridCardList--flex--@{n}-col {
+    .gridCard {
+      flex-basis: (100% / @n);
+      min-width: (100% / @n);
+    }
+  }
+
+  .gridCardFlexColLoop((@n - 1));
+}]]></template>
+  <template type="public" title="fs_web_ranking_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
+
+<div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
+	<div class="block-outer">
+
+	</div>
+	<div class="block-container">
+
+		<!--Listing View--->
+		<div class="block-body">
+
+			<!--Website Ranking List View--->
+			<xf:if is="count($data) != 0">
+
+				<div class="block webRankingListBlock" data-xf-init="inline-mod" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
+
+					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
+
+						<xf:foreach loop="{$data}" value="$value">
+
+							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
+
+						</xf:foreach>
+					</div>
+				</div>
+			</xf:if>
+
+			<xf:css src="fs_web_ranking_list.less" />
+			<xf:css src="fs_web_ranking_style.less" />
+			<xf:css src="fs_web_ranking_grid_card.less" />
+
+			<!--Website Ranking List View--->
+
+			<div class="block-footer">
+				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
+			</div>
+			
+			<xf:pagenav
+          page="{$page}"
+          perpage="{$perPage}"
+          total="{$total}"
+          link="{$siteUrl}"
+          wrapperclass="block"
+        />
+		</div>
+	</div>
+
+	<div class="block-outer block-outer--after">
+
+		<xf:showignored wrapperclass="block-outer-opposite" />
+	</div>
+</div>
+
+<!-- Filter Bar Macro Start -->
+
+<!--Website Ranking List View--->
+
+<xf:macro name="data_in_list" arg-data="!" arg-siteUrl="!">
+	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+
+		<div class="gridCard--container">
+
+			<!-- Cover -->
+
+			<div class="gridCard--cover">
+				<div class="webRankingCover--wrapper">
+					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#{{$data.getRandomColor()}};color:#70dbb8">
+						<a href="{{ link('forums', $data) }}" style="color:#fff">
+							<span class="webRankingCover--text">{{ snippet($data.title, 25) }}</span>
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Cover -->
+
+
+			<!-- Header -->
+
+
+			<div class="gridCard--header">
+
+				<!-- Avatar -->
+
+				<div class="gridCard--header--avatar">
+						<xf:avatar user="$xf.visitor" size="l" />
+				</div>
+
+				<!-- Avatar -->
+
+				<!-- Header Main -->
+
+				<div class="gridCard--header--main">
+
+					<xf:trim>
+						<a href="{{ link('forums', $data) }}" class="gridCard--header--title" data-tp-primary="on">
+							<span>{$data.title}</span>
+						</a>
+					</xf:trim>
+
+
+					<xf:trim>
+						<ul class="listInline webRanking--counterList u-muted">
+							<li class="webRankingItem-stat webRankingItem-stat--viewCount" style="margin-right:10px;">
+								<xf:fa icon="fa-eye" />
+								{$data.getViewCounts()}
+							</li>
+
+							<li class="webRankingItem-stat webRankingItem-stat--discussionCount">
+								<xf:fa icon="fa-comment" />
+								{$data.Forum.message_count}
+							</li>
+						</ul>
+					</xf:trim>
+
+				</div>
+
+				<!-- Header Main -->
+
+			</div>
+
+			<!-- Header -->
+
+			<xf:if contentcheck="true">
+				<div class="gridCard--body">
+					<xf:contentcheck>
+
+						<div class="webRankingList--description u-muted">{$data.description}</div>
+
+					</xf:contentcheck>
+				</div>
+			</xf:if>
+
+		</div>
+		
+
+	</div>
+
+</xf:macro>
+
+<!--Website Ranking List View--->]]></template>
+  <template type="public" title="fs_web_ranking_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
+
+.webRanking--counterList {
+  
+  .webRanking-displayFlex();
+}
+
+.webRankingListBlock {
+  .webRankingList {
+    margin-right: -@xf-paddingMedium + 1;
+    margin-left: -@xf-paddingMedium + 1;
+    flex-wrap: wrap;
+	  padding:0px 5px;
+  }
+
+  &.webRankingListBlock--empty {
+    .block-container {
+        margin-bottom: @xf-paddingMedium;
+      }
+  }
+
+  .block-filterBar {
+    border-bottom-width: 0;
+  }
+}
+
+.webRankingCover--wrapper {
+  position: relative;
+
+  .webRankingCoverFrame {
+    height: 100%;
+    font-size: 30px;
+  }
+
+  .webRankingCover--inlineMod {
+    .m-dropShadow();
+    background: rgba(0,0,0,.6);
+    color: #ecf0ff;
+    border-radius: 50%;
+
+    position: absolute;
+    top: @xf-paddingMedium;
+    left: @xf-paddingMedium;
+    width: 24px;
+    height: 24px;
+    font-size: 15px;
+    padding-top: 2px;
+    padding-left: 2px;
+    text-align: center;
+  }
+
+  .iconic--noLabel {
+    &:hover {
+      cursor: pointer;
+      input {
+        + i:before {
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+}
+.widget-webRanking {
+  .contentRow-figure {
+    .webRankingAvatar {
+      .m-avatarSize(24px);
+    }
+  }
+}
+
+// 650px
+@media(max-width: @xf-responsiveMedium) {
+  .webRankingListBlock {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+
+    .webRankingList {
+      margin-right: -@xf-paddingLarge;
+      margin-left: -@xf-paddingLarge;
+
+      .gridCard {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .gridCard--container {
+      border-radius: 0;
+      .gridCard--cover {
+        .m-borderTopRadius(0);
+      }
+    }
+  }
+}
+// 480px
+@media(max-width: @xf-responsiveNarrow) {
+}]]></template>
+  <template type="public" title="fs_web_ranking_style.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
+
+// declare variables.
+@webRankingNavItemHeight: 42px;
+
+.webRankingViewNav--item {
+  &:hover, &.is-active {
+    background-color: @xf-paletteColor1;
+    a {
+      text-decoration: none;
+      .xf-link();
+    }
+  }
+}
+
+.webRankingViewNav {
+  .webRankingViewNav--item {
+    a {
+      padding: @xf-paddingLarge;
+      display: flex;
+
+      .webRankingViewNav--itemText {
+        flex: 1;
+      }
+    }
+
+    &:last-child {
+      a {
+        .m-borderBottomRadius(@xf-borderRadiusMedium - 1);
+      }
+    }
+
+    &.is-active {
+      a {
+        border-left: 2px solid @xf-borderColorFeature;
+      }
+    }
+
+    .badge {
+      align-self: center;
+    }
+  }
+}
+
+.webRankingCover-header {
+  .webRankingCover {
+    .m-borderTopRadius(@xf-borderRadiusSmall + 1);
+  }
+}
+
+.webRankingCoverFrame {
+  width: 100%;
+  height: 205px;
+  overflow: hidden;
+  position: relative;
+
+  .m-transition(height, 200ms, ease-in);
+
+  &.webRankingCoverFrame--setup {
+    background-color: @xf-contentAccentBg;
+    .loader--line-scale {
+      > div {
+        background-color: @xf-textColorAccentContent;
+      }
+    }
+  }
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .webRankingCover--img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .m-transition(top);
+  }
+
+  &.webRankingCoverFrame--setup {
+    .webRankingCover--img {
+      .m-transition(none);
+    }
+  }
+
+  .webRankingCover--guide {
+    position: absolute;
+    font-size: @xf-fontSizeSmall;
+    padding: @xf-paddingMedium @xf-paddingLarge;
+    background-color: rgba(0,0,0,.4);
+    border-radius: @xf-borderRadiusMedium;
+    color: @xf-paletteNeutral1;
+
+    .m-dropShadow();
+
+    &:before {
+      .m-faBase();
+      .m-faContent("\f047");
+      margin-right: @xf-paddingSmall;
+    }
+  }
+
+  // fixed flash text while cover editor
+  .cropControls {
+    display: none;
+  }
+}
+
+.timePicker--wrap {
+  display: block;
+  padding: @xf-paddingLarge;
+  box-sizing: border-box;
+
+  .timePicker--wrap--text {
+    font-size: @xf-fontSizeNormal;
+  }
+}
+
+.flex--row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex--grow {
+  flex-grow: 1;
+}
+
+// webRanking Prevew Customized
+.tooltip--preview {
+  .tooltip-content {
+    .tooltip-expanded {
+      max-height: 255px;
+      margin: -@xf-paddingMedium;
+
+      .memberTooltip-avatar {
+        padding-right: 10px;
+      }
+
+      .webRankingCoverFrame {
+        height: 90px;
+        font-size: 25px;
+      }
+
+      .memberTooltip-actions {
+        display: flex;
+      }
+    }
+
+    .memberTooltip-name {
+      font-size: @xf-fontSizeLarge;
+    }
+
+    .webRankingAvatar {
+      .m-avatarSize(50px);
+    }
+  }
+}
+
+.webRankingCoverFrame,
+.webRankingAvatar--default {
+  .m-webRankingFlexCenter();
+
+  font-size: 50px;
+}
+
+// webRanking avatar default (text dynamic)
+.webRankingAvatar {
+  display: flex;
+  border-radius: @xf-fs_avatarBorderRadius;
+  overflow: hidden;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+// SIDEBAR webRanking AVATAR
+.contentRow-figure {
+  .webRankingAvatar {
+    .m-avatarSize(24px);
+    border-radius: @xf-fs_avatarBorderRadius;
+  }
+}
+
+.webRankingAvatar--default {
+  text-decoration: none;
+}
+
+.p-body-sideNav {
+  .webRankingAvatar {
+    .m-avatarSize(@xf-sidebarWidth);
+  }
+}
+
+.p-body-sideNavInner {
+  &.is-active,
+  &.is-transitioning {
+    .webRankingAvatar-block {
+      .webRankingAvatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.webRankingHeader-navList {
+  .webRankingViewNav--item, .webRankingHeader-navList--user {
+    padding: @xf-paddingMedium;
+  }
+
+  .hScroller-action {
+    .m-hScrollerActionColorVariation(@xf-contentHighlightBg, @xf-textColorFeature, @xf-textColorEmphasized);
+  }
+
+  .webRankingViewNav--item {
+    height: @webRankingNavItemHeight;
+    box-sizing: border-box;
+    line-height: (@webRankingNavItemHeight + @xf-paddingMedium * 2)/2;
+    padding-left: @xf-paddingLargest;
+    padding-right: @xf-paddingLargest;
+
+    &.is-active {
+      border-bottom: 2px solid @xf-borderColorFeature;
+      background-color: @xf-paletteColor1;
+
+      a {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .webRankingHeader-navList--user {
+    min-width: 200px;
+    justify-content: flex-end;
+  }
+}
+
+.webRankingBbCode--wrapper {
+  max-width: 320px;
+
+  .listInline {
+    margin: 0 !important;
+  }
+}
+
+.webRankingMembers {
+  .contentRow {
+    .avatar {
+      .m-avatarSize(66px);
+    }
+  }
+}
+
+// 900px
+@media (min-width: @xf-responsiveWide) {
+  .webRankingHeader-navList {
+    .hScroller {
+      display: none !important;
+    }
+
+    .webRankingHeader-navList--user {
+      justify-content: flex-start;
+    }
+  }
+}
+
+// 900px
+@media (max-width: @xf-responsiveWide) {
+  .webRankingHeader-navList {
+    .hScroller {
+      display: block !important;
+    }
+  }
+
+  .webRankingCover-header {
+    position: relative;
+    .webRankingCover {
+      .m-borderTopRadius(0);
+    }
+
+    .webRankingHeader-navList--user {
+      position: absolute;
+      bottom: @webRankingNavItemHeight;
+      right: 0;
+
+      .button--webRankingJoin,
+      .button--webRankingAlerts {
+        display: none;
+      }
+
+      .button {
+        &.menuTrigger {
+          border: 1px solid @xf-borderColor;
+          border-top-left-radius: @xf-borderRadiusMedium !important;
+          border-bottom-left-radius: @xf-borderRadiusMedium !important;
+        }
+      }
+    }
+  }
+}
+
+.tooltip-webRanking--inner {
+  .memberTooltip-avatar {
+    width: 60px;
+  }
+}
+
+.webRankingBadge {
+  display: flex;
+  align-items: center;
+  padding: @xf-paddingMedium;
+  background-color: @xf-inlineModHighlightColor;
+  border-radius: @xf-borderRadiusMedium;
+
+  &.has-cover {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .webRankingBadge-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.3);
+    border-radius: @xf-borderRadiusMedium;
+  }
+
+  .webRankingAvatar {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    z-index: 1;
+  }
+
+  .webRankingBadge-name {
+    margin-left: @xf-paddingMedium;
+    z-index: 1;
+    color: #fff;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: ~"calc(100% - 28px)";
+    white-space: nowrap;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.linkAlbums-fields {
+  .input {
+    + .input {
+      margin-top: @xf-paddingLarge;
+    }
+  }
+}]]></template>
+</templates>

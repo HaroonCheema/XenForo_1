@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="admin_navigation.fsWebsiteCreate" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Create Website]]></phrase>
+  <phrase title="admin_navigation.fsWebsiteRanking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
+  <phrase title="fs_web_Ranking_desc_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Description]]></phrase>
+  <phrase title="fs_web_Ranking_table_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Title]]></phrase>
+  <phrase title="fs_web_Ranking_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
+  <phrase title="fs_web_ranking_create_issue" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Create Issue]]></phrase>
+  <phrase title="fs_web_ranking_create_website" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Create Website]]></phrase>
+  <phrase title="fs_web_ranking_edit" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Edit]]></phrase>
+  <phrase title="fs_web_ranking_issue_approve" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Issue]]></phrase>
+  <phrase title="fs_web_ranking_issue_reply" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Issue Reply]]></phrase>
+  <phrase title="fs_web_ranking_issue_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Issue title]]></phrase>
+  <phrase title="fs_web_ranking_there_no_issue_in_this_site" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[There are no issue in this website.]]></phrase>
+  <phrase title="fs_website_ranking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
+  <phrase title="nav.fsWebsiteRanking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
+  <phrase title="option.fs_web_ranking_parent_web_id" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Parent Website Id]]></phrase>
+  <phrase title="option.fs_website_ranking_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website on per row]]></phrase>
+  <phrase title="option_explain.fs_web_ranking_parent_web_id" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="option_explain.fs_website_ranking_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[How many Website display on per "Row" you can set from here..!]]></phrase>
+  <phrase title="option_group.fs_web_ranking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Website Ranking]]></phrase>
+  <phrase title="option_group_description.fs_web_ranking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+</phrases>

@@ -1,0 +1,35 @@
+{
+    "public/fs_forum_groups_approval_item_thread.json": {
+        "hash": "f492475b9f09570c6ebe61393b3c2941"
+    },
+    "public/fs_web_ranking_change_no_thread_phrase.json": {
+        "hash": "3aa5713c3cc57051e19cc57e3056d046"
+    },
+    "public/fs_web_ranking_change_thread_btn.json": {
+        "hash": "2c2655aa798a963a69b28b3190a1eda5"
+    },
+    "public/fs_web_ranking_forum_hide_filter.json": {
+        "hash": "c57d5f150f51f9dd658eb2bc28c8f509"
+    },
+    "public/fs_web_ranking_forum_post_thread.json": {
+        "hash": "7915cb6b751299964a70707968670c40"
+    },
+    "public/fs_web_ranking_forum_post_thread_hide.json": {
+        "hash": "e21bc05c3f367e0e1d3ca832b8c27f56"
+    },
+    "public/fs_web_ranking_forum_post_thread_title.json": {
+        "hash": "6e0a6e64150162e40b7d4775ed2f731b"
+    },
+    "public/fs_web_ranking_hide_forum_inline_thread.json": {
+        "hash": "4ab50179c479d11ca4e5eaf0e3e1f93a"
+    },
+    "public/fs_web_ranking_hide_mark_watch_btn.json": {
+        "hash": "6eccb8729707df64b204d4945c1dc78d"
+    },
+    "public/fs_web_ranking_thread_view.json": {
+        "hash": "46e27ba1fb024c9734eec36505446e72"
+    },
+    "public/fs_web_ranking_thread_view_reply.json": {
+        "hash": "02bbeb25cba823cfaa4881e93e932405"
+    }
+}

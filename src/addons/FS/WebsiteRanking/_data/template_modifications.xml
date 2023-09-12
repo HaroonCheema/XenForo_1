@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template_modifications>
+  <modification type="public" template="approval_item_thread" modification_key="fs_forum_groups_approval_item_thread" description="fs_forum_groups_approval_item_thread_replace_with_issue" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ phrase('thread') }}]]></find>
+    <replace><![CDATA[{{$content.Forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_issue_approve') : phrase('thread') }}]]></replace>
+  </modification>
+  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread" description="fs_web_ranking_forum_post_thread_change_placeHolder" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{$forum.thread_prompt}]]></find>
+    <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_issue_title') : $forum.thread_prompt }}]]></replace>
+  </modification>
+  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread_hide" description="fs_web_ranking_forum_post_thread_hide_after_attachments" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:macro name="type_fields".*?<xf:captcharow label="{{ phrase\('verification'\) }}" \/>/is]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread_title" description="fs_web_ranking_forum_post_thread_title" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ phrase('post_thread') }}]]></find>
+    <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_create_issue') : phrase('post_thread') }}]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_change_no_thread_phrase" description="fs_web_ranking_change_no_thread_phrase" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ phrase('there_no_threads_in_this_forum') }}]]></find>
+    <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_there_no_issue_in_this_site') : phrase('there_no_threads_in_this_forum') }}]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_change_thread_btn" description="fs_web_ranking_change_thread_btn_to_create_issue" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
+	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
+		{{ phrase('post_thread') }}
+	</xf:button>
+</xf:pageaction>]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id">
+<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
+	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
+		{{ phrase('fs_web_ranking_create_issue') }}
+	</xf:button>
+</xf:pageaction>
+	<xf:else/>
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_forum_hide_filter" description="fs_web_ranking_forum_hide_filter" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:extension name="thread_list_header">.*?<\/xf:extension>.*?<\/xf:extension>/is]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_hide_forum_inline_thread" description="fs_web_ranking_hide_forum_inline_thread" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:macro name="{{ \$templateOverrides\.quick_thread_macro \?: 'thread_list_macros::quick_thread' }}".*?args="{\$templateOverrides\.quick_thread_macro_args}" \/>/is]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_hide_mark_watch_btn" description="fs_web_ranking_hide_mark_watch_btn" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<div class="block-outer">.*?<\/xf:trim>.*?<\/div>/is]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="thread_view" modification_key="fs_web_ranking_thread_view" description="fs_web_ranking_thread_view_hide_thread_actions" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:set var="\$threadActionsHtml">.*?<\/xf:set>/is]]></find>
+    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="thread_view" modification_key="fs_web_ranking_thread_view_reply" description="fs_web_ranking_thread_view_change_post_reply_to_issue_reply" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[arg-showGuestControls="{{ !$isPreRegReply }}"]]></find>
+    <replace><![CDATA[$0
+arg-submitText="{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_issue_reply') : '' }}"]]></replace>
+  </modification>
+</template_modifications>

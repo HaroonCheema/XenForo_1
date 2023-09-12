@@ -63,11 +63,9 @@
 			<!-- Cover -->
 
 			<div class="gridCard--cover">
-
 				<div class="webRankingCover--wrapper">
-
 					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#{{$data.getRandomColor()}};color:#70dbb8">
-						<a href="{{ link($siteUrl, $data) }}" style="color:#fff">
+						<a href="{{ link('forums', $data) }}" style="color:#fff">
 							<span class="webRankingCover--text">{{ snippet($data.title, 25) }}</span>
 						</a>
 					</div>
@@ -87,17 +85,7 @@
 				<!-- Avatar -->
 
 				<div class="gridCard--header--avatar">
-					<xf:if is="$data.AvatarAttachment">
-						<a href="{{ link($siteUrl, $data) }}" class="webRankingAvatar webRankingAvatar--link webRankingAvatar--default" style="background-color:#e08585;color:#8f2424">
-							<img src="{{ $data.AvatarAttachment.thumbnail_url }}" class="webRankingAvatar--img bbImage" width="100" height="100" data-width="{$data.AvatarAttachment.width}" data-height="{$data.AvatarAttachment.height}" alt="{$data.title}" />
-						</a>
-
-						<xf:else />
-						<xf:comment>
-							<span class="webRankingAvatar--text webRankingAvatar--dynamic">{$xf.visitor.username}</span>
-						</xf:comment>
 						<xf:avatar user="$xf.visitor" size="l" />
-					</xf:if>
 				</div>
 
 				<!-- Avatar -->
@@ -107,7 +95,7 @@
 				<div class="gridCard--header--main">
 
 					<xf:trim>
-						<a href="{{ link($siteUrl, $data) }}" class="gridCard--header--title" data-tp-primary="on">
+						<a href="{{ link('forums', $data) }}" class="gridCard--header--title" data-tp-primary="on">
 							<span>{$data.title}</span>
 						</a>
 					</xf:trim>

@@ -695,9 +695,15 @@ return array(
 	)) . '
 
 ';
-	$__vars['threadActionsHtml'] = $__templater->preEscaped('
+	if ($__vars['forum']['Node']['parent_node_id'] != $__vars['xf']['options']['fs_web_ranking_parent_web_id']) {
+		$__finalCompiled .= '
+	';
+		$__vars['threadActionsHtml'] = $__templater->preEscaped('
 	' . $__templater->renderExtension('thread_actions', $__vars, $__extensions) . '
 ');
+		$__finalCompiled .= '
+';
+	}
 	$__finalCompiled .= '
 
 ';
@@ -926,6 +932,7 @@ return array(
 			'lastKnownDate' => $__vars['thread']['last_post_date'],
 			'loadExtra' => $__vars['isSimpleDateDisplay'],
 			'showGuestControls' => (!$__vars['isPreRegReply']),
+			'submitText' => (($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id']) ? 'Issue Reply' : ''),
 			'previewUrl' => $__templater->func('link', array('threads/reply-preview', $__vars['thread'], ), false),
 		), $__vars) . '
 			</div>
