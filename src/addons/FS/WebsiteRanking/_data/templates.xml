@@ -391,8 +391,10 @@
 
 					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
 
+							<xf:macro name="widget_box_ranking"/>
+						
 						<xf:foreach loop="{$data}" value="$value">
-
+							
 							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
 
 						</xf:foreach>
@@ -432,11 +434,8 @@
 
 <xf:macro name="data_in_list" arg-data="!" arg-siteUrl="!">
 	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-
 		<div class="gridCard--container">
-
 			<!-- Cover -->
-
 			<div class="gridCard--cover">
 				<div class="webRankingCover--wrapper">
 					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#{{$data.getRandomColor()}};color:#70dbb8">
@@ -444,78 +443,151 @@
 							<span class="webRankingCover--text">{{ snippet($data.title, 25) }}</span>
 						</a>
 					</div>
-
 				</div>
-
 			</div>
-
 			<!-- Cover -->
-
-
 			<!-- Header -->
-
-
 			<div class="gridCard--header">
-
 				<!-- Avatar -->
-
 				<div class="gridCard--header--avatar">
 						<xf:avatar user="$xf.visitor" size="l" />
 				</div>
-
 				<!-- Avatar -->
-
 				<!-- Header Main -->
-
 				<div class="gridCard--header--main">
-
 					<xf:trim>
 						<a href="{{ link('forums', $data) }}" class="gridCard--header--title" data-tp-primary="on">
 							<span>{$data.title}</span>
 						</a>
 					</xf:trim>
-
-
 					<xf:trim>
 						<ul class="listInline webRanking--counterList u-muted">
 							<li class="webRankingItem-stat webRankingItem-stat--viewCount" style="margin-right:10px;">
 								<xf:fa icon="fa-eye" />
 								{$data.getViewCounts()}
 							</li>
-
 							<li class="webRankingItem-stat webRankingItem-stat--discussionCount">
 								<xf:fa icon="fa-comment" />
 								{$data.Forum.message_count}
 							</li>
 						</ul>
 					</xf:trim>
-
 				</div>
-
 				<!-- Header Main -->
-
 			</div>
-
 			<!-- Header -->
-
 			<xf:if contentcheck="true">
 				<div class="gridCard--body">
 					<xf:contentcheck>
-
 						<div class="webRankingList--description u-muted">{$data.description}</div>
-
 					</xf:contentcheck>
 				</div>
 			</xf:if>
-
 		</div>
-		
-
 	</div>
+</xf:macro>
+<!--Website Ranking List View--->
 
+
+<!--Website Ranking Widget Data--->
+
+<xf:macro name="widget_box_ranking">
+	
+			<!--Box # 1--->
+	
+	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		<div class="gridCard--container1">
+			<!-- Cover -->
+			<div class="gridCard--cover">
+				<div class="webRankingCover--wrapper">
+					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
+						<a href="{{ link('forums') }}" style="color:#fff">
+							<span class="webRankingCover--text">Hello</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- Cover -->
+			<!-- Header -->
+			<div class="gridCard--header">
+				<!-- Header Main -->
+				<div class="gridCard--header--main">
+					<xf:trim>
+						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
+							<span>Helloe</span>
+						</a>
+					</xf:trim>
+				</div>
+				<!-- Header Main -->
+			</div>
+			<!-- Header -->
+		</div>
+	</div>
+	
+	<!--Box # 2--->
+	
+	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		<div class="gridCard--container1">
+			<!-- Cover -->
+			<div class="gridCard--cover">
+				<div class="webRankingCover--wrapper">
+					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
+						<a href="{{ link('forums') }}" style="color:#fff">
+							<span class="webRankingCover--text">Hello</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- Cover -->
+			<!-- Header -->
+			<div class="gridCard--header">
+				<!-- Header Main -->
+				<div class="gridCard--header--main">
+					<xf:trim>
+						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
+							<span>Helloe</span>
+						</a>
+					</xf:trim>
+				</div>
+				<!-- Header Main -->
+			</div>
+			<!-- Header -->
+		</div>
+	</div>
+	
+	<!--Box # 3--->
+	
+	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
+		<div class="gridCard--container1">
+			<!-- Cover -->
+			<div class="gridCard--cover">
+				<div class="webRankingCover--wrapper">
+					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
+						<a href="{{ link('forums') }}" style="color:#fff">
+							<span class="webRankingCover--text">Hello</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- Cover -->
+			<!-- Header -->
+			<div class="gridCard--header">
+				<!-- Header Main -->
+				<div class="gridCard--header--main">
+					<xf:trim>
+						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
+							<span>Helloe</span>
+						</a>
+					</xf:trim>
+				</div>
+				<!-- Header Main -->
+			</div>
+			<!-- Header -->
+		</div>
+	</div>
 </xf:macro>
 
-<!--Website Ranking List View--->]]></template>
+<!--Website Ranking Widget Data--->]]></template>
   <template type="public" title="fs_web_ranking_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
 
 .webRanking--counterList {
@@ -614,6 +686,19 @@
 // 480px
 @media(max-width: @xf-responsiveNarrow) {
 }]]></template>
+  <template type="public" title="fs_web_ranking_solved" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_web_ranking_solved_title') }}</xf:title>
+
+<xf:form action="{{ link('threads/solved',$thread) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('fs_web_ranking_are_you_sure') }}
+					<strong>{$thread.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="save" />
+	</div>
+</xf:form>]]></template>
   <template type="public" title="fs_web_ranking_style.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
 
 // declare variables.

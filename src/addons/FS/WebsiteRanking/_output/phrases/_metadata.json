@@ -29,6 +29,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
     },
+    "fs_web_ranking_are_you_sure.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "f7a61ee606af1693f4b612869fddb979"
+    },
     "fs_web_ranking_create_issue.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -65,6 +71,12 @@
         "version_string": "1.0.0 Alpha",
         "hash": "7540dc323cdfd9e0e8fd8874cc7e67d4"
     },
+    "fs_web_ranking_solved_title.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "52a429410fbd38bfa4810d0a6289e30c"
+    },
     "fs_web_ranking_there_no_issue_in_this_site.txt": {
         "global_cache": false,
         "version_id": 1000010,
@@ -76,6 +88,12 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
+    },
+    "fs_website_ranking_solved_btn.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "2bed4ed6d6d4b10a818539fb0be36181"
     },
     "nav.fsWebsiteRanking.txt": {
         "global_cache": false,

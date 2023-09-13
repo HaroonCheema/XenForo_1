@@ -22,12 +22,17 @@
     "public/fs_web_ranking_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "f79bcd6b8e2d510ff6add13d7a3e1891"
+        "hash": "8c1cb6a5775e74c109cdfd7a0d74530d"
     },
     "public/fs_web_ranking_list.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "82a1c70b114b5834518f4551cd013d73"
+    },
+    "public/fs_web_ranking_solved.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "79e1264679cd622100a7c6500df795f0"
     },
     "public/fs_web_ranking_style.less": {
         "version_id": 1000010,

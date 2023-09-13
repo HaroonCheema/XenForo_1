@@ -34,6 +34,8 @@ class PubController extends AbstractController
         $nodeFinder = \xf::finder('XF:Node')->where("parent_node_id", \xf::app()->options()->fs_web_ranking_parent_web_id);
         $tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
 
+        $this->getStates($tempNodeIds);
+
         $forumFinder = \xf::finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
         $nodeIds = $forumFinder->pluckfrom('node_id')->fetch()->toArray();
 
@@ -64,6 +66,71 @@ class PubController extends AbstractController
         ];
 
         return $this->view('FS\WebsiteRanking:PubController\Index', 'fs_web_ranking_index', $viewParams);
+    }
+
+    protected function getStates($subNodeIds)
+    {
+        $highestResolutionPercentage = 0;
+        $lowestResolutionPercentage = 100;
+        $totalResolvedThreads = 0;
+        $totalThreads = 0;
+        $nodeIdWithHighestResolution = null;
+        $nodeIdWithLowestResolution = null;
+        $nodeIdWithMostThreads = null;
+        $maxThreadCount = 0;
+
+        foreach ($subNodeIds as $nodeId) {
+            $threadCount = \XF::db()->fetchOne("
+        SELECT COUNT(*) 
+        FROM xf_thread 
+        WHERE node_id = ?
+    ", $nodeId);
+
+            if ($threadCount > 0) {
+                $resolvedThreadCount = \XF::db()->fetchOne("
+            SELECT COUNT(*) 
+            FROM xf_thread 
+            WHERE node_id = ? 
+            AND issue_status = 1
+        ", $nodeId);
+
+                $resolutionPercentage = round(($resolvedThreadCount / $threadCount) * 100);
+
+                if ($resolutionPercentage > $highestResolutionPercentage) {
+                    $highestResolutionPercentage = $resolutionPercentage;
+                    $nodeIdWithHighestResolution = $nodeId;
+                }
+
+                if ($resolutionPercentage < $lowestResolutionPercentage) {
+                    $lowestResolutionPercentage = $resolutionPercentage;
+                    $nodeIdWithLowestResolution = $nodeId;
+                }
+
+                $totalResolvedThreads += $resolvedThreadCount;
+                $totalThreads += $threadCount;
+
+                if ($threadCount > $maxThreadCount) {
+                    $maxThreadCount = $threadCount;
+                    $nodeIdWithMostThreads = $nodeId;
+                }
+            }
+        }
+
+        $totalResolutionPercentage = round(($totalResolvedThreads / $totalThreads) * 100);
+
+        echo "Highest Resolution Percentage: " . $highestResolutionPercentage . "%<br>";
+        echo "Node ID with Highest Resolution: " . $nodeIdWithHighestResolution . "<br>";
+        echo "Lowest Resolution Percentage: " . $lowestResolutionPercentage . "%<br>";
+        echo "Node ID with Lowest Resolution: " . $nodeIdWithLowestResolution . "<br>";
+        echo "Total Resolution Percentage: " . $totalResolutionPercentage . "%<br>";
+        echo "Node ID with Most Threads: " . $nodeIdWithMostThreads . "<br>";
+
+        // echo '<pre>';
+        // var_dump("highestResolutionPercentage = " . $highestResolutionPercentage . '<br><br>' . "nodeIdWithHighestResolution = " . $nodeIdWithHighestResolution);
+        // var_dump("<br><br>lowestResolutionPercentage = " . $lowestResolutionPercentage . '<br><br>' . "nodeIdWithLowestResolution = " . $nodeIdWithLowestResolution);
+        // var_dump("<br><br>totalResolutionPercentage = " . $totalResolutionPercentage);
+        // var_dump("<br><br>nodeIdWithMostThreads = " . $nodeIdWithMostThreads);
+        // exit;
     }
 
     // public function actionIndex(ParameterBag $params)

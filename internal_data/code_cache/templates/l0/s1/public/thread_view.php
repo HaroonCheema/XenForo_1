@@ -695,7 +695,38 @@ return array(
 	)) . '
 
 ';
-	if ($__vars['forum']['Node']['parent_node_id'] != $__vars['xf']['options']['fs_web_ranking_parent_web_id']) {
+	if (($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id']) AND $__vars['xf']['visitor']['is_admin']) {
+		$__finalCompiled .= '
+	';
+		if ($__vars['thread']['discussion_state'] == 'visible') {
+			$__finalCompiled .= '
+	';
+			$__compilerTemp3 = '';
+			if ($__vars['thread']['issue_status'] == 0) {
+				$__compilerTemp3 .= '
+							' . $__templater->button('
+								' . 'Solved' . '
+							', array(
+					'href' => $__templater->func('link', array('threads/solved', $__vars['thread'], ), false),
+					'class' => 'button--link',
+					'overlay' => 'true',
+				), '', array(
+				)) . '
+						';
+			}
+			$__vars['threadActionsHtml'] = $__templater->preEscaped('
+	<div class="block-outer-opposite">
+				<div class="buttonGroup">
+					' . $__compilerTemp3 . '
+				</div>
+	</div>
+	');
+			$__finalCompiled .= '
+	';
+		}
+		$__finalCompiled .= '
+	';
+	} else {
 		$__finalCompiled .= '
 	';
 		$__vars['threadActionsHtml'] = $__templater->preEscaped('
@@ -835,8 +866,8 @@ return array(
 	</div>
 
 	';
-	$__compilerTemp3 = '';
-	$__compilerTemp3 .= '
+	$__compilerTemp4 = '';
+	$__compilerTemp4 .= '
 				' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['totalPosts'],
@@ -853,18 +884,18 @@ return array(
 	))) . '
 				';
 	if ((!$__templater->method($__vars['thread'], 'canReply', array())) AND ((!$__templater->method($__vars['thread'], 'canReplyPreReg', array())) AND (($__vars['thread']['discussion_state'] == 'visible') AND $__vars['thread']['discussion_open']))) {
-		$__compilerTemp3 .= '
+		$__compilerTemp4 .= '
 					<div class="block-outer-opposite">
 						';
 		if ($__vars['xf']['visitor']['user_id']) {
-			$__compilerTemp3 .= '
+			$__compilerTemp4 .= '
 							<span class="button button--wrap is-disabled">
 								' . 'You have insufficient privileges to reply here.' . '
 								<!-- this is not interactive so shouldn\'t be a button element -->
 							</span>
 						';
 		} else {
-			$__compilerTemp3 .= '
+			$__compilerTemp4 .= '
 							' . $__templater->button('
 								' . 'You must log in or register to reply here.' . '
 							', array(
@@ -875,16 +906,16 @@ return array(
 			)) . '
 						';
 		}
-		$__compilerTemp3 .= '
+		$__compilerTemp4 .= '
 					</div>
 				';
 	}
-	$__compilerTemp3 .= '
+	$__compilerTemp4 .= '
 			';
-	if (strlen(trim($__compilerTemp3)) > 0) {
+	if (strlen(trim($__compilerTemp4)) > 0) {
 		$__finalCompiled .= '
 		<div class="block-outer block-outer--after">
-			' . $__compilerTemp3 . '
+			' . $__compilerTemp4 . '
 		</div>
 	';
 	}

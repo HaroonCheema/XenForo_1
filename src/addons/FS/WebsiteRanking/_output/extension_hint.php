@@ -6,4 +6,11 @@
 namespace FS\WebsiteRanking\XF\Entity
 {
 	class XFCP_Forum extends \XF\Entity\Forum {}
+	class XFCP_Node extends \XF\Entity\Node {}
+	class XFCP_Thread extends \XF\Entity\Thread {}
+}
+
+namespace FS\WebsiteRanking\XF\Pub\Controller
+{
+	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }

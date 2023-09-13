@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: eaf159bc288365f9e17307a1b38c638c
+// FROM HASH: 109eefdb8853e26b746bd53ab5eabeb2
 return array(
 'macros' => array('nav_entry' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -815,6 +815,7 @@ return array(
 			<div class="p-nav-scroller hScroller" data-xf-init="h-scroller" data-auto-scroll=".p-navEl.is-selected">
 				<div class="hScroller-scroll">
 					<ul class="p-nav-list js-offCanvasNavSource">
+						' . $__templater->func('dump', array($__vars['pageSection'], ), true) . '
 					' . $__compilerTemp3 . '
 					</ul>
 				</div>
