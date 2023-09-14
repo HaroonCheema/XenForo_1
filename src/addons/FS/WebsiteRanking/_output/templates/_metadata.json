@@ -22,7 +22,7 @@
     "public/fs_web_ranking_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "8c1cb6a5775e74c109cdfd7a0d74530d"
+        "hash": "06224989fda630f0810c5f472ab501c5"
     },
     "public/fs_web_ranking_list.less": {
         "version_id": 1000010,
@@ -37,6 +37,16 @@
     "public/fs_web_ranking_style.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "b925467765af82fe5f2cbb8da8aeff67"
+        "hash": "dcea42e4574857c4d14ddde514dc76fc"
+    },
+    "public/fs_wesite_ranking_status.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "b472d343de34b8a8f1f5851613f51738"
+    },
+    "public/fs_wesite_ranking_status_css.less": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "a35f058a1ce436acc36ac50cb3e902a0"
     }
 }

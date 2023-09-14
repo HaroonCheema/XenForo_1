@@ -375,6 +375,10 @@
 }]]></template>
   <template type="public" title="fs_web_ranking_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
 
+<xf:if is="$siteStatus">
+	<xf:include template="fs_wesite_ranking_status" />
+</xf:if>
+
 <div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer">
 
@@ -391,10 +395,8 @@
 
 					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
 
-							<xf:macro name="widget_box_ranking"/>
-						
 						<xf:foreach loop="{$data}" value="$value">
-							
+
 							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
 
 						</xf:foreach>
@@ -411,14 +413,14 @@
 			<div class="block-footer">
 				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
 			</div>
-			
+
 			<xf:pagenav
-          page="{$page}"
-          perpage="{$perPage}"
-          total="{$total}"
-          link="{$siteUrl}"
-          wrapperclass="block"
-        />
+						page="{$page}"
+						perpage="{$perPage}"
+						total="{$total}"
+						link="{$siteUrl}"
+						wrapperclass="block"
+						/>
 		</div>
 	</div>
 
@@ -450,7 +452,7 @@
 			<div class="gridCard--header">
 				<!-- Avatar -->
 				<div class="gridCard--header--avatar">
-						<xf:avatar user="$xf.visitor" size="l" />
+					<xf:avatar user="$xf.visitor" size="l" />
 				</div>
 				<!-- Avatar -->
 				<!-- Header Main -->
@@ -486,108 +488,7 @@
 		</div>
 	</div>
 </xf:macro>
-<!--Website Ranking List View--->
-
-
-<!--Website Ranking Widget Data--->
-
-<xf:macro name="widget_box_ranking">
-	
-			<!--Box # 1--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 2--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 3--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-</xf:macro>
-
-<!--Website Ranking Widget Data--->]]></template>
+<!--Website Ranking List View--->]]></template>
   <template type="public" title="fs_web_ranking_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
 
 .webRanking--counterList {
@@ -1066,5 +967,174 @@
       margin-top: @xf-paddingLarge;
     }
   }
+}
+
+.main_state_box{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 7px 0px
+}
+
+.gridCard--containers{
+	width: 80%;	
+}
+
+.main_gridCard_containers{
+	display: flex;
+	justify-content: center;
+}]]></template>
+  <template type="public" title="fs_wesite_ranking_status" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:css src="fs_wesite_ranking_status_css.less" />
+<div class="block bestuser">
+	<div class="block-container block-cont">
+		<div class="block-header">
+			{{ phrase('fs_website_ranking_total_complaint_resolution_percentage') }} {$siteStatus.totalPercen} %
+		</div>
+		<div class="block-body">
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.highPercenNode}) }}">
+								{$siteStatus.highPercenNode.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_highest_complaint_resolution_percentage') }}  {$siteStatus.highPercen} %</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.lowPercenNode}) }}">
+								{$siteStatus.lowPercenNode.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_lowest_complaint_resolution_percentage') }}  {$siteStatus.lowPercen} %</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.nodeMostComplains}) }}">
+								{$siteStatus.nodeMostComplains.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_most_complaint') }}  {$siteStatus.mostcomplains}</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>]]></template>
+  <template type="public" title="fs_wesite_ranking_status_css.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[.bestuser{
+	.block-cont .block-body{
+		display: flex;
+	}
+
+	.block-cont .block-container{
+		flex: 1 1 25%;
+		margin: 5px;	
+	}
+
+	.block-cont .block-body ul{
+		list-style: none;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	.block-cont .block-body ul li{
+		padding: 5px;
+	}
+	
+
+	.block-cont .block-header{
+		text-align: center;
+		font-size: 12pt;
+		font-weight: bold;
+	}
+
+	.bw_av{
+		position: relative;
+	}
+
+	.bw_av img{
+		position: absolute;
+		top: -12px;
+		border-radius: 25px;
+		padding: 10px;
+		height: 50px;
+		width: 50px;
+	}
+
+	.body-pad{
+		 padding: 20px;
+	}
+}
+@media (max-width: 359px)
+{
+	.bestuser{
+		 .block-cont .block-body{
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 376px)
+{
+	.bestuser{
+		 .block-cont .block-body{
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 415px)
+{
+	.bestuser{
+		 .block-cont .block-body{
+			display: block;
+		}
+	}
+}
+
+@media (max-width: 768px)
+{
+	.bestuser{
+		 .block-cont .block-body .block-header{
+			font-size: 10pt;
+			font-weight: bold;
+		}
+	}
+}
+
+
+@media (max-width: 800px)
+{
+	.bestuser{
+		 .block-cont .block-body .block-header{
+			font-size: 10pt;
+			font-weight: bold;
+		}
+	}
+}
+
+
+@media (max-width: 900px)
+{
+	.bestuser{
+		 .block-cont .block-body .block-header{
+			font-size: 10pt;
+			font-weight: bold;
+		}
+	}
 }]]></template>
 </templates>

@@ -89,11 +89,35 @@
         "version_string": "1.0.0 Alpha",
         "hash": "605d4355e9f3cb57c0b23e933ba2a9cd"
     },
+    "fs_website_ranking_highest_complaint_resolution_percentage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "ff4cee2765106d9e743e5c30f5b598c3"
+    },
+    "fs_website_ranking_lowest_complaint_resolution_percentage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "f42b889f289415d79736eb29d9bd2868"
+    },
+    "fs_website_ranking_most_complaint.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "cbd0de94e4ec31c9837ec942285fb1aa"
+    },
     "fs_website_ranking_solved_btn.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "2bed4ed6d6d4b10a818539fb0be36181"
+    },
+    "fs_website_ranking_total_complaint_resolution_percentage.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "d4fccba4dceab59096c20fef9eaa89d2"
     },
     "nav.fsWebsiteRanking.txt": {
         "global_cache": false,

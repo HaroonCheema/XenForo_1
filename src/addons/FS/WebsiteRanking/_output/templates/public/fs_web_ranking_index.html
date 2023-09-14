@@ -1,5 +1,9 @@
 <xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
 
+<xf:if is="$siteStatus">
+	<xf:include template="fs_wesite_ranking_status" />
+</xf:if>
+
 <div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer">
 
@@ -16,10 +20,8 @@
 
 					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
 
-							<xf:macro name="widget_box_ranking"/>
-						
 						<xf:foreach loop="{$data}" value="$value">
-							
+
 							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
 
 						</xf:foreach>
@@ -36,14 +38,14 @@
 			<div class="block-footer">
 				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
 			</div>
-			
+
 			<xf:pagenav
-          page="{$page}"
-          perpage="{$perPage}"
-          total="{$total}"
-          link="{$siteUrl}"
-          wrapperclass="block"
-        />
+						page="{$page}"
+						perpage="{$perPage}"
+						total="{$total}"
+						link="{$siteUrl}"
+						wrapperclass="block"
+						/>
 		</div>
 	</div>
 
@@ -75,7 +77,7 @@
 			<div class="gridCard--header">
 				<!-- Avatar -->
 				<div class="gridCard--header--avatar">
-						<xf:avatar user="$xf.visitor" size="l" />
+					<xf:avatar user="$xf.visitor" size="l" />
 				</div>
 				<!-- Avatar -->
 				<!-- Header Main -->
@@ -112,104 +114,3 @@
 	</div>
 </xf:macro>
 <!--Website Ranking List View--->
-
-
-<!--Website Ranking Widget Data--->
-
-<xf:macro name="widget_box_ranking">
-	
-			<!--Box # 1--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 2--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 3--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="{{ unique_id() }}">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="{{ link('forums') }}" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					<xf:trim>
-						<a href="{{ link('forums') }}" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					</xf:trim>
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-</xf:macro>
-
-<!--Website Ranking Widget Data--->

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: b925467765af82fe5f2cbb8da8aeff67
+// FROM HASH: dcea42e4574857c4d14ddde514dc76fc
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -371,6 +371,22 @@ return array(
       margin-top: @xf-paddingLarge;
     }
   }
+}
+
+.main_state_box{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 7px 0px
+}
+
+.gridCard--containers{
+	width: 80%;	
+}
+
+.main_gridCard_containers{
+	display: flex;
+	justify-content: center;
 }';
 	return $__finalCompiled;
 }

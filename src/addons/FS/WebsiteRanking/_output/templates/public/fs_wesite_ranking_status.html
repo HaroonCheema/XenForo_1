@@ -1,0 +1,49 @@
+<xf:css src="fs_wesite_ranking_status_css.less" />
+<div class="block bestuser">
+	<div class="block-container block-cont">
+		<div class="block-header">
+			{{ phrase('fs_website_ranking_total_complaint_resolution_percentage') }} {$siteStatus.totalPercen} %
+		</div>
+		<div class="block-body">
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.highPercenNode}) }}">
+								{$siteStatus.highPercenNode.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_highest_complaint_resolution_percentage') }}  {$siteStatus.highPercen} %</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.lowPercenNode}) }}">
+								{$siteStatus.lowPercenNode.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_lowest_complaint_resolution_percentage') }}  {$siteStatus.lowPercen} %</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="block-container">
+				<div class="block-header">
+					<a href="{{ link('forums', {$siteStatus.nodeMostComplains}) }}">
+								{$siteStatus.nodeMostComplains.title}
+					</a>
+				</div>
+				<div class="block-body body-pad">
+					<ul>
+						<li> {{ phrase('fs_website_ranking_most_complaint') }}  {$siteStatus.mostcomplains}</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

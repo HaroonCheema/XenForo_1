@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 8c1cb6a5775e74c109cdfd7a0d74530d
+// FROM HASH: 06224989fda630f0810c5f472ab501c5
 return array(
 'macros' => array('data_in_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -27,7 +27,7 @@ return array(
 			<div class="gridCard--header">
 				<!-- Avatar -->
 				<div class="gridCard--header--avatar">
-						' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
+					' . $__templater->func('avatar', array($__vars['xf']['visitor'], 'l', false, array(
 	))) . '
 				</div>
 				<!-- Avatar -->
@@ -74,114 +74,20 @@ return array(
 ';
 	return $__finalCompiled;
 }
-),
-'widget_box_ranking' => array(
-'code' => function($__templater, array $__vars, $__extensions = null)
-{
-	$__finalCompiled = '';
-	$__finalCompiled .= '
-	
-			<!--Box # 1--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="' . $__templater->func('unique_id', array(), true) . '">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					' . trim('
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					') . '
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 2--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="' . $__templater->func('unique_id', array(), true) . '">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					' . trim('
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					') . '
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-	
-	<!--Box # 3--->
-	
-	<div class="gridCard js-inlineModContainer visible public" id="' . $__templater->func('unique_id', array(), true) . '">
-		<div class="gridCard--container1">
-			<!-- Cover -->
-			<div class="gridCard--cover">
-				<div class="webRankingCover--wrapper">
-					<div class="webRankingCover webRankingCoverFrame webRankingCover--default" style="background-color:#46998A;color:#70dbb8">
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" style="color:#fff">
-							<span class="webRankingCover--text">Hello</span>
-						</a>
-					</div>
-				</div>
-			</div>
-			<!-- Cover -->
-			<!-- Header -->
-			<div class="gridCard--header">
-				<!-- Header Main -->
-				<div class="gridCard--header--main">
-					' . trim('
-						<a href="' . $__templater->func('link', array('forums', ), true) . '" class="gridCard--header--title" data-tp-primary="on">
-							<span>Helloe</span>
-						</a>
-					') . '
-				</div>
-				<!-- Header Main -->
-			</div>
-			<!-- Header -->
-		</div>
-	</div>
-';
-	return $__finalCompiled;
-}
 )),
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
 	$__finalCompiled = '';
 	$__templater->pageParams['pageTitle'] = $__templater->preEscaped('Website Ranking');
 	$__templater->pageParams['pageNumber'] = $__vars['page'];
+	$__finalCompiled .= '
+
+';
+	if ($__vars['siteStatus']) {
+		$__finalCompiled .= '
+	' . $__templater->includeTemplate('fs_wesite_ranking_status', $__vars) . '
+';
+	}
 	$__finalCompiled .= '
 
 <div class="block" data-xf-init="' . ($__vars['canInlineMod'] ? 'inline-mod' : '') . '" data-type="fs_website_ranking" data-href="' . $__templater->func('link', array('inline-mod', ), true) . '">
@@ -202,13 +108,11 @@ return array(
 
 					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--' . $__templater->escape($__vars['xf']['options']['fs_website_ranking_per_row']) . '-col" data-xf-init="fs_website_ranking_list">
 
-							' . $__templater->callMacro(null, 'widget_box_ranking', array(), $__vars) . '
-						
 						';
 		if ($__templater->isTraversable($__vars['data'])) {
 			foreach ($__vars['data'] AS $__vars['value']) {
 				$__finalCompiled .= '
-							
+
 							' . $__templater->callMacro(null, 'data_in_list', array(
 					'data' => $__vars['value'],
 					'siteUrl' => $__vars['siteUrl'],
@@ -239,7 +143,7 @@ return array(
 			<div class="block-footer">
 				<span class="block-footer-counter">' . $__templater->func('display_totals', array($__vars['totalReturn'], $__vars['total'], ), true) . '</span>
 			</div>
-			
+
 			' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['total'],
@@ -263,14 +167,7 @@ return array(
 <!--Website Ranking List View--->
 
 ' . '
-<!--Website Ranking List View--->
-
-
-<!--Website Ranking Widget Data--->
-
-' . '
-
-<!--Website Ranking Widget Data--->';
+<!--Website Ranking List View--->';
 	return $__finalCompiled;
 }
 );

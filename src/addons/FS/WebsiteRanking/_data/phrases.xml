@@ -15,7 +15,11 @@
   <phrase title="fs_web_ranking_solved_title" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Issue Solved]]></phrase>
   <phrase title="fs_web_ranking_there_no_issue_in_this_site" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[There are no issue in this website.]]></phrase>
   <phrase title="fs_website_ranking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
+  <phrase title="fs_website_ranking_highest_complaint_resolution_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Highest Complaint Resolution :]]></phrase>
+  <phrase title="fs_website_ranking_lowest_complaint_resolution_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Lowest Complaint Resolution :]]></phrase>
+  <phrase title="fs_website_ranking_most_complaint" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Most Complaints :]]></phrase>
   <phrase title="fs_website_ranking_solved_btn" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Solved]]></phrase>
+  <phrase title="fs_website_ranking_total_complaint_resolution_percentage" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Total Complaint Resolution : ]]></phrase>
   <phrase title="nav.fsWebsiteRanking" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website Ranking]]></phrase>
   <phrase title="option.fs_web_ranking_parent_web_id" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Parent Website Id]]></phrase>
   <phrase title="option.fs_website_ranking_per_row" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Website on per row]]></phrase>
