@@ -10,7 +10,11 @@ abstract class AbstractHandler
 
 	abstract public function getRoute();
 	abstract public function getPageReply(
-		\XF\Mvc\Controller $controller, FindNew $findNew, array $results, $page, $perPage
+		\XF\Mvc\Controller $controller,
+		FindNew $findNew,
+		array $results,
+		$page,
+		$perPage
 	);
 	abstract public function getFiltersFromInput(\XF\Http\Request $request);
 	abstract public function getDefaultFilters();

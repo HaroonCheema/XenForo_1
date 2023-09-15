@@ -21,8 +21,7 @@ class WhatsNew extends AbstractController
 	{
 		$this->assertNotEmbeddedImageRequest();
 
-		if (!$this->options()->enableNewsFeed)
-		{
+		if (!$this->options()->enableNewsFeed) {
 			throw $this->exception($this->error(\XF::phrase('news_feed_disabled'), $this->app->config('serviceUnavailableCode')));
 		}
 
@@ -56,14 +55,12 @@ class WhatsNew extends AbstractController
 
 	public function actionNewsFeed()
 	{
-		if (!$this->options()->enableNewsFeed)
-		{
+		if (!$this->options()->enableNewsFeed) {
 			throw $this->exception($this->error(\XF::phrase('news_feed_disabled'), $this->app->config('serviceUnavailableCode')));
 		}
 
 		$visitor = \XF::visitor();
-		if (!$visitor->user_id)
-		{
+		if (!$visitor->user_id) {
 			return $this->redirect(
 				$this->buildLink('whats-new/latest-activity')
 			);
@@ -73,8 +70,7 @@ class WhatsNew extends AbstractController
 		$oldestItemId = 0;
 		$beforeId = 0;
 
-		if ($visitor->Profile->following)
-		{
+		if ($visitor->Profile->following) {
 			$maxItems = $this->options()->newsFeedMaxItems;
 
 			/** @var \XF\Repository\NewsFeed $newsFeedRepo */
@@ -92,8 +88,7 @@ class WhatsNew extends AbstractController
 			$newsFeed = $newsFeed->filterViewable();
 			$newsFeed = $newsFeed->slice(0, $maxItems);
 
-			if ($newsFeed->count())
-			{
+			if ($newsFeed->count()) {
 				$oldestItemId = min(array_keys($newsFeed->toArray()));
 			}
 		}

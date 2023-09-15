@@ -1,58 +1,72 @@
 <xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
 
+<xf:if is="$xf.options.fs_web_ranking_parent_web_id != 0">
 <xf:if is="$siteStatus">
 	<xf:include template="fs_wesite_ranking_status" />
+</xf:if>
 </xf:if>
 
 <div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer">
 
 	</div>
-	<div class="block-container">
+	<xf:if is="$xf.options.fs_web_ranking_parent_web_id != 0">
+		<div class="block-container">
 
-		<!--Listing View--->
-		<div class="block-body">
+			<xf:macro name="search_menu" arg-conditions="{$conditions}" />
 
-			<!--Website Ranking List View--->
-			<xf:if is="count($data) != 0">
+			<!--Listing View--->
+			<div class="block-body">
 
-				<div class="block webRankingListBlock" data-xf-init="inline-mod" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
+				<!--Website Ranking List View--->
+				<xf:if is="count($data) != 0">
 
-					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
+					<div class="block webRankingListBlock" data-xf-init="inline-mod" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 
-						<xf:foreach loop="{$data}" value="$value">
+						<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
 
-							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
+							<xf:foreach loop="{$data}" value="$value">
 
-						</xf:foreach>
+								<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
+
+							</xf:foreach>
+						</div>
 					</div>
+				</xf:if>
+
+				<xf:css src="fs_web_ranking_list.less" />
+				<xf:css src="fs_web_ranking_style.less" />
+				<xf:css src="fs_web_ranking_grid_card.less" />
+
+				<!--Website Ranking List View--->
+
+				<div class="block-footer">
+					<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
 				</div>
-			</xf:if>
 
-			<xf:css src="fs_web_ranking_list.less" />
-			<xf:css src="fs_web_ranking_style.less" />
-			<xf:css src="fs_web_ranking_grid_card.less" />
-
-			<!--Website Ranking List View--->
-
-			<div class="block-footer">
-				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
+				<xf:pagenav
+							page="{$page}"
+							perpage="{$perPage}"
+							total="{$total}"
+							link="{$siteUrl}"
+							data="{$search}"
+							params="{{ {'':$conditions, 'mod': $activeModType } }}"
+							wrapperclass="block"
+							/>
 			</div>
-
-			<xf:pagenav
-						page="{$page}"
-						perpage="{$perPage}"
-						total="{$total}"
-						link="{$siteUrl}"
-						wrapperclass="block"
-						/>
 		</div>
-	</div>
 
-	<div class="block-outer block-outer--after">
+		<div class="block-outer block-outer--after">
 
-		<xf:showignored wrapperclass="block-outer-opposite" />
-	</div>
+			<xf:showignored wrapperclass="block-outer-opposite" />
+		</div>
+		<xf:else />
+		<div class="block-container">
+
+			<div class="block-body">
+				<div class="block-body block-row">{{ phrase('no_items_have_been_created_yet') }}</div>
+			</div></div>
+	</xf:if>
 </div>
 
 <!-- Filter Bar Macro Start -->
@@ -114,3 +128,35 @@
 	</div>
 </xf:macro>
 <!--Website Ranking List View--->
+
+<!-- Filter Bar Macro Start -->
+
+<xf:macro name="search_menu" arg-conditions="!">
+	<div class="block-filterBar">
+		<div class="filterBar">
+			<a
+			   class="filterBar-menuTrigger"
+			   data-xf-click="menu"
+			   role="button"
+			   tabindex="0"
+			   aria-expanded="false"
+			   aria-haspopup="true"
+			   >{{ phrase('filters') }}</a
+				>
+			<div
+				 class="menu menu--wide"
+				 data-menu="menu"
+				 aria-hidden="true"
+				 data-href="{{ link('web-ranking/refine-search', null, $conditions)}}"
+				 data-load-target=".js-filterMenuBody"
+				 >
+				<div class="menu-content">
+					<h4 class="menu-header">{{ phrase('show_only:') }}</h4>
+					<div class="js-filterMenuBody">
+						<div class="menu-row">{{ phrase('loading...') }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</xf:macro>

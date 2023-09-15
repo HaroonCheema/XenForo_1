@@ -29,75 +29,75 @@
   <template type="admin" title="fs_web_ranking_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_web_Ranking_title') }}</xf:title>
 
 <xf:pageaction>
-  <xf:button href="{{ link('web-ranking/add') }}" icon="add">{{ phrase('fs_web_ranking_create_website') }}</xf:button>
+	<xf:button href="{{ link('web-ranking/add') }}" icon="add">{{ phrase('fs_web_ranking_create_website') }}</xf:button>
 </xf:pageaction>
 <xf:form action="{{ link($prefix . '/toggle') }}" class="block" ajax="true">
-  <div class="block-outer">
+	<div class="block-outer">
 		<xf:macro
-		  template="filter_macros"
-		  name="quick_filter"
-		  arg-key="web-ranking"
-		  arg-class="block-outer-opposite"
-		/>
-  </div>
-
-  <div class="block-container">
-
-  <xf:if is="$node is not empty">
-	<div class="block-body">
-			<xf:datalist data-xf-init="responsive-data-list">
-					
-				<xf:macro
-					name="table_list"
-					arg-node="{$node}"
+				  template="filter_macros"
+				  name="quick_filter"
+				  arg-key="web-ranking"
+				  arg-class="block-outer-opposite"
 				  />
+	</div>
 
-				   </xf:datalist>
+	<div class="block-container">
+
+		<xf:if is="$node is not empty">
+			<div class="block-body">
+				<xf:datalist data-xf-init="responsive-data-list">
+
+					<xf:macro
+							  name="table_list"
+							  arg-node="{$node}"
+							  />
+
+				</xf:datalist>
 				<div class="block-footer">
-					  <span class="block-footer-counter"
-						>{{ display_totals($totalReturn, $total) }}</span
-					  >
+					<span class="block-footer-counter"
+						  >{{ display_totals($totalReturn, $total) }}</span
+						>
 				</div>
-		    
-		</div>
-       <xf:else />
-			<div class="block-body block-row">{{ phrase('no_items_have_been_created_yet') }}</div>
-		
-       </xf:if>
-    
- </div>
 
-   <xf:pagenav
-			page="{$page}"
-			perpage="{$perPage}"
-			total="{$total}"
-			link="web-ranking"
-			wrapperclass="block"
-		  />
+			</div>
+			<xf:else />
+			<div class="block-body block-row">{{ phrase('no_items_have_been_created_yet') }}</div>
+
+		</xf:if>
+
+	</div>
+
+	<xf:pagenav
+				page="{$page}"
+				perpage="{$perPage}"
+				total="{$total}"
+				link="web-ranking"
+				wrapperclass="block"
+				/>
 </xf:form>
 <xf:macro
-  name="table_list"
-  arg-node="!"
->
-  <xf:datarow rowtype="header">
-    <xf:cell> {{ phrase('fs_web_Ranking_table_title') }} </xf:cell>
-    <xf:cell> {{ phrase('fs_web_Ranking_desc_title') }} </xf:cell>
-    <xf:cell class="dataList-cell--min"></xf:cell>
-	 <xf:cell class="dataList-cell--min"></xf:cell>
-  </xf:datarow>
-  <xf:foreach loop="{$node}" value="$value">
-    <xf:datarow>
-		
-          <xf:cell> {$value.title} </xf:cell>
-          <xf:cell> {$value.description} </xf:cell>
-		
-	<xf:action href="{{ link('web-ranking/edit', $value) }}" >{{ phrase('edit') }}</xf:action>
-      <xf:delete
-        href="{{ link('web-ranking/delete', $value) }}"
-        overlay="true"
-      />
-    </xf:datarow>
-  </xf:foreach>
+		  name="table_list"
+		  arg-node="!"
+		  >
+	<xf:datarow rowtype="header">
+		<xf:cell> {{ phrase('fs_web_Ranking_table_title') }} </xf:cell>
+		<xf:cell> {{ phrase('fs_web_Ranking_desc_title') }} </xf:cell>
+		<xf:cell class="dataList-cell--min"></xf:cell>
+		<xf:cell class="dataList-cell--min"></xf:cell>
+	</xf:datarow>
+	<xf:foreach loop="{$node}" value="$value">
+		<xf:datarow>
+
+			<xf:cell> {$value.title} </xf:cell>
+			<xf:cell> {$value.description} </xf:cell>
+
+			<xf:action href="{{ link('web-ranking/edit', $value) }}" >{{ phrase('edit') }}</xf:action>
+			<xf:delete
+					   href="{{ link('web-ranking/delete', $value) }}"
+					   overlay="true"
+					   />
+		</xf:datarow>
+	</xf:foreach>
 </xf:macro>]]></template>
   <template type="public" title="fs_web_ranking_css_helper.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[.m-webRankingFlexCenter() {
   display: flex;
@@ -375,59 +375,73 @@
 }]]></template>
   <template type="public" title="fs_web_ranking_index" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
 
+<xf:if is="$xf.options.fs_web_ranking_parent_web_id != 0">
 <xf:if is="$siteStatus">
 	<xf:include template="fs_wesite_ranking_status" />
+</xf:if>
 </xf:if>
 
 <div class="block" data-xf-init="{{ $canInlineMod ? 'inline-mod' : '' }}" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 	<div class="block-outer">
 
 	</div>
-	<div class="block-container">
+	<xf:if is="$xf.options.fs_web_ranking_parent_web_id != 0">
+		<div class="block-container">
 
-		<!--Listing View--->
-		<div class="block-body">
+			<xf:macro name="search_menu" arg-conditions="{$conditions}" />
 
-			<!--Website Ranking List View--->
-			<xf:if is="count($data) != 0">
+			<!--Listing View--->
+			<div class="block-body">
 
-				<div class="block webRankingListBlock" data-xf-init="inline-mod" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
+				<!--Website Ranking List View--->
+				<xf:if is="count($data) != 0">
 
-					<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
+					<div class="block webRankingListBlock" data-xf-init="inline-mod" data-type="fs_website_ranking" data-href="{{ link('inline-mod') }}">
 
-						<xf:foreach loop="{$data}" value="$value">
+						<div class="webRankingList h-dFlex h-dFlex--wrap gridCardList--flex--{$xf.options.fs_website_ranking_per_row}-col" data-xf-init="fs_website_ranking_list">
 
-							<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
+							<xf:foreach loop="{$data}" value="$value">
 
-						</xf:foreach>
+								<xf:macro name="data_in_list" arg-data="{$value}" arg-siteUrl="{$siteUrl}" />
+
+							</xf:foreach>
+						</div>
 					</div>
+				</xf:if>
+
+				<xf:css src="fs_web_ranking_list.less" />
+				<xf:css src="fs_web_ranking_style.less" />
+				<xf:css src="fs_web_ranking_grid_card.less" />
+
+				<!--Website Ranking List View--->
+
+				<div class="block-footer">
+					<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
 				</div>
-			</xf:if>
 
-			<xf:css src="fs_web_ranking_list.less" />
-			<xf:css src="fs_web_ranking_style.less" />
-			<xf:css src="fs_web_ranking_grid_card.less" />
-
-			<!--Website Ranking List View--->
-
-			<div class="block-footer">
-				<span class="block-footer-counter">{{ display_totals($totalReturn, $total) }}</span>
+				<xf:pagenav
+							page="{$page}"
+							perpage="{$perPage}"
+							total="{$total}"
+							link="{$siteUrl}"
+							data="{$search}"
+							params="{{ {'':$conditions, 'mod': $activeModType } }}"
+							wrapperclass="block"
+							/>
 			</div>
-
-			<xf:pagenav
-						page="{$page}"
-						perpage="{$perPage}"
-						total="{$total}"
-						link="{$siteUrl}"
-						wrapperclass="block"
-						/>
 		</div>
-	</div>
 
-	<div class="block-outer block-outer--after">
+		<div class="block-outer block-outer--after">
 
-		<xf:showignored wrapperclass="block-outer-opposite" />
-	</div>
+			<xf:showignored wrapperclass="block-outer-opposite" />
+		</div>
+		<xf:else />
+		<div class="block-container">
+
+			<div class="block-body">
+				<div class="block-body block-row">{{ phrase('no_items_have_been_created_yet') }}</div>
+			</div></div>
+	</xf:if>
 </div>
 
 <!-- Filter Bar Macro Start -->
@@ -488,7 +502,39 @@
 		</div>
 	</div>
 </xf:macro>
-<!--Website Ranking List View--->]]></template>
+<!--Website Ranking List View--->
+
+<!-- Filter Bar Macro Start -->
+
+<xf:macro name="search_menu" arg-conditions="!">
+	<div class="block-filterBar">
+		<div class="filterBar">
+			<a
+			   class="filterBar-menuTrigger"
+			   data-xf-click="menu"
+			   role="button"
+			   tabindex="0"
+			   aria-expanded="false"
+			   aria-haspopup="true"
+			   >{{ phrase('filters') }}</a
+				>
+			<div
+				 class="menu menu--wide"
+				 data-menu="menu"
+				 aria-hidden="true"
+				 data-href="{{ link('web-ranking/refine-search', null, $conditions)}}"
+				 data-load-target=".js-filterMenuBody"
+				 >
+				<div class="menu-content">
+					<h4 class="menu-header">{{ phrase('show_only:') }}</h4>
+					<div class="js-filterMenuBody">
+						<div class="menu-row">{{ phrase('loading...') }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</xf:macro>]]></template>
   <template type="public" title="fs_web_ranking_list.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[{{ include('fs_web_ranking_css_helper.less') }}
 
 .webRanking--counterList {
@@ -587,6 +633,28 @@
 // 480px
 @media(max-width: @xf-responsiveNarrow) {
 }]]></template>
+  <template type="public" title="fs_web_ranking_search_filter" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:form action="{{ link('web-ranking') }}">
+
+	<div class="menu-row menu-row--separated">
+		{{ phrase('fs_web_ranking_status:') }}
+		<div class="u-inputSpacer">
+			<xf:select name="fs_web_ranking_complains" value="{$conditions.fs_web_ranking_complains}">
+				<xf:option value="high" label="{{ phrase('fs_web_ranking_high') }}" />
+				<xf:option value="lowest" label="{{ phrase('fs_web_ranking_lowest') }}" />
+			</xf:select>
+		</div>
+	</div>	
+
+	<div class="menu-footer">
+		<span class="menu-footer-controls">
+			<xf:button type="submit" class="button--primary"
+					   >{{ phrase('filter') }}</xf:button
+				>
+		</span>
+	</div>
+
+	<xf:hiddenval name="search">1</xf:hiddenval>
+</xf:form>]]></template>
   <template type="public" title="fs_web_ranking_solved" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:title>{{ phrase('fs_web_ranking_solved_title') }}</xf:title>
 
 <xf:form action="{{ link('threads/solved',$thread) }}" ajax="true" class="block">
@@ -993,9 +1061,13 @@
 		<div class="block-body">
 			<div class="block-container">
 				<div class="block-header">
-					<a href="{{ link('forums', {$siteStatus.highPercenNode}) }}">
-								{$siteStatus.highPercenNode.title}
-					</a>
+					<xf:if is="$siteStatus.highPercen != 0">
+						<a href="{{ link('forums', {$siteStatus.highPercenNode}) }}">
+							{$siteStatus.highPercenNode.title}
+						</a>
+						<xf:else/>
+						{{ phrase('none') }} 
+					</xf:if>
 				</div>
 				<div class="block-body body-pad">
 					<ul>
@@ -1007,7 +1079,7 @@
 			<div class="block-container">
 				<div class="block-header">
 					<a href="{{ link('forums', {$siteStatus.lowPercenNode}) }}">
-								{$siteStatus.lowPercenNode.title}
+						{$siteStatus.lowPercenNode.title}
 					</a>
 				</div>
 				<div class="block-body body-pad">
@@ -1020,7 +1092,7 @@
 			<div class="block-container">
 				<div class="block-header">
 					<a href="{{ link('forums', {$siteStatus.nodeMostComplains}) }}">
-								{$siteStatus.nodeMostComplains.title}
+						{$siteStatus.nodeMostComplains.title}
 					</a>
 				</div>
 				<div class="block-body body-pad">

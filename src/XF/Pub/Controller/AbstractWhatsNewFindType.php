@@ -17,30 +17,29 @@ abstract class AbstractWhatsNewFindType extends AbstractController
 		$findNewPlugin = $this->plugin('XF:FindNew');
 		$contentType = $this->getContentType();
 
+
 		$handler = $findNewPlugin->getFindNewHandler($contentType);
-		if (!$handler)
-		{
+		if (!$handler) {
 			return $this->noPermission();
 		}
 
+		//var_dump($handler);
+		//exit;
+
 		$findNew = $findNewPlugin->getFindNewRecord($params->find_new_id, $contentType);
-		if (!$findNew)
-		{
+
+		if (!$findNew) {
 			$filters = $findNewPlugin->getRequestedFilters($handler);
 			$reply = $this->triggerNewFindNewAction($handler, $filters);
 
-			if ($this->filter('save', 'bool') && $this->isPost())
-			{
+			if ($this->filter('save', 'bool') && $this->isPost()) {
 				$findNewPlugin->saveDefaultFilters($handler, $filters);
 			}
 
 			return $reply;
-		}
-		else
-		{
+		} else {
 			$remove = $this->filter('remove', 'str');
-			if ($remove)
-			{
+			if ($remove) {
 				$filters = $findNew->filters;
 				unset($filters[$remove]);
 
@@ -51,8 +50,7 @@ abstract class AbstractWhatsNewFindType extends AbstractController
 		$page = $this->filterPage($params->page);
 		$perPage = $handler->getResultsPerPage();
 
-		if (!$findNew->result_count)
-		{
+		if (!$findNew->result_count) {
 			return $handler->getPageReply($this, $findNew, [], 1, $perPage);
 		}
 
@@ -61,8 +59,15 @@ abstract class AbstractWhatsNewFindType extends AbstractController
 		$pageIds = $findNew->getPageResultIds($page, $perPage);
 		$results = $handler->getPageResults($pageIds);
 
+
+		//var_dump($results);
+		//exit;
 		return $handler->getPageReply(
-			$this, $findNew, $results->toArray(), $page, $perPage
+			$this,
+			$findNew,
+			$results->toArray(),
+			$page,
+			$perPage
 		);
 	}
 
@@ -72,14 +77,12 @@ abstract class AbstractWhatsNewFindType extends AbstractController
 		$findNewPlugin = $this->plugin('XF:FindNew');
 
 		$findNew = $findNewPlugin->runFindNewSearch($handler, $filters);
-		if (!$findNew->result_count && !$findNew->filters)
-		{
+		if (!$findNew->result_count && !$findNew->filters) {
 			// we can only bail out early without filters, because we need an idea to be able to modify them easily
 			return $handler->getPageReply($this, $findNew, [], 1, $handler->getResultsPerPage());
 		}
 
-		if (!$findNew->exists())
-		{
+		if (!$findNew->exists()) {
 			$findNew->save();
 		}
 

@@ -17,7 +17,7 @@ class AdminController extends AbstractController
         $finder->limitByPage($page, $perPage);
 
         $viewpParams = [
-            'node' => $finder->order('node_id', 'DESC')->fetch(),
+            'node' => \XF::options()->fs_web_ranking_parent_web_id ? $finder->order('node_id', 'DESC')->fetch() : '',
             'page' => $page,
             'total' => $finder->total(),
             'totalReturn' => count($finder->fetch()),

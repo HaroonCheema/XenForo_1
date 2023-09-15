@@ -7,7 +7,7 @@
     "admin/fs_web_ranking_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "97a13907b90b0ae20be78245610e93b6"
+        "hash": "fd84cfe5a23534080e86f20826073cbe"
     },
     "public/fs_web_ranking_css_helper.less": {
         "version_id": 1000010,
@@ -22,12 +22,17 @@
     "public/fs_web_ranking_index.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "06224989fda630f0810c5f472ab501c5"
+        "hash": "35014c2669e98fc577c51bc5957c6364"
     },
     "public/fs_web_ranking_list.less": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "82a1c70b114b5834518f4551cd013d73"
+    },
+    "public/fs_web_ranking_search_filter.html": {
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "8f3e21cce014c1993d62829fdc939a8f"
     },
     "public/fs_web_ranking_solved.html": {
         "version_id": 1000010,
@@ -42,7 +47,7 @@
     "public/fs_wesite_ranking_status.html": {
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "b472d343de34b8a8f1f5851613f51738"
+        "hash": "1d23be1f72984c634c733e81935d2f0d"
     },
     "public/fs_wesite_ranking_status_css.less": {
         "version_id": 1000010,

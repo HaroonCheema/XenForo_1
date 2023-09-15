@@ -15,6 +15,10 @@ class Thread extends XFCP_Thread
 
         $thread = $this->assertViewableThread($params->thread_id);
 
+        if ($visitor->user_id != $thread->user_id) {
+            throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
+        }
+
         if ($thread->Forum->Node->parent_node_id != \xf::app()->options()->fs_web_ranking_parent_web_id) {
             return $this->noPermission();
         }

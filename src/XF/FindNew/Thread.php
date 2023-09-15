@@ -18,10 +18,8 @@ class Thread extends AbstractHandler
 		$canInlineMod = false;
 
 		/** @var \XF\Entity\Thread $thread */
-		foreach ($results AS $thread)
-		{
-			if ($thread->canUseInlineModeration())
-			{
+		foreach ($results as $thread) {
+			if ($thread->canUseInlineModeration()) {
 				$canInlineMod = true;
 				break;
 			}
@@ -46,32 +44,27 @@ class Thread extends AbstractHandler
 		$visitor = \XF::visitor();
 
 		$unread = $request->filter('unread', 'bool');
-		if ($unread && $visitor->user_id)
-		{
+		if ($unread && $visitor->user_id) {
 			$filters['unread'] = true;
 		}
 
 		$watched = $request->filter('watched', 'bool');
-		if ($watched && $visitor->user_id)
-		{
+		if ($watched && $visitor->user_id) {
 			$filters['watched'] = true;
 		}
 
 		$participated = $request->filter('participated', 'bool');
-		if ($participated && $visitor->user_id)
-		{
+		if ($participated && $visitor->user_id) {
 			$filters['participated'] = true;
 		}
 
 		$started = $request->filter('started', 'bool');
-		if ($started && $visitor->user_id)
-		{
+		if ($started && $visitor->user_id) {
 			$filters['started'] = true;
 		}
 
 		$unanswered = $request->filter('unanswered', 'bool');
-		if ($unanswered)
-		{
+		if ($unanswered) {
 			$filters['unanswered'] = true;
 		}
 
@@ -82,12 +75,9 @@ class Thread extends AbstractHandler
 	{
 		$visitor = \XF::visitor();
 
-		if ($visitor->user_id)
-		{
+		if ($visitor->user_id) {
 			return ['unread' => true];
-		}
-		else
-		{
+		} else {
 			return [];
 		}
 	}
@@ -121,6 +111,30 @@ class Thread extends AbstractHandler
 
 		$ids = array_map('intval', $ids);
 
+		$nodeFinder = \xf::finder('XF:Node')->where("parent_node_id", \xf::app()->options()->fs_web_ranking_parent_web_id);
+		$tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
+
+		$forumFinder = \xf::finder('XF:Thread')->where("node_id", $tempNodeIds);
+		$threadIds = $forumFinder->pluckfrom('thread_id')->fetch()->toArray();
+
+		// echo "<pre>";
+		// var_dump($threadIds);
+		// var_dump($ids);
+
+		$array1 = [
+			287, 288, 293, 294, 295, 296, 297, 298, 299, 300,
+			301, 302, 304, 285, 286, 289, 290, 291, 292, 303,
+		];
+
+		// $array2 = [
+		// 	304, 302, 303, 301, 300, 299, 298, 297, 296, 295,
+		// 	294, 293, 292, 291, 290, 289, 288, 287, 286, 285
+		// ];
+
+		$resultArray = array_values(array_diff($ids, $threadIds));
+		// $resultArray = array_values(array_diff($array2, $array1));
+		// var_dump($resultArray);
+		// exit;
 		/** @var \XF\Finder\Thread $threadFinder */
 		$threadFinder = \XF::finder('XF:Thread')
 			->where('thread_id', $ids)
@@ -132,8 +146,7 @@ class Thread extends AbstractHandler
 
 	protected function filterResults(\XF\Mvc\Entity\AbstractCollection $results)
 	{
-		return $results->filter(function(\XF\Entity\Thread $thread)
-		{
+		return $results->filter(function (\XF\Entity\Thread $thread) {
 			return ($thread->canView() && !$thread->isIgnored());
 		});
 	}
@@ -142,32 +155,25 @@ class Thread extends AbstractHandler
 	{
 		$visitor = \XF::visitor();
 
-		if (!empty($filters['unread']))
-		{
+		if (!empty($filters['unread'])) {
 			$threadFinder->unreadOnly($visitor->user_id);
-		}
-		else
-		{
+		} else {
 			$threadFinder->where('last_post_date', '>', \XF::$time - (86400 * \XF::options()->readMarkingDataLifetime));
 		}
 
-		if (!empty($filters['watched']))
-		{
+		if (!empty($filters['watched'])) {
 			$threadFinder->watchedOnly($visitor->user_id);
 		}
 
-		if (!empty($filters['participated']))
-		{
+		if (!empty($filters['participated'])) {
 			$threadFinder->exists('UserPosts|' . $visitor->user_id);
 		}
 
-		if (!empty($filters['started']))
-		{
+		if (!empty($filters['started'])) {
 			$threadFinder->where('user_id', $visitor->user_id);
 		}
 
-		if (!empty($filters['unanswered']))
-		{
+		if (!empty($filters['unanswered'])) {
 			$threadFinder->where('reply_count', 0);
 		}
 	}

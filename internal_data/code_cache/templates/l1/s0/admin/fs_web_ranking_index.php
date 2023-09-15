@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 97a13907b90b0ae20be78245610e93b6
+// FROM HASH: fd84cfe5a23534080e86f20826073cbe
 return array(
 'macros' => array('table_list' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -9,7 +9,7 @@ return array(
 {
 	$__finalCompiled = '';
 	$__finalCompiled .= '
-  ' . $__templater->dataRow(array(
+	' . $__templater->dataRow(array(
 		'rowtype' => 'header',
 	), array(array(
 		'_type' => 'cell',
@@ -29,11 +29,11 @@ return array(
 		'_type' => 'cell',
 		'html' => '',
 	))) . '
-  ';
+	';
 	if ($__templater->isTraversable($__vars['node'])) {
 		foreach ($__vars['node'] AS $__vars['value']) {
 			$__finalCompiled .= '
-    ' . $__templater->dataRow(array(
+		' . $__templater->dataRow(array(
 			), array(array(
 				'_type' => 'cell',
 				'html' => ' ' . $__templater->escape($__vars['value']['title']) . ' ',
@@ -53,7 +53,7 @@ return array(
 				'_type' => 'delete',
 				'html' => '',
 			))) . '
-  ';
+	';
 		}
 	}
 	$__finalCompiled .= '
@@ -69,7 +69,7 @@ return array(
 
 ';
 	$__templater->pageParams['pageAction'] = $__templater->preEscaped('
-  ' . $__templater->button('Create Website', array(
+	' . $__templater->button('Create Website', array(
 		'href' => $__templater->func('link', array('web-ranking/add', ), false),
 		'icon' => 'add',
 	), '', array(
@@ -80,45 +80,45 @@ return array(
 	$__compilerTemp1 = '';
 	if (!$__templater->test($__vars['node'], 'empty', array())) {
 		$__compilerTemp1 .= '
-	<div class="block-body">
-			' . $__templater->dataList('
-					
-				' . $__templater->callMacro(null, 'table_list', array(
+			<div class="block-body">
+				' . $__templater->dataList('
+
+					' . $__templater->callMacro(null, 'table_list', array(
 			'node' => $__vars['node'],
 		), $__vars) . '
 
-				   ', array(
+				', array(
 			'data-xf-init' => 'responsive-data-list',
 		)) . '
 				<div class="block-footer">
-					  <span class="block-footer-counter"
-						>' . $__templater->func('display_totals', array($__vars['totalReturn'], $__vars['total'], ), true) . '</span
-					  >
+					<span class="block-footer-counter"
+						  >' . $__templater->func('display_totals', array($__vars['totalReturn'], $__vars['total'], ), true) . '</span
+						>
 				</div>
-		    
-		</div>
-       ';
+
+			</div>
+			';
 	} else {
 		$__compilerTemp1 .= '
 			<div class="block-body block-row">' . 'No items have been created yet.' . '</div>
-		
-       ';
+
+		';
 	}
 	$__finalCompiled .= $__templater->form('
-  <div class="block-outer">
+	<div class="block-outer">
 		' . $__templater->callMacro('filter_macros', 'quick_filter', array(
 		'key' => 'web-ranking',
 		'class' => 'block-outer-opposite',
 	), $__vars) . '
-  </div>
+	</div>
 
-  <div class="block-container">
+	<div class="block-container">
 
-  ' . $__compilerTemp1 . '
-    
- </div>
+		' . $__compilerTemp1 . '
 
-   ' . $__templater->func('page_nav', array(array(
+	</div>
+
+	' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['total'],
 		'link' => 'web-ranking',

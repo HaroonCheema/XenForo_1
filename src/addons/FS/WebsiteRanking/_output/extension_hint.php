@@ -14,3 +14,9 @@ namespace FS\WebsiteRanking\XF\Pub\Controller
 {
 	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }
+
+namespace FS\WebsiteRanking\XF\Repository
+{
+	class XFCP_Node extends \XF\Repository\Node {}
+	class XFCP_Thread extends \XF\Repository\Thread {}
+}

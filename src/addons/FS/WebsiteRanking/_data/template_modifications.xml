@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template_modifications>
-  <modification type="public" template="PAGE_CONTAINER" modification_key="fs_web_ranking_PAGE_CONTAINER" description="fs_web_ranking_PAGE_CONTAINER_select_NavBar_base_on_condition" execution_order="10" enabled="0" action="str_replace">
+  <modification type="public" template="PAGE_CONTAINER" modification_key="fs_web_ranking_PAGE_CONTAINER" description="fs_web_ranking_PAGE_CONTAINER_select_NavBar_base_on_condition" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<ul class="p-nav-list js-offCanvasNavSource">]]></find>
     <replace><![CDATA[$0
-<xf:if is="{{$xf.reply.containerKey == 'node-'.$xf.options.fs_web_ranking_parent_web_id}}">
-	<xf:set var="$pageSection" value="fsWebsiteRanking" />
+<xf:if is="$xf.reply.containerKey">
+	<xf:set var="$nodeSplit" value="{{ $xf.reply.containerKey|split('-') }}" />
+	<xf:if is="$nodeSplit.1">
+		<xf:set var="$node" value="{{$xf.app.em.find('XF:Node',$nodeSplit.1)}}" />
+
+		<xf:if is="{{$node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id}}">
+			<xf:set var="$pageSection" value="fsWebsiteRanking" />
+		</xf:if>
+	</xf:if>
 </xf:if>]]></replace>
   </modification>
   <modification type="public" template="approval_item_thread" modification_key="fs_forum_groups_approval_item_thread" description="fs_forum_groups_approval_item_thread_replace_with_issue" execution_order="10" enabled="1" action="str_replace">
@@ -70,7 +77,7 @@
 	<xf:set var="$threadActionsHtml">
 	<div class="block-outer-opposite">
 				<div class="buttonGroup">
-					<xf:if is="$thread.issue_status == 0">
+					<xf:if is="$thread.issue_status == 0 And $thread.user_id == $xf.visitor.user_id">
 							<xf:button href="{{ link('threads/solved', $thread) }}" class="button--link" overlay="true">
 								{{ phrase('fs_website_ranking_solved_btn') }}
 							</xf:button>

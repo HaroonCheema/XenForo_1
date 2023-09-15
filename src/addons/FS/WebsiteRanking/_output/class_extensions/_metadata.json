@@ -10,5 +10,11 @@
     },
     "XF-Pub-Controller-Thread_FS-WebsiteRanking-XF-Pub-Controller-Thread.json": {
         "hash": "feedc352d4abc1611aa1923b83d53ea8"
+    },
+    "XF-Repository-Node_FS-WebsiteRanking-XF-Repository-Node.json": {
+        "hash": "e216cbb6a5ac5fb783c008739530b2a7"
+    },
+    "XF-Repository-Thread_FS-WebsiteRanking-XF-Repository-Thread.json": {
+        "hash": "51da58059928b7f1ea96c80788524136"
     }
 }

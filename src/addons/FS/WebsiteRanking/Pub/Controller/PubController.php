@@ -15,6 +15,13 @@ class PubController extends AbstractController
      */
     public $siteUrl = "web-ranking";
 
+    protected function preDispatchController($action, ParameterBag $params)
+    {
+        if (!\xf::visitor()->hasPermission('fs_website_ranking', 'check')) {
+            throw $this->exception($this->notFound(\XF::phrase('do_not_have_permission')));
+        }
+    }
+
     public function actionIndex(ParameterBag $params)
     {
         $this->checkUser();
@@ -22,30 +29,28 @@ class PubController extends AbstractController
         $page = $params->page;
         $perPage = 15;
 
-        // if ($params['node_id'] > 0) {
-        //     return $this->actionSingleView($params);
-        // }
-
-        // /** @var \FS\ForumGroups\Service\ForumGroups\ForumGroupsService $forumGroupService */
-        // $forumGroupService = \xf::app()->service('FS\ForumGroups:ForumGroups\ForumGroupsService');
-
-        // $finder = $forumGroupService->currentUserGroups();
-
         $nodeFinder = \xf::finder('XF:Node')->where("parent_node_id", \xf::app()->options()->fs_web_ranking_parent_web_id);
         $tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
 
-        // $this->getStates($tempNodeIds);
+        if ($this->filter('search', 'uint') || $this->filter('fs_web_ranking_complains', 'str')) {
+            $nodeIds = $this->getSearchFinder($tempNodeIds);
+        } else {
+            $forumFinder = \xf::finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
+            $nodeIds = $forumFinder->pluckfrom('node_id')->fetch()->toArray();
+        }
 
         $websiteRankingStatus = '';
 
         if ($tempNodeIds) {
             $websiteService = \xf::app()->service('FS\WebsiteRanking:WebsiteRankingServ');
 
-            $websiteRankingStatus = $websiteService->getSiteRanking($tempNodeIds);
-        }
+            $forumFinder = \xf::finder('XF:Thread')->where("node_id", $tempNodeIds);
+            $threadIds = $forumFinder->pluckfrom('thread_id')->fetch()->toArray();
 
-        $forumFinder = \xf::finder('XF:Forum')->where("node_id", $tempNodeIds)->order('message_count', 'DESC');
-        $nodeIds = $forumFinder->pluckfrom('node_id')->fetch()->toArray();
+            if ($threadIds) {
+                $websiteRankingStatus = $websiteService->getSiteRanking($tempNodeIds);
+            }
+        }
 
         $quoteNodeIds = \XF::db()->quote($nodeIds);
 
@@ -71,6 +76,8 @@ class PubController extends AbstractController
             'total' => $finder->total() ?: '',
 
             "siteUrl" => $this->siteUrl,
+            "conditions" => $this->filterSearchConditions(),
+
 
             "siteStatus" => $websiteRankingStatus ?: '',
         ];
@@ -78,121 +85,48 @@ class PubController extends AbstractController
         return $this->view('FS\WebsiteRanking:PubController\Index', 'fs_web_ranking_index', $viewParams);
     }
 
-    // protected function getStates($subNodeIds)
-    // {
-    //     $highestResolutionPercentage = 0;
-    //     $lowestResolutionPercentage = 100;
-    //     $totalResolvedThreads = 0;
-    //     $totalThreads = 0;
-    //     $nodeIdWithHighestResolution = null;
-    //     $nodeIdWithLowestResolution = null;
-    //     $nodeIdWithMostThreads = null;
-    //     $maxThreadCount = 0;
+    protected function getSearchFinder($tempNodeIds)
+    {
+        $conditions = $this->filterSearchConditions();
 
-    //     foreach ($subNodeIds as $nodeId) {
-    //         $threadCount = \XF::db()->fetchOne("
-    //     SELECT COUNT(*) 
-    //     FROM xf_thread 
-    //     WHERE node_id = ?
-    // ", $nodeId);
+        $complaintData = [];
 
-    //         if ($threadCount > 0) {
-    //             $resolvedThreadCount = \XF::db()->fetchOne("
-    //         SELECT COUNT(*) 
-    //         FROM xf_thread 
-    //         WHERE node_id = ? 
-    //         AND issue_status = 1
-    //     ", $nodeId);
+        foreach ($tempNodeIds as $nodeId) {
+            $resolvedComplaintCount = \XF::db()->fetchOne("
+        SELECT COUNT(*) 
+        FROM xf_thread 
+        WHERE node_id = ? 
+        AND issue_status = 1
+    ", $nodeId);
+            $complaintData[$nodeId] = $resolvedComplaintCount;
+        }
 
-    //             $resolutionPercentage = round(($resolvedThreadCount / $threadCount) * 100);
+        if ($conditions['fs_web_ranking_complains'] == 'high') {
+            //  for high to low resolution
+            arsort($complaintData);
+        } else {
+            // for low to high resolution
+            asort($complaintData);
+        }
 
-    //             if ($resolutionPercentage > $highestResolutionPercentage) {
-    //                 $highestResolutionPercentage = $resolutionPercentage;
-    //                 $nodeIdWithHighestResolution = $nodeId;
-    //             }
+        return array_keys($complaintData);
+    }
 
-    //             if ($resolutionPercentage < $lowestResolutionPercentage) {
-    //                 $lowestResolutionPercentage = $resolutionPercentage;
-    //                 $nodeIdWithLowestResolution = $nodeId;
-    //             }
+    public function actionRefineSearch(ParameterBag $params)
+    {
+        $viewParams = [
+            'conditions' => $this->filterSearchConditions(),
+        ];
 
-    //             $totalResolvedThreads += $resolvedThreadCount;
-    //             $totalThreads += $threadCount;
+        return $this->view('FS\WebRanking:PubController\RefineSearch', 'fs_web_ranking_search_filter', $viewParams);
+    }
 
-    //             if ($threadCount > $maxThreadCount) {
-    //                 $maxThreadCount = $threadCount;
-    //                 $nodeIdWithMostThreads = $nodeId;
-    //             }
-    //         }
-    //     }
-
-    //     $totalResolutionPercentage = round(($totalResolvedThreads / $totalThreads) * 100);
-
-    //     echo "Highest Resolution Percentage: " . $highestResolutionPercentage . "%<br>";
-    //     echo "Node ID with Highest Resolution: " . $nodeIdWithHighestResolution . "<br>";
-    //     echo "Lowest Resolution Percentage: " . $lowestResolutionPercentage . "%<br>";
-    //     echo "Node ID with Lowest Resolution: " . $nodeIdWithLowestResolution . "<br>";
-    //     echo "Total Resolution Percentage: " . $totalResolutionPercentage . "%<br>";
-    //     echo "Node ID with Most Threads: " . $nodeIdWithMostThreads . "<br>";
-
-    //     // echo '<pre>';
-    //     // var_dump("highestResolutionPercentage = " . $highestResolutionPercentage . '<br><br>' . "nodeIdWithHighestResolution = " . $nodeIdWithHighestResolution);
-    //     // var_dump("<br><br>lowestResolutionPercentage = " . $lowestResolutionPercentage . '<br><br>' . "nodeIdWithLowestResolution = " . $nodeIdWithLowestResolution);
-    //     // var_dump("<br><br>totalResolutionPercentage = " . $totalResolutionPercentage);
-    //     // var_dump("<br><br>nodeIdWithMostThreads = " . $nodeIdWithMostThreads);
-    //     // exit;
-    // }
-
-    // public function actionIndex(ParameterBag $params)
-    // {
-    //     //         $escrowService = \xf::app()->service('FS\Escrow:Escrow\EscrowServ');
-
-    //     //         // $enc_user_amount = $escrowService->encrypt($escrowService->licenseData(50.00));
-    //     // //       $dec_escrow_amount = $escrowService->decrypt('7b22616d6f756e74223a352c22616d6f756e745f74797065223a22425443227d');
-    //     //        $res = $escrowService->getTransactionList();
-
-    //     // echo '<pre>';
-    //     //          var_dump($res);exit;
-
-
-    //     // $visitor = \XF::visitor();
-    //     // $rules[] = [
-    //     //     'message' => \XF::phrase('fs_escrow_rules'),
-    //     //     "display_image" => "avatar",
-    //     //     "display_style" => "primary",
-
-    //     // ];
-
-    //     // if ($this->filter('search', 'uint') || $this->filterSearchConditions()) {
-    //     //     $finder = $this->getSearchFinder();
-    //     // } else {
-    //     //     $finder = $this->finder('FS\Escrow:Escrow')->where('thread_id', '!=', 0)->whereOr([['to_user', $visitor->user_id], ['user_id' => $visitor->user_id]]);
-    //     // }
-
-
-    //     // $page = $this->filterPage($params->page);
-    //     // $perPage = 15;
-    //     // $finder->limitByPage($page, $perPage);
-    //     // $viewpParams = [
-    //     //     'rules' => $rules,
-    //     //     'page' => $page,
-    //     //     'total' => $finder->total(),
-    //     //     'perPage' => $perPage,
-    //     //     'stats' => $this->auctionStatistics(),
-    //     //     'escrowsCount' => $this->auctionEscrowCount(),
-    //     //     'escrows' => $finder->order('last_update', 'desc')->fetch(),
-    //     //     'conditions' => $this->filterSearchConditions(),
-    //     //     'isSelected' => $this->filter(['type' => 'str']),
-
-    //     // ];
-
-
-
-    //     // return $this->view('FS\Escrow', 'fs_escrow_landing', $viewpParams);
-    //     // return $this->view('FS\Escrow', 'fs_escrow_landing', $viewpParams);
-
-    //     return $this->message('Hello Pub Controller');
-    // }
+    protected function filterSearchConditions()
+    {
+        return $this->filter([
+            'fs_web_ranking_complains' => 'str',
+        ]);
+    }
 
     protected function checkUser()
     {
