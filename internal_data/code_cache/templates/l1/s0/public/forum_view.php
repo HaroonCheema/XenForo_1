@@ -375,20 +375,12 @@ return array(
 		if ($__vars['forum']['Node']['node_state'] == 'visible') {
 			$__finalCompiled .= '
 	';
-			if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-				$__compilerTemp1 = '';
-				if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-					$__compilerTemp1 .= '
-	' . 'Submit your question' . '
+			if ($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id']) {
+				$__finalCompiled .= '
 ';
-				} else {
-					$__compilerTemp1 .= '
-	' . 'Post thread' . '
-';
-				}
 				$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('
-		' . $__compilerTemp1 . '
+		' . 'Create Issue' . '
 	', array(
 					'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
 					'class' => 'button--cta',
@@ -396,6 +388,35 @@ return array(
 				), '', array(
 				)) . '
 ');
+				$__finalCompiled .= '
+	';
+			} else {
+				$__finalCompiled .= '
+	';
+				if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
+					$__compilerTemp1 = '';
+					if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
+						$__compilerTemp1 .= '
+	' . 'Submit your question' . '
+';
+					} else {
+						$__compilerTemp1 .= '
+	' . 'Post thread' . '
+';
+					}
+					$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__templater->button('
+		' . $__compilerTemp1 . '
+	', array(
+						'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+						'class' => 'button--cta',
+						'icon' => 'write',
+					), '', array(
+					)) . '
+');
+				}
+				$__finalCompiled .= '
+';
 			}
 			$__finalCompiled .= '
 	';
@@ -405,20 +426,12 @@ return array(
 	} else {
 		$__finalCompiled .= '
 	';
-		if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
-			$__compilerTemp2 = '';
-			if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-				$__compilerTemp2 .= '
-	' . 'Submit your question' . '
+		if ($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id']) {
+			$__finalCompiled .= '
 ';
-			} else {
-				$__compilerTemp2 .= '
-	' . 'Post thread' . '
-';
-			}
 			$__templater->pageParams['pageAction'] = $__templater->preEscaped('
 	' . $__templater->button('
-		' . $__compilerTemp2 . '
+		' . 'Create Issue' . '
 	', array(
 				'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
 				'class' => 'button--cta',
@@ -426,6 +439,35 @@ return array(
 			), '', array(
 			)) . '
 ');
+			$__finalCompiled .= '
+	';
+		} else {
+			$__finalCompiled .= '
+	';
+			if ($__templater->method($__vars['forum'], 'canCreateThread', array()) OR $__templater->method($__vars['forum'], 'canCreateThreadPreReg', array())) {
+				$__compilerTemp2 = '';
+				if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
+					$__compilerTemp2 .= '
+	' . 'Submit your question' . '
+';
+				} else {
+					$__compilerTemp2 .= '
+	' . 'Post thread' . '
+';
+				}
+				$__templater->pageParams['pageAction'] = $__templater->preEscaped('
+	' . $__templater->button('
+		' . $__compilerTemp2 . '
+	', array(
+					'href' => $__templater->func('link', array('forums/post-thread', $__vars['forum'], ), false),
+					'class' => 'button--cta',
+					'icon' => 'write',
+				), '', array(
+				)) . '
+');
+			}
+			$__finalCompiled .= '
+';
 		}
 		$__finalCompiled .= '
 ';

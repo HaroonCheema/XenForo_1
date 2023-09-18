@@ -6,26 +6,25 @@ use XF\Mvc\ParameterBag;
 
 class Node extends XFCP_Node
 {
-    public function getFullNodeList(\XF\Entity\Node $withinNode = null, $with = null)
-    {
-        $parentNodeId = intval(\xf::app()->options()->fs_web_ranking_parent_web_id);
+    // public function getFullNodeList(\XF\Entity\Node $withinNode = null, $with = null)
+    // {
+    //     $parentNodeId = intval(\xf::app()->options()->fs_web_ranking_parent_web_id);
 
-        if (!$parentNodeId) {
-            return parent::getFullNodeList($withinNode, $with);
-        }
+    //     if ($parentNodeId == 0) {
+    //         return parent::getFullNodeList($withinNode, $with);
+    //     }
 
-        /** @var \XF\Finder\Node $finder */
-        $finder = $this->finder('XF:Node')->order('lft');
-        if ($withinNode) {
-            $finder->descendantOf($withinNode);
-        }
-        if ($with) {
-            $finder->with($with);
-        }
+    //     /** @var \XF\Finder\Node $finder */
+    //     $finder = $this->finder('XF:Node')->order('lft');
+    //     if ($withinNode) {
+    //         $finder->descendantOf($withinNode);
+    //     }
+    //     if ($with) {
+    //         $finder->with($with);
+    //     }
 
-
-        return $finder->where('node_id', '!=', $parentNodeId)->fetch();
-    }
+    //     return $finder->fetch();
+    // }
 
     public function findNodesForList(\XF\Entity\Node $withinNode = null)
     {
@@ -33,7 +32,7 @@ class Node extends XFCP_Node
 
         $parentNodeId = intval(\xf::app()->options()->fs_web_ranking_parent_web_id);
 
-        if ($parentNodeId) {
+        if ($parentNodeId != 0) {
             return $finder->where('node_id', '!=', $parentNodeId);
         }
 
