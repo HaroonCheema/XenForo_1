@@ -111,30 +111,6 @@ class Thread extends AbstractHandler
 
 		$ids = array_map('intval', $ids);
 
-		$nodeFinder = \xf::finder('XF:Node')->where("parent_node_id", \xf::app()->options()->fs_web_ranking_parent_web_id);
-		$tempNodeIds = $nodeFinder->pluckfrom('node_id')->fetch()->toArray();
-
-		$forumFinder = \xf::finder('XF:Thread')->where("node_id", $tempNodeIds);
-		$threadIds = $forumFinder->pluckfrom('thread_id')->fetch()->toArray();
-
-		// echo "<pre>";
-		// var_dump($threadIds);
-		// var_dump($ids);
-
-		$array1 = [
-			287, 288, 293, 294, 295, 296, 297, 298, 299, 300,
-			301, 302, 304, 285, 286, 289, 290, 291, 292, 303,
-		];
-
-		// $array2 = [
-		// 	304, 302, 303, 301, 300, 299, 298, 297, 296, 295,
-		// 	294, 293, 292, 291, 290, 289, 288, 287, 286, 285
-		// ];
-
-		$resultArray = array_values(array_diff($ids, $threadIds));
-		// $resultArray = array_values(array_diff($array2, $array1));
-		// var_dump($resultArray);
-		// exit;
 		/** @var \XF\Finder\Thread $threadFinder */
 		$threadFinder = \XF::finder('XF:Thread')
 			->where('thread_id', $ids)
