@@ -122,12 +122,12 @@ abstract class AbstractNode extends Entity implements LinkableInterface
 	 * @return void|\XF\Api\Result\EntityResult
 	 */
 	protected final function setupApiResultData(
-		\XF\Api\Result\EntityResult $result, $verbosity = self::VERBOSITY_NORMAL, array $options = []
-	)
-	{
+		\XF\Api\Result\EntityResult $result,
+		$verbosity = self::VERBOSITY_NORMAL,
+		array $options = []
+	) {
 		// we expose specific node types as nodes + extra data, rather than vice versa
-		if ($this->Node)
-		{
+		if ($this->Node) {
 			return $this->Node->toApiResult($verbosity, $options);
 		}
 	}
@@ -149,8 +149,7 @@ abstract class AbstractNode extends Entity implements LinkableInterface
 
 		$structure->defaultWith[] = 'Node';
 
-		if (!isset($structure->withAliases['api']))
-		{
+		if (!isset($structure->withAliases['api'])) {
 			$structure->withAliases['api'] = [];
 		}
 

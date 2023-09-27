@@ -110,6 +110,8 @@ return array (
   'admin_navigation.fsScheduledPosting' => 'Scheduled Posting',
   'admin_navigation.fsUpgradeGroup' => 'Upgrade',
   'admin_navigation.fsUpgradeUserGroup' => 'Upgrade User Group',
+  'admin_navigation.fsWebsiteCreate' => 'Create Website',
+  'admin_navigation.fsWebsiteRanking' => 'Website Ranking',
   'admin_navigation.fs_media_tag' => 'Media Tag',
   'admin_navigation.fs_media_tag_setting' => 'Media Tag Setting',
   'admin_navigation.groupsAndPermissions' => 'Groups &amp; permissions',

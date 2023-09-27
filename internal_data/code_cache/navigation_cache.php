@@ -67,18 +67,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-		if ($__vars['xf']['visitor']['user_id']) {
-			$__navTemp = [
-		'title' => \XF::phrase('nav.defaultLogOut'),
-		'href' => $__templater->func('link', array('logout', null, array('t' => $__templater->func('csrf_token', array(), false), ), ), false),
-		'attributes' => [],
-	];
-			if ($__navTemp) {
-				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
-				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
-			}
-		}
-
 		if (((!$__vars['xf']['visitor']['user_id']) AND $__vars['xf']['options']['registrationSetup']['enabled'])) {
 			$__navTemp = [
 		'title' => \XF::phrase('nav.defaultRegister'),
@@ -91,6 +79,28 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
+		if ($__vars['xf']['visitor']['user_id']) {
+			$__navTemp = [
+		'title' => \XF::phrase('nav.defaultLogOut'),
+		'href' => $__templater->func('link', array('logout', null, array('t' => $__templater->func('csrf_token', array(), false), ), ), false),
+		'attributes' => [],
+	];
+			if ($__navTemp) {
+				$__tree['_default']['children']['defaultLogOut'] = $__navTemp;
+				$__flat['defaultLogOut'] =& $__tree['_default']['children']['defaultLogOut'];
+			}
+		}
+
+	}
+
+	$__navTemp = [
+		'title' => \XF::phrase('nav.fsWebsiteRanking'),
+		'href' => $__templater->func('link', array('web-ranking', ), false),
+		'attributes' => [],
+	];
+	if ($__navTemp) {
+		$__tree['fsWebsiteRanking'] = $__navTemp;
+		$__flat['fsWebsiteRanking'] =& $__tree['fsWebsiteRanking'];
 	}
 
 	if ($__vars['xf']['homePageUrl']) {

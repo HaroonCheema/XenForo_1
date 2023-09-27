@@ -26,6 +26,7 @@ return array (
   'option_group.fs_question_answers' => '[FS] Question-Answers',
   'option_group.fs_thread_rules' => '[FS] Threads Rules',
   'option_group.fs_translator' => '[FS] Translator',
+  'option_group.fs_web_ranking' => '[FS] Website Ranking',
   'option_group.hou_attachments' => '[HoU] Attachments List with Like',
   'option_group.imageLinkProxy' => 'Image and link proxy',
   'option_group.logging' => 'Logging options',
