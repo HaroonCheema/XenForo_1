@@ -1,5 +1,6 @@
 <?php
 return array (
+  'custom_bb_code_example.fs_bunny' => '',
   'custom_bb_code_example.fs_custom_msg' => '',
   'custom_bb_code_example.fs_word_highlight' => '',
   'custom_bb_code_example.group' => '[GROUP]123[/GROUP]',

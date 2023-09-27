@@ -1,5 +1,6 @@
 <?php
 return array (
+  'custom_bb_code_desc.fs_bunny' => '',
   'custom_bb_code_desc.fs_custom_msg' => 'Add custom message for media tags',
   'custom_bb_code_desc.fs_word_highlight' => 'Highlight block words in red using bbcode',
   'custom_bb_code_desc.group' => 'Display specific group information.',

@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: f1464c41bd1435ae4272982f2c056280
+// FROM HASH: 3392f8e754b83d855374a128eb4d4d36
 return array(
 'macros' => array('upload_link' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -120,7 +120,6 @@ return array(
 						', array(
 		'class' => 'button--link js-attachmentSelectAction',
 		'data-action' => 'thumbnail',
-		'title' => 'Insert image',
 	), '', array(
 	)) . '
 						' . $__templater->button('
@@ -128,7 +127,6 @@ return array(
 						', array(
 		'class' => 'button--link js-attachmentSelectAction',
 		'data-action' => 'full',
-		'title' => 'Insert image',
 	), '', array(
 	)) . '
 					</span>
@@ -338,30 +336,32 @@ return array(
 			<div class="file-content">
 
 				' . $__templater->func('mustache', array('#thumbnail_url', '
-					<div class="file-insert js-insertToggle">
+					<div class="file-insert js-attachmentInsert">
 						<a class="file-insertLink"
 							data-xf-click="toggle"
-							data-target="< .js-insertToggle"
+							data-target="< .js-attachmentInsert"
 							role="button"
 							tabindex="0">
 							' . 'Insert' . $__vars['xf']['language']['ellipsis'] . '
 						</a>
 						<div class="file-menuOptions">
-							<a class="js-attachmentAction" data-action="thumbnail" role="button" tabindex="0">' . 'Thumbnail' . '</a>
-							<a class="js-attachmentAction" data-action="full" role="button" tabindex="0">' . 'Full image' . '</a>
+							<a class="js-attachmentAction" data-action="thumbnail" role="button" tabindex="0"
+								data-xf-click="toggle" data-target="< .js-attachmentInsert">' . 'Thumbnail' . '</a>
+							<a class="js-attachmentAction" data-action="full" role="button" tabindex="0"
+								data-xf-click="toggle" data-target="< .js-attachmentInsert">' . 'Full image' . '</a>
 						</div>
 					</div>
 				')) . '
 				' . $__templater->func('mustache', array('^thumbnail_url', '
 					' . $__templater->func('mustache', array('#is_video', '
-						<div class="file-insert">
+						<div class="file-insert js-attachmentInsert">
 							<a class="file-insertLink js-attachmentAction" data-action="full" data-type="video" role="button" tabindex="0">
 								' . 'Insert' . '
 							</a>
 						</div>
 					')) . '
 					' . $__templater->func('mustache', array('#is_audio', '
-						<div class="file-insert">
+						<div class="file-insert js-attachmentInsert">
 							<a class="file-insertLink js-attachmentAction" data-action="full" data-type="audio" role="button" tabindex="0">
 								' . 'Insert' . '
 							</a>

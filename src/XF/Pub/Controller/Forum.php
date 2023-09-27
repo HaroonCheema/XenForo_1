@@ -718,6 +718,84 @@ class Forum extends AbstractController
 	public function actionPostThread(ParameterBag $params)
 	{
 
+		// echo '<pre>';
+
+		// $ch = curl_init();
+
+		// $data = json_encode(array(
+		// 	"title" => "helloTestingVid12",
+		// ));
+		// // curl_setopt($ch, CURLOPT_URL,$app->options()->fs_escrow_bit_base_url."/transaction/withdraw");
+		// curl_setopt($ch, CURLOPT_URL, "https://video.bunnycdn.com/library/160894/videos");
+		// curl_setopt($ch, CURLOPT_POST, 1);
+
+		// curl_setopt($ch, CURLOPT_HTTPHEADER, [
+		// 	'AccessKey: c917b5bc-895e-4f58-a2b8b8314d28-bf45-4549',
+		// 	'Accept: application/json',
+		// 	'Content-Type: application/json',
+		// ]);
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// $server_output = curl_exec($ch);
+		// curl_close($ch);
+		// $createVideo = json_decode($server_output, true);
+
+
+		// // return $response;
+
+		// // $bunnyVid = $this->request->getFile('bunny_video', false, false);
+
+		// $video = $this->request->getFile('bunny_video', false, false);
+
+		// if ($video) {
+		// 	$videoBinaryData = file_get_contents($video->getTempFile());
+		// 	// Now, $videoBinaryData contains the binary representation of the uploaded video.
+		// } else {
+		// 	// Handle the case where no file was uploaded.
+		// }
+
+		// $curl = curl_init();
+		// $url = "https://video.bunnycdn.com/library/160894/videos/" . $createVideo["guid"]; // Replace with your actual endpoint URL
+
+		// $data = array(
+		// 	// 'video' => $videoBinaryData, // Binary data of the video
+		// 	'video' => $video->getTempFile()
+		// 	// You can add other parameters as needed
+		// );
+
+		// curl_setopt($curl, CURLOPT_HTTPHEADER, [
+		// 	'AccessKey: c917b5bc-895e-4f58-a2b8b8314d28-bf45-4549',
+		// 	// 'Accept: application/json',
+		// 	'Content-Type: application/octet-stream',
+		// ]);
+
+		// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		// curl_setopt($curl, CURLOPT_URL, $url);
+		// // curl_setopt($curl, CURLOPT_PUT, 1);
+		// curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+		// $response = curl_exec($curl);
+
+		// if ($response === false) {
+		// 	$error = curl_error($curl);
+		// 	// Handle cURL error
+		// } else {
+		// 	// Handle the response from the server
+		// }
+
+		// curl_close($curl);
+
+
+
+		// var_dump($response);
+		// exit;
+
+
+		// $binaryVideo = file_get_contents($videoFilePath);
+
+		
+
 		if (!$params->node_id && !$params->node_name) {
 			return $this->rerouteController('XF:Forum', 'postThreadChooser');
 		}

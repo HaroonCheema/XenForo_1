@@ -17,4 +17,4 @@ $config['designer']['enabled'] = true;
 
 $config['fullUnicode'] = true;
 
-$config['development']['defaultAddOn'] = 'FS/WebsiteRanking';
+$config['development']['defaultAddOn'] = 'FS/BunnyIntegration';

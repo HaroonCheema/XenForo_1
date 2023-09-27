@@ -1,5 +1,6 @@
 <?php
 return array (
+  'custom_bb_code_title.fs_bunny' => 'bunny Video',
   'custom_bb_code_title.fs_custom_msg' => '[FS] Media Tags Custom message',
   'custom_bb_code_title.fs_word_highlight' => 'Highlight in red',
   'custom_bb_code_title.group' => 'Embed groups',
