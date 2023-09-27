@@ -633,14 +633,15 @@
 // 480px
 @media(max-width: @xf-responsiveNarrow) {
 }]]></template>
-  <template type="public" title="fs_web_ranking_search_filter" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:form action="{{ link('web-ranking') }}">
+  <template type="public" title="fs_web_ranking_search_filter" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:form action="{{ link('web-ranking') }}">
 
 	<div class="menu-row menu-row--separated">
 		{{ phrase('fs_web_ranking_status:') }}
 		<div class="u-inputSpacer">
-			<xf:select name="fs_web_ranking_complains" value="{$conditions.fs_web_ranking_complains}">
-				<xf:option value="high" label="{{ phrase('fs_web_ranking_high') }}" />
-				<xf:option value="lowest" label="{{ phrase('fs_web_ranking_lowest') }}" />
+			<xf:select name="fs_wr_complains" value="{$filters.fs_wr_complains}">
+				<xf:option value="solved_percentage" label="{{ phrase('fs_wr_most_solved') }}" />
+				<xf:option value="unsolved_percentage" label="{{ phrase('fs_wr_most_unsolved') }}" />
+				<xf:option value="issue_count" label="{{ phrase('fs_wr_most_complains') }}" />
 			</xf:select>
 		</div>
 	</div>	
@@ -1052,59 +1053,227 @@
 	display: flex;
 	justify-content: center;
 }]]></template>
-  <template type="public" title="fs_wesite_ranking_status" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:css src="fs_wesite_ranking_status_css.less" />
-<div class="block bestuser">
-	<div class="block-container block-cont">
-		<div class="block-header">
-			{{ phrase('fs_website_ranking_total_complaint_resolution_percentage') }} {$siteStatus.totalPercen} %
+  <template type="public" title="fs_website_ranking_forum_list" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title page="{$page}">{{ phrase('fs_website_ranking') }}</xf:title>
+
+<xf:if is="$xf.options.fs_web_ranking_parent_web_id != 0">
+	<xf:include template="fs_wesite_ranking_stats" />
+</xf:if>
+
+<xf:macro template="metadata_macros" name="metadata"
+	arg-description="{$xf.options.boardDescription}"
+	arg-canonicalUrl="{{ link('canonical:' . $selfRoute) }}" />
+
+
+<xf:macro name="search_menu" arg-conditions="{$filters}" />
+<xf:macro name="node_list" arg-children="{$nodeTree}" arg-extras="{$nodeExtras}" />
+
+
+<xf:head option="rss_forum"><link rel="alternate" type="application/rss+xml" title="{{ phrase('rss_feed_for_x', {'title': $xf.options.boardTitle})|for_attr }}" href="{{ link('forums/index.rss', '-') }}" /></xf:head>
+
+<xf:macro name="node_list_entry" arg-node="!" arg-extras="!" arg-children="!" arg-childExtras="!" arg-depth="1">
+	<xf:css src="node_list.less" />
+	<xf:set var="$nodeTemplate" value="{{ $node.getNodeTemplateRenderer($depth) }}" />
+	
+	<xf:if is="$nodeTemplate.macro">
+		<xf:macro template="{$nodeTemplate.template}" name="{$nodeTemplate.macro}"
+			arg-node="{$node}"
+			arg-extras="{$extras}"
+			arg-children="{$children}"
+			arg-childExtras="{$childExtras}"
+			arg-depth="{$depth}" />
+	<xf:elseif is="{$nodeTemplate.template}" />
+		{{dump('elseif')}}
+		<xf:include template="{$nodeTemplate.template}" />
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="node_list" arg-children="!" arg-extras="!" arg-depth="1">
+	<xf:css src="node_list.less" />
+
+	<xf:foreach loop="$children" key="$id" value="$child">
+		<xf:macro name="node_list_entry"
+			arg-node="{$child.record}"
+			arg-extras="{$extras.{$id}}"
+			arg-children="{$child.children}"
+			arg-childExtras="{$extras}"
+			arg-depth="{$depth}" />
+	</xf:foreach>
+
+</xf:macro>
+
+<xf:macro name="sub_node_list" arg-children="!" arg-childExtras="!" arg-depth="3">
+	<xf:if contentcheck="true">
+		<ol>
+		<xf:contentcheck>
+			<xf:macro template="forum_list" name="node_list"
+				arg-children="{$children}"
+				arg-extras="{$childExtras}"
+				arg-depth="{{ $depth + 1 }}" />
+		</xf:contentcheck>
+		</ol>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="sub_nodes_flat" arg-children="!" arg-childExtras="!" arg-depth="3">
+	<xf:css src="node_list.less" />
+	<xf:if contentcheck="true">
+		<div class="node-subNodesFlat">
+			<span class="node-subNodesLabel">{{ phrase('sub_forums:') }}</span>
+			<ol class="node-subNodeFlatList">
+			<xf:contentcheck>
+				<xf:macro template="forum_list" name="node_list"
+					arg-children="{$children}"
+					arg-extras="{$childExtras}"
+					arg-depth="{{ $depth + 1 }}" />
+			</xf:contentcheck>
+			</ol>
 		</div>
-		<div class="block-body">
-			<div class="block-container">
-				<div class="block-header">
-					<xf:if is="$siteStatus.highPercen != 0">
-						<a href="{{ link('forums', {$siteStatus.highPercenNode}) }}">
-							{$siteStatus.highPercenNode.title}
-						</a>
-						<xf:else/>
-						{{ phrase('none') }} 
-					</xf:if>
-				</div>
-				<div class="block-body body-pad">
-					<ul>
-						<li> {{ phrase('fs_website_ranking_highest_complaint_resolution_percentage') }}  {$siteStatus.highPercen} %</li>
-					</ul>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="sub_nodes_menu" arg-children="!" arg-childExtras="!" arg-depth="3">
+	<xf:css src="node_list.less" />
+	<xf:if contentcheck="true">
+		<div class="node-subNodeMenu">
+			<a class="menuTrigger" data-xf-click="menu" role="button" tabindex="0" aria-expanded="false" aria-haspopup="true">{{ phrase('sub_forums') }}</a>
+			<div class="menu" data-menu="menu" aria-hidden="true">
+				<div class="menu-content">
+					<h4 class="menu-header">{{ phrase('sub_forums') }}</h4>
+					<ol class="subNodeMenu">
+					<xf:contentcheck>
+						<xf:macro template="forum_list" name="node_list"
+							arg-children="{$children}"
+							arg-extras="{$childExtras}"
+							arg-depth="{{ $depth + 1 }}" />
+					</xf:contentcheck>
+					</ol>
 				</div>
 			</div>
+		</div>
+	</xf:if>
+</xf:macro>
 
-			<div class="block-container">
-				<div class="block-header">
-					<a href="{{ link('forums', {$siteStatus.lowPercenNode}) }}">
-						{$siteStatus.lowPercenNode.title}
-					</a>
-				</div>
-				<div class="block-body body-pad">
-					<ul>
-						<li> {{ phrase('fs_website_ranking_lowest_complaint_resolution_percentage') }}  {$siteStatus.lowPercen} %</li>
-					</ul>
+
+<!-- Filter Bar Macro Start -->
+
+<xf:macro name="search_menu" arg-conditions="!">
+	<div class="block-filterBar">
+		<div class="filterBar">
+			<a
+			   class="filterBar-menuTrigger"
+			   data-xf-click="menu"
+			   role="button"
+			   tabindex="0"
+			   aria-expanded="false"
+			   aria-haspopup="true"
+			   >{{ phrase('filters') }}</a
+				>
+			<div
+				 class="menu menu--wide"
+				 data-menu="menu"
+				 aria-hidden="true"
+				 data-href="{{ link('web-ranking/refine-search', null, $conditions)}}"
+				 data-load-target=".js-filterMenuBody"
+				 >
+				<div class="menu-content">
+					<h4 class="menu-header">{{ phrase('show_only:') }}</h4>
+					<div class="js-filterMenuBody">
+						<div class="menu-row">{{ phrase('loading...') }}</div>
+					</div>
 				</div>
 			</div>
-
-			<div class="block-container">
-				<div class="block-header">
-					<a href="{{ link('forums', {$siteStatus.nodeMostComplains}) }}">
-						{$siteStatus.nodeMostComplains.title}
-					</a>
-				</div>
-				<div class="block-body body-pad">
-					<ul>
-						<li> {{ phrase('fs_website_ranking_most_complaint') }}  {$siteStatus.mostcomplains}</li>
-					</ul>
-				</div>
-			</div>
-
 		</div>
 	</div>
-</div>]]></template>
+</xf:macro>]]></template>
+  <template type="public" title="fs_wesite_ranking_stats" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:css src="fs_wr_statsList.less" />
+
+
+	<section class="block">		
+		<div class="blockMessage fs-avrBlock">
+			<h3 class="block-textHeader">
+				{{ phrase('fs_wr_overall_issue_solved_average') }}: {$overAllsolvedAverage|number_short(2)} %
+			</h3>
+		</div>
+	</section>
+
+
+	<section class="block">
+		<div class="block-container">
+			
+			<div class="block-body">
+				<ol class="memberOverviewBlocks">
+					<xf:if contentcheck="true">
+						
+						<li class="memberOverviewBlock">
+							<h3 class="block-textHeader">
+								<a href="#" class="memberOverViewBlock-title">{{ phrase('fs_wr_most_solved_issues_websites') }}</a>
+							</h3>
+							<ol class="memberOverviewBlock-list">
+								<xf:contentcheck>
+									<xf:foreach loop="$solvedPercentageNodes" key="$id" value="$node">
+										<li>
+											<xf:macro name="overview_row" arg-node="{$node}" arg-column="solved_percentage" />
+										</li>
+									</xf:foreach>
+								</xf:contentcheck>
+							</ol>
+						</li>
+						
+						<li class="memberOverviewBlock">
+							<h3 class="block-textHeader">
+								<a href="#" class="memberOverViewBlock-title">{{ phrase('fs_wr_most_unsolved_issues_websites') }}</a>
+							</h3>
+							<ol class="memberOverviewBlock-list">
+								<xf:contentcheck>
+									<xf:foreach loop="$unsolvedPercentageNodes" key="$id" value="$node">
+										<li>
+											<xf:macro name="overview_row" arg-node="{$node}" arg-column="unsolved_percentage" />
+										</li>
+									</xf:foreach>
+								</xf:contentcheck>
+							</ol>
+						</li>
+						
+						<li class="memberOverviewBlock">
+							<h3 class="block-textHeader">
+								<a href="#" class="memberOverViewBlock-title">{{ phrase('fs_wr_most_complains_websites') }}</a>
+							</h3>
+							<ol class="memberOverviewBlock-list">
+								<xf:contentcheck>
+									<xf:foreach loop="$mostCompainsNodes" key="$id" value="$node">
+										<li>
+											<xf:macro name="overview_row" arg-node="{$node}" arg-column="issue_count" />
+										</li>
+									</xf:foreach>
+								</xf:contentcheck>
+							</ol>
+						</li>
+						
+					</xf:if>
+				</ol>
+			</div>
+		</div>
+</section>
+
+
+
+<xf:macro name="overview_row" arg-node="!" arg-column="!">
+	<div class="contentRow contentRow--alignMiddle">
+		<div class="contentRow-figure">
+			<span class="node-icon" aria-hidden="true">
+				<xf:fa icon="fa-browser" />
+			</span>
+		</div>
+		<div class="contentRow-main">
+			
+			<div class="contentRow-extra contentRow-extra--large">{$node.{$column}} {{$column != 'issue_count'? '%': ''}}</div>
+			
+			<h3 class="contentRow-title">
+				<a href="{{ link('forums', $node) }}" data-xf-init="{{ $descriptionDisplay == 'tooltip' ? 'element-tooltip' : '' }}" data-shortcut="node-description">{$node.title}</a>
+			</h3>
+		</div>
+	</div>
+</xf:macro>]]></template>
   <template type="public" title="fs_wesite_ranking_status_css.less" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[.bestuser{
 	.block-cont .block-body{
 		display: flex;
@@ -1209,4 +1378,530 @@
 		}
 	}
 }]]></template>
+  <template type="public" title="fs_wr_forum_post_issue" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('fs_web_ranking_create_issue') }}</xf:title>
+
+<xf:head option="metaNoindex"><meta name="robots" content="noindex" /></xf:head>
+
+<xf:breadcrumb source="$forum.getBreadcrumbs()" />
+
+<xf:form action="{{ link('forums/post-thread', $forum) }}" ajax="true" class="block" data-xf-init="attachment-manager"
+	draft="{{ link('forums/draft', $forum) }}">
+
+	<div class="block-container">
+		<div class="block-body">
+
+			<xf:set var="$titleFinalHtml"><!--[XF:title_final_html]--></xf:set>
+
+			<xf:prefixinputrow
+				label="{{ phrase('title') }}"
+				prefixes="{$prefixes}"
+				type="thread"
+				rows="1"
+				prefix-value="{{ $forum.draft_thread.prefix_id ?: ($thread.prefix_id ?: $forum.default_prefix_id) }}"
+				textbox-value="{{ $title ?: $thread.title ?: $forum.draft_thread.title }}"
+				textbox-class="input--title"
+				placeholder="{{ phrase('fs_web_ranking_issue_title') }}"
+				rowtype="fullWidth noLabel"
+				autofocus="autofocus"
+				maxlength="{{ max_length('XF:Thread', 'title') }}"
+				help-href="{{ link('forums/prefix-help', $forum) }}"
+				finalhtml="{$titleFinalHtml}" />
+
+			<!--[XF:after_title]-->
+
+			<xf:macro name="type_chooser"
+				arg-thread="{$thread}"
+				arg-forum="{$forum}"
+				arg-creatableThreadTypes="{$creatableThreadTypes}"
+				arg-defaultThreadType="{$defaultThreadType}" />
+
+			<div class="js-inlineNewPostFields">
+				<xf:editorrow name="message"
+					value="{{ $post.message ?: $forum.draft_thread.message }}"
+					attachments="{{ $attachmentData ? $attachmentData.attachments : [] }}"
+					rowtype="fullWidth noLabel mergePrev"
+					label="{{ phrase('message') }}"
+					data-preview-url="{{ link('forums/thread-preview', $forum) }}" />
+
+				<xf:formrow rowtype="fullWidth noLabel mergePrev noTopPadding">
+					<xf:if is="$attachmentData">
+						<xf:macro template="helper_attach_upload" name="upload_block"
+							arg-attachmentData="{$attachmentData}"
+							arg-forceHash="{$forum.draft_thread.attachment_hash}" />
+					</xf:if>
+
+					<xf:if is="$xf.options.multiQuote">
+						<xf:macro template="multi_quote_macros" name="button"
+							arg-href="{{ link('threads/multi-quote', $thread) }}"
+							arg-messageSelector=".js-post"
+							arg-storageKey="multiQuoteThread" />
+					</xf:if>
+				</xf:formrow>
+				
+			</div>
+		</div>
+
+		<xf:submitrow submit="{{ phrase('fs_web_ranking_create_issue') }}" icon="write" sticky="true" />
+	</div>
+</xf:form>
+
+
+
+
+<xf:macro name="type_chooser"
+	arg-thread="!"
+	arg-forum="!"
+	arg-creatableThreadTypes="!"
+	arg-defaultThreadType="!"
+	arg-rowType="fullWidth noLabel noTopPadding noBottomPadding mergeNext mergePrev">
+
+	<xf:if is="count($creatableThreadTypes) > 1">
+		<xf:css src="input_extended.less" />
+		<xf:formrow rowtype="{$rowType}">
+			<div class="hScroller inputTypesScroller" data-xf-init="h-scroller">
+				<div class="hScroller-scroll">
+					<ul class="inputTypes" role="radiogroup" aria-label="{{ phrase('thread_type')|for_attr }}">
+						<xf:foreach loop="$creatableThreadTypes" key="$threadTypeId" value="$threadType">
+							<li role="none">
+								<label class="inputTypes-type">
+									<input type="radio" name="discussion_type" value="{$threadTypeId}"
+										class="inputTypes-input"
+										data-xf-init="disabler"
+										data-hide="true"
+										data-optional="true"
+										data-autofocus="false"
+										data-container=".js-threadTypeData[data-type-id='{$threadTypeId}']"
+										{{ $threadTypeId == $defaultThreadType ? 'checked="checked"' : '' }}
+									/>
+									<span class="inputTypes-display inputTypes-display--type_{$threadTypeId}">
+										<span class="inputTypes-icon" aria-hidden="true">
+											<xf:set var="$typeIcon" value="{{ $threadType.getTypeIconClass() }}" />
+											<xf:if is="$typeIcon">
+												<xf:fa icon="{$typeIcon}" />
+											<xf:else />
+												<i class="inputTypes-defaultIcon"></i>
+											</xf:if>
+										</span>
+										<span class="inputTypes-title">{{ $threadType.getTypeTitle() }}</span>
+									</span>
+								</label>
+							</li>
+						</xf:foreach>
+					</ul>
+				</div>
+			</div>
+		</xf:formrow>
+	<xf:else />
+		<xf:hiddenval name="discussion_type" value="{$defaultThreadType}" />
+	</xf:if>
+
+</xf:macro>
+
+<xf:macro name="type_fields"
+	arg-thread="!"
+	arg-forum="!"
+	arg-creatableThreadTypes="!"
+	arg-defaultThreadType="!"
+	arg-subContext="!"
+	arg-extraOptions="{{ [] }}"
+	arg-draftOverride="{{ null }}"
+	arg-formRowSepVariant="">
+
+	<xf:if contentcheck="true">
+		<ul class="listPlain">
+		<xf:contentcheck>
+			<xf:foreach loop="$creatableThreadTypes" key="$threadTypeId" value="$threadType">
+				<xf:if contentcheck="true">
+					<li class="js-threadTypeData" data-type-id="{$threadTypeId}" style="{{ $threadTypeId != $defaultThreadType ? 'display:none;' : ''}}">
+						<hr class="formRowSep {$formRowSepVariant}" />
+						<xf:contentcheck>
+							{{ $threadType.renderExtraDataEdit(
+								$thread,
+								'create',
+								$subContext,
+								{
+									'draft': $subContext == 'quick' ? null : $forum->draft_thread,
+									'draftOverride': $draftOverride
+								} + $extraOptions
+							)|raw }}
+						</xf:contentcheck>
+					</li>
+				</xf:if>
+			</xf:foreach>
+		</xf:contentcheck>
+		</ul>
+	</xf:if>
+
+</xf:macro>]]></template>
+  <template type="public" title="fs_wr_issue_edit" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('fs_wr_issue_edit') }}</xf:title>
+
+<xf:js src="xf/thread.js" min="1" />
+
+<xf:breadcrumb source="$thread.getBreadcrumbs()" />
+
+<xf:form action="{{ link('threads/edit', $thread) }}"
+	class="block"
+	ajax="true"
+	data-xf-init="thread-edit-form"
+	data-item-selector=".js-threadListItem-{$thread.thread_id}">
+
+	<div class="block-container">
+		<div class="block-body">
+			<xf:prefixinputrow
+				label="{{ phrase('title') }}"
+				prefixes="{{ $thread.isPrefixEditable() ? $prefixes : [] }}"
+				type="thread"
+				prefix-value="{$thread.prefix_id}"
+				textbox-value="{$thread.title}"
+				placeholder="{{ phrase('title...') }}"
+				autofocus="autofocus"
+				maxlength="{{ max_length($thread, 'title') }}"
+				help-href="{{ link('forums/prefix-help', $forum) }}"/>
+
+			<xf:if contentcheck="true">
+				<hr class="formRowSep" />
+				<xf:contentcheck>
+					{{ $thread.TypeHandler.renderExtraDataEdit(
+						$thread,
+						'edit',
+						'thread'
+					)|raw }}
+				</xf:contentcheck>
+			</xf:if>
+
+			<xf:comment>
+				<xf:if contentcheck="true">
+					<hr class="formRowSep" />
+					<xf:contentcheck>
+						<xf:macro template="custom_fields_macros" name="custom_fields_edit"
+							arg-type="threads"
+							arg-set="{$thread.custom_fields}"
+							arg-editMode="{{ $thread.getFieldEditMode() }}"
+							arg-onlyInclude="{$forum.field_cache}" />
+					</xf:contentcheck>
+					<hr class="formRowSep" />
+				</xf:if>
+
+				<xf:macro template="helper_thread_options" name="thread_status" arg-thread="{$thread}" />
+			</xf:comment>
+		</div>
+
+		<xf:submitrow icon="save" sticky="true">
+			<xf:html>
+				<xf:if is="$thread.canDelete()">
+					<xf:button href="{{ link('threads/delete', $thread) }}" icon="delete" overlay="true">{{ phrase('delete...') }}</xf:button>
+				</xf:if>
+			</xf:html>
+		</xf:submitrow>
+	</div>
+
+	<xf:if is="$noInlineMod">
+		<xf:hiddenval name="_xfNoInlineMod">1</xf:hiddenval>
+	</xf:if>
+	<xf:if is="$forumName">
+		<xf:hiddenval name="_xfForumName">1</xf:hiddenval>
+	</xf:if>
+</xf:form>]]></template>
+  <template type="public" title="fs_wr_statsList.less" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[@_memberHeader-padding: @xf-paddingLarge;
+@_memberHeader-avatarSize: @avatar-l;
+@_memberHeader-avatarSizeShrunk: @avatar-m;
+
+.memberHeader
+{
+	.m-clearFix();
+}
+
+.memberHeader-main
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	.xf-memberHeader();
+
+	.memberHeader--withBanner &
+	{
+		min-height: 250px;
+	}
+}
+
+.memberHeader-mainContent
+{
+	position: relative;
+}
+
+.memberHeader-avatar
+{
+	position: absolute;
+	padding: @_memberHeader-padding;
+}
+
+.memberHeader-content
+{
+	padding: @_memberHeader-padding;
+	padding-left: ((@_memberHeader-padding) * 2 + (@_memberHeader-avatarSize));
+}
+
+.memberHeader-actionTop
+{
+	float: right;
+}
+
+.memberHeader-name
+{
+	margin: 0;
+	margin-top: -.15em;
+	padding: 0;
+	font-weight: @xf-fontWeightNormal;
+	.xf-memberHeaderName();
+
+	.memberHeader--withBanner &
+	{
+		.xf-memberHeaderNameBanner();
+	}
+}
+
+.memberHeader-nameChangeIndicator
+{
+	color: @xf-textColorMuted;
+	font-size: 75%;
+
+	&:hover
+	{
+		color: @xf-textColorMuted;
+	}
+
+	.memberHeader--withBanner &
+	{
+		color: darken(xf-default(@xf-memberHeaderNameBanner--color, white), 20%);
+
+		&:hover
+		{
+			color: darken(xf-default(@xf-memberHeaderNameBanner--color, white), 20%);
+		}
+	}
+}
+
+// See XF-197998
+@_member-textStroke: 0 #000;
+
+.member-textStroke()
+{
+	text-shadow:
+		-1px -1px @_member-textStroke,
+		1px -1px @_member-textStroke,
+		-1px 1px @_member-textStroke,
+		1px 1px @_member-textStroke;
+}
+
+.memberHeader--withBanner
+{
+	.username
+	{
+		.member-textStroke();
+	}
+
+	.memberHeader-nameChangeIndicator .fa-history
+	{
+		.member-textStroke();
+	}
+}
+
+.memberHeader-blurbContainer
+{
+	.memberHeader--withBanner &
+	{
+		.xf-memberHeaderBlurbContainerBanner();
+
+		.memberHeader-blurb
+		{
+			&:first-child
+			{
+				margin-top: 0;
+			}
+
+			.pairs dt, a
+			{
+				color: darken(xf-default(@xf-memberHeaderBlurbContainerBanner--color, white), 20%);
+			}
+		}
+	}
+}
+
+.memberHeader-banners,
+.memberHeader-blurb
+{
+	margin-top: @xf-paddingSmall;
+}
+
+.memberHeader-separator
+{
+	margin: @_memberHeader-padding 0;
+	border: none;
+	border-top: @xf-borderSize solid @xf-borderColorLight;
+}
+
+.memberHeader-stats
+{
+	font-size: @xf-fontSizeLarge;
+
+	.pairs.pairs--row
+	{
+		min-width: 100px;
+	}
+}
+
+@media (max-width: @xf-responsiveMedium)
+{
+	.memberHeader-avatar .avatar
+	{
+		.m-avatarSize(@_memberHeader-avatarSizeShrunk);
+	}
+
+	.memberHeader-content
+	{
+		padding-left: ((@_memberHeader-padding) * 2 + (@_memberHeader-avatarSizeShrunk));
+	}
+}
+
+@media (max-width: @xf-responsiveNarrow)
+{
+	.memberHeader-avatar
+	{
+		display: block;
+		position: static;
+		float: none;
+		padding-bottom: 0;
+		text-align: center;
+	}
+
+	.memberHeader-avatar .avatarWrapper-update
+	{
+		font-size: @xf-fontSizeSmall;
+	}
+
+	.memberHeader-content
+	{
+		padding-left: @_memberHeader-padding;
+	}
+
+	.memberHeader-main .memberHeader-content
+	{
+		display: flex;
+		flex-direction: column;
+		padding-top: 0;
+		min-height: 0;
+		text-align: center;
+	}
+
+	.memberHeader-name
+	{
+		text-align: center;
+		margin-top: 0;
+	}
+
+	.memberHeader-actionTop
+	{
+		float: none;
+		order: 2;
+		margin-top: @xf-paddingSmall;
+	}
+
+	.memberHeader-buttons
+	{
+		text-align: center;
+	}
+
+	.memberHeader-banners,
+	.memberHeader-blurb
+	{
+		text-align: inherit;
+	}
+}
+
+.block-tabHeader.block-tabHeader--memberTabs
+{
+	border-bottom: none;
+}
+
+
+
+.memberOverviewBlocks
+{
+	.m-listPlain();
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	 padding: 10px;
+
+	> li
+	{
+		width: 32.4%;
+		max-width: 100%;
+		padding: @xf-blockPaddingV @xf-blockPaddingH;
+		border: 1px solid gainsboro;
+    	margin: 5px;
+
+		@media (max-width: 1150px)
+		{
+			width: 48%;
+		}
+
+		@media (max-width: 580px)
+		{
+			width: 100%;
+		}
+	}
+}
+
+.memberOverviewBlock
+{
+	display: flex;
+	flex-direction: column;
+}
+.memberOverviewBlock-list
+{
+	.m-listPlain();
+
+	> li
+	{
+		margin: @xf-paddingMedium 0;
+	}
+}
+.memberOverviewBlock-seeMore
+{
+	.xf-minorBlockContent();
+	padding: @xf-paddingSmall;
+	text-align: center;
+
+	// pushes this to the bottom with flex box
+	margin-top: auto;
+}
+
+@media (min-width: (@xf-responsiveMedium + 1))
+{
+	.memberHeader
+	{
+		min-height: (@avatar-l + 20);
+	}
+}
+
+	.fs-avrBlock
+	{
+		padding: 25px 10px;
+		text-align:center;
+	}]]></template>
+  <template type="public" title="fs_wr_unsolved" version_id="1000100" version_string="1.0.1 Alpha"><![CDATA[<xf:title>{{ phrase('fs_wr_issue_unsolved') }}</xf:title>
+
+<xf:form action="{{ link('threads/unsolved',$thread) }}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:inforow rowtype="confirm">
+				{{ phrase('fs_wr_are_you_sure_unsolved_issue') }}
+					<strong>{$thread.title}</strong>
+			</xf:inforow>
+		</div>
+		<xf:submitrow rowtype="simple" icon="save" />
+	</div>
+</xf:form>]]></template>
 </templates>

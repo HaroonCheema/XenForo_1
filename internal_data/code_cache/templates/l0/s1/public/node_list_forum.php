@@ -95,8 +95,19 @@ return array(
 	<div class="node node--id' . $__templater->escape($__vars['node']['node_id']) . ' node--depth' . $__templater->escape($__vars['depth']) . ' node--forum ' . ($__vars['extras']['hasNew'] ? 'node--unread' : 'node--read') . '">
 		<div class="node-body">
 			<span class="node-icon" aria-hidden="true">
-				' . $__templater->fontAwesome(($__templater->escape($__templater->method($__vars['node']['Data']['TypeHandler'], 'getTypeIconClass', array())) ?: 'fa-comments'), array(
-	)) . '
+				';
+	if ($__vars['xf']['options']['fs_web_ranking_parent_web_id'] AND ($__vars['node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id'])) {
+		$__finalCompiled .= '
+	' . $__templater->fontAwesome('fa-browser', array(
+		)) . '
+';
+	} else {
+		$__finalCompiled .= '
+	' . $__templater->fontAwesome(($__templater->escape($__templater->method($__vars['node']['Data']['TypeHandler'], 'getTypeIconClass', array())) ?: 'fa-comments'), array(
+		)) . '
+';
+	}
+	$__finalCompiled .= '
 			</span>
 			<div class="node-main js-nodeMain">
 				';
@@ -135,7 +146,18 @@ return array(
 		$__finalCompiled .= '
 						<div class="node-statsMeta">
 							<dl class="pairs pairs--inline">
-								<dt>' . 'Threads' . '</dt>
+								<dt>';
+		if ($__vars['xf']['options']['fs_web_ranking_parent_web_id'] AND ($__vars['node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id'])) {
+			$__finalCompiled .= '
+	' . 'Issues' . '
+';
+		} else {
+			$__finalCompiled .= '
+	' . 'Threads' . '
+';
+		}
+		$__finalCompiled .= '
+</dt>
 								<dd>' . $__templater->filter($__vars['extras']['discussion_count'], array(array('number_short', array(1, )),), true) . '</dd>
 							</dl>
 							<dl class="pairs pairs--inline">
@@ -184,9 +206,42 @@ return array(
 			';
 	if (!$__vars['extras']['privateInfo']) {
 		$__finalCompiled .= '
-				<div class="node-stats">
+				';
+		if ($__vars['xf']['options']['fs_web_ranking_parent_web_id'] AND ($__vars['node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id'])) {
+			$__finalCompiled .= '
+	<div class="node-stats">
+		<dl class="pairs pairs--rows">
+			<dt>' . 'Complains' . '</dt>
+			<dd>' . $__templater->filter($__vars['node']['issue_count'], array(array('number_short', array(1, )),), true) . '</dd>
+		</dl>
+		<dl class="pairs pairs--rows">
+			<dt>' . 'Solved' . '</dt>
+			<dd>' . $__templater->filter($__vars['node']['solved_count'], array(array('number_short', array(1, )),), true) . '</dd>
+		</dl>
+	</div>
+	<div class="node-stats">
+		<dl class="pairs pairs--rows">
+			<dt>' . 'Unsolved' . '</dt>
+			<dd>' . $__templater->filter($__vars['node']['unsolved_count'], array(array('number_short', array(1, )),), true) . '</dd>
+		</dl>
+	</div>
+';
+		} else {
+			$__finalCompiled .= '
+	<div class="node-stats">
 					<dl class="pairs pairs--rows">
-						<dt>' . 'Threads' . '</dt>
+						<dt>';
+			if ($__vars['xf']['options']['fs_web_ranking_parent_web_id'] AND ($__vars['node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id'])) {
+				$__finalCompiled .= '
+	' . 'Issues' . '
+';
+			} else {
+				$__finalCompiled .= '
+	' . 'Threads' . '
+';
+			}
+			$__finalCompiled .= '
+</dt>
 						<dd>' . $__templater->filter($__vars['extras']['discussion_count'], array(array('number_short', array(1, )),), true) . '</dd>
 					</dl>
 					<dl class="pairs pairs--rows">
@@ -194,6 +249,9 @@ return array(
 						<dd>' . $__templater->filter($__vars['extras']['message_count'], array(array('number_short', array(1, )),), true) . '</dd>
 					</dl>
 				</div>
+';
+		}
+		$__finalCompiled .= '
 			';
 	}
 	$__finalCompiled .= '

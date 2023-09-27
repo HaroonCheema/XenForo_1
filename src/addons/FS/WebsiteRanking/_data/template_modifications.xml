@@ -18,37 +18,15 @@
     <find><![CDATA[{{ phrase('thread') }}]]></find>
     <replace><![CDATA[{{$content.Forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_issue_approve') : phrase('thread') }}]]></replace>
   </modification>
-  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread" description="fs_web_ranking_forum_post_thread_change_placeHolder" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[{$forum.thread_prompt}]]></find>
-    <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_issue_title') : $forum.thread_prompt }}]]></replace>
-  </modification>
-  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread_hide" description="fs_web_ranking_forum_post_thread_hide_after_attachments" execution_order="10" enabled="1" action="preg_replace">
-    <find><![CDATA[/<xf:macro name="type_fields".*?<xf:captcharow label="{{ phrase\('verification'\) }}" \/>/is]]></find>
-    <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id">
-	$0
-</xf:if>]]></replace>
-  </modification>
-  <modification type="public" template="forum_post_thread" modification_key="fs_web_ranking_forum_post_thread_title" description="fs_web_ranking_forum_post_thread_title" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[{{ phrase('post_thread') }}]]></find>
-    <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_create_issue') : phrase('post_thread') }}]]></replace>
-  </modification>
   <modification type="public" template="forum_view" modification_key="fs_web_ranking_change_no_thread_phrase" description="fs_web_ranking_change_no_thread_phrase" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[{{ phrase('there_no_threads_in_this_forum') }}]]></find>
     <replace><![CDATA[{{$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id ? phrase('fs_web_ranking_there_no_issue_in_this_site') : phrase('there_no_threads_in_this_forum') }}]]></replace>
   </modification>
-  <modification type="public" template="forum_view" modification_key="fs_web_ranking_change_thread_btn" description="fs_web_ranking_change_thread_btn_to_create_issue" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
-	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
-		{{ phrase('post_thread') }}
-	</xf:button>
-</xf:pageaction>]]></find>
+  <modification type="public" template="forum_view" modification_key="fs_web_ranking_change_thread_btn" description="Chnage 'Post thread' button title to 'Create issue'" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ phrase('post_thread') }}]]></find>
     <replace><![CDATA[<xf:if is="$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id">
-<xf:pageaction if="$forum.canCreateThread() OR $forum.canCreateThreadPreReg()">
-	<xf:button href="{{ link('forums/post-thread', $forum) }}" class="button--cta" icon="write">
-		{{ phrase('fs_web_ranking_create_issue') }}
-	</xf:button>
-</xf:pageaction>
-	<xf:else/>
+	{{ phrase('fs_web_ranking_create_issue') }}
+<xf:else/>
 	$0
 </xf:if>]]></replace>
   </modification>
@@ -70,23 +48,89 @@
 	$0
 </xf:if>]]></replace>
   </modification>
+  <modification type="public" template="node_list_forum" modification_key="fs_add_complains_stats_in_forum_list" description="Add complains stats in site list" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<div class="node-stats">.*?<\/div>/si]]></find>
+    <replace><![CDATA[<xf:if is="$xf.options.fs_web_ranking_parent_web_id && ($node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id)">
+	<div class="node-stats">
+		<dl class="pairs pairs--rows">
+			<dt>{{ phrase('fs_wr_complains') }}</dt>
+			<dd>{$node.issue_count|number_short(1)}</dd>
+		</dl>
+		<dl class="pairs pairs--rows">
+			<dt>{{ phrase('fs_wr_solved') }}</dt>
+			<dd>{$node.solved_count|number_short(1)}</dd>
+		</dl>
+	</div>
+	<div class="node-stats">
+		<dl class="pairs pairs--rows">
+			<dt>{{ phrase('fs_wr_unsolved') }}</dt>
+			<dd>{$node.unsolved_count|number_short(1)}</dd>
+		</dl>
+	</div>
+<xf:else />
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="node_list_forum" modification_key="fs_forum_icon_change" description="change forum icon on website list" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[<xf:fa icon="{{ $node.Data.TypeHandler.getTypeIconClass() ?: 'fa-comments' }}" />]]></find>
+    <replace><![CDATA[<xf:if is="$xf.options.fs_web_ranking_parent_web_id && ($node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id)">
+	<xf:fa icon="fa-browser" />
+<xf:else />
+	$0
+</xf:if>]]></replace>
+  </modification>
+  <modification type="public" template="node_list_forum" modification_key="fs_replace_threads_phrase" description="Replace threads phrase with issues" execution_order="10" enabled="1" action="str_replace">
+    <find><![CDATA[{{ phrase('threads') }}]]></find>
+    <replace><![CDATA[<xf:if is="$xf.options.fs_web_ranking_parent_web_id && ($node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id)">
+	{{ phrase('fs_wr_issues') }}
+<xf:else />
+	$0
+</xf:if>
+]]></replace>
+  </modification>
+  <modification type="public" template="thread_list_macros" modification_key="fs_wr_thread_list_macros" description="Add Issue status in thread list" execution_order="10" enabled="1" action="preg_replace">
+    <find><![CDATA[/<xf:if is="property\('reactionSummaryOnLists'\) == 'minor_opposite' && \$thread\.first_post_reactions">.*?<\/xf:if>/si]]></find>
+    <replace><![CDATA[<xf:if is="($thread.Forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id) && $xf.visitor.is_admin">
+
+	<li class="wr_issue_status blockMessage {{$thread.issue_status? $thread.issue_status == 1?'blockMessage--success':'blockMessage--error' : 'blockMessage--important'}}" style="margin-bottom:0px !important">
+		<xf:if is="$thread.issue_status==1">
+			<span>{{phrase('fs_issue_solved')}}</span>
+			<xf:elseif is="$thread.issue_status==2" />
+			<span>{{phrase('fs_issue_unsolved')}}</span>
+			<xf:else />
+			<span>{{phrase('fs_issue_pennding')}}</span>
+		</xf:if>
+	</li>
+</xf:if>
+$0]]></replace>
+  </modification>
   <modification type="public" template="thread_view" modification_key="fs_web_ranking_thread_view" description="fs_web_ranking_thread_view_hide_thread_actions" execution_order="10" enabled="1" action="preg_replace">
     <find><![CDATA[/<xf:set var="\$threadActionsHtml">.*?<\/xf:set>/is]]></find>
     <replace><![CDATA[<xf:if is="($forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id) && $xf.visitor.is_admin">
-	<xf:if is="$thread.discussion_state == 'visible'">
+	<div class="blockMessage {{$thread.issue_status? $thread.issue_status == 1?'blockMessage--success':'blockMessage--error' : 'blockMessage--important'}} blockMessage--iconic">
+		<xf:if is="$thread.issue_status == 1">
+		 	{{phrase('fs_issue_solved')}}
+		<xf:elseif is="$thread.issue_status == 2" />
+			{{phrase('fs_issue_unsolved')}}
+		<xf:else />
+			{{phrase('fs_issue_pennding')}}
+		</xf:if>
+    </div>
 	<xf:set var="$threadActionsHtml">
 	<div class="block-outer-opposite">
 				<div class="buttonGroup">
-					<xf:if is="$thread.issue_status == 0 And $thread.user_id == $xf.visitor.user_id">
-							<xf:button href="{{ link('threads/solved', $thread) }}" class="button--link" overlay="true">
+					
+							<xf:button href="{{ link('threads/solved', $thread) }}" class="button--link {{$thread.issue_status == 1?'is-solved-btn': ''}}" overlay="true">
 								{{ phrase('fs_website_ranking_solved_btn') }}
 							</xf:button>
-						</xf:if>
+							<xf:button href="{{ link('threads/unsolved', $thread) }}" class="button--link {{$thread.issue_status == 2?'is-unsolved-btn': ''}}" overlay="true">
+								{{ phrase('fs_wr_issue_unsolved_btn') }}
+							</xf:button>
+			
 				</div>
 	</div>
 	</xf:set>
-	</xf:if>
-	<xf:else/>
+<xf:else/>
 	$0
 </xf:if>]]></replace>
   </modification>

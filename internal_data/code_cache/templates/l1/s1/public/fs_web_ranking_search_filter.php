@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 8f3e21cce014c1993d62829fdc939a8f
+// FROM HASH: 281969f5e1805dd76cdef1ca0ae26aef
 return array(
 'code' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -10,16 +10,21 @@ return array(
 		' . 'Complaints' . $__vars['xf']['language']['label_separator'] . '
 		<div class="u-inputSpacer">
 			' . $__templater->formSelect(array(
-		'name' => 'fs_web_ranking_complains',
-		'value' => $__vars['conditions']['fs_web_ranking_complains'],
+		'name' => 'fs_wr_complains',
+		'value' => $__vars['filters']['fs_wr_complains'],
 	), array(array(
-		'value' => 'high',
-		'label' => 'Highest Resolution',
+		'value' => 'solved_percentage',
+		'label' => 'Most Solved',
 		'_type' => 'option',
 	),
 	array(
-		'value' => 'lowest',
-		'label' => 'Lowest Resolution',
+		'value' => 'unsolved_percentage',
+		'label' => 'Most Unsolved',
+		'_type' => 'option',
+	),
+	array(
+		'value' => 'issue_count',
+		'label' => 'Most Complains',
 		'_type' => 'option',
 	))) . '
 		</div>

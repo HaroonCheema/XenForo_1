@@ -27,6 +27,7 @@ You may set a user into \'discouraged\' mode by editing their user profile, or d
   'option_group_description.fs_forum_groups' => '[FS] Forum Groups',
   'option_group_description.fs_post_schdueling' => '',
   'option_group_description.fs_question_answers' => '',
+  'option_group_description.fs_thread_rules' => '',
   'option_group_description.fs_translator' => '[FS] Translator',
   'option_group_description.fs_web_ranking' => '',
   'option_group_description.hou_attachments' => 'Blocks download of attachments until users have liked.',

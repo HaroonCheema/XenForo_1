@@ -1,9 +1,0 @@
-{
-    "template": "thread_view",
-    "description": "fs_web_ranking_thread_view_hide_thread_actions",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "preg_replace",
-    "find": "/<xf:set var=\"\\$threadActionsHtml\">.*?<\\/xf:set>/is",
-    "replace": "<xf:if is=\"($forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id) && $xf.visitor.is_admin\">\n\t<xf:if is=\"$thread.discussion_state == 'visible'\">\n\t<xf:set var=\"$threadActionsHtml\">\n\t<div class=\"block-outer-opposite\">\n\t\t\t\t<div class=\"buttonGroup\">\n\t\t\t\t\t<xf:if is=\"$thread.issue_status == 0 And $thread.user_id == $xf.visitor.user_id\">\n\t\t\t\t\t\t\t<xf:button href=\"{{ link('threads/solved', $thread) }}\" class=\"button--link\" overlay=\"true\">\n\t\t\t\t\t\t\t\t{{ phrase('fs_website_ranking_solved_btn') }}\n\t\t\t\t\t\t\t</xf:button>\n\t\t\t\t\t\t</xf:if>\n\t\t\t\t</div>\n\t</div>\n\t</xf:set>\n\t</xf:if>\n\t<xf:else/>\n\t$0\n</xf:if>"
-}

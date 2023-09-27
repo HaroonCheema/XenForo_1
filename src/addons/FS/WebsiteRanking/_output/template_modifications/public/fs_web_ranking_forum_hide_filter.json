@@ -1,9 +1,0 @@
-{
-    "template": "forum_view",
-    "description": "fs_web_ranking_forum_hide_filter",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "preg_replace",
-    "find": "/<xf:extension name=\"thread_list_header\">.*?<\\/xf:extension>.*?<\\/xf:extension>/is",
-    "replace": "<xf:if is=\"$forum.Node.parent_node_id != $xf.options.fs_web_ranking_parent_web_id\">\n\t$0\n</xf:if>"
-}

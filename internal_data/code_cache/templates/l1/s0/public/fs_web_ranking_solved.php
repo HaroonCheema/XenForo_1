@@ -11,7 +11,7 @@ return array(
 	<div class="block-container">
 		<div class="block-body">
 			' . $__templater->formInfoRow('
-				' . 'Are you sure this issue solved ?' . '
+				' . 'Are you sure you want to mark this issue as Solved?' . '
 					<strong>' . $__templater->escape($__vars['thread']['title']) . '</strong>
 			', array(
 		'rowtype' => 'confirm',

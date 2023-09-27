@@ -1,9 +1,0 @@
-{
-    "template": "forum_view",
-    "description": "fs_web_ranking_change_thread_btn_to_create_issue",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "preg_replace",
-    "find": "/<xf:pageaction if=\"\\$forum\\.canCreateThread\\(\\) OR \\$forum\\.canCreateThreadPreReg\\(\\)\">.*?<\\/xf:pageaction>/s",
-    "replace": "<xf:if is=\"$forum.Node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id\">\n<xf:pageaction>\n\t<xf:button href=\"{{ link('forums/post-thread', $forum) }}\" class=\"button--cta\" icon=\"write\">\n\t\t{{ phrase('fs_web_ranking_create_issue') }}\n\t</xf:button>\n</xf:pageaction>\n\t<xf:else/>\n\t$0\n</xf:if>"
-}

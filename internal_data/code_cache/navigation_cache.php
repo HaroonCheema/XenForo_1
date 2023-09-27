@@ -93,16 +93,14 @@ return function($__templater, $__selectedNav, array $__vars)
 
 	}
 
-	if ($__templater->method($__vars['xf']['visitor'], 'haspermission', array('fs_website_ranking', 'check', ))) {
-		$__navTemp = [
+	$__navTemp = [
 		'title' => \XF::phrase('nav.fsWebsiteRanking'),
 		'href' => $__templater->func('link', array('web-ranking', ), false),
 		'attributes' => [],
 	];
-		if ($__navTemp) {
-			$__tree['fsWebsiteRanking'] = $__navTemp;
-			$__flat['fsWebsiteRanking'] =& $__tree['fsWebsiteRanking'];
-		}
+	if ($__navTemp) {
+		$__tree['fsWebsiteRanking'] = $__navTemp;
+		$__flat['fsWebsiteRanking'] =& $__tree['fsWebsiteRanking'];
 	}
 
 	if ($__vars['xf']['homePageUrl']) {
@@ -451,32 +449,6 @@ return function($__templater, $__selectedNav, array $__vars)
 			}
 		}
 
-	}
-
-	if ($__templater->method($__vars['xf']['visitor'], 'haspermission', array('fs_forum_group_permission', 'add', ))) {
-		$__navTemp = [
-		'title' => \XF::phrase('nav.fs_forumGroups_index'),
-		'href' => $__templater->func('link', array('forumGroups', ), false),
-		'attributes' => [],
-	];
-		if ($__navTemp) {
-			$__tree['fs_forumGroups_index'] = $__navTemp;
-			$__flat['fs_forumGroups_index'] =& $__tree['fs_forumGroups_index'];
-			if (empty($__tree['fs_forumGroups_index']['children'])) { $__tree['fs_forumGroups_index']['children'] = []; }
-
-			$__navTemp = [
-		'title' => \XF::phrase('nav.forumGroupsAddSubForum'),
-		'href' => $__templater->func('link', array('forumGroups/add', ), false),
-		'attributes' => [
-			'data-xf-click' => 'overlay',
-		],
-	];
-			if ($__navTemp) {
-				$__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'] = $__navTemp;
-				$__flat['forumGroupsAddSubForum'] =& $__tree['fs_forumGroups_index']['children']['forumGroupsAddSubForum'];
-			}
-
-		}
 	}
 
 	if ($__templater->method($__vars['xf']['visitor'], 'canViewResources', array())) {

@@ -697,35 +697,50 @@ return array(
 ';
 	if (($__vars['forum']['Node']['parent_node_id'] == $__vars['xf']['options']['fs_web_ranking_parent_web_id']) AND $__vars['xf']['visitor']['is_admin']) {
 		$__finalCompiled .= '
-	';
-		if ($__vars['thread']['discussion_state'] == 'visible') {
+	<div class="blockMessage ' . ($__vars['thread']['issue_status'] ? (($__vars['thread']['issue_status'] == 1) ? 'blockMessage--success' : 'blockMessage--error') : 'blockMessage--important') . ' blockMessage--iconic">
+		';
+		if ($__vars['thread']['issue_status'] == 1) {
 			$__finalCompiled .= '
+		 	' . 'Issue Solved' . '
+		';
+		} else if ($__vars['thread']['issue_status'] == 2) {
+			$__finalCompiled .= '
+			' . 'Issue Unsolved' . '
+		';
+		} else {
+			$__finalCompiled .= '
+			' . 'Issue Pending' . '
+		';
+		}
+		$__finalCompiled .= '
+    </div>
 	';
-			$__compilerTemp3 = '';
-			if (($__vars['thread']['issue_status'] == 0) AND ($__vars['thread']['user_id'] == $__vars['xf']['visitor']['user_id'])) {
-				$__compilerTemp3 .= '
+		$__vars['threadActionsHtml'] = $__templater->preEscaped('
+	<div class="block-outer-opposite">
+				<div class="buttonGroup">
+					
 							' . $__templater->button('
 								' . 'Solved' . '
 							', array(
-					'href' => $__templater->func('link', array('threads/solved', $__vars['thread'], ), false),
-					'class' => 'button--link',
-					'overlay' => 'true',
-				), '', array(
-				)) . '
-						';
-			}
-			$__vars['threadActionsHtml'] = $__templater->preEscaped('
-	<div class="block-outer-opposite">
-				<div class="buttonGroup">
-					' . $__compilerTemp3 . '
+			'href' => $__templater->func('link', array('threads/solved', $__vars['thread'], ), false),
+			'class' => 'button--link ' . (($__vars['thread']['issue_status'] == 1) ? 'is-solved-btn' : ''),
+			'overlay' => 'true',
+		), '', array(
+		)) . '
+							' . $__templater->button('
+								' . 'Unsolved' . '
+							', array(
+			'href' => $__templater->func('link', array('threads/unsolved', $__vars['thread'], ), false),
+			'class' => 'button--link ' . (($__vars['thread']['issue_status'] == 2) ? 'is-unsolved-btn' : ''),
+			'overlay' => 'true',
+		), '', array(
+		)) . '
+			
 				</div>
 	</div>
 	');
-			$__finalCompiled .= '
-	';
-		}
 		$__finalCompiled .= '
-	';
+';
 	} else {
 		$__finalCompiled .= '
 	';
@@ -866,8 +881,8 @@ return array(
 	</div>
 
 	';
-	$__compilerTemp4 = '';
-	$__compilerTemp4 .= '
+	$__compilerTemp3 = '';
+	$__compilerTemp3 .= '
 				' . $__templater->func('page_nav', array(array(
 		'page' => $__vars['page'],
 		'total' => $__vars['totalPosts'],
@@ -884,18 +899,18 @@ return array(
 	))) . '
 				';
 	if ((!$__templater->method($__vars['thread'], 'canReply', array())) AND ((!$__templater->method($__vars['thread'], 'canReplyPreReg', array())) AND (($__vars['thread']['discussion_state'] == 'visible') AND $__vars['thread']['discussion_open']))) {
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 					<div class="block-outer-opposite">
 						';
 		if ($__vars['xf']['visitor']['user_id']) {
-			$__compilerTemp4 .= '
+			$__compilerTemp3 .= '
 							<span class="button button--wrap is-disabled">
 								' . 'You have insufficient privileges to reply here.' . '
 								<!-- this is not interactive so shouldn\'t be a button element -->
 							</span>
 						';
 		} else {
-			$__compilerTemp4 .= '
+			$__compilerTemp3 .= '
 							' . $__templater->button('
 								' . 'You must log in or register to reply here.' . '
 							', array(
@@ -906,16 +921,16 @@ return array(
 			)) . '
 						';
 		}
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 					</div>
 				';
 	}
-	$__compilerTemp4 .= '
+	$__compilerTemp3 .= '
 			';
-	if (strlen(trim($__compilerTemp4)) > 0) {
+	if (strlen(trim($__compilerTemp3)) > 0) {
 		$__finalCompiled .= '
 		<div class="block-outer block-outer--after">
-			' . $__compilerTemp4 . '
+			' . $__compilerTemp3 . '
 		</div>
 	';
 	}
@@ -946,12 +961,12 @@ return array(
 			'src' => 'xf/message.js',
 			'min' => '1',
 		));
-		$__compilerTemp5 = '';
+		$__compilerTemp4 = '';
 		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-			$__compilerTemp5 .= '
+			$__compilerTemp4 .= '
 	';
 			if ($__vars['xf']['visitor']['is_admin']) {
-				$__compilerTemp5 .= '
+				$__compilerTemp4 .= '
 ' . $__templater->callMacro('quick_reply_macros', 'body', array(
 					'message' => $__vars['thread']['draft_reply']['message'],
 					'attachmentData' => $__vars['attachmentData'],
@@ -968,10 +983,10 @@ return array(
 				), $__vars) . '
 ';
 			}
-			$__compilerTemp5 .= '
+			$__compilerTemp4 .= '
 ';
 		} else {
-			$__compilerTemp5 .= '
+			$__compilerTemp4 .= '
 	' . $__templater->callMacro('quick_reply_macros', 'body', array(
 				'message' => $__vars['thread']['draft_reply']['message'],
 				'attachmentData' => $__vars['attachmentData'],
@@ -994,7 +1009,7 @@ return array(
 
 		<div class="block-container">
 			<div class="block-body">
-				' . $__compilerTemp5 . '
+				' . $__compilerTemp4 . '
 			</div>
 		</div>
 	', array(

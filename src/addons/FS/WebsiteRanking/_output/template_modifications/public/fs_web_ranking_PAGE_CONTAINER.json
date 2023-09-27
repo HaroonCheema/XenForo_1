@@ -1,9 +1,0 @@
-{
-    "template": "PAGE_CONTAINER",
-    "description": "fs_web_ranking_PAGE_CONTAINER_select_NavBar_base_on_condition",
-    "execution_order": 10,
-    "enabled": true,
-    "action": "str_replace",
-    "find": "<ul class=\"p-nav-list js-offCanvasNavSource\">",
-    "replace": "$0\n<xf:if is=\"$xf.reply.containerKey\">\n\t<xf:set var=\"$nodeSplit\" value=\"{{ $xf.reply.containerKey|split('-') }}\" />\n\t<xf:if is=\"$nodeSplit.1\">\n\t\t<xf:set var=\"$node\" value=\"{{$xf.app.em.find('XF:Node',$nodeSplit.1)}}\" />\n\n\t\t<xf:if is=\"{{$node.parent_node_id == $xf.options.fs_web_ranking_parent_web_id}}\">\n\t\t\t<xf:set var=\"$pageSection\" value=\"fsWebsiteRanking\" />\n\t\t</xf:if>\n\t</xf:if>\n</xf:if>"
-}

@@ -76,15 +76,19 @@ abstract class AbstractNode extends AbstractController
 			]
 		]);
 
-		if (!$this->filter('style_override', 'bool'))
-		{
+
+		if (!$this->filter('style_override', 'bool')) {
 			$input['node']['style_id'] = 0;
 		}
+
 
 		$data = $node->getDataRelationOrDefault(false);
 		$node->addCascadedSave($data);
 
+
+
 		$form->basicEntitySave($node, $input['node']);
+
 		$this->saveTypeData($form, $node, $data);
 
 		return $form;
@@ -96,12 +100,9 @@ abstract class AbstractNode extends AbstractController
 
 	public function actionSave(ParameterBag $params)
 	{
-		if ($params['node_id'])
-		{
+		if ($params['node_id']) {
 			$node = $this->assertNodeExists($params['node_id']);
-		}
-		else
-		{
+		} else {
 			/** @var \XF\Entity\Node $node */
 			$node = $this->em()->create('XF:Node');
 			$node->node_type_id = $this->getNodeTypeId();
@@ -121,26 +122,21 @@ abstract class AbstractNode extends AbstractController
 	{
 		$node = $this->assertNodeExists($params['node_id']);
 
-		if (!$node->preDelete())
-		{
+		if (!$node->preDelete()) {
 			return $this->error($node->getErrors());
 		}
 
-		if ($this->isPost())
-		{
+		if ($this->isPost()) {
 			$childAction = $this->filter('child_nodes_action', 'str');
 			$node->getBehavior('XF:TreeStructured')->setOption('deleteChildAction', $childAction);
 
 			$this->nodeDelete($node);
 			return $this->redirect($this->buildLink('nodes'));
-		}
-		else
-		{
+		} else {
 			$nodeRepo = $this->getNodeRepo();
 
 			$nodeTree = $nodeRepo->createNodeTree($nodeRepo->getFullNodeList());
-			$nodeTree = $nodeTree->filter(function($nodeId) use ($node)
-			{
+			$nodeTree = $nodeTree->filter(function ($nodeId) use ($node) {
 				// Filter out the current node from the node tree.
 				return ($nodeId == $node->node_id ? false : true);
 			});
@@ -164,8 +160,7 @@ abstract class AbstractNode extends AbstractController
 	protected function assertNodeExists($id, $with = null, $phraseKey = null)
 	{
 		$node = $this->assertRecordExists('XF:Node', $id, $with, $phraseKey);
-		if ($node->node_type_id != $this->getNodeTypeId())
-		{
+		if ($node->node_type_id != $this->getNodeTypeId()) {
 			throw $this->exception($this->error(\XF::phrase('requested_node_not_found'), 404));
 		}
 		return $node;

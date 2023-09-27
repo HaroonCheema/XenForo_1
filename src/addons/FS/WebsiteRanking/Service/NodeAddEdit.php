@@ -13,6 +13,9 @@ class NodeAddEdit extends \XF\Service\AbstractService
         // $node = \xf::app()->em()->create('XF:Node');
         $node->node_type_id = "Forum";
         $this->createNodeProcess($node)->run();
+        
+        $this->permissionRebuild();
+        
         return $node;
     }
 
@@ -31,10 +34,10 @@ class NodeAddEdit extends \XF\Service\AbstractService
                 'node_name' => '',
                 'description' => $getTitleDesc['description'],
                 'parent_node_id' => \XF::options()->fs_web_ranking_parent_web_id,
-                'display_order' => '',
-                'display_in_list' => true,
+                'display_order' => 1,
+                'display_in_list' => 0,
                 'style_id' => '',
-                'navigation_id' => ''
+                'navigation_id' => 'fsWebsiteRanking'
             ]
         ];
 
@@ -69,11 +72,11 @@ class NodeAddEdit extends \XF\Service\AbstractService
         }
 
         $forumInput = [
-            'allow_posting' => 'true',
-            'moderate_threads' => 'false',
-            'moderate_replies' => 'false',
-            'count_messages' => 'true',
-            'find_new' => 'true',
+            'allow_posting' => 1,
+            'moderate_threads' => 0,
+            'moderate_replies' => 0,
+            'count_messages' => 0,
+            'find_new' => 0,
             'allowed_watch_notifications' => 'all',
             'default_sort_order' => 'last_post_date',
             'default_sort_direction' => 'desc',
@@ -108,6 +111,7 @@ class NodeAddEdit extends \XF\Service\AbstractService
             $repo = $this->repository('XF:ForumPrefix');
             $repo->updateContentAssociations($data->node_id, $prefixIds);
         });
+        
     }
 
     protected function filterIndexCriteria()
@@ -168,6 +172,8 @@ class NodeAddEdit extends \XF\Service\AbstractService
         // $permissionUpdater->updatePermissions($permissions);
 
         $userGroups = $this->getUserGroupRepo()->findUserGroupsForList()->fetch();
+        
+        
 
         if (count($userGroups)) {
             //
