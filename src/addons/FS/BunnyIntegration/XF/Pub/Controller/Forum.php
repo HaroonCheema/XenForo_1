@@ -189,6 +189,8 @@ class Forum extends XFCP_Forum
     {
         $thread = $creator->getThread();
 
+        // sjdk
+
         // $bunnyLibraryId = \XF::options()->fs_bi_libraryId;
 
         $getvideo = $this->request->getFile('bunny_video', false, false);
