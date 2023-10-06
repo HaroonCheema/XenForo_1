@@ -1,27 +1,27 @@
 {
-    "custom_bb_code_desc.fs_bunny.txt": {
+    "custom_bb_code_desc.fsbunny.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
-    "custom_bb_code_example.fs_bunny.txt": {
+    "custom_bb_code_example.fsbunny.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "578dbdce970f5172e0271829d5fa2df5"
+    },
+    "custom_bb_code_output.fsbunny.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
-    "custom_bb_code_output.fs_bunny.txt": {
+    "custom_bb_code_title.fsbunny.txt": {
         "global_cache": false,
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
-        "hash": "d41d8cd98f00b204e9800998ecf8427e"
-    },
-    "custom_bb_code_title.fs_bunny.txt": {
-        "global_cache": false,
-        "version_id": 1000010,
-        "version_string": "1.0.0 Alpha",
-        "hash": "346839fbba47bdf5e053a7b0a580f326"
+        "hash": "cd682877271aa30d99fe555b41a9fec2"
     },
     "fs_bunny_insert_video.txt": {
         "global_cache": false,
@@ -70,5 +70,17 @@
         "version_id": 1000010,
         "version_string": "1.0.0 Alpha",
         "hash": "3adba347808c01c30746c9d02c58e98a"
+    },
+    "permission.fs_bunny_allow.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "63a598ce255cbdf152f71fa9bfdf237b"
+    },
+    "permission_interface.fs_bunny_integration.txt": {
+        "global_cache": false,
+        "version_id": 1000010,
+        "version_string": "1.0.0 Alpha",
+        "hash": "e975db15370d10815b8e52cbc2d4b570"
     }
 }

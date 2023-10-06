@@ -1,0 +1,9 @@
+{
+    "template": "forum_post_thread",
+    "description": "fs_bunny_integration_add_upload_btn",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "/<xf:if is=\"\\$attachmentData\">.*?<\\/xf:if>/is",
+    "replace": "$0\n\n<xf:if is=\"{{ $xf.visitor.hasPermission('fs_bunny', 'allow') }}\">\n<span class=\"custom-file-upload\">\n\t<label for=\"bunny_video\" class=\"button button--link\"><i class=\"fa fa-upload\" aria-hidden=\"true\" style=\"padding-right: 8px;\"></i>{{ phrase('fs_bunny_upload_video') }}</label>\n\t<input type=\"file\" id=\"bunny_video\" name=\"bunny_video\" accept=\".mp4, .avi, .mov\" style=\"display: none;\" />\n</span>\n</xf:if>"
+}

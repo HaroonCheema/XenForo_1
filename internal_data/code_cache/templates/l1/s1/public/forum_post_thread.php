@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 80df01149ddce3e46f529d3bd0b03a3f
+// FROM HASH: 7aed49b4d5fa7e7100d5dcd00267c96a
 return array(
 'macros' => array('type_chooser' => array(
 'arguments' => function($__templater, array $__vars) { return array(
@@ -25,50 +25,54 @@ return array(
 		if ($__templater->isTraversable($__vars['creatableThreadTypes'])) {
 			foreach ($__vars['creatableThreadTypes'] AS $__vars['threadTypeId'] => $__vars['threadType']) {
 				$__compilerTemp1 .= '
-					<li>
-						<label class="inputTypes-type">
-							<input type="radio" name="discussion_type" value="' . $__templater->escape($__vars['threadTypeId']) . '"
-								   class="inputTypes-input"
-								   data-xf-init="disabler"
-								   data-hide="true"
-								   data-optional="true"
-								   data-autofocus="false"
-								   data-container=".js-threadTypeData[data-type-id=\'' . $__templater->escape($__vars['threadTypeId']) . '\']"
-								   ' . (($__vars['threadTypeId'] == $__vars['defaultThreadType']) ? 'checked="checked"' : '') . '
-								   />
-							<span class="inputTypes-display inputTypes-display--type_' . $__templater->escape($__vars['threadTypeId']) . '">
-								<span class="inputTypes-icon">
-									';
+							<li role="none">
+								<label class="inputTypes-type">
+									<input type="radio" name="discussion_type" value="' . $__templater->escape($__vars['threadTypeId']) . '"
+										class="inputTypes-input"
+										data-xf-init="disabler"
+										data-hide="true"
+										data-optional="true"
+										data-autofocus="false"
+										data-container=".js-threadTypeData[data-type-id=\'' . $__templater->escape($__vars['threadTypeId']) . '\']"
+										' . (($__vars['threadTypeId'] == $__vars['defaultThreadType']) ? 'checked="checked"' : '') . '
+									/>
+									<span class="inputTypes-display inputTypes-display--type_' . $__templater->escape($__vars['threadTypeId']) . '">
+										<span class="inputTypes-icon" aria-hidden="true">
+											';
 				$__vars['typeIcon'] = $__templater->method($__vars['threadType'], 'getTypeIconClass', array());
 				$__compilerTemp1 .= '
-									';
+											';
 				if ($__vars['typeIcon']) {
 					$__compilerTemp1 .= '
-										' . $__templater->fontAwesome($__templater->escape($__vars['typeIcon']), array(
+												' . $__templater->fontAwesome($__templater->escape($__vars['typeIcon']), array(
 					)) . '
-										';
+											';
 				} else {
 					$__compilerTemp1 .= '
-										<i class="inputTypes-defaultIcon"></i>
-									';
+												<i class="inputTypes-defaultIcon"></i>
+											';
 				}
 				$__compilerTemp1 .= '
-								</span>
-								<span class="inputTypes-title">' . $__templater->escape($__templater->method($__vars['threadType'], 'getTypeTitle', array())) . '</span>
-							</span>
-						</label>
-					</li>
-				';
+										</span>
+										<span class="inputTypes-title">' . $__templater->escape($__templater->method($__vars['threadType'], 'getTypeTitle', array())) . '</span>
+									</span>
+								</label>
+							</li>
+						';
 			}
 		}
 		$__finalCompiled .= $__templater->formRow('
-			<ul class="inputTypes">
-				' . $__compilerTemp1 . '
-			</ul>
+			<div class="hScroller inputTypesScroller" data-xf-init="h-scroller">
+				<div class="hScroller-scroll">
+					<ul class="inputTypes" role="radiogroup" aria-label="' . $__templater->filter('thread_type', array(array('for_attr', array()),), true) . '">
+						' . $__compilerTemp1 . '
+					</ul>
+				</div>
+			</div>
 		', array(
 			'rowtype' => $__vars['rowType'],
 		)) . '
-		';
+	';
 	} else {
 		$__finalCompiled .= '
 		' . $__templater->formHiddenVal('discussion_type', $__vars['defaultThreadType'], array(
@@ -89,6 +93,7 @@ return array(
 		'defaultThreadType' => '!',
 		'subContext' => '!',
 		'extraOptions' => array(),
+		'draftOverride' => null,
 		'formRowSepVariant' => '',
 	); },
 'code' => function($__templater, array $__vars, $__extensions = null)
@@ -99,33 +104,33 @@ return array(
 	';
 	$__compilerTemp1 = '';
 	$__compilerTemp1 .= '
-				';
+			';
 	if ($__templater->isTraversable($__vars['creatableThreadTypes'])) {
 		foreach ($__vars['creatableThreadTypes'] AS $__vars['threadTypeId'] => $__vars['threadType']) {
 			$__compilerTemp1 .= '
-					';
+				';
 			$__compilerTemp2 = '';
 			$__compilerTemp2 .= '
-								' . $__templater->filter($__templater->method($__vars['threadType'], 'renderExtraDataEdit', array($__vars['thread'], 'create', $__vars['subContext'], array('draft' => $__vars['forum']->{'draft_thread'}, ) + $__vars['extraOptions'], )), array(array('raw', array()),), true) . '
-							';
+							' . $__templater->filter($__templater->method($__vars['threadType'], 'renderExtraDataEdit', array($__vars['thread'], 'create', $__vars['subContext'], array('draft' => (($__vars['subContext'] == 'quick') ? null : $__vars['forum']->{'draft_thread'}), 'draftOverride' => $__vars['draftOverride'], ) + $__vars['extraOptions'], )), array(array('raw', array()),), true) . '
+						';
 			if (strlen(trim($__compilerTemp2)) > 0) {
 				$__compilerTemp1 .= '
-						<li class="js-threadTypeData" data-type-id="' . $__templater->escape($__vars['threadTypeId']) . '" style="' . (($__vars['threadTypeId'] != $__vars['defaultThreadType']) ? 'display:none;' : '') . '">
-							<hr class="formRowSep ' . $__templater->escape($__vars['formRowSepVariant']) . '" />
-							' . $__compilerTemp2 . '
-						</li>
-					';
+					<li class="js-threadTypeData" data-type-id="' . $__templater->escape($__vars['threadTypeId']) . '" style="' . (($__vars['threadTypeId'] != $__vars['defaultThreadType']) ? 'display:none;' : '') . '">
+						<hr class="formRowSep ' . $__templater->escape($__vars['formRowSepVariant']) . '" />
+						' . $__compilerTemp2 . '
+					</li>
+				';
 			}
 			$__compilerTemp1 .= '
-				';
+			';
 		}
 	}
 	$__compilerTemp1 .= '
-			';
+		';
 	if (strlen(trim($__compilerTemp1)) > 0) {
 		$__finalCompiled .= '
 		<ul class="listPlain">
-			' . $__compilerTemp1 . '
+		' . $__compilerTemp1 . '
 		</ul>
 	';
 	}
@@ -153,6 +158,7 @@ return array(
 	}
 	$__finalCompiled .= '
 
+
 ';
 	$__templater->setPageParam('head.' . 'metaNoindex', $__templater->preEscaped('<meta name="robots" content="noindex" />'));
 	$__finalCompiled .= '
@@ -173,34 +179,17 @@ return array(
 					';
 	}
 	$__compilerTemp2 = '';
-	if ($__templater->method($__vars['thread'], 'canWatch', array())) {
+	if ($__templater->method($__vars['xf']['visitor'], 'hasPermission', array('fs_bunny', 'allow', ))) {
 		$__compilerTemp2 .= '
-						';
-		$__compilerTemp3 = '';
-		if ($__vars['thread']['Watch'][$__vars['xf']['visitor']['user_id']]) {
-			$__compilerTemp3 .= '
-								<i class="fa fa-plus" aria-hidden="true" style="padding-right: 8px;"></i> ' . 'Insert' . '
-								';
-		} else {
-			$__compilerTemp3 .= '
-								<i class="fa fa-plus" aria-hidden="true" style="padding-right: 8px;"></i> ' . 'Insert' . '
-							';
-		}
-		$__compilerTemp2 .= $__templater->button('
-							' . $__compilerTemp3 . '
-						', array(
-			'href' => $__templater->func('link', array('forums/insert-video', $__vars['forum'], ), false),
-			'class' => 'button--link',
-			'data-xf-click' => 'switch-overlay',
-			'data-sk-watch' => 'Watch',
-			'data-sk-unwatch' => 'Unwatch',
-		), '', array(
-		)) . '
-					';
+<span class="custom-file-upload">
+	<label for="bunny_video" class="button button--link"><i class="fa fa-upload" aria-hidden="true" style="padding-right: 8px;"></i>' . 'Upload Video' . '</label>
+	<input type="file" id="bunny_video" name="bunny_video" accept=".mp4, .avi, .mov" style="display: none;" />
+</span>
+';
 	}
-	$__compilerTemp4 = '';
+	$__compilerTemp3 = '';
 	if ($__vars['xf']['options']['multiQuote']) {
-		$__compilerTemp4 .= '
+		$__compilerTemp3 .= '
 						' . $__templater->callMacro('multi_quote_macros', 'button', array(
 			'href' => $__templater->func('link', array('threads/multi-quote', $__vars['thread'], ), false),
 			'messageSelector' => '.js-post',
@@ -208,9 +197,9 @@ return array(
 		), $__vars) . '
 					';
 	}
+	$__compilerTemp4 = '';
 	$__compilerTemp5 = '';
-	$__compilerTemp6 = '';
-	$__compilerTemp6 .= '
+	$__compilerTemp5 .= '
 						' . $__templater->callMacro('custom_fields_macros', 'custom_fields_edit', array(
 		'type' => 'threads',
 		'set' => $__vars['thread']['custom_fields'],
@@ -219,24 +208,24 @@ return array(
 		'requiredOnly' => ($__vars['inlineMode'] ? true : false),
 	), $__vars) . '
 					';
-	if (strlen(trim($__compilerTemp6)) > 0) {
-		$__compilerTemp5 .= '
+	if (strlen(trim($__compilerTemp5)) > 0) {
+		$__compilerTemp4 .= '
 					<hr class="formRowSep" />
-					' . $__compilerTemp6 . '
+					' . $__compilerTemp5 . '
 				';
 	}
-	$__compilerTemp7 = '';
+	$__compilerTemp6 = '';
 	if ($__vars['canEditTags']) {
-		$__compilerTemp7 .= '
+		$__compilerTemp6 .= '
 					<hr class="formRowSep" />
 					';
-		$__compilerTemp8 = '';
+		$__compilerTemp7 = '';
 		if ($__vars['forum']['min_tags']) {
-			$__compilerTemp8 .= '
+			$__compilerTemp7 .= '
 								' . 'This content must have at least ' . $__templater->escape($__vars['forum']['min_tags']) . ' tag(s).' . '
 							';
 		}
-		$__compilerTemp7 .= $__templater->formTokenInputRow(array(
+		$__compilerTemp6 .= $__templater->formTokenInputRow(array(
 			'name' => 'tags',
 			'value' => (($__vars['thread']['tags'] ? $__templater->filter($__vars['thread']['tags'], array(array('join', array(', ', )),), false) : $__vars['forum']['draft_thread']['tags']) ?: $__vars['tags']),
 			'href' => $__templater->func('link', array('misc/tag-auto-complete', ), false),
@@ -247,14 +236,14 @@ return array(
 			'label' => 'Tags',
 			'explain' => '
 							' . 'Multiple tags may be separated by commas.' . '
-							' . $__compilerTemp8 . '
+							' . $__compilerTemp7 . '
 						',
 		)) . '
 				';
 	}
-	$__compilerTemp9 = '';
+	$__compilerTemp8 = '';
 	if ((!$__vars['xf']['visitor']['user_id']) AND (!$__templater->method($__vars['forum'], 'canCreateThreadPreReg', array()))) {
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 					' . $__templater->formTextBoxRow(array(
 			'name' => '_xfUsername',
 			'data-xf-init' => 'guest-username',
@@ -262,25 +251,25 @@ return array(
 		), array(
 			'label' => 'Name',
 		)) . '
-					';
+				';
 	} else if ($__vars['xf']['visitor']['user_id']) {
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 					' . $__templater->callMacro('helper_thread_options', 'watch_input', array(
 			'thread' => $__vars['thread'],
 		), $__vars) . '
 					';
 		if ((($__vars['xf']['reply']['containerKey'] == ('node-' . $__vars['xf']['options']['fs_questionAnswerForum'])) OR ($__templater->method($__vars['xf']['app']['request'], 'getRoutePath', array()) == 'esperto/'))) {
-			$__compilerTemp9 .= '
+			$__compilerTemp8 .= '
  
 ';
 		} else {
-			$__compilerTemp9 .= '
+			$__compilerTemp8 .= '
 	' . $__templater->callMacro('helper_thread_options', 'thread_status', array(
 				'thread' => $__vars['thread'],
 			), $__vars) . '
 ';
 		}
-		$__compilerTemp9 .= '
+		$__compilerTemp8 .= '
 				';
 	}
 	$__finalCompiled .= $__templater->form('
@@ -289,8 +278,10 @@ return array(
 		<div class="block-body">
 
 			' . '' . '
+
 			' . $__templater->formPrefixInputRow($__vars['prefixes'], array(
 		'type' => 'thread',
+		'rows' => '1',
 		'prefix-value' => ($__vars['forum']['draft_thread']['prefix_id'] ?: ($__vars['thread']['prefix_id'] ?: $__vars['forum']['default_prefix_id'])),
 		'textbox-value' => (($__vars['title'] ?: $__vars['thread']['title']) ?: $__vars['forum']['draft_thread']['title']),
 		'textbox-class' => 'input--title',
@@ -312,7 +303,9 @@ return array(
 		'creatableThreadTypes' => $__vars['creatableThreadTypes'],
 		'defaultThreadType' => $__vars['defaultThreadType'],
 	), $__vars) . '
-
+			
+			
+			
 			<div class="js-inlineNewPostFields">
 				' . $__templater->formEditorRow(array(
 		'name' => 'message',
@@ -327,32 +320,29 @@ return array(
 				' . $__templater->formRow('
 					' . $__compilerTemp1 . '
 
-					<span class="custom-file-upload">
-						<label for="bunny_video" class="button button--link"><i class="fa fa-upload" aria-hidden="true" style="padding-right: 8px;"></i>' . 'Upload Video' . '</label>
-						<input type="file" id="bunny_video" name="bunny_video" accept=".mp4, .avi, .mov" style="display: none;" />
-					</span>
+' . $__compilerTemp2 . '
 
-					' . $__compilerTemp2 . '
-
-					' . $__compilerTemp4 . '
+					' . $__compilerTemp3 . '
 				', array(
 		'rowtype' => 'fullWidth noLabel mergePrev noTopPadding',
 	)) . '
+				
 
 				' . $__templater->callMacro(null, 'type_fields', array(
 		'thread' => $__vars['thread'],
 		'forum' => $__vars['forum'],
 		'creatableThreadTypes' => $__vars['creatableThreadTypes'],
 		'defaultThreadType' => $__vars['defaultThreadType'],
+		'draftOverride' => $__vars['typeDataDraftOverride'],
 		'subContext' => 'full',
 	), $__vars) . '
 
-				' . $__compilerTemp5 . '
+				' . $__compilerTemp4 . '
 
-				' . $__compilerTemp7 . '
+				' . $__compilerTemp6 . '
 
 				<hr class="formRowSep" />
-				' . $__compilerTemp9 . '
+				' . $__compilerTemp8 . '
 
 				' . $__templater->formRowIfContent($__templater->func('captcha', array(false, false)), array(
 		'label' => 'Verification',

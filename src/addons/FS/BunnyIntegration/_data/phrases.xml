@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phrases>
-  <phrase title="custom_bb_code_desc.fs_bunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
-  <phrase title="custom_bb_code_example.fs_bunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
-  <phrase title="custom_bb_code_output.fs_bunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
-  <phrase title="custom_bb_code_title.fs_bunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[bunny Video]]></phrase>
+  <phrase title="custom_bb_code_desc.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="custom_bb_code_example.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[fsbunny=libarayId,videoId][/fsbunny]]]></phrase>
+  <phrase title="custom_bb_code_output.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="custom_bb_code_title.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Bunny BBCode]]></phrase>
   <phrase title="fs_bunny_insert_video" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Insert]]></phrase>
   <phrase title="fs_bunny_upload_video" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload Video]]></phrase>
   <phrase title="option.fs_bi_accessKey" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[AccessKey]]></phrase>
@@ -12,4 +12,6 @@
   <phrase title="option_explain.fs_bi_libraryId" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Enter the video libraryId of Bunny.net]]></phrase>
   <phrase title="option_group.fs_bunny_integration" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Bunny-Integration]]></phrase>
   <phrase title="option_group_description.fs_bunny_integration" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[bunny.net Api Integration]]></phrase>
+  <phrase title="permission.fs_bunny_allow" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Can Upload Video]]></phrase>
+  <phrase title="permission_interface.fs_bunny_integration" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[FS] Bunny Integration]]></phrase>
 </phrases>

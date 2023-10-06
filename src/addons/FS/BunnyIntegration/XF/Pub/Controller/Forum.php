@@ -189,10 +189,6 @@ class Forum extends XFCP_Forum
     {
         $thread = $creator->getThread();
 
-        // sjdk
-
-        // $bunnyLibraryId = \XF::options()->fs_bi_libraryId;
-
         $getvideo = $this->request->getFile('bunny_video', false, false);
 
         if ($getvideo) {
@@ -203,33 +199,25 @@ class Forum extends XFCP_Forum
             $createVideo = $bunnyService->createBunnyVideo($thread["title"]);
             $uploadVideoRes = $bunnyService->uploadBunnyVideo($binaryVideo);
 
+
+
             if ($uploadVideoRes["success"] == true) {
-                $thread->bulkSet([
-                    'bunny_lib_id' => $createVideo['videoLibraryId'],
-                    'bunny_vid_id' => $createVideo['guid'],
-                ]);
-                $thread->save();
+            $thread->bulkSet([
+                'bunny_lib_id' => $createVideo['videoLibraryId'],
+                'bunny_vid_id' => $createVideo['guid'],
+            ]);
+            $thread->save();
 
-                $attachCode = \XF::em()->findOne('XF:Post', ['post_id' => $thread["last_post_id"]]);
+        
 
-                if ($attachCode) {
+            if ($thread->FirstPost) {
 
-    
-                    
-                    $iframe = "[fs_bunny]<div class='bbMediaWrapper'>
-                    
-                        <div class='bbMediaWrapper-inner'>
-                    
-                            <iframe src='https://iframe.mediadelivery.net/embed/'" . $createVideo['videoLibraryId'] . "'/'" . $createVideo['guid'] . "'?autoplay=true' loading='lazy' style='border: none; position: absolute; top: 0; height: 315; width: 560;' allow='accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;' allowfullscreen='true'></iframe>
-                    
-                        </div>
-                    
-                    </div>
-                    
-                   ";
+                $bunnyBBCode = "[fsbunny=" . $createVideo['videoLibraryId'] . "," . $createVideo['guid'] . "][/fsbunny]";
 
-                    $attachCode->fastUpdate('message', ($attachCode["message"] . " " . $iframe));
-                }
+                $newMessage = $thread->FirstPost["message"] . " " . $bunnyBBCode;
+
+                $thread->FirstPost->fastUpdate('message', $newMessage);
+            }
             }
         }
 

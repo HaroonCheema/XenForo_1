@@ -116,6 +116,7 @@ return array (
   'permission.forum_warn' => 'Give warnings on posts',
   'permission.fs_attachment_needlike' => '[FS] Need Like to See Attachment ?',
   'permission.fs_auction_permissions_add' => 'Add auction listing',
+  'permission.fs_bunny_allow' => 'Can Upload Video',
   'permission.fs_threadsaleitem_fs_saleitem' => 'Allow to enable Sale Item?',
   'permission.fs_website_ranking_check' => 'Check Website',
   'permission.fs_website_ranking_perm_check' => 'Check Website Ranking',
