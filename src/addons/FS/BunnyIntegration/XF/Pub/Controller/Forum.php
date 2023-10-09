@@ -191,34 +191,56 @@ class Forum extends XFCP_Forum
 
         $getvideo = $this->request->getFile('bunny_video', false, false);
 
+
         if ($getvideo) {
             $binaryVideo = file_get_contents($getvideo->getTempFile());
             // Now, $videoBinaryData contains the binary representation of the uploaded video.
 
             $bunnyService = \xf::app()->service('FS\BunnyIntegration\XF:BunnyServ');
             $createVideo = $bunnyService->createBunnyVideo($thread["title"]);
-            $uploadVideoRes = $bunnyService->uploadBunnyVideo($binaryVideo);
+
+
+            $app = \XF::app();
+            if ($createVideo['guid']) {
+
+                $jopParams = [
+                    'threadId' => $thread->thread_id,
+                    'libarayId' => $createVideo['videoLibraryId'],
+                    'videoId' => $createVideo['guid'],
+                    'binaryVideo' => $binaryVideo,
+
+
+                ];
+
+
+                $app->jobManager()->enqueueUnique('fsBunnyVideoUpload', 'FS\BunnyIntegration:BunnyUpload', $jopParams, false);
+                // $app->jobManager()->runUnique('fsBunnyVideoUpload', 120);
+            }
+
+            // $uploadVideoRes = $bunnyService->uploadBunnyVideo($binaryVideo);
 
 
 
-            if ($uploadVideoRes["success"] == true) {
+            // if ($uploadVideoRes["success"] == true) {
             $thread->bulkSet([
                 'bunny_lib_id' => $createVideo['videoLibraryId'],
                 'bunny_vid_id' => $createVideo['guid'],
             ]);
             $thread->save();
 
-        
 
-            if ($thread->FirstPost) {
 
-                $bunnyBBCode = "[fsbunny=" . $createVideo['videoLibraryId'] . "," . $createVideo['guid'] . "][/fsbunny]";
+            if ($thread) {
 
-                $newMessage = $thread->FirstPost["message"] . " " . $bunnyBBCode;
+                $post = $thread->FirstPost;
 
-                $thread->FirstPost->fastUpdate('message', $newMessage);
+                $bunnyBBCode = "[fsbunny=" . $createVideo['videoLibraryId'] . "][/fsbunny]";
+
+                $newMessage = $post->message . " [br]1[/br] " . $bunnyBBCode;
+
+                $post->fastUpdate('message', $newMessage);
             }
-            }
+            // }
         }
 
         return parent::finalizeThreadCreate($creator);

@@ -1,5 +1,6 @@
 <?php
 return array (
+  'custom_bb_code_output.br' => '',
   'custom_bb_code_output.fs_custom_msg' => '',
   'custom_bb_code_output.fs_word_highlight' => '',
   'custom_bb_code_output.fsbunny' => '',

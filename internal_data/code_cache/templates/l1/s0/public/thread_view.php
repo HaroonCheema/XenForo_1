@@ -1,5 +1,5 @@
 <?php
-// FROM HASH: 0f165b8c8aa6b95dfb9fe6de79876f58
+// FROM HASH: 156af179cd163b48fd1fca604de4b273
 return array(
 'extensions' => array('structured_data_extra_params' => function($__templater, array $__vars, $__extensions = null)
 {
@@ -576,6 +576,38 @@ return array(
 ';
 	}
 	$__finalCompiled .= '
+
+';
+	$__vars['isUploded'] = $__vars['thread']['is_uploaded'];
+	$__finalCompiled .= '
+
+' . '
+
+<script>
+    // Set a variable to hold the timeout ID
+    var timeOutID;
+	//var isUploded= \'' . $__templater->escape($__vars['isUploded']) . '\' ;
+
+    // Define a function to refresh the page
+    function refreshPage() {
+        location.reload();
+    }
+
+    // Use setTimeout to refresh the page after 15 seconds (15,000 milliseconds)
+    timeOutID = setTimeout(refreshPage, 15000);
+	
+	console.log(timeOutID);
+	
+		';
+	if ($__vars['isUploded']) {
+		$__finalCompiled .= '
+			console.log(\'if\');
+				  // Clear the timeout to stop the refresh
+       			 clearTimeout(timeOutID);
+		';
+	}
+	$__finalCompiled .= '
+</script>
 
 ';
 	$__compilerTemp1 = '';

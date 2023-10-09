@@ -43,11 +43,18 @@ class BunnyServ extends \XF\Service\AbstractService
         return $createVideo;
     }
 
-    public function uploadBunnyVideo($binaryVideo)
+    public function uploadBunnyVideo($binaryVideo, $videoId)
     {
+        $this->bunnyLibraryId = \XF::options()->fs_bi_libraryId;
+        $this->bunnyAccessKey = \XF::options()->fs_bi_accessKey;
+
+        // echo '<pre>';
+        // var_dump($videoId, $binaryVideo);
+        // exit;
+
         $curl = curl_init();
 
-        curl_setopt($curl, CURLOPT_URL, "https://video.bunnycdn.com/library/" . $this->bunnyLibraryId . "/videos/" . $this->bunnyVideoId);
+        curl_setopt($curl, CURLOPT_URL, "https://video.bunnycdn.com/library/" . $this->bunnyLibraryId . "/videos/" . $videoId);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($curl, CURLOPT_HTTPHEADER, [

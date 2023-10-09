@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phrases>
+  <phrase title="custom_bb_code_desc.br" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="custom_bb_code_desc.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
-  <phrase title="custom_bb_code_example.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[fsbunny=libarayId,videoId][/fsbunny]]]></phrase>
+  <phrase title="custom_bb_code_example.br" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="custom_bb_code_example.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[[fsbunny=libarayId]videoId[/fsbunny]]]></phrase>
+  <phrase title="custom_bb_code_output.br" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="custom_bb_code_output.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="custom_bb_code_title.br" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[New Line]]></phrase>
   <phrase title="custom_bb_code_title.fsbunny" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Bunny BBCode]]></phrase>
   <phrase title="fs_bunny_insert_video" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Insert]]></phrase>
   <phrase title="fs_bunny_upload_video" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[Upload Video]]></phrase>

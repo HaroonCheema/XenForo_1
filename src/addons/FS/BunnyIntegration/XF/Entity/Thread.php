@@ -13,6 +13,7 @@ class Thread extends XFCP_Thread
 
         $structure->columns['bunny_lib_id'] =  ['type' => self::UINT, 'default' => 0];
         $structure->columns['bunny_vid_id'] =  ['type' => self::STR, 'default' => null];
+        $structure->columns['is_uploaded'] =  ['type' => self::UINT, 'default' => 0];
 
         return $structure;
     }
